@@ -6,14 +6,14 @@ coordination of mentors needed to execute projects, ranging from recruitment to 
 *[Contributor's wiki](https://github.com/ALCOpenSource/Mentor-Management-System-Team-6/wiki)
 
 
-## Techonologies 
+## Techonologies
 
-* Frontend - 
-* Backend - 
-* Database -
-* Deployment env - 
+* Frontend
+* Backend
+* Database
+* Deployment env
 
-## How to contributing to this project:
+## How to contributing to this project
 
 To get it up and running on your local machine, follow the steps below:
 
@@ -36,7 +36,7 @@ To get it up and running on your local machine, follow the steps below:
 
 ##### Backend
 
-- Beckend -
+* Beckend
 
 ## Design
 
