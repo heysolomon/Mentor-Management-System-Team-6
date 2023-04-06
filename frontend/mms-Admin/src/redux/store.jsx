@@ -1,14 +1,15 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { persistReducer, persistStore } from "redux-persist";
-import thunk from "redux-thunk";
-import storage from "redux-persist/lib/storage";
-import testSlice from "./features/test/testSlice";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { persistReducer, persistStore } from 'redux-persist';
+import thunk from 'redux-thunk';
+import storage from 'redux-persist/lib/storage';
+import testSlice from './features/test/testSlice';
+
 const rootReducer = combineReducers({
   test: testSlice,
 });
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage,
 };
 
@@ -21,4 +22,4 @@ const store = configureStore({
 
 const persistor = persistStore(store);
 
-export default persistor
+export default persistor;
