@@ -274,4 +274,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# User-specific stuff
+misc.xml
+profiles_settings.xml
+vss.xml
+
 # End of https://www.gitignore.io/api/linux,macos,python,pycharm,windows,visualstudiocode
