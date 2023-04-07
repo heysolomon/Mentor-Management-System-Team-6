@@ -13,18 +13,24 @@ coordination of mentors needed to execute projects, ranging from recruitment to 
 * DevOps: Github actions, AWS, docker,AWS Amplify
 * Cloud: AWS Amplify, Elastic Beanstalk, RDS Postgres
 
-
 ## How to contributing to this project
 
 To get it up and running on your local machine, follow the steps below:
 
-1. Clone the repo with the command `git clonn
-2. Indicate your interest to work on any issue. "eg. I want to work on this issue or I am interested in this issue"
+1. Clone the repo with the command `git clone.
+
+2. Indicate your interest to work on any issue. "eg. I want to work on this issue or I am interested in this issue".
+
 3. Open a feature branch from the 'develop' branch. eg feat/
+
 4. Make sure the name is descriptive for your branch but not too long. Lead with what the the branch is doing eg new feature or bug but follow this pattern `type/branch-description` eg `feature/add-login-functionality.
+
 5. Ensure your branch is up to date with latest changes before pushing.
+
 6. Create a pull request against develop branch.
+
 7. Reference the issue you worked on in your PR.
+
 8. Open a pull request against the develop branch and request a review from your.
 
 ### Frontend
