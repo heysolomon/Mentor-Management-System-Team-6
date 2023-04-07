@@ -11,7 +11,7 @@ coordination of mentors needed to execute projects, ranging from recruitment to 
 * Backend: FAST API, Sqlalchemy.
 * Database: PostgreSQL
 * DevOps: Github actions, AWS, docker,AWS Amplify
-* Cloud: AWS Amplify, Elastic Beanstalk, RDS Postgres
+* Cloud: AWS Amplify, Elastic Beanstalk, RDS Postgres.  
 
 ## How to contributing to this project
 
