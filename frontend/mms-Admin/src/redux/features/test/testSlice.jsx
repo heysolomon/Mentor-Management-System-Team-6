@@ -1,18 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+/* eslint-disable no-param-reassign */
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  title: "Pharmalink Team",
+  title: 'Pharmalink Team',
   count: 0,
 };
 const testSlice = createSlice({
-  name: "test",
+  name: 'test',
   initialState,
   reducers: {
     increase: (state) => {
-      state.count = state.count + 5;
+      state.count += 5;
     },
     decrease: (state) => {
-      state.count = state.count - 5;
+      state.count -= 5;
     },
   },
 });
