@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import store from './redux/store';
 import ErrorPage from './pages/Error/ErrorPage';
-import SplashScreen from './SplashScreen/SplashScreen';
+import SplashScreen from './redux/SplashScreen';
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
   {
