@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import store from './redux/store';
 import ErrorPage from './pages/Error/ErrorPage';
+import AuthHome from './pages/Auth/AuthHome';
+import LoginPage from './pages/Auth/LoginPage';
 
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -12,9 +14,15 @@ const router = createBrowserRouter([
     // your route goes here
     path: '/',
     // this is where you add the component of the page you are routing to
-    element: 'this is the landing page nwwwww',
+    element: <AuthHome />,
     // this is a fallback error page that appears and shows you the error of the particular route
     errorElement: <ErrorPage />,
+    children: [
+      {
+        path: '',
+        element: <LoginPage />,
+      },
+    ],
   },
 ]);
 
