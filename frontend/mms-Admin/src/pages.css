@@ -1,0 +1,10 @@
+/*SplashScreen*/
+
+:root {
+    --main:  #058B94;
+    ;
+   
+  }
+.bg{
+    background-color: var(--main);
+}
