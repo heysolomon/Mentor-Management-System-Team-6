@@ -22,4 +22,5 @@ const store = configureStore({
   middleware: [thunk],
 });
 
+// Had to return store and moved the persistor into main.jsx to be able to pass the store in the provider and pass the persistor to the PresistGate
 export default store;

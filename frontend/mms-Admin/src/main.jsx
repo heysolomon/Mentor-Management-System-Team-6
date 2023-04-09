@@ -12,6 +12,7 @@ let persistor = persistStore(store);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      {/* Added this to be able to pass the state */}
       <PersistGate loading={null} persistor={persistor}>
         <App />
       </PersistGate>
