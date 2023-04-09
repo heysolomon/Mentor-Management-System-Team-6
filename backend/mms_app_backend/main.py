@@ -1,10 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
-from api.authentication.route import router as auth_router
-
-
-from database import engine
+from mms_app_backend.api.authentication.route import router as auth_router
 
 app = FastAPI()
 app.include_router(auth_router)

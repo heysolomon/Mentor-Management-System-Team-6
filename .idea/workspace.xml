@@ -4,24 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c486a668-6eae-4704-a268-996df85ead95" name="Changes" comment="created home test">
-      <change afterPath="$PROJECT_DIR$/backend/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/api/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/crud.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/route.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/schemas.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/sql_app.db" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/user_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/api/utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/database.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/sql_app.db" afterDir="false" />
+    <list default="true" id="c486a668-6eae-4704-a268-996df85ead95" name="Changes" comment="completed project minimum setup.">
+      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/mms_app_backend/api/authentication/crud.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/mms_app_backend/api/authentication/user_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/mms_app_backend/api/config/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/mms_app_backend/api/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/mms_app_backend/mms_app_backend/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/mms_app_backend/mms_app_backend/api/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/crud.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/mms_app_backend/mms_app_backend/api/authentication/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/route.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/mms_app_backend/mms_app_backend/api/authentication/route.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/mms_app_backend/mms_app_backend/api/authentication/schemas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/sql_app.db" beforeDir="false" afterPath="$PROJECT_DIR$/backend/mms_app_backend/mms_app_backend/api/authentication/sql_app.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/user_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/mms_app_backend/mms_app_backend/api/authentication/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/mms_app_backend/api/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/mms_app_backend/mms_app_backend/api/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/mms_app_backend/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/mms_app_backend/mms_app_backend/database.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/mms_app_backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/mms_app_backend/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,9 +59,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\munal\PycharmProjects\Mentor-Management-System-Team-6\backend\mms_app_backend\api\authentication" />
-      <recent name="C:\Users\munal\PycharmProjects\Mentor-Management-System-Team-6" />
+      <recent name="C:\Users\munal\PycharmProjects\Mentor-Management-System-Team-6\backend\mms_app_backend\mms_app_backend" />
       <recent name="C:\Users\munal\PycharmProjects\Mentor-Management-System-Team-6\backend\mms_app_backend" />
+      <recent name="C:\Users\munal\PycharmProjects\Mentor-Management-System-Team-6\backend" />
+      <recent name="C:\Users\munal\PycharmProjects\Mentor-Management-System-Team-6\backend\mms_app_backend\config" />
+      <recent name="C:\Users\munal\PycharmProjects\Mentor-Management-System-Team-6\backend\mms_app_backend\api\authentication" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

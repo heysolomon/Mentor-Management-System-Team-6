@@ -1,4 +1,4 @@
-from .. import database
+from backend.mms_app_backend.mms_app_backend import database
 
 SessionLocal = database.SessionLocal
 

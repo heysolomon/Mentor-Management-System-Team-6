@@ -1,8 +1,12 @@
 from sqlalchemy import Boolean, Column, Integer, String
-from backend.mms_app_backend.database import Base
+
+#
 
 
-class User(Base):
+
+
+
+class User():
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
