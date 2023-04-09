@@ -1,11 +1,11 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isLoaded: false,
 };
 const splashSlice = createSlice({
-  name: "loader",
+  name: 'loader',
   initialState,
   reducers: {
     // Use it when we need to remove the splash screen
