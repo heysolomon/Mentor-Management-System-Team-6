@@ -1,10 +1,6 @@
-/*SplashScreen*/
 
-:root {
-  --main: #058b94;
-}
 .bg {
-  background-color: var(--main);
+  background-color: #058b94;
 }
 .logo {
   width: 10vw;
@@ -38,4 +34,3 @@
     opacity: 1;
   }
 }
-/* End of splash screen */
