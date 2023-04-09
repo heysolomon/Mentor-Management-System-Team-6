@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./pages/Error/ErrorPage";
 import SplashScreen from "./pages/SplashScreen/SplashScreen";
 
+// Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
   {
@@ -17,6 +18,8 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
+  //Get the isloaded state
   const isLoaded = useSelector((state) => state.splashScreen.isLoaded);
-  return isLoaded ? <SplashScreen /> : <RouterProvider router={router} />;
+  // return the splash screen if the isloaded state is false
+  return !isLoaded ? <SplashScreen /> : <RouterProvider router={router} />;
 }

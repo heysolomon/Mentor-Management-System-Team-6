@@ -8,8 +8,9 @@ const splashSlice = createSlice({
   name: "loader",
   initialState,
   reducers: {
+    // Use it when we need to remove the splash screen
     stopLoader: (state) => {
-      state.isLoaded = false;
+      state.isLoaded = true;
     },
   },
 });
