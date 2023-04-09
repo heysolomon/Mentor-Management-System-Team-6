@@ -7,7 +7,6 @@ import store from './redux/store';
 import ErrorPage from './pages/Error/ErrorPage';
 import AuthHome from './pages/Auth/AuthHome';
 import LoginPage from './pages/Auth/LoginPage';
-import ForgotPassword from './pages/Auth/ForgotPassword';
 
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -22,10 +21,6 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <LoginPage />,
-      },
-      {
-        path: 'forgot-password',
-        element: <ForgotPassword />,
       },
     ],
   },
