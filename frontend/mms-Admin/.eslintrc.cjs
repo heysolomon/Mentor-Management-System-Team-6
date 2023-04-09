@@ -10,5 +10,6 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react'],
+  // had to change it to windows because of my operating system
   rules: { 'linebreak-style': ['error', 'windows'] },
 };
