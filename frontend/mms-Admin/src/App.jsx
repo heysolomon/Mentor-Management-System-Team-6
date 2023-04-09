@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ErrorPage from "./Error/ErrorPage";
-import SplashScreen from "./SplashScreen/SplashScreen";
+import ErrorPage from "./pages/Error/ErrorPage";
+import SplashScreen from "./pages/SplashScreen/SplashScreen";
 
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -18,6 +18,5 @@ const router = createBrowserRouter([
 
 export default function App() {
   const isLoaded = useSelector((state) => state.splashScreen.isLoaded);
-  console.log(isLoaded);
   return isLoaded ? <SplashScreen /> : <RouterProvider router={router} />;
 }
