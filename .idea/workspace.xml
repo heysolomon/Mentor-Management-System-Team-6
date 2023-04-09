@@ -4,15 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c486a668-6eae-4704-a268-996df85ead95" name="Changes" comment="ignored pycharm specific files">
-      <change afterPath="$PROJECT_DIR$/backend/main.py" afterDir="false" />
+    <list default="true" id="c486a668-6eae-4704-a268-996df85ead95" name="Changes" comment="created home test">
+      <change afterPath="$PROJECT_DIR$/backend/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/api/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/crud.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/route.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/schemas.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/sql_app.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/api/authentication/user_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/api/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/database.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/mms_app_backend/sql_app.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/mms_app_backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/mms_app_backend/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -38,6 +59,13 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PythonContentEntriesConfigurable&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\munal\PycharmProjects\Mentor-Management-System-Team-6\backend\mms_app_backend\api\authentication" />
+      <recent name="C:\Users\munal\PycharmProjects\Mentor-Management-System-Team-6" />
+      <recent name="C:\Users\munal\PycharmProjects\Mentor-Management-System-Team-6\backend\mms_app_backend" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -68,7 +96,21 @@
       <option name="project" value="LOCAL" />
       <updated>1680812289864</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="created home test">
+      <created>1680813190809</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1680813190809</updated>
+    </task>
+    <task id="LOCAL-00005" summary="created home test">
+      <created>1680823210181</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1680823210181</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -76,6 +118,7 @@
     <MESSAGE value="initial git ignore." />
     <MESSAGE value="installed fast api and added it to requirements.txt" />
     <MESSAGE value="ignored pycharm specific files" />
-    <option name="LAST_COMMIT_MESSAGE" value="ignored pycharm specific files" />
+    <MESSAGE value="created home test" />
+    <option name="LAST_COMMIT_MESSAGE" value="created home test" />
   </component>
 </project>

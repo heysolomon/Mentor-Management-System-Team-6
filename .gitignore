@@ -275,8 +275,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # User-specific stuff
-misc.xml
-profiles_settings.xml
-vss.xml
+.idea
 
 # End of https://www.gitignore.io/api/linux,macos,python,pycharm,windows,visualstudiocode
