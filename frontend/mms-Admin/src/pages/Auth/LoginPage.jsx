@@ -25,7 +25,7 @@ function LoginPage() {
   });
   return (
     <div className="h-full flex flex-col justify-center items-start">
-      <div className="w-[65%] mx-auto">
+      <div className="w-[90%] md:w-[65%] mx-auto">
         <h1 className="text-black1 text-[32px] font-[700] font-mukta">
           Welcome!
         </h1>
@@ -57,7 +57,7 @@ function LoginPage() {
           <Button width="w-full mt-[28px]">Login</Button>
         </FormikForm>
         <div className="flex justify-end mt-[22px]">
-          <Link to="/" className="text-black1 font-[600] font-mukta text-[16px] underline">
+          <Link to="/forgot-password" className="text-black1 font-[600] font-mukta text-[16px] underline">
             Forgot Password?
           </Link>
         </div>
