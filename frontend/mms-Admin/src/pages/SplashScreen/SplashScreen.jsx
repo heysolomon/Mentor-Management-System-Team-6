@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./SplashScreen.css";
 export default function SplashScreen() {
   return (
     <div className="bg grid h-screen place-items-center">
