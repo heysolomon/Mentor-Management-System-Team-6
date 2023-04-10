@@ -1,16 +1,17 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { persistReducer, persistStore } from 'redux-persist';
+import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
 import storage from 'redux-persist/lib/storage';
-import testSlice from './features/test/testSlice';
+import modalReducer from './features/NewPasswordSuccess/modalSlice';
 
 const rootReducer = combineReducers({
-  test: testSlice,
+  modal: modalReducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
+  whitelist: [],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -20,6 +21,4 @@ const store = configureStore({
   middleware: [thunk],
 });
 
-const persistor = persistStore(store);
-
-export default persistor;
+export default store;

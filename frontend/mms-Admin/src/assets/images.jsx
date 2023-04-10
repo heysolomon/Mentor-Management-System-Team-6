@@ -3,6 +3,7 @@
 import React from 'react';
 import brandLogo from './logo.svg';
 import googleLogo from './google-icon.svg';
+import resetIll from './password-reset-sucess-illustration.png';
 
 // am importing pictures from the assets folder and exporting them as components
 // mentor management system logo
@@ -82,4 +83,8 @@ export function PasswordEyeHide({ styling }) {
 // google logo
 export function GoogleLogo({ styling }) {
   return <img src={googleLogo} className={styling} alt="logo" />;
+}
+// password rest success illustration
+export function ResetPasswordIllustration({ styling }) {
+  return <img src={resetIll} className={styling} alt="logo" />;
 }
