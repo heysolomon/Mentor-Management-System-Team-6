@@ -1,6 +1,6 @@
-from backend.mms_app_backend.mms_app_backend import database
+from ..database import SessionLocal
 
-SessionLocal = database.SessionLocal
+
 
 
 def get_db():
