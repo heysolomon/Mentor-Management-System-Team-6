@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from .schemas import UserCreate,User
 from .crud import get_user_by_email, create_user
 from sqlalchemy.orm import Session
-from backend.mms_app_backend.mms_app_backend.configs.database_config import engine,Base
+from ...configs.database_config import engine,Base
 from ..utils import get_db
 
 print(__package__)

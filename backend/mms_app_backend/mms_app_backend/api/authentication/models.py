@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, Integer, String
 
 #
-from backend.mms_app_backend.mms_app_backend.configs.database_config import Base
+from ...configs.database_config import Base
 
 
 

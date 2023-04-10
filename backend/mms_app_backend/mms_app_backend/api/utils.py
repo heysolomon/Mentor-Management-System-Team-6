@@ -1,4 +1,4 @@
-from backend.mms_app_backend.mms_app_backend.configs.database_config import SessionLocal
+from ..configs.database_config import SessionLocal
 
 
 
