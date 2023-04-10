@@ -1,4 +1,4 @@
-from ....main import app
+from backend.mms_app_backend.main import app
 from fastapi.testclient import TestClient
 
 client = TestClient(app)
