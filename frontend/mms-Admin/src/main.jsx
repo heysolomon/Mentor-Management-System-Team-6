@@ -1,46 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import { Provider } from 'react-redux';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+// eslint-disable-next-line import/order
 import store from './redux/store';
-import ErrorPage from './pages/Error/ErrorPage';
-import AuthHome from './pages/Auth/AuthHome';
-import LoginPage from './pages/Auth/LoginPage';
-import ForgotPassword from './pages/Auth/ForgotPassword';
-import SetNewPassword from './pages/Auth/SetNewPassword';
+import { Provider } from 'react-redux';
+import './index.css';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
+import App from './App';
 
-// This is were you add routes for the pages you are building
-const router = createBrowserRouter([
-  {
-    // your route goes here
-    path: '/',
-    // this is where you add the component of the page you are routing to
-    element: <AuthHome />,
-    // this is a fallback error page that appears and shows you the error of the particular route
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: '',
-        element: <LoginPage />,
-      },
-      {
-        path: 'forgot-password',
-        element: <ForgotPassword />,
-      },
-      {
-        path: 'set-new-password',
-        element: <SetNewPassword />,
-      },
-    ],
-  },
-]);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+const persistor = persistStore(store);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+root.render(
   <React.StrictMode>
-    {/* this the entry point for the redux store */}
     <Provider store={store}>
-      <RouterProvider router={router} />
+      {/* Added this to be able to pass the state */}
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
 );
