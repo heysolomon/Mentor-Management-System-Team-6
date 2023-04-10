@@ -57,7 +57,7 @@ The design can be find [here](https://www.figma.com/file/JNZKj3lachPypSOMBOhC1e/
 Find the Prototype [here](https://www.figma.com/proto/JNZKj3lachPypSOMBOhC1e/MMS-ALC-0pen-Source-Project?page-id=6782%3A4428&node-id=6784%3A6712&viewport=565%2C382%2C0.02&scaling=min-zoom&starting-point-node-id=6784%3A6712)
 Work on your Team assigned task eg. Team 1, Team 2 etc.
 
-NOTE: Stickly adhere to the style guide on the design, buttons, texts etc.
+NOTE: Strictly  adhere to the style guide on the design, buttons, texts etc.
 
 ## Creating issue
 
