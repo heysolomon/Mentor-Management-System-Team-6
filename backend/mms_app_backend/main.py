@@ -1,4 +1,4 @@
-import uvicorn
+
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from mms_app_backend.api.authentication.route import router as auth_router
@@ -17,5 +17,3 @@ def homepage():
 
     """
     return RedirectResponse('/redoc')
-
-
