@@ -1,7 +1,9 @@
 
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
-
+"""
+Use relative import for pytest script. 
+"""
 if __name__ == "main":
     from mms_app_backend.api.authentication.route import router as auth_router
 else:
