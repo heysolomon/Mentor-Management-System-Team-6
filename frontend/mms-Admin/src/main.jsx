@@ -1,28 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import { Provider } from 'react-redux';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+// eslint-disable-next-line import/order
 import store from './redux/store';
-import ErrorPage from './pages/Error/ErrorPage';
+import { Provider } from 'react-redux';
+import './index.css';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
+import App from './App';
 
-// This is were you add routes for the pages you are building
-const router = createBrowserRouter([
-  {
-    // your route goes here
-    path: '/',
-    // this is where you add the component of the page you are routing to
-    element: 'this is the landing page nwwwww',
-    // this is a fallback error page that appears and shows you the error of the particular route
-    errorElement: <ErrorPage />,
-  },
-]);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+const persistor = persistStore(store);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+root.render(
   <React.StrictMode>
-    {/* this the entry point for the redux store */}
     <Provider store={store}>
-      <RouterProvider router={router} />
+      {/* Added this to be able to pass the state */}
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
 );
