@@ -1,10 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import AuthHome from './pages/Auth/AuthHome';
 import LoginPage from './pages/Auth/LoginPage';
 import ErrorPage from './pages/Error/ErrorPage';
 import SplashScreen from './pages/SplashScreen/SplashScreen';
+import { stopLoader } from './redux/features/splashSlice';
 
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
@@ -26,8 +27,10 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
+  const dispatch = useDispatch();
   // Get the isloaded state
   const isLoaded = useSelector((state) => state.splashScreen.isLoaded);
+  setTimeout(() => dispatch(stopLoader()), 2000);
   // return the splash screen if the isloaded state is false
   return !isLoaded ? <SplashScreen /> : <RouterProvider router={router} />;
 }
