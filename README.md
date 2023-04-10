@@ -49,7 +49,7 @@ To get it up and running on your local machine, follow the steps below:
   
 #### Backend
 
-* Beckend is available here.
+* Backend is available here.
 
 ## Design
 
