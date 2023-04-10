@@ -39,6 +39,56 @@ const router = createBrowserRouter([
     path: '/admin-dashboard',
     element: <DashboardHome />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        path: '',
+        element: 'this is the dashboard',
+      },
+      {
+        path: 'profile',
+        element: 'this is the profile',
+      },
+      {
+        path: 'programs',
+        element: 'this is the programs',
+      },
+      {
+        path: 'tasks',
+        element: 'this is the tasks',
+      },
+      {
+        path: 'reports',
+        element: 'this is the reports',
+      },
+      {
+        path: 'mentors',
+        element: 'this is the mentors',
+      },
+      {
+        path: 'mentor-managers',
+        element: 'this is the mentor-managers',
+      },
+      {
+        path: 'approval-requests',
+        element: 'this is the approval-requests',
+      },
+      {
+        path: 'certificates',
+        element: 'this is the certificates',
+      },
+      {
+        path: 'messages',
+        element: 'this is the messages',
+      },
+      {
+        path: 'discussion-forum',
+        element: 'this is the discussion-forum',
+      },
+      {
+        path: 'settings',
+        element: 'this is the settings',
+      },
+    ],
   },
 ]);
 
