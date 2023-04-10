@@ -275,6 +275,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # User-specific stuff
-.idea
-.idea/workspace.xml
+#.idea
+#.idea/workspace.xml
 # End of https://www.gitignore.io/api/linux,macos,python,pycharm,windows,visualstudiocode
