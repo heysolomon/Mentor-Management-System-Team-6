@@ -2,13 +2,12 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
 import storage from 'redux-persist/lib/storage';
-
-import testSlice from './features/test/testSlice';
 import splashSlice from './features/splashSlice';
+import modalReducer from './features/NewPasswordSuccess/modalSlice';
 
 const rootReducer = combineReducers({
-  test: testSlice,
   splashScreen: splashSlice,
+  modal: modalReducer,
 });
 
 const persistConfig = {
