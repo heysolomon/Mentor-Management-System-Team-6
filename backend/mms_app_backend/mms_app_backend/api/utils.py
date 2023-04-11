@@ -12,4 +12,6 @@ def get_db():
 
 
 class ResponseModel(BaseModel):
-    success = bool
+    success: bool = False
+    data: dict | None
+    error: bool = False
