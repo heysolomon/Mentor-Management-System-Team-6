@@ -1,5 +1,5 @@
 from typing import TypedDict
-
+from ..utils import EmptyDict
 from .schemas import User
 from ..utils import ResponseModel
 
@@ -9,4 +9,4 @@ class UserData(TypedDict):
 
 
 class CreateUserResponse(ResponseModel):
-    data: UserData
+    data: UserData | EmptyDict = {}

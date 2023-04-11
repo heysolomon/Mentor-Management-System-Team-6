@@ -1,3 +1,5 @@
+from typing import TypedDict
+
 from pydantic import BaseModel
 
 from ..configs.database_config import SessionLocal
@@ -14,4 +16,8 @@ def get_db():
 class ResponseModel(BaseModel):
     success: bool = False
     data: dict | None
-    error: bool = False
+    error_message: str | None
+
+
+class EmptyDict(TypedDict):
+    pass
