@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from ...configs.database_config import engine,Base
 from ..utils import get_db
 
-print(__package__)
+
 
 engine = engine
 Base.metadata.create_all(bind=engine)
@@ -14,7 +14,7 @@ router = APIRouter()
 post = router.post
 
 
-@post("/signup", response_model=User)
+@post("/user/signup", response_model=User)
 def signup(user: UserCreate, db: Session = Depends(get_db)):
     db_user = get_user_by_email(db, email=user.email)
     if db_user:
