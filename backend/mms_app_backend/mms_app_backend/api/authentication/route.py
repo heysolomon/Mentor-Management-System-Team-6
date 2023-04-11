@@ -17,11 +17,8 @@ post = router.post
 @post("/user/signup", response_model=CreateUserResponse)
 def signup(user: UserCreate, response: Response, db: Session = Depends(get_db)) -> Response:
     """
-    function that validates the user email and creates and bcrypt encrypted password.
-    :param user:
-    :param response:
-    :param db:
-    :return:
+    This endpoint validates the user email and creates and bcrypt encrypted password.
+    This helps the user get started on the platform.
     """
     user_response = CreateUserResponse()
     db_user = get_user_by_email(db, email=user.email)

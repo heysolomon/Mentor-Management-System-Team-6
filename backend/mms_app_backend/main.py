@@ -19,8 +19,6 @@ def homepage():
     """
     This is the api's home page.
     It currently redirects to the swagger docs.
-    :return:
-
     """
     return RedirectResponse('/redoc')
 
