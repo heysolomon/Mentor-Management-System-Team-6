@@ -81,6 +81,8 @@ Changes are automatically integrated and detected when this flag is on .
 ```commandline
 uvicorn main:app --reload
 ```
+To interact with the server locally, open the [link](http://127.0.0.1:8000) or paste http://127.0.0.1:8000 or http://localhost:8000
+in the browser.
 
 ## Design
 
