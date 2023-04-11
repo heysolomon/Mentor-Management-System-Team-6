@@ -8,7 +8,7 @@ from ..utils import get_db
 
 
 
-engine = engine
+
 Base.metadata.create_all(bind=engine)
 router = APIRouter()
 post = router.post
