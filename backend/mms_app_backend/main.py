@@ -1,6 +1,6 @@
+import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
-import uvicorn
 
 # Conditional import due to pytest which imports tests as external packages.
 if __name__ == "__main__":
@@ -22,6 +22,7 @@ def homepage():
 
     """
     return RedirectResponse('/redoc')
+
 
 # Server should not run when called by pytest
 if __name__ == "__main__":
