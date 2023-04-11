@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy.orm import Session
 
-from .constants import USED_EMAIL_MESSAGE,ACCOUNT_CREATED_MESSAGE
+from .constants import USED_EMAIL_MESSAGE, ACCOUNT_CREATED_MESSAGE
 from .crud import get_user_by_email, create_user
 from .responses import CreateUserResponse
 from .schemas import UserCreate
@@ -14,7 +14,7 @@ router = APIRouter()
 post = router.post
 
 
-@post("/user/signup", response_model=CreateUserResponse)
+@post("/user/signup", response_model=CreateUserResponse, status_code=status.HTTP_201_CREATED)
 def signup(user: UserCreate, response: Response, db: Session = Depends(get_db)) -> Response:
     """
     This endpoint validates the user email and creates and bcrypt encrypted password.
