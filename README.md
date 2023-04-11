@@ -63,6 +63,7 @@ cd ./backend/mms_app_backend/
 ```
 
 ## Install Python requirements and dependencies
+
 # Commandline commands
 
 ```commandline
@@ -70,6 +71,16 @@ pip install -r requirements.txt
 ```
 
 ## Start Server
+
+# Commandline commands
+
+Note that the --reload flag is not required but ensures that the app server does 
+not require to be restarted whenever changes are made to the code. 
+Changes are automatically integrated and detected when this flag is on . 
+
+```commandline
+uvicorn main:app --reload
+```
 
 ## Design
 
