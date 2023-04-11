@@ -5,6 +5,7 @@ import AuthHome from './pages/Auth/AuthHome';
 import ForgotPassword from './pages/Auth/ForgotPassword';
 import LoginPage from './pages/Auth/LoginPage';
 import SetNewPassword from './pages/Auth/SetNewPassword';
+import Dashboard from './pages/Dashboard/Dashboard';
 import DashboardHome from './pages/Dashboard/DashboardHome';
 import ErrorPage from './pages/Error/ErrorPage';
 import SplashScreen from './pages/SplashScreen/SplashScreen';
@@ -37,12 +38,12 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin-dashboard',
-    element: <DashboardHome />,
+    element: <Dashboard />,
     errorElement: <ErrorPage />,
     children: [
       {
         path: '',
-        element: 'this is the dashboard',
+        element: <DashboardHome />,
       },
       {
         path: 'profile',

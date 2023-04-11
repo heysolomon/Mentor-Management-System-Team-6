@@ -9,16 +9,16 @@ import {
 
 function Navbar() {
   return (
-    <nav className="fixed w-full z-40 bg-pri3 h-20 flex justify-between items-center px-10">
+    <nav className="fixed w-full z-40 bg-pri3 h-14 md:h-20 flex justify-between items-center px-10">
       <div className="flex items-center">
-        <BrandLogo styling="w-[7%]" />
-        <p className="font-[600] text-[16px] text-white ml-[5px]">
+        <BrandLogo styling="w-10 md:w-[7%]" />
+        <p className="font-[600] text-[16px] text-white ml-[5px] hidden md:block">
           Mentor’s Managers System
         </p>
       </div>
-      <div className="w-[60%] flex justify-between h-full items-center">
+      <div className="md:w-[65%] flex justify-between h-full items-center">
         {/* Search Bar */}
-        <div className="flex items-center bg-white h-[28px] w-[70%] rounded-[5px] py-4 text-black5 font-[400] text-[16px]">
+        <div className="hidden md:flex items-center bg-white h-[28px] w-[75%] rounded-[5px] py-4 text-black5 font-[400] text-[16px]">
           <SearchIcon styling="ml-5" />
           <input
             type="text"
@@ -26,9 +26,9 @@ function Navbar() {
             placeholder="Search for anything"
           />
         </div>
-        <MessageIcon color="#F7FEFF" />
-        <NotificationBellIcon color="#F7FEFF" />
-        <UserAvatar />
+        <MessageIcon styling="w-5 md:w-10 mx-1 md:mx-0" color="#F7FEFF" />
+        <NotificationBellIcon styling="w-5 md:w-10 mx-1 md:mx-0" color="#F7FEFF" />
+        <UserAvatar styling="w-5 md:w-10 mx-1 md:mx-0" />
       </div>
     </nav>
   );

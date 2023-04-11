@@ -39,25 +39,25 @@ function Sidebar() {
       id: 4,
       name: 'Tasks',
       link: 'tasks',
-      icon: <TaskIcon color="#808080" />,
+      icon: <TaskIcon styling="w-[23px] h-[24px]" color="#808080" />,
     },
     {
       id: 5,
       name: 'Reports',
       link: 'reports',
-      icon: <ReportIcon color="#808080" />,
+      icon: <ReportIcon styling="w-[24px]" color="#808080" />,
     },
     {
       id: 6,
       name: 'Mentors',
       link: 'mentors',
-      icon: <MentorIcon color="#808080" />,
+      icon: <MentorIcon styling="w-[24px]" color="#808080" />,
     },
     {
       id: 7,
       name: 'Mentor Managers',
       link: 'mentor-managers',
-      icon: <MentorManagerIcon color="#808080" />,
+      icon: <MentorManagerIcon styling="w-[24px]" color="#808080" />,
     },
     {
       id: 8,
@@ -91,7 +91,7 @@ function Sidebar() {
     },
   ];
   return (
-    <nav className="fixed left-0 w-[20%] bg-pri11 flex flex-col items-center">
+    <nav className="fixed left-0 w-[20%] bg-pri11 hidden md:flex flex-col items-center">
       <div className="w-[70%] mx-auto">
         <div className="mt-[20px] mb-[15px]">
           <h3 className="font-[700] text-black1 text-[20px]">Hi, Kabiru</h3>

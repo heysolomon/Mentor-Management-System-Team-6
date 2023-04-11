@@ -6,6 +6,10 @@ import googleLogo from './google-icon.svg';
 import resetIll from './password-reset-sucess-illustration.png';
 import searchIcon from './search-icon.png';
 import userAvatar from './avatar.svg';
+import gadsElipse from './gads-elipse.png';
+import gadsReportIcon from './gads-report.png';
+import calender from './calender.svg';
+import arrowDown from './arrow-down.svg';
 
 // am importing pictures from the assets folder and exporting them as components
 // mentor management system logo
@@ -93,6 +97,22 @@ export function ResetPasswordIllustration({ styling }) {
 // search bar icon
 export function SearchIcon({ styling }) {
   return <img src={searchIcon} className={styling} alt="search icon" />;
+}
+// gads elipse
+export function GadsElipse({ styling }) {
+  return <img src={gadsElipse} className={styling} alt="search icon" />;
+}
+// gads report icon
+export function GadsReportIcon({ styling }) {
+  return <img src={gadsReportIcon} className={styling} alt="search icon" />;
+}
+// calender icon
+export function CalenderIcon({ styling }) {
+  return <img src={calender} className={styling} alt="search icon" />;
+}
+// arrow down icon
+export function ArrowDown({ styling }) {
+  return <img src={arrowDown} className={styling} alt="search icon" />;
 }
 // message icon
 // you can use the color prop to change the color of this icon
@@ -286,8 +306,6 @@ export function CertificateIcon({ styling, color }) {
 export function MentorManagerIcon({ styling, color }) {
   return (
     <svg
-      width="24"
-      height="24"
       viewBox="0 0 24 24"
       fill="none"
       className={styling}
@@ -331,8 +349,6 @@ export function MentorManagerIcon({ styling, color }) {
 export function MentorIcon({ styling, color }) {
   return (
     <svg
-      width="24"
-      height="24"
       viewBox="0 0 24 24"
       fill="none"
       className={styling}
@@ -362,8 +378,6 @@ export function MentorIcon({ styling, color }) {
 export function ReportIcon({ styling, color }) {
   return (
     <svg
-      width="24"
-      height="24"
       viewBox="0 0 24 24"
       fill="none"
       className={styling}
