@@ -49,7 +49,13 @@ To get it up and running on your local machine, follow the steps below:
   
 #### Backend
 
-* Backend is available here.
+### Setup
+change into  project base directory from the command line or id 
+# commandline commands 
+powershell 
+```powershell
+cd .\backend\mms_app_backend\
+```
 
 ## Design
 
