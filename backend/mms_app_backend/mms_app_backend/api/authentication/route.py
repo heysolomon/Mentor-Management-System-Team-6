@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Response,status
+from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy.orm import Session
 
 from .constants import USED_EMAIL_MESSAGE
@@ -15,7 +15,14 @@ post = router.post
 
 
 @post("/user/signup", response_model=CreateUserResponse)
-def signup(user: UserCreate, response: Response, db: Session = Depends(get_db)):
+def signup(user: UserCreate, response: Response, db: Session = Depends(get_db)) -> Response:
+    """
+    function that validates the user email and creates and bcrypt encrypted password.
+    :param user:
+    :param response:
+    :param db:
+    :return:
+    """
     user_response = CreateUserResponse()
     db_user = get_user_by_email(db, email=user.email)
     if db_user:
