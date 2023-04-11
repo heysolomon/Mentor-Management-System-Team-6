@@ -49,7 +49,44 @@ To get it up and running on your local machine, follow the steps below:
   
 #### Backend
 
-* Beckend is available here.
+### Setup
+## Change into  project base directory from the command line or id 
+# Commandline commands 
+
+powershell 
+
+```powershell
+cd .\backend\mms_app_backend\
+```
+
+bash
+
+```bash
+cd ./backend/mms_app_backend/
+```
+
+## Install Python requirements and dependencies
+
+# Commandline commands
+
+```commandline
+pip install -r requirements.txt
+```
+
+## Start Server
+
+# Commandline commands
+
+Note that the --reload flag is not required but ensures that the app server does 
+not require to be restarted whenever changes are made to the code. 
+Changes are automatically integrated and detected when this flag is on . 
+
+```commandline
+uvicorn main:app --reload
+```
+To interact with the server locally, open the [link](http://127.0.0.1:8000) or paste http://127.0.0.1:8000 or http://localhost:8000
+in the browser.
+
 
 ## Design
 
