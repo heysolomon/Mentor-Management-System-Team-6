@@ -7,6 +7,7 @@ from .schemas import UserCreate
 from ..utils import get_db
 from ...configs.database_config import engine, Base
 from .constants import USED_EMAIL_MESSAGE
+from ..constants import GENERAL_ERROR_MESSAGE
 Base.metadata.create_all(bind=engine)
 router = APIRouter()
 post = router.post
@@ -24,6 +25,6 @@ def signup(user: UserCreate, db: Session = Depends(get_db)):
         response.success = True
         response.data['user'] = user
     else:
-        response.message = "There has been an Unexpected Error. If the error persists please contact MMS support."
+        response.message = GENERAL_ERROR_MESSAGE
 
     return response
