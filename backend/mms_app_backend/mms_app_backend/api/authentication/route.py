@@ -6,7 +6,7 @@ from .responses import CreateUserResponse
 from .schemas import UserCreate
 from ..utils import get_db
 from ...configs.database_config import engine, Base
-
+from .constants import USED_EMAIL_MESSAGE
 Base.metadata.create_all(bind=engine)
 router = APIRouter()
 post = router.post
@@ -17,14 +17,13 @@ def signup(user: UserCreate, db: Session = Depends(get_db)):
     response = CreateUserResponse()
     db_user = get_user_by_email(db, email=user.email)
     if db_user:
-        response.error_message = "An account with that email has already been created"
+        response.message = USED_EMAIL_MESSAGE
         return response
     user = create_user(db=db, user=user)
     if user:
-        print(response)
         response.success = True
         response.data['user'] = user
     else:
-        response.error_message = "There has been an Unexpected Error. If the error persists please contact MMS support."
+        response.message = "There has been an Unexpected Error. If the error persists please contact MMS support."
 
     return response

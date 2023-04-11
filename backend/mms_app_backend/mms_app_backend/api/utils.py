@@ -16,7 +16,7 @@ def get_db():
 class ResponseModel(BaseModel):
     success: bool = False
     data: dict | None
-    error_message: str | None
+    message: str | None
 
 
 class EmptyDict(TypedDict):
