@@ -47,19 +47,19 @@ To get it up and running on your local machine, follow the steps below:
   
 * Navigate to the app on your browser with the url `http://localhost:****` where **** is the port number displayed on your terminal.
   
-#### Backend
+# Backend
 
-### Setup
-## Change into  project base directory from the command line or id 
-# Commandline commands 
+## Setup
+### Change into  project base directory from the command line or id 
+#### Commandline commands 
 
-powershell 
+##### powershell 
 
 ```powershell
 cd .\backend\mms_app_backend\
 ```
 
-bash
+##### bash
 
 ```bash
 cd ./backend/mms_app_backend/
@@ -75,18 +75,21 @@ pip install -r requirements.txt
 
 ## Start Server
 
-# Commandline commands
+### Commandline commands
 
-Note that the --reload flag is not required but ensures that the app server does 
-not require to be restarted whenever changes are made to the code. 
-Changes are automatically integrated and detected when this flag is on . 
 
 ```commandline
-uvicorn main:app --reload
+python main.py
 ```
 To interact with the server locally, open the [link](http://127.0.0.1:8000) or paste http://127.0.0.1:8000 or http://localhost:8000
 in the browser.
 
+## Test
+### Commandline commands
+```commandline
+pytest 
+```
+This will return the number of successful and failed tests with percentage clearance.
 
 ## Design
 
