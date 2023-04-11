@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy.orm import Session
 
-from .constants import USED_EMAIL_MESSAGE
+from .constants import USED_EMAIL_MESSAGE,ACCOUNT_CREATED_MESSAGE
 from .crud import get_user_by_email, create_user
 from .responses import CreateUserResponse
 from .schemas import UserCreate
@@ -30,6 +30,7 @@ def signup(user: UserCreate, response: Response, db: Session = Depends(get_db)) 
     if user:
         user_response.success = True
         user_response.data['user'] = user
+        user_response.message = ACCOUNT_CREATED_MESSAGE
     else:
         user_response.message = GENERAL_ERROR_MESSAGE
         response.status_code = status.HTTP_400_BAD_REQUEST
