@@ -278,6 +278,6 @@ $RECYCLE.BIN/
 .idea
 .idea/workspace.xml
 # sqlite db
-
+sql_app.db
 
 # End of https://www.gitignore.io/api/linux,macos,python,pycharm,windows,visualstudiocode
