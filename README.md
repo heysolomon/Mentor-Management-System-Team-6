@@ -50,12 +50,26 @@ To get it up and running on your local machine, follow the steps below:
 #### Backend
 
 ### Setup
-change into  project base directory from the command line or id 
-# commandline commands 
+## Change into  project base directory from the command line or id 
+# Commandline commands 
+
 powershell 
-```powershell
+```commandline
 cd .\backend\mms_app_backend\
 ```
+bash
+```commandline
+cd ./backend/mms_app_backend/
+```
+
+## Install Python requirements and dependencies
+# Commandline commands
+
+```commandline
+pip install -r requirements.txt
+```
+
+## Start Server
 
 ## Design
 
