@@ -19,6 +19,7 @@ export default {
         pri8: '#9CF6FC',
         pri9: '#CEFAFD',
         pri10: '#E6FDFE',
+        pri11: '#F7FEFF',
         // secondary variants
         sec1: '#660007',
         sec2: '#99000A',
