@@ -4,10 +4,12 @@ import thunk from 'redux-thunk';
 import storage from 'redux-persist/lib/storage';
 import splashSlice from './features/splashSlice';
 import modalReducer from './features/NewPasswordSuccess/modalSlice';
+import sidebarSlice from './features/sidebarSlice';
 
 const rootReducer = combineReducers({
   splashScreen: splashSlice,
   modal: modalReducer,
+  sidebar: sidebarSlice,
 });
 
 const persistConfig = {
