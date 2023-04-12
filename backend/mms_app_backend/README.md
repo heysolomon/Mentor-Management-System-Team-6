@@ -60,13 +60,13 @@ To get it up and running on your local machine, follow the steps below:
 ##### powershell
     
 ```powershell
-cd .\backend\mms_app_backend\
+    cd .\backend\mms_app_backend\
 ```
 
 ##### bash
     
-```commandline
-cd ./backend/mms_app_backend/
+```bash
+  cd ./backend/mms_app_backend/
 ```
 
 ## Install Python requirements and dependencies
@@ -74,7 +74,7 @@ cd ./backend/mms_app_backend/
 # Commandline commands
 
 ```commandline
-pip install -r requirements.txt
+    pip install -r requirements.txt
 ```
 
 ## Environment variables
@@ -84,11 +84,11 @@ pip install -r requirements.txt
 e.g
 
 ```dotenv
-DATABASE_TYPE=postgresql
-DATABASE_NAME=mms_database
-DATABASE_HOST=localhost
-DATABASE_USERNAME=postgres
-DATABASE_PASSWORD=admin
+    DATABASE_TYPE=postgresql
+    DATABASE_NAME=mms_database
+    DATABASE_HOST=localhost
+    DATABASE_USERNAME=postgres
+    DATABASE_PASSWORD=admin
 ```
 
 ## Start Server
@@ -96,7 +96,7 @@ DATABASE_PASSWORD=admin
 ### Commandline commands
 
 ```commandline
-python main.py
+    python main.py
 ```
 
 To interact with the server locally, open the [link](http://127.0.0.1:8000) or paste http://127.0.0.1:8000
