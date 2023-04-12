@@ -72,8 +72,21 @@ cd ./backend/mms_app_backend/
 ```commandline
 pip install -r requirements.txt
 ```
+## Environment variables
 
+### Create a .env file in the current directory with the following data format
+e.g 
+```dotenv
+
+DATABASE_TYPE=postgresql
+DATABASE_NAME=mms_database
+DATABASE_HOST=localhost
+DATABASE_USERNAME=postgres
+DATABASE_PASSWORD=admin
+
+```
 ## Start Server
+
 
 ### Commandline commands
 
@@ -90,6 +103,7 @@ in the browser.
 pytest 
 ```
 This will return the number of successful and failed tests with percentage clearance.
+
 ## Design
 
 The design can be find [here](https://www.figma.com/file/JNZKj3lachPypSOMBOhC1e/MMS-ALC-0pen-Source-Project?node-id=6784%3A7593&t=dnwBBGHPZRxryUnJ-0)

@@ -12,14 +12,14 @@ coordination of mentors needed to execute projects, ranging from recruitment to 
 * Database: PostgreSQL
 * DevOps: Github actions, AWS, docker,AWS Amplify
 * Cloud: AWS Amplify, Elastic Beanstalk, RDS Postgres.  
-
+  
 ## How to contributing to this project
 
 To get it up and running on your local machine, follow the steps below:
 
-1. Clone the repo with the command `git clone.  
+1. Fork & Clone the repo with the command `git clone
 
-2. Indicate your interest to work on any issue. "eg. I want to work on this issue or I am interested in this issue".
+2. Indicate your interest to work on any issue. "eg. I want to work on this issue or I am interested in this issue"
 
 3. Open a feature branch from the 'develop' branch. eg feat/
 
@@ -72,8 +72,21 @@ cd ./backend/mms_app_backend/
 ```commandline
 pip install -r requirements.txt
 ```
+## Environment variables
 
+### Create a .env file in the current directory with the following data format
+e.g 
+```dotenv
+
+DATABASE_TYPE=postgresql
+DATABASE_NAME=mms_database
+DATABASE_HOST=localhost
+DATABASE_USERNAME=postgres
+DATABASE_PASSWORD=admin
+
+```
 ## Start Server
+
 
 ### Commandline commands
 
@@ -93,64 +106,20 @@ This will return the number of successful and failed tests with percentage clear
 
 ## Design
 
-
 The design can be find [here](https://www.figma.com/file/JNZKj3lachPypSOMBOhC1e/MMS-ALC-0pen-Source-Project?node-id=6784%3A7593&t=dnwBBGHPZRxryUnJ-0)
 Find the Prototype [here](https://www.figma.com/proto/JNZKj3lachPypSOMBOhC1e/MMS-ALC-0pen-Source-Project?page-id=6782%3A4428&node-id=6784%3A6712&viewport=565%2C382%2C0.02&scaling=min-zoom&starting-point-node-id=6784%3A6712)
 Work on your Team assigned task eg. Team 1, Team 2 etc.
 
-### Creating issue
+NOTE: Strictly  adhere to the style guide on the design, buttons, texts etc.
+
+## Creating issue
 
   Raise any identified issue with your mentor.
+  
+## Other commands available
 
-### Local Database Setup
+1. `npm run build` - Builds the app for production to the `dist` folder.
+2. npm run lint` - Lints the codebase.
+3. `npm run lint:fix` - Lints the codebase and fixes auto-fixable error.
 
-1. Install and create a MySQL database (Can be change)
-2. Create a .env file in the root directory
-3. Set the environment variables with your local database credentials (see .env.example for reference)
-
-#### Installation
-
-```bash
-$yarn install
-```
-
-##### Running the app
-
-```bash
-# development
-$ yarn start
-
-# watch mode
-$ yarn dev
-
-# production mode
-$ yarn start:prod
-```
-
-##### Test
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
-##### Contributors
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/098d739ea9504dadabbcc4898eaff86e)](https://app.codacy.com/gh/ALCOpenSource/Mentor-Management-System-Team-1/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
