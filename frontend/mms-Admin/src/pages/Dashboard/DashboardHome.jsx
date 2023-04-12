@@ -11,7 +11,6 @@ import GadsReportCard from '../../components/Dashboard/DashboardCards/GadsReport
 import TasksCards from '../../components/Dashboard/DashboardCards/TasksCards';
 import Dropdown from '../../components/utilities/Dropdown';
 import { openSidebar } from '../../redux/features/sidebarSlice';
-import styles from './styles/dashboard.module.css';
 
 function DashboardHome() {
   const filterOptions = [
@@ -188,7 +187,7 @@ function DashboardHome() {
           </div>
           {/* tasks in progress */}
           <div
-            className={`grid gap-y-[20px] md:gap-y-0 gap-x-[20px] ${styles.grid}`}
+            className="grid md:grid-cols-task gap-y-[20px] md:gap-y-0 gap-x-[20px]"
           >
             <div className="w-full h-full bg-pri3 flex items-center justify-center rounded-[10px]">
               <p className="font-[600] text-pri11 text-[18px]">In Progress</p>
@@ -201,7 +200,7 @@ function DashboardHome() {
 
           {/* completed tasks */}
           <div
-            className={`grid gap-y-[20px] md:gap-y-0 gap-x-[20px] ${styles.grid} mt-14`}
+            className="grid md:grid-cols-task gap-y-[20px] md:gap-y-0 gap-x-[20px] mt-14"
           >
             <div className="w-full h-full bg-pri3 flex items-center justify-center rounded-[10px]">
               <p className="font-[600] text-pri11 text-[18px]">Completed</p>

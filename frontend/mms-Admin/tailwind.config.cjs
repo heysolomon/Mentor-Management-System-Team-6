@@ -41,6 +41,9 @@ export default {
         black9: '#E6E6E6',
         black10: '#F2F2F2',
       },
+      gridTemplateColumns: {
+        task: '12.5% repeat(3, 1fr)',
+      },
     },
   },
   plugins: [],
