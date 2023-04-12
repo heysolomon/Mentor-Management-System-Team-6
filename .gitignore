@@ -277,4 +277,8 @@ $RECYCLE.BIN/
 # User-specific stuff
 .idea
 .idea/workspace.xml
+# sqlite db
+sql_app.db
+# environment variables
+.env
 # End of https://www.gitignore.io/api/linux,macos,python,pycharm,windows,visualstudiocode
