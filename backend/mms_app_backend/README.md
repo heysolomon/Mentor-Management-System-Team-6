@@ -59,22 +59,22 @@ To get it up and running on your local machine, follow the steps below:
 
 ##### powershell
     
-``` powershell
-    cd .\backend\mms_app_backend\
+```powershell
+cd .\backend\mms_app_backend\
 ```
 
 ##### bash
     
-``` bash
-    cd ./backend/mms_app_backend/
+```commandline
+cd ./backend/mms_app_backend/
 ```
 
 ## Install Python requirements and dependencies
 
 # Commandline commands
 
-``` commandline
-        pip install -r requirements.txt
+```commandline
+pip install -r requirements.txt
 ```
 
 ## Environment variables
@@ -83,22 +83,20 @@ To get it up and running on your local machine, follow the steps below:
 
 e.g
 
-``` dotenv
-    
-        DATABASE_TYPE=postgresql
-        DATABASE_NAME=mms_database
-        DATABASE_HOST=localhost
-        DATABASE_USERNAME=postgres
-        DATABASE_PASSWORD=admin
-    
+```dotenv
+DATABASE_TYPE=postgresql
+DATABASE_NAME=mms_database
+DATABASE_HOST=localhost
+DATABASE_USERNAME=postgres
+DATABASE_PASSWORD=admin
 ```
 
 ## Start Server
 
 ### Commandline commands
 
-``` commandline
-        python main.py
+```commandline
+python main.py
 ```
 
 To interact with the server locally, open the [link](http://127.0.0.1:8000) or paste http://127.0.0.1:8000
@@ -108,8 +106,8 @@ in the browser.
 ## Test
 
 ### Commandline commands
-``` commandline
-        pytest 
+```commandline
+pytest 
 ```
 
 This will return the number of successful and failed tests with percentage clearance.
