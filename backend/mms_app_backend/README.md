@@ -131,7 +131,7 @@ Raise any identified issue with your mentor.
 ## Other commands available
 
     1. `npm run build` - Builds the app for production to the `dist` folder.
-    2. npm run lint` - Lints the codebase.
+    2. `npm run lint` - Lints the codebase.
     3. `npm run lint:fix` - Lints the codebase and fixes auto-fixable error.
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/098d739ea9504dadabbcc4898eaff86e)](https://app.codacy.com/gh/ALCOpenSource/Mentor-Management-System-Team-1/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
