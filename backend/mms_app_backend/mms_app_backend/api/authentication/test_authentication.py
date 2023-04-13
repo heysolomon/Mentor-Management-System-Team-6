@@ -1,12 +1,14 @@
 from typing import TypedDict
-
-from fastapi import status
+from sqlalchemy.orm import Session
+from fastapi import status,Depends
 from fastapi.testclient import TestClient
-from .schemas import User
+
 from backend.mms_app_backend.main import app
 from .constants import ACCOUNT_CREATED_MESSAGE
 from .responses import CreateUserResponse,UserData
-
+from ..utils import get_db
+from .models import User
+from ...configs.database_config import engine
 
 class SignUpData(TypedDict):
     username: str
@@ -54,9 +56,12 @@ def test_user_signup():
                          json=data)
     assert post_response.json().get('success') == True
     assert post_response.status_code == status.HTTP_201_CREATED
-    successful_signup_response.data["user"]['id'] = post_response.json().get('data').get('user').get('id')
+    user_id:int = int(post_response.json().get('data').get('user').get('id'))
+    successful_signup_response.data["user"]['id'] = user_id
     assert successful_signup_response.dict() == post_response.json()
-
+    with Session(engine) as session:
+        session.query(User).filter(User.id == user_id).delete()
+        session.commit()
 
 def test_unique_email():
     pass
