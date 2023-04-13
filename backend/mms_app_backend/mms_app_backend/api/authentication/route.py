@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy.orm import Session
 
 from .constants import USED_EMAIL_MESSAGE, ACCOUNT_CREATED_MESSAGE
-from .crud import get_user_by_email, create_user
+from .crud import get_user_by_email, create_user,get_user_by_username
 from .responses import CreateUserResponse
 from .schemas import UserCreate
 from ..constants import GENERAL_ERROR_MESSAGE
@@ -22,6 +22,11 @@ def signup(user: UserCreate, response: Response, db: Session = Depends(get_db)) 
     """
     user_response = CreateUserResponse()
     db_user = get_user_by_email(db, email=user.email)
+    if db_user:
+        user_response.message = USED_EMAIL_MESSAGE
+        response.status_code = status.HTTP_409_CONFLICT
+        return user_response
+    db_user = get_user_by_username(db, username=user.username)
     if db_user:
         user_response.message = USED_EMAIL_MESSAGE
         response.status_code = status.HTTP_409_CONFLICT
