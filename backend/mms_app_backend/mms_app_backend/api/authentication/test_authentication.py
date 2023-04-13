@@ -3,12 +3,13 @@ from typing import TypedDict
 from fastapi import status
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
-from.helpers import verify_password
-from backend.mms_app_backend.main import app
+
 from .constants import ACCOUNT_CREATED_MESSAGE
+from .helpers import verify_password
 from .models import User
 from .responses import CreateUserResponse, UserData
 from ...configs.database_config import engine
+from ....main import app
 
 
 class SignUpData(TypedDict):
@@ -84,6 +85,7 @@ def test_unique_email():
         session.query(User).filter(User.id == user_id).delete()
         session.commit()
 
+
 def test_encrypted_password():
     post_response = post('/user/signup',
                          json=data)
@@ -97,4 +99,3 @@ def test_encrypted_password():
         assert verify_password(data.get('password'), password)
         session.query(User).filter(User.id == user_id).delete()
         session.commit()
-
