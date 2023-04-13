@@ -47,7 +47,6 @@ data: SignUpData = {
     "last_name": "test"
 }
 
-
 def test_signup_noget():
     get_response = get('/user/signup')
     assert get_response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
@@ -55,8 +54,7 @@ def test_signup_noget():
 
 
 def test_user_signup():
-    post_response = post('/user/signup',
-                         json=data)
+    post_response = post('/user/signup',json=data)
     assert post_response.json().get('success') == True
     assert post_response.status_code == status.HTTP_201_CREATED
     user_id: int = post_response.json().get('data').get('user').get('id')
@@ -87,8 +85,7 @@ def test_unique_email():
 
 
 def test_encrypted_password():
-    post_response = post('/user/signup',
-                         json=data)
+    post_response = post('/user/signup',json=data)
     assert post_response.json().get('success') == True
     assert post_response.status_code == status.HTTP_201_CREATED
     user_id: int = post_response.json().get('data').get('user').get('id')
@@ -99,3 +96,26 @@ def test_encrypted_password():
         assert verify_password(data.get('password'), password)
         session.query(User).filter(User.id == user_id).delete()
         session.commit()
+
+def test_login():
+    # Test case 1: User not found
+    response = post("/user/login", json={"email": "invalidemail@example.com", "password": "password"})
+    assert response.status_code == 404
+    assert response.json()["success"] == False
+    assert "access_token" not in response.json()["data"]
+    assert "user" not in response.json()["data"]
+    assert response.json()["message"] == "User not found"
+    # Test case 2: Incorrect password
+    response = post("/user/login", json={"email": "user@example.com", "password": "wronpassword"})
+    assert response.status_code == 401
+    assert response.json()["success"] == False
+    assert "access_token" not in response.json()["data"]
+    assert "user" not in response.json()["data"]
+    assert response.json()["message"] == "The passwod provided is not correct"
+    # Test case 1: Successful login
+    response = client.post("/user/login", json={"email": "user@example.com", "password": "string"})
+    assert response.status_code == 200
+    assert response.json()["success"] == True
+    assert "access_token" in response.json()["data"]
+    assert "user" in response.json()["data"]
+    assert response.json()["message"] == "The access_token has been created and user has logged In successfully"
