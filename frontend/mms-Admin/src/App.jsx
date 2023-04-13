@@ -10,7 +10,7 @@ import DashboardHome from "./pages/Dashboard/DashboardHome";
 import ErrorPage from "./pages/Error/ErrorPage";
 import SplashScreen from "./pages/SplashScreen/SplashScreen";
 import { stopLoader } from "./redux/features/splashSlice";
-import Profile from "./pages/Dashboard/Profile/Profile";
+import Profile from "./pages/Dashboard/Profile";
 
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building

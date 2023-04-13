@@ -2,11 +2,11 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../../components/Dashboard/Navbar';
 import Sidebar from '../../components/Dashboard/Sidebar';
-// import styles from './styles/dashboard.module.css';
+import styles from './styles/dashboard.module.css';
 
 function Dashboard() {
   return (
-    <div className={`w-full h-screen font-mukta overflow-y-auto`}>
+    <div className={`w-full h-screen font-mukta overflow-y-auto ${styles.scroll}`}>
       <Navbar />
       <div
         className="relative left-0 right-0 bottom-0 top-14 md:top-20"
