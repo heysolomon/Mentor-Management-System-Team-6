@@ -2,5 +2,5 @@
   "prettier.singleQuote": true,
   "prettier.singleAttributePerLine": true,
   "prettier.bracketSpacing": true,
-  "prettier.jsxSingleQuote": true
+  "prettier.jsxSingleQuote": false
 }
