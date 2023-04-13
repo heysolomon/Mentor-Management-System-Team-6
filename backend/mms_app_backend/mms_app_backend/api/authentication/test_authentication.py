@@ -3,7 +3,7 @@ from typing import TypedDict
 from fastapi import status
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
-
+from.helpers import verify_password
 from backend.mms_app_backend.main import app
 from .constants import ACCOUNT_CREATED_MESSAGE
 from .models import User
@@ -85,4 +85,16 @@ def test_unique_email():
         session.commit()
 
 def test_encrypted_password():
-    pass
+    post_response = post('/user/signup',
+                         json=data)
+    assert post_response.json().get('success') == True
+    assert post_response.status_code == status.HTTP_201_CREATED
+    user_id: int = post_response.json().get('data').get('user').get('id')
+    successful_signup_response.data["user"]['id'] = user_id
+    assert successful_signup_response.dict() == post_response.json()
+    with Session(engine) as session:
+        password = session.query(User).filter(User.id == user_id).first().hashed_password
+        assert verify_password(data.get('password'), password)
+        session.query(User).filter(User.id == user_id).delete()
+        session.commit()
+
