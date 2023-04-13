@@ -10,6 +10,7 @@ class UserData(TypedDict):
 
 
 class CreateUserResponse(ResponseModel):
-    data: UserData | EmptyDict = {}    
+    data: UserData | EmptyDict = {}
+
 class LoginUserResponse(ResponseModel):
     data: UserData | EmptyDict = {}
