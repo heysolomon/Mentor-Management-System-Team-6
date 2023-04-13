@@ -1,5 +1,5 @@
 import os
-import jwt
+from jose import jwt
 from .constants import PASSWORD_CONTEXT
 
 from dotenv import load_dotenv

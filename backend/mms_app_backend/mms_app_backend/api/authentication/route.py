@@ -32,10 +32,11 @@ async def signup(user: UserCreate, response: Response, db: Session = Depends(get
         user_response.message = USED_USERNAME_MESSAGE
         response.status_code = status.HTTP_409_CONFLICT
         return user_response
-    user = create_user(db=db, user=user)
+    created_user = create_user(db=db, user=user)
     if user:
         user_response.success = True
-        user_response.data['user'] = user
+        user_response.data['user'] = created_user
+        user_response.data['access_token'] = create_access_token({"sub":created_user.email})
         user_response.message = ACCOUNT_CREATED_MESSAGE
     else:
         user_response.message = GENERAL_ERROR_MESSAGE
