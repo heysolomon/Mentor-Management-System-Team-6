@@ -107,3 +107,10 @@ def test_encrypted_password():
     assert "access_token" not in response.json()["data"]
     assert "user" not in response.json()["data"]
     assert response.json()["message"] == "User not found"
+    # Test case 2: Incorrect password
+    response = post("/user/login", json={"email": "user@example.com", "password": "wronpassword"})
+    assert response.status_code == 401
+    assert response.json()["success"] == False
+    assert "access_token" not in response.json()["data"]
+    assert "user" not in response.json()["data"]
+    assert response.json()["message"] == "The passwod provided is not correct"
