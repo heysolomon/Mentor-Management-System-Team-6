@@ -99,3 +99,11 @@ def test_encrypted_password():
         assert verify_password(data.get('password'), password)
         session.query(User).filter(User.id == user_id).delete()
         session.commit()
+
+    # Test case 1: User not found
+    response = post("/user/login", json={"email": "invalidemail@example.com", "password": "password"})
+    assert response.status_code == 404
+    assert response.json()["success"] == False
+    assert "access_token" not in response.json()["data"]
+    assert "user" not in response.json()["data"]
+    assert response.json()["message"] == "User not found"
