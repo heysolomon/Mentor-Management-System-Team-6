@@ -8,7 +8,6 @@ import Profile from './pages/Dashboard/Profile';
 import ErrorPage from './pages/Error/ErrorPage';
 import AuthHome from './pages/Auth/AuthHome';
 import LoginPage from './pages/Auth/LoginPage';
-import Settings from './pages/Dashboard/Settings';
 import Dashboard from './pages/Dashboard/Dashboard';
 import ForgotPassword from './pages/Auth/ForgotPassword';
 import SetNewPassword from './pages/Auth/SetNewPassword';
@@ -90,7 +89,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'settings',
-        element: <Settings />,
+        element: 'Settings page',
       },
     ],
   },
