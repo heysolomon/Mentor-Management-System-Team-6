@@ -1,12 +1,12 @@
-
+import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 
-if __name__ == "main":
+# Conditional import due to pytest which imports tests as external packages.
+if __name__ == "__main__":
     from mms_app_backend.api.authentication.route import router as auth_router
 else:
     from .mms_app_backend.api.authentication.route import router as auth_router
-
 
 app = FastAPI()
 app.include_router(auth_router)
@@ -15,10 +15,14 @@ post = app.post
 
 
 @get('/')
-def homepage():
+async def homepage():
     """
     This is the api's home page.
-    :return:
-
+    It currently redirects to the swagger docs.
     """
     return RedirectResponse('/redoc')
+
+
+# Server should not run when called by pytest
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)

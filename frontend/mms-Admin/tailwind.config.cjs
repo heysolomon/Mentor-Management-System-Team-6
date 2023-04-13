@@ -19,6 +19,7 @@ export default {
         pri8: '#9CF6FC',
         pri9: '#CEFAFD',
         pri10: '#E6FDFE',
+        pri11: '#F7FEFF',
         // secondary variants
         sec1: '#660007',
         sec2: '#99000A',
@@ -39,6 +40,9 @@ export default {
         black8: '#CCCCCC',
         black9: '#E6E6E6',
         black10: '#F2F2F2',
+      },
+      gridTemplateColumns: {
+        task: '12.5% repeat(3, 1fr)',
       },
     },
   },

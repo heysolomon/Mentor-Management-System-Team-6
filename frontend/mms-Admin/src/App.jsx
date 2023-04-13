@@ -5,6 +5,8 @@ import AuthHome from './pages/Auth/AuthHome';
 import ForgotPassword from './pages/Auth/ForgotPassword';
 import LoginPage from './pages/Auth/LoginPage';
 import SetNewPassword from './pages/Auth/SetNewPassword';
+import Dashboard from './pages/Dashboard/Dashboard';
+import DashboardHome from './pages/Dashboard/DashboardHome';
 import ErrorPage from './pages/Error/ErrorPage';
 import SplashScreen from './pages/SplashScreen/SplashScreen';
 import { stopLoader } from './redux/features/splashSlice';
@@ -31,6 +33,61 @@ const router = createBrowserRouter([
       {
         path: 'set-new-password',
         element: <SetNewPassword />,
+      },
+    ],
+  },
+  {
+    path: '/admin-dashboard',
+    element: <Dashboard />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: '',
+        element: <DashboardHome />,
+      },
+      {
+        path: 'profile',
+        element: 'this is the profile',
+      },
+      {
+        path: 'programs',
+        element: 'this is the programs',
+      },
+      {
+        path: 'tasks',
+        element: 'this is the tasks',
+      },
+      {
+        path: 'reports',
+        element: 'this is the reports',
+      },
+      {
+        path: 'mentors',
+        element: 'this is the mentors',
+      },
+      {
+        path: 'mentor-managers',
+        element: 'this is the mentor-managers',
+      },
+      {
+        path: 'approval-requests',
+        element: 'this is the approval-requests',
+      },
+      {
+        path: 'certificates',
+        element: 'this is the certificates',
+      },
+      {
+        path: 'messages',
+        element: 'this is the messages',
+      },
+      {
+        path: 'discussion-forum',
+        element: 'this is the discussion-forum',
+      },
+      {
+        path: 'settings',
+        element: 'this is the settings',
       },
     ],
   },
