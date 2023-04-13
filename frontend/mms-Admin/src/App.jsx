@@ -1,15 +1,17 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import AuthHome from './pages/Auth/AuthHome';
-import ForgotPassword from './pages/Auth/ForgotPassword';
-import LoginPage from './pages/Auth/LoginPage';
-import SetNewPassword from './pages/Auth/SetNewPassword';
-import Dashboard from './pages/Dashboard/Dashboard';
-import DashboardHome from './pages/Dashboard/DashboardHome';
-import ErrorPage from './pages/Error/ErrorPage';
 import SplashScreen from './pages/SplashScreen/SplashScreen';
 import { stopLoader } from './redux/features/splashSlice';
+
+import Profile from './pages/Dashboard/Profile';
+import ErrorPage from './pages/Error/ErrorPage';
+import AuthHome from './pages/Auth/AuthHome';
+import LoginPage from './pages/Auth/LoginPage';
+import Dashboard from './pages/Dashboard/Dashboard';
+import ForgotPassword from './pages/Auth/ForgotPassword';
+import SetNewPassword from './pages/Auth/SetNewPassword';
+import DashboardHome from './pages/Dashboard/DashboardHome';
 
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
@@ -47,7 +49,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: 'this is the profile',
+        element: <Profile />,
       },
       {
         path: 'programs',
@@ -87,7 +89,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'settings',
-        element: 'this is the settings',
+        element: 'Settings page',
       },
     ],
   },
