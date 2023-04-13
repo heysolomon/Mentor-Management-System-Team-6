@@ -6,6 +6,7 @@ import ForgotPassword from "./pages/Auth/ForgotPassword";
 import LoginPage from "./pages/Auth/LoginPage";
 import SetNewPassword from "./pages/Auth/SetNewPassword";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import DashboardHome from "./pages/Dashboard/DashboardHome";
 import ErrorPage from "./pages/Error/ErrorPage";
 import SplashScreen from "./pages/SplashScreen/SplashScreen";
 import { stopLoader } from "./redux/features/splashSlice";
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: "this is the dashboard",
+        element: <DashboardHome />,
       },
       {
         path: "profile",

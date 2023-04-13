@@ -1,4 +1,6 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import {
   CertificateIcon,
@@ -14,6 +16,7 @@ import {
   TaskIcon,
   UserSquare,
 } from '../../assets/images';
+import { closeSidebar } from '../../redux/features/sidebarSlice';
 
 function Sidebar() {
   const sidebarItems = [
@@ -90,35 +93,127 @@ function Sidebar() {
       icon: <SettingsIcon color="#808080" />,
     },
   ];
+
+  const open = useSelector((state) => state.sidebar.isOpen);
+  const dispatch = useDispatch();
+
+  // animation variants for the mobile sidebar menu
+  const slide = {
+    hidden: {
+      width: 0,
+      transition: {
+        staggerChildren: 0.2,
+        staggerDirection: -1,
+        duration: 1,
+      },
+    },
+    visible: {
+      width: '20%',
+      transition: {
+        staggerChildren: 0.2,
+        staggerDirection: 1,
+      },
+    },
+    exit: {
+      width: 0,
+      transition: {
+        staggerChildren: 0.2,
+        staggerDirection: -1,
+      },
+    },
+  };
+
   return (
-    <nav className="fixed left-0 w-[20%] bg-pri11 hidden md:flex flex-col items-center">
-      <div className="w-[70%] mx-auto">
-        <div className="mt-[20px] mb-[15px]">
-          <h3 className="font-[700] text-black1 text-[20px]">Hi, Kabiru</h3>
-          <p className="font-[400] text-black5 text-[16px]">Admin</p>
+    <>
+      {/* desktop navigation */}
+      <nav className="fixed left-0 w-[20%] bg-pri11 hidden md:flex flex-col items-center">
+        <div className="w-[70%] mx-auto">
+          <div className="mt-[20px] mb-[15px]">
+            <h3 className="font-[700] text-black1 text-[20px]">Hi, Kabiru</h3>
+            <p className="font-[400] text-black5 text-[16px]">Admin</p>
+          </div>
+          <ul className="h-full font-mukta text-[16px]">
+            {sidebarItems.map(({
+              id, name, link, icon,
+            }) => (
+              <li className="hover:scale-90 duration-500" key={id}>
+                <NavLink
+                  to={link}
+                  className="flex items-center w-full duration-700 py-[8px]"
+                  style={({ isActive }) => ({
+                    color: isActive ? '#333333' : '#808080',
+                    fontWeight: isActive ? '700' : '400',
+                  })}
+                  end
+                >
+                  {icon}
+                  <span className="ml-4">{name}</span>
+                </NavLink>
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul className="h-full font-mukta text-[16px]">
-          {sidebarItems.map(({
-            id, name, link, icon,
-          }) => (
-            <li className="hover:scale-90 duration-500" key={id}>
-              <NavLink
-                to={link}
-                className="flex items-center w-full duration-700 py-[8px]"
-                style={({ isActive }) => ({
-                  color: isActive ? '#333333' : '#808080',
-                  fontWeight: isActive ? '700' : '400',
-                })}
-                end
-              >
-                {icon}
-                <span className="ml-4">{name}</span>
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </nav>
+      </nav>
+
+      {/* mobile navigation
+       ** if the user is on a mobile screen, this will be the sidebar that will be rendered
+       */}
+      <AnimatePresence
+        // Disable any initial animations on children that
+        // are present when the component is first rendered
+        initial={false}
+        mode="wait"
+        // Fires when all exiting nodes have completed animating out
+        onExitComplete={() => null}
+      >
+        {open && (
+          <motion.div
+            className="fixed w-screen h-screen z-[70] bg-[rgba(0,0,0,0.7)]"
+            aria-hidden="true"
+            onClick={() => dispatch(closeSidebar())}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.nav
+              className="absolute left-0 top-0 w-[70%] h-full bg-pri11 flex flex-col items-center md:hidden"
+              aria-hidden="true"
+              variants={slide}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <motion.div className="w-[70%] mx-auto">
+                <div className="mt-[20px] mb-[15px]">
+                  <h3 className="font-[700] text-black1 text-[20px]">
+                    Hi, Kabiru
+                  </h3>
+                  <p className="font-[400] text-black5 text-[16px]">Admin</p>
+                </div>
+                <ul className="h-full font-mukta text-[16px]">
+                  {sidebarItems.map(({
+                    id, name, link, icon,
+                  }) => (
+                    <li className="hover:scale-90 duration-500" key={id}>
+                      <NavLink
+                        to={link}
+                        className="flex items-center w-full duration-700 py-[8px]"
+                        style={({ isActive }) => ({
+                          color: isActive ? '#333333' : '#808080',
+                          fontWeight: isActive ? '700' : '400',
+                        })}
+                        end
+                      >
+                        {icon}
+                        <span className="ml-4">{name}</span>
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </motion.nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
