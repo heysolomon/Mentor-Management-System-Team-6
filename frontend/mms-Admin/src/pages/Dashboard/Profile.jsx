@@ -1,14 +1,14 @@
-import React from "react";
-import AvatarImg from "../../assets/avatar.svg";
-import email from "../../assets/profile_assets/email.png";
-import globe from "../../assets/profile_assets/globe.png";
-import twitter from "../../assets/profile_assets/twitter.png";
-import github from "../../assets/profile_assets/github.png";
-import country from "../../assets/profile_assets/country.svg";
-import linkedin from "../../assets/profile_assets/linkedin.png";
-import location from "../../assets/profile_assets/location.png";
-import calendar from "../../assets/profile_assets/calendar.png";
-import instagram from "../../assets/profile_assets/instagram.png";
+import React from 'react';
+import AvatarImg from '../../assets/avatar.svg';
+import email from '../../assets/profile_assets/email.png';
+import globe from '../../assets/profile_assets/globe.png';
+import twitter from '../../assets/profile_assets/twitter.png';
+import github from '../../assets/profile_assets/github.png';
+import country from '../../assets/profile_assets/country.svg';
+import linkedin from '../../assets/profile_assets/linkedin.png';
+import location from '../../assets/profile_assets/location.png';
+import calendar from '../../assets/profile_assets/calendar.png';
+import instagram from '../../assets/profile_assets/instagram.png';
 
 const Profile = () => {
   return (
