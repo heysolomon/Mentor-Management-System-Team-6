@@ -10,7 +10,7 @@ function FormikForm({ children, initialValues, validationSchema, ...props }) {
         validationSchema={validationSchema}
       >
         {() => (
-          <Form className="flex justify-center items-center flex-col">
+          <Form className='flex justify-center items-center flex-col'>
             {children}
           </Form>
         )}
