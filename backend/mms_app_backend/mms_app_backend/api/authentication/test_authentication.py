@@ -29,7 +29,8 @@ userbase = {
     "is_active": True,
 }
 user_success_data: UserData = {
-    "user": User(**userbase)
+    "user": User(**userbase),
+    "access_token": "token",
 }
 
 successful_signup_response: CreateUserResponse = CreateUserResponse(success=True, message=ACCOUNT_CREATED_MESSAGE,
@@ -58,7 +59,7 @@ def test_user_signup():
     assert post_response.json().get('success') == True
     assert post_response.status_code == status.HTTP_201_CREATED
     user_id: int = post_response.json().get('data').get('user').get('id')
-    successful_signup_response.data["user"]['id'] = user_id
+    successful_signup_response.data.user.id = user_id
     assert successful_signup_response.dict() == post_response.json()
     with Session(engine) as session:
         session.query(User).filter(User.id == user_id).delete()
