@@ -1,5 +1,5 @@
-import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import {
@@ -42,25 +42,45 @@ function Sidebar() {
       id: 4,
       name: 'Tasks',
       link: 'tasks',
-      icon: <TaskIcon styling="w-[23px] h-[24px]" color="#808080" />,
+      icon: (
+        <TaskIcon
+          styling="w-[23px] h-[24px]"
+          color="#808080"
+        />
+      ),
     },
     {
       id: 5,
       name: 'Reports',
       link: 'reports',
-      icon: <ReportIcon styling="w-[24px]" color="#808080" />,
+      icon: (
+        <ReportIcon
+          styling="w-[24px]"
+          color="#808080"
+        />
+      ),
     },
     {
       id: 6,
       name: 'Mentors',
       link: 'mentors',
-      icon: <MentorIcon styling="w-[24px]" color="#808080" />,
+      icon: (
+        <MentorIcon
+          styling="w-[24px]"
+          color="#808080"
+        />
+      ),
     },
     {
       id: 7,
       name: 'Mentor Managers',
       link: 'mentor-managers',
-      icon: <MentorManagerIcon styling="w-[24px]" color="#808080" />,
+      icon: (
+        <MentorManagerIcon
+          styling="w-[24px]"
+          color="#808080"
+        />
+      ),
     },
     {
       id: 8,
@@ -134,7 +154,10 @@ function Sidebar() {
           </div>
           <ul className="h-full font-mukta text-[16px]">
             {sidebarItems.map(({ id, name, link, icon }) => (
-              <li className="hover:scale-90 duration-500" key={id}>
+              <li
+                className="hover:scale-90 duration-500"
+                key={id}
+              >
                 <NavLink
                   to={link}
                   className="flex items-center w-full duration-700 py-[8px]"
@@ -188,7 +211,10 @@ function Sidebar() {
                 </div>
                 <ul className="h-full font-mukta text-[16px]">
                   {sidebarItems.map(({ id, name, link, icon }) => (
-                    <li className="hover:scale-90 duration-500" key={id}>
+                    <li
+                      className="hover:scale-90 duration-500"
+                      key={id}
+                    >
                       <NavLink
                         to={link}
                         className="flex items-center w-full duration-700 py-[8px]"
