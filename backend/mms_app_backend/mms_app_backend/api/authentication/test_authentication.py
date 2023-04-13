@@ -58,7 +58,7 @@ def test_user_signup():
                          json=data)
     assert post_response.json().get('success') == True
     assert post_response.status_code == status.HTTP_201_CREATED
-    user_id: int = int(post_response.json().get('data').get('user').get('id'))
+    user_id: int = post_response.json().get('data').get('user').get('id')
     successful_signup_response.data["user"]['id'] = user_id
     assert successful_signup_response.dict() == post_response.json()
     with Session(engine) as session:
@@ -67,12 +67,22 @@ def test_user_signup():
 
 
 def test_unique_email():
-    pass
+    response = post('/user/signup',
+                    json=data)
+    user_email: str = response.json().get('data').get('user').get('email')
+    user_id: int = response.json().get('data').get('user').get('id')
+    with Session(engine) as session:
+        query = session.query(User).filter(User.email == user_email)
+        assert query.count() == 1
 
+    new_data = data.copy()
+    new_data['username'] = "second name"
+    response = post('/user/signup', json=new_data)
+    assert response.status_code == status.HTTP_409_CONFLICT
+    assert response.json().get('success') == False
+    with Session(engine) as session:
+        session.query(User).filter(User.id == user_id).delete()
+        session.commit()
 
 def test_encrypted_password():
-    pass
-
-
-def test_user_names():
     pass
