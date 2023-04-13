@@ -47,7 +47,6 @@ data: SignUpData = {
     "last_name": "test"
 }
 
-
 def test_signup_noget():
     get_response = get('/user/signup')
     assert get_response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
@@ -55,8 +54,7 @@ def test_signup_noget():
 
 
 def test_user_signup():
-    post_response = post('/user/signup',
-                         json=data)
+    post_response = post('/user/signup',json=data)
     assert post_response.json().get('success') == True
     assert post_response.status_code == status.HTTP_201_CREATED
     user_id: int = post_response.json().get('data').get('user').get('id')
@@ -87,8 +85,7 @@ def test_unique_email():
 
 
 def test_encrypted_password():
-    post_response = post('/user/signup',
-                         json=data)
+    post_response = post('/user/signup',json=data)
     assert post_response.json().get('success') == True
     assert post_response.status_code == status.HTTP_201_CREATED
     user_id: int = post_response.json().get('data').get('user').get('id')
@@ -100,6 +97,7 @@ def test_encrypted_password():
         session.query(User).filter(User.id == user_id).delete()
         session.commit()
 
+def test_login():
     # Test case 1: User not found
     response = post("/user/login", json={"email": "invalidemail@example.com", "password": "password"})
     assert response.status_code == 404
