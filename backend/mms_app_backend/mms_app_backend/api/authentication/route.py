@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy.orm import Session
 
-from .constants import USED_EMAIL_MESSAGE, ACCOUNT_CREATED_MESSAGE, USED_USERNAME_MESSAGE, USER_NOT_FOUND_MESSAGE,ACCESS_TOKEN_CREATED_MESSAGE, INVALID_CREDENTIALS_MESSAGE
+from .constants import USED_EMAIL_MESSAGE, ACCOUNT_CREATED_MESSAGE, USED_USERNAME_MESSAGE, USER_NOT_FOUND_MESSAGE,USER_LOGGED_IN_MESSAGE, INVALID_CREDENTIALS_MESSAGE
 from .crud import get_user_by_email, create_user, get_user_by_username
 from .responses import CreateUserResponse, LoginUserResponse
 from .helpers import verify_password, create_access_token
@@ -61,5 +61,5 @@ async def login(login_data: UserLogin, response: Response, db: Session = Depends
     user_response.success = True
     user_response.data['access_token'] = access_token
     user_response.data['user'] = db_user
-    user_response.message = ACCESS_TOKEN_CREATED_MESSAGE
+    user_response.message = USER_LOGGED_IN_MESSAGE
     return user_response
