@@ -133,9 +133,7 @@ function Sidebar() {
             <p className="font-[400] text-black5 text-[16px]">Admin</p>
           </div>
           <ul className="h-full font-mukta text-[16px]">
-            {sidebarItems.map(({
-              id, name, link, icon,
-            }) => (
+            {sidebarItems.map(({ id, name, link, icon }) => (
               <li className="hover:scale-90 duration-500" key={id}>
                 <NavLink
                   to={link}
@@ -189,9 +187,7 @@ function Sidebar() {
                   <p className="font-[400] text-black5 text-[16px]">Admin</p>
                 </div>
                 <ul className="h-full font-mukta text-[16px]">
-                  {sidebarItems.map(({
-                    id, name, link, icon,
-                  }) => (
+                  {sidebarItems.map(({ id, name, link, icon }) => (
                     <li className="hover:scale-90 duration-500" key={id}>
                       <NavLink
                         to={link}

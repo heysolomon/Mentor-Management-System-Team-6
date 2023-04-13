@@ -2,12 +2,7 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
 
-function FormikForm({
-  children,
-  initialValues,
-  validationSchema,
-  ...props
-}) {
+function FormikForm({ children, initialValues, validationSchema, ...props }) {
   return (
     <div className={props.className}>
       <Formik initialValues={initialValues} validationSchema={validationSchema}>

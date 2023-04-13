@@ -10,7 +10,7 @@ import location from '../../assets/profile_assets/location.png';
 import calendar from '../../assets/profile_assets/calendar.png';
 import instagram from '../../assets/profile_assets/instagram.png';
 
-const Profile = () => {
+function Profile() {
   return (
     <div className="mt-[20px]  pb-[100px]">
       <section className="flex justify-between items-center">
@@ -103,6 +103,6 @@ const Profile = () => {
       </section>
     </div>
   );
-};
+}
 
 export default Profile;
