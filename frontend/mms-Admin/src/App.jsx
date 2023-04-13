@@ -1,92 +1,93 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import AuthHome from './pages/Auth/AuthHome';
-import ForgotPassword from './pages/Auth/ForgotPassword';
-import LoginPage from './pages/Auth/LoginPage';
-import SetNewPassword from './pages/Auth/SetNewPassword';
-import Dashboard from './pages/Dashboard/Dashboard';
-import ErrorPage from './pages/Error/ErrorPage';
-import SplashScreen from './pages/SplashScreen/SplashScreen';
-import { stopLoader } from './redux/features/splashSlice';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AuthHome from "./pages/Auth/AuthHome";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import LoginPage from "./pages/Auth/LoginPage";
+import SetNewPassword from "./pages/Auth/SetNewPassword";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import ErrorPage from "./pages/Error/ErrorPage";
+import SplashScreen from "./pages/SplashScreen/SplashScreen";
+import { stopLoader } from "./redux/features/splashSlice";
+import Profile from "./pages/Dashboard/Profile/Profile";
 
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
   {
     // your route goes here
-    path: '/',
+    path: "/",
     // this is where you add the component of the page you are routing to
     element: <AuthHome />,
     // this is a fallback error page that appears and shows you the error of the particular route
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '',
+        path: "",
         element: <LoginPage />,
       },
       {
-        path: 'forgot-password',
+        path: "forgot-password",
         element: <ForgotPassword />,
       },
       {
-        path: 'set-new-password',
+        path: "set-new-password",
         element: <SetNewPassword />,
       },
     ],
   },
   {
-    path: '/admin-dashboard',
+    path: "/admin-dashboard",
     element: <Dashboard />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '',
-        element: 'this is the dashboard',
+        path: "",
+        element: "this is the dashboard",
       },
       {
-        path: 'profile',
-        element: 'this is the profile',
+        path: "profile",
+        element: <Profile />,
       },
       {
-        path: 'programs',
-        element: 'this is the programs',
+        path: "programs",
+        element: "this is the programs",
       },
       {
-        path: 'tasks',
-        element: 'this is the tasks',
+        path: "tasks",
+        element: "this is the tasks",
       },
       {
-        path: 'reports',
-        element: 'this is the reports',
+        path: "reports",
+        element: "this is the reports",
       },
       {
-        path: 'mentors',
-        element: 'this is the mentors',
+        path: "mentors",
+        element: "this is the mentors",
       },
       {
-        path: 'mentor-managers',
-        element: 'this is the mentor-managers',
+        path: "mentor-managers",
+        element: "this is the mentor-managers",
       },
       {
-        path: 'approval-requests',
-        element: 'this is the approval-requests',
+        path: "approval-requests",
+        element: "this is the approval-requests",
       },
       {
-        path: 'certificates',
-        element: 'this is the certificates',
+        path: "certificates",
+        element: "this is the certificates",
       },
       {
-        path: 'messages',
-        element: 'this is the messages',
+        path: "messages",
+        element: "this is the messages",
       },
       {
-        path: 'discussion-forum',
-        element: 'this is the discussion-forum',
+        path: "discussion-forum",
+        element: "this is the discussion-forum",
       },
       {
-        path: 'settings',
-        element: 'this is the settings',
+        path: "settings",
+        element: "this is the settings",
       },
     ],
   },
