@@ -1,6 +1,5 @@
-from fastapi import APIRouter, Depends, Response, status, HTTPException
+from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy.orm import Session
-import json
 
 from .constants import USED_EMAIL_MESSAGE, ACCOUNT_CREATED_MESSAGE, USED_USERNAME_MESSAGE, USER_NOT_FOUND_MESSAGE,ACCESS_TOKEN_CREATED_MESSAGE, INVALID_CREDENTIALS_MESSAGE
 from .crud import get_user_by_email, create_user, get_user_by_username

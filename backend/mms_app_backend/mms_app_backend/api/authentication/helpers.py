@@ -1,6 +1,5 @@
 import os
 import jwt
-import asyncio
 from .constants import PASSWORD_CONTEXT
 
 from dotenv import load_dotenv

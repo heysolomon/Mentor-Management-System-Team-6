@@ -12,5 +12,6 @@ class UserData(TypedDict):
 class CreateUserResponse(ResponseModel):
     data: UserData | EmptyDict = {}
     
+    
 class LoginUserResponse(ResponseModel):
     data: UserData | EmptyDict = {}
