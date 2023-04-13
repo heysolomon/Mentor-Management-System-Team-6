@@ -53,7 +53,6 @@ async def login(login_data: UserLogin, response: Response, db: Session = Depends
         user_response.message = USER_NOT_FOUND_MESSAGE
         response.status_code = status.HTTP_404_NOT_FOUND
         return user_response
-    
     if not verify_password(login_data.password, db_user.hashed_password):
         user_response.message = INVALID_CREDENTIALS_MESSAGE
         response.status_code = status.HTTP_401_UNAUTHORIZED
