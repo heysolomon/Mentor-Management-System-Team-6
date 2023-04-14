@@ -10,12 +10,12 @@ from ..utils import ResponseModel
 
 
 class UserData(BaseModel):
-    user: User
-    access_token: str
+    user: User | None
+    access_token: str | None
 
 
 class CreateUserResponse(ResponseModel):
-    data: UserData | EmptyDict = {}
+    data: UserData = UserData()
 
 
 class LoginUserResponse(ResponseModel):

@@ -3,14 +3,18 @@ from typing import TypedDict
 from fastapi import status
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
-
+from .schemas import User
 from .constants import ACCOUNT_CREATED_MESSAGE
 from .helpers import verify_password
-from .models import User
+from .models import User as UserModel
 from .responses import CreateUserResponse, UserData
 from ...configs.database_config import engine
 from ....main import app
 
+def user_from_test(user:UserModel,user_id:int)->None:
+    with Session(engine) as session:
+        session.query(User).filter(UserModel.id == user_id).delete()
+        session.commit()
 
 class SignUpData(TypedDict):
     username: str
@@ -28,10 +32,7 @@ userbase = {
     "last_name": "test",
     "is_active": True,
 }
-user_success_data: UserData = {
-    "user": User(**userbase),
-    "access_token": "token",
-}
+user_success_data: UserData  = UserData(user = User(**userbase))
 
 successful_signup_response: CreateUserResponse = CreateUserResponse(success=True, message=ACCOUNT_CREATED_MESSAGE,
                                                                     data=user_success_data)
@@ -59,11 +60,11 @@ def test_user_signup():
     assert post_response.json().get('success') == True
     assert post_response.status_code == status.HTTP_201_CREATED
     user_id: int = post_response.json().get('data').get('user').get('id')
+    access_token = post_response.json().get('data').get('access_token')
     successful_signup_response.data.user.id = user_id
+    successful_signup_response.data.access_token = access_token
     assert successful_signup_response.dict() == post_response.json()
-    with Session(engine) as session:
-        session.query(User).filter(User.id == user_id).delete()
-        session.commit()
+
 
 
 def test_unique_email():
@@ -90,7 +91,7 @@ def test_encrypted_password():
     assert post_response.json().get('success') == True
     assert post_response.status_code == status.HTTP_201_CREATED
     user_id: int = post_response.json().get('data').get('user').get('id')
-    successful_signup_response.data["user"]['id'] = user_id
+    successful_signup_response.data.user.id = user_id
     assert successful_signup_response.dict() == post_response.json()
     with Session(engine) as session:
         password = session.query(User).filter(User.id == user_id).first().hashed_password

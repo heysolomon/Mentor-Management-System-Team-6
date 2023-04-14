@@ -33,7 +33,7 @@ async def signup(user: UserCreate, response: Response, db: Session = Depends(get
         response.status_code = status.HTTP_409_CONFLICT
         return user_response
     created_user = create_user(db=db, user=user)
-    if user:
+    if created_user:
         user_response.success = True
         user_response.data.user = created_user
         user_response.data.access_token = create_access_token({"sub":created_user.email})
