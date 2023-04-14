@@ -121,6 +121,7 @@ def test_login():
     assert response.json().get('data').get('user') is None
     assert response.json()["message"] == "User not found"
     # Test case 2: Incorrect password
+    #Create a new user before testing this case.
     response = post("/user/login", json={"email": "user@example.com", "password": "wronpassword"})
     assert response.status_code == 401
     assert response.json()["success"] == False
