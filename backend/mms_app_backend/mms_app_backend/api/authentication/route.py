@@ -10,8 +10,6 @@ from .schemas import UserCreate, UserLogin
 from ..constants import GENERAL_ERROR_MESSAGE
 from ..utils import get_db
 
-
-
 router = APIRouter()
 post = router.post
 
