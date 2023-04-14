@@ -1,10 +1,11 @@
 from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy.orm import Session
 
-from .constants import USED_EMAIL_MESSAGE, ACCOUNT_CREATED_MESSAGE, USED_USERNAME_MESSAGE, USER_NOT_FOUND_MESSAGE,USER_LOGGED_IN_MESSAGE, INVALID_CREDENTIALS_MESSAGE
+from .constants import USED_EMAIL_MESSAGE, ACCOUNT_CREATED_MESSAGE, USED_USERNAME_MESSAGE, USER_NOT_FOUND_MESSAGE, \
+    USER_LOGGED_IN_MESSAGE, INVALID_CREDENTIALS_MESSAGE
 from .crud import get_user_by_email, create_user, get_user_by_username
-from .responses import CreateUserResponse, LoginUserResponse
 from .helpers import verify_password, create_access_token
+from .responses import CreateUserResponse, LoginUserResponse
 from .schemas import UserCreate, UserLogin
 from ..constants import GENERAL_ERROR_MESSAGE
 from ..utils import get_db
@@ -21,14 +22,18 @@ async def signup(user: UserCreate, response: Response, db: Session = Depends(get
     This endpoint validates the user email and creates and bcrypt encrypted password.
     This helps the user get started on the platform.
     """
+    # The response for the signup request
     user_response = CreateUserResponse()
-    db_user = get_user_by_email(db, email=user.email)
-    if db_user:
+    # A check is a user with email exists
+    email_exists = get_user_by_email(db, email=user.email)
+
+    if email_exists:
         user_response.message = USED_EMAIL_MESSAGE
         response.status_code = status.HTTP_409_CONFLICT
         return user_response
-    db_user = get_user_by_username(db, username=user.username)
-    if db_user:
+    # A check is a user with username exists
+    username_exists = get_user_by_username(db, username=user.username)
+    if username_exists:
         user_response.message = USED_USERNAME_MESSAGE
         response.status_code = status.HTTP_409_CONFLICT
         return user_response
@@ -36,12 +41,13 @@ async def signup(user: UserCreate, response: Response, db: Session = Depends(get
     if created_user:
         user_response.success = True
         user_response.data.user = created_user
-        user_response.data.access_token = create_access_token({"sub":created_user.email})
+        user_response.data.access_token = create_access_token({"sub": created_user.email})
         user_response.message = ACCOUNT_CREATED_MESSAGE
     else:
         user_response.message = GENERAL_ERROR_MESSAGE
         response.status_code = status.HTTP_400_BAD_REQUEST
     return user_response
+
 
 @post("/user/login", response_model=LoginUserResponse, status_code=status.HTTP_200_OK)
 async def login(login_data: UserLogin, response: Response, db: Session = Depends(get_db)) -> LoginUserResponse:

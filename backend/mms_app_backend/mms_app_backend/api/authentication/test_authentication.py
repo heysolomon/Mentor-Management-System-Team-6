@@ -3,18 +3,21 @@ from typing import TypedDict
 from fastapi import status
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
-from .schemas import User
+
 from .constants import ACCOUNT_CREATED_MESSAGE
 from .helpers import verify_password
 from .models import User as UserModel
 from .responses import CreateUserResponse, UserData
+from .schemas import User
 from ...configs.database_config import engine
 from ....main import app
 
-def delete_test_user(user_id:int)->None:
+
+def delete_test_user(user_id: int) -> None:
     with Session(engine) as session:
         session.query(UserModel).filter(UserModel.id == user_id).delete()
         session.commit()
+
 
 class SignUpData(TypedDict):
     username: str
@@ -32,7 +35,7 @@ userbase = {
     "last_name": "test",
     "is_active": True,
 }
-user_success_data: UserData  = UserData(user = User(**userbase))
+user_success_data: UserData = UserData(user=User(**userbase))
 
 successful_signup_response: CreateUserResponse = CreateUserResponse(success=True, message=ACCOUNT_CREATED_MESSAGE,
                                                                     data=user_success_data)
@@ -49,6 +52,7 @@ data: SignUpData = {
     "last_name": "test"
 }
 
+
 def test_signup_noget():
     get_response = get('/user/signup')
     assert get_response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
@@ -56,9 +60,9 @@ def test_signup_noget():
 
 
 def test_user_signup():
-    user_id:int =int()
+    user_id: int = int()
     try:
-        post_response = post('/user/signup',json=data)
+        post_response = post('/user/signup', json=data)
         user_id = post_response.json().get('data').get('user').get('id')
         assert post_response.json().get('success') == True
         assert post_response.status_code == status.HTTP_201_CREATED
@@ -72,7 +76,7 @@ def test_user_signup():
 
 
 def test_unique_email():
-    user_id:int = int()
+    user_id: int = int()
     try:
         response = post('/user/signup',
                         json=data)
@@ -95,10 +99,11 @@ def test_unique_email():
     except AssertionError:
         delete_test_user(user_id)
 
+
 def test_encrypted_password():
-    user_id:int = int()
+    user_id: int = int()
     try:
-        post_response = post('/user/signup',json=data)
+        post_response = post('/user/signup', json=data)
         assert post_response.json().get('success') == True
         assert post_response.status_code == status.HTTP_201_CREATED
         user_id = post_response.json().get('data').get('user').get('id')
@@ -112,6 +117,7 @@ def test_encrypted_password():
     except AssertionError:
         delete_test_user(user_id)
 
+
 def test_login():
     # Test case 1: User not found
     response = post("/user/login", json={"email": "invalidemail@example.com", "password": "password"})
@@ -121,7 +127,8 @@ def test_login():
     assert response.json().get('data').get('user') is None
     assert response.json()["message"] == "User not found"
     # Test case 2: Incorrect password
-    #Create a new user before testing this case.
+    # Create a new user before testing this case.
+    # This case requires a valid email address
     response = post("/user/login", json={"email": "user@example.com", "password": "wronpassword"})
     assert response.status_code == 401
     assert response.json()["success"] == False
@@ -129,6 +136,7 @@ def test_login():
     assert "user" not in response.json()["data"]
     assert response.json()["message"] == "The passwod provided is not correct"
     # Test case 1: Successful login
+    #Test case requires a valid user in login
     response = client.post("/user/login", json={"email": "user@example.com", "password": "string"})
     assert response.status_code == 200
     assert response.json()["success"] == True
