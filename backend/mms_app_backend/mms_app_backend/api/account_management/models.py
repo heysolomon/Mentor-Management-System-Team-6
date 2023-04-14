@@ -44,6 +44,13 @@ class Mentor(AbstractBaseModel):
     __tablename__ ='mentors'
     about  = Column(Text)
     profile = relationship("Profile",back_populates='mentors')
-    profile_id = Column(Integer,ForeignKey('profile'))
+    profile_id = Column(Integer,ForeignKey('profiles.id'))
+    program = relationship("Program",back_populates='mentors')
+    program_id = Column(Integer,ForeignKey('programs.id'))
     bio = Column(Text)
+    expertise = Column(String)
+    roles = Column
+
+class MentorManager(AbstractBaseModel)
+
 
