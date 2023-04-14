@@ -1,7 +1,3 @@
-from ..utils import EmptyDict
-from .schemas import User
-from ..utils import ResponseModel
-from pydantic import BaseModel
 from pydantic import BaseModel
 
 from .schemas import User
