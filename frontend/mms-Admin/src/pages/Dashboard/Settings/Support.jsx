@@ -30,7 +30,7 @@ function Support() {
             rows="6"
             placeholder="Body"
             className="placeholder:text-black6 placeholder: block w-full border border-slate-300 rounded-md my-6 py-3 pl-3 pr-3 focus:outline-none focus:border-pri3 focus:ring-pri3 focus:ring-1"
-          ></textarea>
+          />
 
           <section className="flex items-center justify-between mt-[30px]">
             <img
