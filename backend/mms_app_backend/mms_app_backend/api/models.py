@@ -7,7 +7,7 @@ class AbstractBaseModel(Base):
 
     @declared_attr
     def id(cls):
-        return Column(Integer, primary_key=True)
+        return Column(Integer, primary_key=True,index=True)
 
     @declared_attr
     def created_at(cls):

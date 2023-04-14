@@ -6,8 +6,6 @@ from ..models import AbstractBaseModel
 
 class User(AbstractBaseModel):
     __tablename__ = "users"
-
-    id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True)
     first_name = Column(String)
     last_name = Column(String)
