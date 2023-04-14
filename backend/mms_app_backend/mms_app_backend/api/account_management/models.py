@@ -1,12 +1,20 @@
-from sqlalchemy import Column, Integer, Text
+from sqlalchemy import Column, Integer, Text,String,ForeignKey
 from sqlalchemy_utils import URLType
-
+from sqlalchemy.orm import relationship
 from ..models import AbstractBaseModel
 
-
+# Profile model containing the user's profile data '
 class Profile(AbstractBaseModel):
     __tablename__ = 'profiles'
-    id = Column(Integer, primary_key=True)
     profile_picture = Column(URLType)
     about = Column(Text)
     website = Column(URLType)
+    relationship("SocialLink",back_populates='profiles')
+# Social Link model containing the user's social link data e.g github link'
+class SocialLink(AbstractBaseModel):
+    __tablename__ ='social_links'
+    profile_id = Column(Integer, ForeignKey('profile.id'))
+    url = Column(URLType)
+    name = Column(String)
+    profile = relationship("Profile",back_populates='social_links')
+
