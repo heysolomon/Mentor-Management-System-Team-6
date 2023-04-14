@@ -44,7 +44,7 @@ async def signup(user: UserCreate, response: Response, db: Session = Depends(get
     return user_response
 
 @post("/user/login", response_model=LoginUserResponse, status_code=status.HTTP_200_OK)
-async def login(login_data: UserLogin, response: Response, db: Session = Depends(get_db)) -> Response:
+async def login(login_data: UserLogin, response: Response, db: Session = Depends(get_db)) -> LoginUserResponse:
     """
     This endpoint checks the user credentials and returns a JWT token for authenticated requests.
     """
