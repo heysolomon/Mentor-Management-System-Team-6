@@ -66,7 +66,7 @@ async def login(login_data: UserLogin, response: Response, db: Session = Depends
         return user_response
     access_token = create_access_token(data={"sub": db_user.email})
     user_response.success = True
-    user_response.data['access_token'] = access_token
-    user_response.data['user'] = db_user
+    user_response.data.access_token = access_token
+    user_response.data.user = db_user
     user_response.message = USER_LOGGED_IN_MESSAGE
     return user_response
