@@ -49,8 +49,22 @@ class Mentor(AbstractBaseModel):
     program_id = Column(Integer,ForeignKey('programs.id'))
     bio = Column(Text)
     expertise = Column(String)
-    roles = Column
+    # roles yet to be defined
+    roles = Column(String)
 
-class MentorManager(AbstractBaseModel)
+class MentorManager(AbstractBaseModel):
+    profile = relationship("Profile", back_populates='mentors')
+    profile_id = Column(Integer, ForeignKey('profiles.id'))
+    program = relationship("Program", back_populates='mentors')
+    program_id = Column(Integer, ForeignKey('programs.id'))
+    # roles yet to be defined
+    roles = Column(String)
+
+class Criterion(AbstractBaseModel):
+    __tablename__ = 'criteria'
+    title = Column(String)
+    program = relationship("Program", back_populates='criteria')
+    program_id = Column(Integer, ForeignKey('programs.id'))
+    description = Column(Text)
 
 
