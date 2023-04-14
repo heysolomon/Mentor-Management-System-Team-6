@@ -94,7 +94,7 @@ const router = createBrowserRouter([
         element: <SettingsHome />,
         children: [
           {
-            path: 'general',
+            path: '',
             element: 'this is the general settings',
           },
           {

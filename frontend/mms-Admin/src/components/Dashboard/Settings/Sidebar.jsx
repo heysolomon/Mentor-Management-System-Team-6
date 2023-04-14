@@ -6,7 +6,7 @@ function Sidebar() {
     {
       id: 1,
       name: 'General',
-      link: 'general',
+      link: '',
     },
     {
       id: 2,
