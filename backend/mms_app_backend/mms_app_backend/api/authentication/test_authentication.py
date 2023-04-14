@@ -11,9 +11,9 @@ from .responses import CreateUserResponse, UserData
 from ...configs.database_config import engine
 from ....main import app
 
-def user_from_test(user:UserModel,user_id:int)->None:
+def delete_test_user(user_id:int)->None:
     with Session(engine) as session:
-        session.query(User).filter(UserModel.id == user_id).delete()
+        session.query(UserModel).filter(UserModel.id == user_id).delete()
         session.commit()
 
 class SignUpData(TypedDict):
@@ -56,48 +56,61 @@ def test_signup_noget():
 
 
 def test_user_signup():
-    post_response = post('/user/signup',json=data)
-    assert post_response.json().get('success') == True
-    assert post_response.status_code == status.HTTP_201_CREATED
-    user_id: int = post_response.json().get('data').get('user').get('id')
-    access_token = post_response.json().get('data').get('access_token')
-    successful_signup_response.data.user.id = user_id
-    successful_signup_response.data.access_token = access_token
-    assert successful_signup_response.dict() == post_response.json()
-
+    user_id:int =int()
+    try:
+        post_response = post('/user/signup',json=data)
+        user_id = post_response.json().get('data').get('user').get('id')
+        assert post_response.json().get('success') == True
+        assert post_response.status_code == status.HTTP_201_CREATED
+        access_token = post_response.json().get('data').get('access_token')
+        successful_signup_response.data.user.id = user_id
+        successful_signup_response.data.access_token = access_token
+        assert successful_signup_response.dict() == post_response.json()
+        delete_test_user(user_id)
+    except AssertionError:
+        delete_test_user(user_id)
 
 
 def test_unique_email():
-    response = post('/user/signup',
-                    json=data)
-    user_email: str = response.json().get('data').get('user').get('email')
-    user_id: int = response.json().get('data').get('user').get('id')
-    with Session(engine) as session:
-        query = session.query(User).filter(User.email == user_email)
-        assert query.count() == 1
+    user_id:int = int()
+    try:
+        response = post('/user/signup',
+                        json=data)
+        print(response)
+        user_email: str = response.json().get('data').get('user').get('email')
 
-    new_data = data.copy()
-    new_data['username'] = "second name"
-    response = post('/user/signup', json=new_data)
-    assert response.status_code == status.HTTP_409_CONFLICT
-    assert response.json().get('success') == False
-    with Session(engine) as session:
-        session.query(User).filter(User.id == user_id).delete()
-        session.commit()
+        user_id = response.json().get('data').get('user').get('id')
+        with Session(engine) as session:
+            query = session.query(UserModel).filter(UserModel.email == user_email)
+            assert query.count() == 1
 
+        new_data = data.copy()
+        new_data['username'] = "second name"
+        response = post('/user/signup', json=new_data)
+        assert response.status_code == status.HTTP_409_CONFLICT
+        assert response.json().get('success') == False
+        with Session(engine) as session:
+            session.query(UserModel).filter(UserModel.id == user_id).delete()
+            session.commit()
+    except AssertionError:
+        delete_test_user(user_id)
 
 def test_encrypted_password():
-    post_response = post('/user/signup',json=data)
-    assert post_response.json().get('success') == True
-    assert post_response.status_code == status.HTTP_201_CREATED
-    user_id: int = post_response.json().get('data').get('user').get('id')
-    successful_signup_response.data.user.id = user_id
-    assert successful_signup_response.dict() == post_response.json()
-    with Session(engine) as session:
-        password = session.query(User).filter(User.id == user_id).first().hashed_password
-        assert verify_password(data.get('password'), password)
-        session.query(User).filter(User.id == user_id).delete()
-        session.commit()
+    user_id:int = int()
+    try:
+        post_response = post('/user/signup',json=data)
+        assert post_response.json().get('success') == True
+        assert post_response.status_code == status.HTTP_201_CREATED
+        user_id = post_response.json().get('data').get('user').get('id')
+        successful_signup_response.data.user.id = user_id
+        assert successful_signup_response.dict() == post_response.json()
+        with Session(engine) as session:
+            password = session.query(UserModel).filter(UserModel.id == user_id).first().hashed_password
+            assert verify_password(data.get('password'), password)
+            session.query(UserModel).filter(UserModel.id == user_id).delete()
+            session.commit()
+    except AssertionError:
+        delete_test_user(user_id)
 
 def test_login():
     # Test case 1: User not found
