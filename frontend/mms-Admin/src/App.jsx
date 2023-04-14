@@ -14,6 +14,7 @@ import SetNewPassword from './pages/Auth/SetNewPassword';
 import DashboardHome from './pages/Dashboard/DashboardHome';
 import SettingsHome from './pages/Dashboard/Settings/SettingsHome';
 import Support from './pages/Dashboard/Settings/Support';
+import FAQ from './pages/Dashboard/Settings/FAQ';
 
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
@@ -119,7 +120,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'faq',
-            element: 'this is the faq settings',
+            element: <FAQ />,
           },
         ],
       },
