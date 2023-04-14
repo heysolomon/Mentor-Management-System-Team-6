@@ -40,6 +40,7 @@ function LoginPage() {
           initialValues={initialValues}
           validationSchema={validate}
           className="mt-[20px]"
+          styling="flex justify-center items-center flex-col"
         >
           <InputField
             type="email"
@@ -47,12 +48,14 @@ function LoginPage() {
             placeholder="Email"
             styling="mb-[20px]"
             width="w-full"
+            inputStyle="text-[20px] pl-[30px]"
           />
           <InputField
             type="password"
             name="password"
             placeholder="Password"
             width="w-full"
+            inputStyle="text-[20px] pl-[30px]"
           />
           <Button width="w-full mt-[28px]">Login</Button>
         </FormikForm>
