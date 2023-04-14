@@ -8,10 +8,12 @@ function SettingsHome() {
     <div
       className={`w-full h-screen font-mukta overflow-y-auto ${styles.scroll}`}
     >
-      <div className="left-0 right-0 bottom-0 top-14 md:top-20">
+      <div className="">
         <Sidebar />
-        <div className="absolute md:left-[20%] top-[68px] w-full md:w-[80%] h-screen p-5">
-          <Outlet />
+        <div className="absolute md:left-[20%] w-full md:w-[80%] md:pt-[69px]">
+          <div>
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>

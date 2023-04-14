@@ -15,6 +15,8 @@ import DashboardHome from './pages/Dashboard/DashboardHome';
 import SettingsHome from './pages/Dashboard/Settings/SettingsHome';
 import Support from './pages/Dashboard/Settings/Support';
 import FAQ from './pages/Dashboard/Settings/FAQ';
+import SettingsGeneral from './pages/Dashboard/Settings/SettingsGeneral';
+import SettingChangePassword from './pages/Dashboard/Settings/SettingChangePassword';
 
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
@@ -96,11 +98,11 @@ const router = createBrowserRouter([
         children: [
           {
             path: '',
-            element: 'this is the general settings',
+            element: <SettingsGeneral />,
           },
           {
             path: 'password',
-            element: 'this is the password settings',
+            element: <SettingChangePassword />,
           },
           {
             path: 'notifications',
