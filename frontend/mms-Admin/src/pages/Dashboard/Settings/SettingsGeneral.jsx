@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { GithubIcon,
   InstagramIcon,
   LinkedinIcon,
@@ -9,6 +10,7 @@ import SocialIcon from '../../../components/Dashboard/Settings/Socials';
 import FormikForm from '../../../components/FormikForm/FormikForm';
 import InputField from '../../../components/InputField';
 import Button from '../../../components/utilities/Buttons/Button';
+import { openProfileSavedModal } from '../../../redux/features/Profile/profileSlice';
 
 function SettingsGeneral() {
   const initialValues = {
@@ -17,6 +19,8 @@ function SettingsGeneral() {
     about: '',
     website: '',
   };
+
+  const dispatch = useDispatch();
 
   return (
     <div className="p-5">
@@ -180,7 +184,12 @@ function SettingsGeneral() {
           </div>
 
           <div className="flex justify-end mt-[25px]">
-            <Button width="px-3 text-[16px]">Save Changes</Button>
+            <Button
+              width="px-3 text-[16px]"
+              onClick={() => dispatch(openProfileSavedModal())}
+            >
+              Save Changes
+            </Button>
           </div>
         </FormikForm>
       </section>

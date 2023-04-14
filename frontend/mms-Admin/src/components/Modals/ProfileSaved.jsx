@@ -2,12 +2,12 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ResetPasswordIllustration } from '../../assets/images';
-import { closeModal } from '../../redux/features/NewPasswordSuccess/modalSlice';
+import { closeProfileSavedModal } from '../../redux/features/Profile/profileSlice';
 import Button from '../utilities/Buttons/Button';
-import Modal from './Modal';
+import ProfileModal from './ProfileModal';
 
-function PasswordResetModal() {
-  const open = useSelector((state) => state.modal.isOpen);
+function ProfileSavedModal() {
+  const open = useSelector((state) => state.profile.isOpen);
   const dispatch = useDispatch();
   // framer motion animation for the modal window
   const fade = {
@@ -44,7 +44,7 @@ function PasswordResetModal() {
         onExitComplete={() => null}
       >
         {open && (
-          <Modal>
+          <ProfileModal>
             <motion.div
               className="relative z-50 bg-white w-[80%] md:w-[50%] py-[28px] px-[20px] rounded-[20px] flex flex-col items-center"
               aria-hidden="true"
@@ -55,22 +55,22 @@ function PasswordResetModal() {
               exit="exit"
             >
               <h2 className="font-mukta font-[600] text-black1 text-[18px] md:text-[24px]">
-                Password Reset Successful
+                Profile Saved Successfully
               </h2>
               <ResetPasswordIllustration styling="mt-[28px]" />
               <Button
                 width="w-[50%] md:w-[25%] mt-[28px]"
-                onClick={() => dispatch(closeModal())}
+                onClick={() => dispatch(closeProfileSavedModal())}
                 aria-hidden="true"
               >
                 Done
               </Button>
             </motion.div>
-          </Modal>
+          </ProfileModal>
         )}
       </AnimatePresence>
     </div>
   );
 }
 
-export default PasswordResetModal;
+export default ProfileSavedModal;
