@@ -57,10 +57,16 @@ function LoginPage() {
             width="w-full"
             inputStyle="text-[20px] pl-[30px]"
           />
-          <Button width="w-full mt-[28px]">Login</Button>
+
+          <Link to="/admin-dashboard" className="w-full">
+            <Button width="w-full mt-[28px]">Login</Button>
+          </Link>
         </FormikForm>
         <div className="flex justify-end mt-[22px]">
-          <Link to="/forgot-password" className="text-black1 font-[600] font-mukta text-[16px] underline">
+          <Link
+            to="/forgot-password"
+            className="text-black1 font-[600] font-mukta text-[16px] underline"
+          >
             Forgot Password?
           </Link>
         </div>
@@ -70,7 +76,9 @@ function LoginPage() {
         <p className="font-[600] font-mukta text-[16px] text-center">
           New User?
           {' '}
-          <Link to="/" className="underline cursor-pointer">Signup</Link>
+          <Link to="/" className="underline cursor-pointer">
+            Signup
+          </Link>
         </p>
       </div>
     </div>
