@@ -9,9 +9,9 @@ from .responses import CreateUserResponse, LoginUserResponse
 from .schemas import UserCreate, UserLogin
 from ..constants import GENERAL_ERROR_MESSAGE
 from ..utils import get_db
-from ...configs.database_config import engine, Base
 
-Base.metadata.create_all(bind=engine)
+
+
 router = APIRouter()
 post = router.post
 
