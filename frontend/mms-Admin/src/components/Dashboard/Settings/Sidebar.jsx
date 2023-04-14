@@ -43,7 +43,7 @@ function Sidebar() {
   return (
     <>
       {/* desktop navigation */}
-      <nav className="fixed w-[227px] hidden md:flex flex-col items-center">
+      <nav className="fixed w-[15%] hidden md:flex flex-col items-center">
         <div className="w-[100%] mx-auto">
           <div className="mt-[20px] mb-[15px]">
             <h1 className="font-[600] text-2xl text-black1">Settings</h1>
