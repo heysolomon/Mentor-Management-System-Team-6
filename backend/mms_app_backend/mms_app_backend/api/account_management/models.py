@@ -45,12 +45,16 @@ class ProgramMentorAssociation(AbstractBaseModel):
     mentor_id = Column(Integer, ForeignKey('mentors.id'), primary_key=True)
 
 
+
+
 class Program(AbstractBaseModel):
     __tablename__ = 'programs'
     name = Column(String)
     avatar = Column(URLType)
     description = Column(Text)
     mentors = relationship("Mentor", back_populates='programs', secondary="program_mentor_association")
+    mentor_manager = relationship("MentorManager", back_populates='programs')
+    mentor_manager_id = Column(Integer, ForeignKey('mentor_managers.id'))
     criteria = relationship("Criterion", back_populates='program')
 
 
@@ -62,13 +66,15 @@ class Mentor(AbstractBaseModel):
     programs = relationship("Program", back_populates='mentors', secondary="program_mentor_association")
     roles = relationship("Role", back_populates='mentor')
 
+#
 class MentorManager(AbstractBaseModel):
     __tablename__ = 'mentor_managers'
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     profile = relationship("Profile", back_populates='mentor_manager')
     about = Column(Text)
     roles = relationship("Role", back_populates='mentor_manager')
-
+    programs = relationship("Program", back_populates='mentor_manager')
+#The criteria used for selection into the program
 class Criterion(AbstractBaseModel):
     __tablename__ = 'criteria'
     name = Column(String)
@@ -76,6 +82,7 @@ class Criterion(AbstractBaseModel):
     program_id = Column(Integer, ForeignKey('programs.id'))
     program = relationship("Program", back_populates='criteria')
 
+# Roles played by a given user type.
 class Role(AbstractBaseModel):
     __tablename__ = 'roles'
     name = Column(String)
