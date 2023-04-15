@@ -48,7 +48,7 @@ class Mentor(AbstractBaseModel):
     __tablename__ = 'mentors'
     about = Column(Text)
     profile_id = Column(Integer, ForeignKey('profiles.id'))
-    profile = relationship("Profile", back_populates='mentors')
+    profile = relationship("Profile", back_populates='mentor')
     program = relationship("Program", back_populates='mentors')
     program_id = Column(Integer, ForeignKey('programs.id'))
 
