@@ -1,3 +1,5 @@
+from turtle import back
+
 from sqlalchemy import Column, Integer, Text, String, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import URLType
@@ -58,13 +60,14 @@ class Mentor(AbstractBaseModel):
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     profile = relationship("Profile", back_populates='mentor')
     programs = relationship("Program", back_populates='mentors', secondary="program_mentor_association")
-
+    roles = relationship("Role", back_populates='mentor')
 
 class MentorManager(AbstractBaseModel):
     __tablename__ = 'mentor_managers'
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     profile = relationship("Profile", back_populates='mentor_manager')
-
+    about = Column(Text)
+    roles = relationship("Role", back_populates='mentor_manager')
 
 class Criterion(AbstractBaseModel):
     __tablename__ = 'criteria'
@@ -72,3 +75,12 @@ class Criterion(AbstractBaseModel):
     description = Column(Text)
     program_id = Column(Integer, ForeignKey('programs.id'))
     program = relationship("Program", back_populates='criteria')
+
+class Role(AbstractBaseModel):
+    __tablename__ = 'roles'
+    name = Column(String)
+    description = Column(Text)
+    mentor = relationship("Mentor",back_populates='roles')
+    mentor_id = Column(Integer,ForeignKey('mentors.id'))
+    mentor_manager = relationship("MentorManager",back_populates='mentor_manager')
+    mentor_manager_id = Column(Integer,ForeignKey('mentor_managers.id'))
