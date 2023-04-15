@@ -9,6 +9,7 @@ if __name__ == "__main__":
     from mms_app_backend.api.authentication.route import router as auth_router
 else:
     from .mms_app_backend.api.authentication.route import router as auth_router
+from  mms_app_backend.api.account_management.models import Profile
 
 Base.metadata.create_all(bind=engine)
 

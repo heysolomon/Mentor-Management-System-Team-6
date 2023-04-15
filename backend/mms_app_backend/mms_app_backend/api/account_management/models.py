@@ -11,11 +11,12 @@ class Profile(AbstractBaseModel):
     about = Column(Text)
     website = Column(URLType)
     social_links = relationship("SocialLink", back_populates='profile')
-    locations = relationship("Location", back_populates='profile')
-    programs = relationship("Program", back_populates='mentee')
-    mentors = relationship("Mentor", back_populates='profile')
-    mentor_managers = relationship("MentorManager", back_populates='profile')
-
+    locations = relationship("Location", back_populates='profiles')
+    programs = relationship("Program", back_populates='profiles')
+    mentors = relationship("Mentor", back_populates='profiles')
+    mentor_managers = relationship("MentorManager", back_populates='profiles')
+    user = relationship("User", back_populates='profile')
+    user_id = Column(Integer, ForeignKey("users.id"))
 
 class SocialLink(AbstractBaseModel):
     __tablename__ = 'social_links'
@@ -58,4 +59,3 @@ class Mentor(AbstractBaseModel):
     profile = relationship("Profile", back_populates='mentors')
 
 
-Base.met
