@@ -1,8 +1,9 @@
-from sqlalchemy import Column, Integer, Text, String, ForeignKey,Table
+from sqlalchemy import Column, Integer, Text, String, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import URLType
-from ...configs.database_config import Base
+
 from ..models import AbstractBaseModel
+
 
 class Profile(AbstractBaseModel):
     __tablename__ = 'profiles'
@@ -11,11 +12,12 @@ class Profile(AbstractBaseModel):
     about = Column(Text)
     website = Column(URLType)
     social_links = relationship("SocialLink", back_populates='profile')
-    location = relationship("Location", back_populates='profile',uselist=False)
-    mentor = relationship("Mentor", back_populates='profile',uselist=False)
-    mentor_manager = relationship("MentorManager", back_populates='profile',uselist=False)
+    location = relationship("Location", back_populates='profile', uselist=False)
+    mentor = relationship("Mentor", back_populates='profile', uselist=False)
+    mentor_manager = relationship("MentorManager", back_populates='profile', uselist=False)
     user = relationship("User", back_populates='profile')
     user_id = Column(Integer, ForeignKey("users.id"))
+
 
 class SocialLink(AbstractBaseModel):
     __tablename__ = 'social_links'
@@ -35,18 +37,18 @@ class Location(AbstractBaseModel):
     profile = relationship("Profile", back_populates='location')
 
 
-program_mentor_association = Table(
-    "association_table",
-    Base.metadata,
-    Column("program_id", ForeignKey("programs.id"), primary_key=True),
-    Column("mentor_id", ForeignKey("mentors.id"), primary_key=True),
-)
+class ProgramMentorAssociation(AbstractBaseModel):
+    __tablename__ = 'program_mentor_association'
+    program_id = Column(Integer, ForeignKey('programs.id'), primary_key=True)
+    mentor_id = Column(Integer, ForeignKey('mentors.id'), primary_key=True)
+
+
 class Program(AbstractBaseModel):
     __tablename__ = 'programs'
     name = Column(String)
     avatar = Column(URLType)
     description = Column(Text)
-    mentors = relationship("Mentor", back_populates='programs',secondary=program_mentor_association)
+    mentors = relationship("Mentor", back_populates='programs', secondary="program_mentor_association")
     criteria = relationship("Criterion", back_populates='program')
 
 
@@ -55,13 +57,14 @@ class Mentor(AbstractBaseModel):
     about = Column(Text)
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     profile = relationship("Profile", back_populates='mentor')
-    programs = relationship("Program", back_populates='mentors',secondary=program_mentor_association)
+    programs = relationship("Program", back_populates='mentors', secondary="program_mentor_association")
 
 
 class MentorManager(AbstractBaseModel):
-    __tablename__ ='mentor_managers'
+    __tablename__ = 'mentor_managers'
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     profile = relationship("Profile", back_populates='mentor_manager')
+
 
 class Criterion(AbstractBaseModel):
     __tablename__ = 'criteria'
