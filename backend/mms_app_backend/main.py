@@ -1,9 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
-from mms_app_backend.configs.database_config import Base,engine
-Base.metadata.create_all(bind=engine)
 
+from mms_app_backend.configs.database_config import Base, engine
 
 # Conditional import due to pytest which imports tests as external packages.
 if __name__ == "__main__":
@@ -11,7 +10,10 @@ if __name__ == "__main__":
 else:
     from .mms_app_backend.api.authentication.route import router as auth_router
 
+Base.metadata.create_all(bind=engine)
+
 app = FastAPI()
+
 app.include_router(auth_router)
 get = app.get
 post = app.post
