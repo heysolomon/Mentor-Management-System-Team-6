@@ -1,7 +1,7 @@
-from sqlalchemy import Column, Integer, Text, String, ForeignKey
+from sqlalchemy import Column, Integer, Text, String, ForeignKey,Table
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import URLType
-
+from ...configs.database_config import Base
 from ..models import AbstractBaseModel
 
 class Profile(AbstractBaseModel):
@@ -35,12 +35,18 @@ class Location(AbstractBaseModel):
     profile = relationship("Profile", back_populates='location')
 
 
+program_mentor_association = Table(
+    "association_table",
+    Base.metadata,
+    Column("program_id", ForeignKey("programs.id"), primary_key=True),
+    Column("mentor_id", ForeignKey("mentors.id"), primary_key=True),
+)
 class Program(AbstractBaseModel):
     __tablename__ = 'programs'
     name = Column(String)
     avatar = Column(URLType)
     description = Column(Text)
-    mentors = relationship("Mentor", back_populates='program')
+    mentors = relationship("Mentor", back_populates='programs',secondary=program_mentor_association)
     criteria = relationship("Criterion", back_populates='program')
 
 
@@ -49,8 +55,8 @@ class Mentor(AbstractBaseModel):
     about = Column(Text)
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     profile = relationship("Profile", back_populates='mentor')
-    program = relationship("Program", back_populates='mentors')
-    program_id = Column(Integer, ForeignKey('programs.id'))
+    programs = relationship("Program", back_populates='mentors',secondary=program_mentor_association)
+
 
 class MentorManager(AbstractBaseModel):
     __tablename__ ='mentor_managers'
