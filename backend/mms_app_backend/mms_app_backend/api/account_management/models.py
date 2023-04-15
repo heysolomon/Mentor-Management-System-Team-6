@@ -56,3 +56,10 @@ class MentorManager(AbstractBaseModel):
     __tablename__ ='mentor_managers'
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     profile = relationship("Profile", back_populates='mentor_manager')
+
+class Criterion(AbstractBaseModel):
+    __tablename__ = 'criteria'
+    name = Column(String)
+    description = Column(Text)
+    program_id = Column(Integer, ForeignKey('programs.id'))
+    program = relationship("Program", back_populates='criteria')
