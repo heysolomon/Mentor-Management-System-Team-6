@@ -7,7 +7,7 @@ from .schemas import CreateProfile
 from ..authentication.constants import INVALID_ACCESS_TOKEN_MESSAGE
 from ..authentication.helpers import verify_access_token
 from ..utils import get_token, get_db
-
+from .helpers import check_profile_exists
 router = APIRouter()
 
 get = router.get
@@ -33,3 +33,18 @@ async def create_profile(profile: CreateProfile, response: Response, db=Depends(
         profile_response.data.profile = created_profile
 
     return profile_response
+
+@get("/v1/users/profiles",status_code=status.HTTP_200_OK,response_model=CreateProfileResponse)
+async def get_profile(response: Response, db=Depends(get_db), jwt_token=Depends(get_token) ):
+    """
+    Get the users current profile.
+    """
+    profile_response = CreateProfileResponse()
+    user = verify_access_token(db, jwt_token)
+    if not user:
+        profile_response.message = INVALID_ACCESS_TOKEN_MESSAGE
+        response.status_code = status.HTTP_401_UNAUTHORIZED
+        return profile_response
+    profile = create_profile_crud(db, None, user)
+    if not check_profile_exists(db,user):
+        profile_response.message = "Profile does not exist"

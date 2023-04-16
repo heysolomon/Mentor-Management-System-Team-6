@@ -22,3 +22,5 @@ def create_profile_crud(db, profile, user):
         user_id=user_id, username=user.username, firstname=user.first_name, lastname=user.last_name, email=user.email
 
     )
+
+def get_profile(db):
