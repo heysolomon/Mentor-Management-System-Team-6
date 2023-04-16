@@ -32,5 +32,4 @@ class ViewProfile(BaseProfile):
 
 
 class CreateProfile(BaseProfile):
-
     pass
