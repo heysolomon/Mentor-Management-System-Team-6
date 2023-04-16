@@ -1,10 +1,11 @@
 from .models import Profile, SocialLink, Location
-from .schemas import ViewProfile
+from .schemas import ViewProfile,CreateProfile
 from .helpers import check_is_mentor_manager,check_is_mentor
-
-def create_profile_crud(db, profile, user):
+from ..authentication.models import User
+from sqlalchemy.orm import Session
+def create_profile_crud(db:Session, profile:CreateProfile, user:User):
     user_id = user.id
-    profile_instance = Profile(about=profile.about, website=profile.website, user_id=user_id)
+    profile_instance:Profile = Profile(about=profile.about, website=profile.website, user_id=user_id)
     location = Location(profile_id=profile_instance.id, city=profile.location.city, state=profile.location.state,
         country=profile.location.country)
     db.add(profile_instance)
@@ -23,4 +24,8 @@ def create_profile_crud(db, profile, user):
 
     )
 
-def get_profile(db):
+def get_profile(db:Session,user:User):
+    profile:Profile = Profile.query(Profile).filter(Profile.user_id==user.id).first()
+    return ViewProfile(about=profile.about, website=profile.website, social_links=profile.social_links,
+        location=profile.location, is_mentor=check_is_mentor(profile), is_mentor_manager=check_is_mentor_manager(profile),
+        user_id=user.id, username=user.username, firstname=user.first_name, lastname=user.last_name, email=user)
