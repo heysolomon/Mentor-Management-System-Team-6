@@ -19,7 +19,6 @@ class Location(BaseModel):
 
 
 class BaseProfile(BaseModel):
-    id: int
     about: str
     website: HttpUrl
     social_links: list[SocialLink]
@@ -30,6 +29,7 @@ class BaseProfile(BaseModel):
 
 
 class ViewProfile(BaseProfile):
+    id:int
     username: str
     email: str
     firstname: str
