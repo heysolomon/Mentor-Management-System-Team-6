@@ -17,8 +17,8 @@ class BaseProfile(BaseModel):
     website: str
     social_links: list[SocialLink]
     location: Location
-    is_mentor: bool
-    is_mentor_manager: bool
+    is_mentor: bool = False
+    is_mentor_manager: bool = False
 
 
 class ViewProfile(BaseProfile):
