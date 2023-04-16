@@ -1,9 +1,9 @@
-from pydantic import BaseModel
+from pydantic import BaseModel,HttpUrl
 
 
 class SocialLink(BaseModel):
     id: int
-    url: str
+    url: HttpUrl
     name: str
 
 
