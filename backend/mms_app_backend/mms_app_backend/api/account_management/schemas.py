@@ -15,7 +15,6 @@ class Location(BaseModel):
 
 
 class BaseProfile(BaseModel):
-    id: int
     about: str
     website: str
     social_links: list[SocialLink]
