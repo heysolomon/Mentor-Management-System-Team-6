@@ -1,8 +1,12 @@
-import profile
+from pydantic import BaseModel
 
-from ..utils import ResponseModel
 from .schemas import ViewProfile
-class ProfileData():
+from ..utils import ResponseModel
+
+
+class ProfileData(BaseModel):
     profile = ViewProfile
+
+
 class CreateProfileResponse(ResponseModel):
     data = ProfileData
