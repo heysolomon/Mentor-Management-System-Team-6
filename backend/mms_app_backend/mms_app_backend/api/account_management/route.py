@@ -24,5 +24,7 @@ async def create_profile(profile: CreateProfile,response:Response, jwt_token=Dep
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return profile_response
     created_profile = create_profile(profile,user)
+    if created_profile:
+        profile_response.message =
 
     return profile
