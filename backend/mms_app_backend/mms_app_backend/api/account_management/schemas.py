@@ -13,17 +13,24 @@ class Location(BaseModel):
     state: str
     country: str
 
+
 class BaseProfile(BaseModel):
     id: int
-    firstname: str
-    lastname: str
-    email: str
     about: str
     website: str
     social_links: list[SocialLink]
     location: Location
     is_mentor: bool
-    is_mentor: bool
+    is_mentor_manager: bool
 
 
+class ViewProfile(BaseProfile):
+    username: str
+    email: str
+    firstname: str
+    lastname: str
 
+
+class CreateProfile(BaseProfile):
+
+    pass
