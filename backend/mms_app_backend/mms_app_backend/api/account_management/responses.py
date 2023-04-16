@@ -9,4 +9,4 @@ class ProfileData(BaseModel):
 
 
 class CreateProfileResponse(ResponseModel):
-    data = ProfileData
+    data = ProfileData = ProfileData()
