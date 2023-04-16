@@ -7,9 +7,9 @@ from ..models import AbstractBaseModel
 
 class Profile(AbstractBaseModel):
     __tablename__ = 'profiles'
-    profile_picture = Column(URLType)
-    about = Column(Text)
-    website = Column(URLType)
+    profile_picture = Column(URLType,nullable=True)
+    about = Column(Text,nullable=True)
+    website = Column(URLType,nullable=True)
     social_links = relationship("SocialLink", back_populates='profile')
     location = relationship("Location", back_populates='profile', uselist=False)
     mentor = relationship("Mentor", back_populates='profile', uselist=False)
