@@ -24,5 +24,5 @@ def decode_access_token(token: str)->str :
     return jwt.decode(token, secret, algorithms=["HS256"]).get('sub')
 def verify_access_token(db:Session,token:str)->User|None:
     email = decode_access_token(token)
-    return  db.session.query(User).filter(User.email == email).first()
+    return  db.query(User).filter(User.email == email).first()
 
