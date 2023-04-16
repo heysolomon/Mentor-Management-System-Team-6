@@ -1,4 +1,5 @@
 from fastapi import APIRouter, status, Depends, Response
+
 from .constants import PROFILE_CREATED_SUCCESS_MESSAGE
 from .crud import create_profile_crud
 from .responses import CreateProfileResponse
@@ -22,13 +23,12 @@ async def create_profile(profile: CreateProfile, response: Response, db=Depends(
     profile_response = CreateProfileResponse()
     user = verify_access_token(db, jwt_token)
     if not user:
-        profile_response.success = False
         profile_response.message = INVALID_ACCESS_TOKEN_MESSAGE
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return profile_response
-    created_profile = create_profile_crud(db,profile, user)
-    print(created_profile)
+    created_profile = create_profile_crud(db, profile, user)
     if created_profile:
+        profile_response.success = True
         profile_response.message = PROFILE_CREATED_SUCCESS_MESSAGE
         profile_response.data.profile = created_profile
 
