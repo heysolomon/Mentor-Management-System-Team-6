@@ -2,13 +2,11 @@ from pydantic import BaseModel,HttpUrl
 
 
 class SocialLink(BaseModel):
-    id: int
     url: HttpUrl
     name: str
 
 
 class Location(BaseModel):
-    id: int
     city: str
     state: str
     country: str
