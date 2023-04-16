@@ -13,7 +13,7 @@ def get_db():
 
 
 def get_token():
-    return OAuth2PasswordBearer(tokenUrl="Token")
+    return OAuth2PasswordBearer(tokenUrl="/users/login")
 
 
 class ResponseModel(BaseModel):
