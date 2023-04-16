@@ -2,7 +2,7 @@ from fastapi import APIRouter, status, Depends, Response
 
 from .constants import PROFILE_CREATED_SUCCESS_MESSAGE
 from .constants import PROFILE_DOES_NOT_EXIST_MESSAGE, PROFILE_REQUEST_SUCCESS_MESSAGE, PROFILE_EXISTS_MESSAGE, \
-    INVALID_USER_PARAMETER,INVALID_PROFILE_PARAMETER
+    INVALID_USER_PARAMETER, INVALID_PROFILE_PARAMETER
 from .crud import create_profile_crud, get_profile_crud
 from .helpers import check_profile_exists
 from .responses import CreateProfileResponse
