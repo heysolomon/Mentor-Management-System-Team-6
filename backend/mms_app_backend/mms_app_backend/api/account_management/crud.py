@@ -1,6 +1,6 @@
 from .models import Profile, SocialLink, Location
 from .schemas import ViewProfile
-
+from .helpers import check_is_mentor_manager,check_is_mentor
 
 def create_profile_crud(db, profile, user):
     user_id = user.id
@@ -13,8 +13,8 @@ def create_profile_crud(db, profile, user):
         social_link = SocialLink(profile_id=profile_instance.id, name=link.name, url=link.url)
 
         db.add(social_link)
-    is_mentor = profile_instance.mentor
-    is_mentor_manager = profile_instance.mentor_manager
+    is_mentor = check_is_mentor(profile_instance)
+    is_mentor_manager = check_is_mentor_manager(profile_instance)
     db.commit()
     db.refresh(profile_instance)
     return ViewProfile(about=profile.about, website=profile.website, social_links=profile.social_links,
