@@ -1,4 +1,4 @@
-from pydantic import BaseModel,HttpUrl
+from pydantic import BaseModel, HttpUrl
 
 
 class SocialLink(BaseModel):
@@ -17,8 +17,7 @@ class BaseProfile(BaseModel):
     website: str
     social_links: list[SocialLink]
     location: Location
-    is_mentor: bool = False
-    is_mentor_manager: bool = False
+
 
 
 class ViewProfile(BaseProfile):
@@ -26,7 +25,9 @@ class ViewProfile(BaseProfile):
     email: str
     firstname: str
     lastname: str
-
+    is_mentor: bool = False
+    is_mentor_manager: bool = False
 
 class CreateProfile(BaseProfile):
-    pass
+    is_mentor: bool = False
+    is_mentor_manager: bool = False
