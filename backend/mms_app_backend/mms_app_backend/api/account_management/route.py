@@ -14,7 +14,7 @@ get = router.get
 post = router.post
 
 
-@post("/create-profile", status_code=status.HTTP_201_CREATED, response_model=CreateProfileResponse)
+@post("/users/profiles", status_code=status.HTTP_201_CREATED, response_model=CreateProfileResponse)
 async def create_profile(profile: CreateProfile, response: Response, jwt_token=Depends(get_token), db=Depends(get_db)):
     """
     Create a new profile for a user after they have successfully signed up to the system.
