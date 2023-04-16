@@ -32,5 +32,4 @@ class ViewProfile(BaseProfile):
 
 
 class CreateProfile(BaseProfile):
-    is_mentor: bool = False
-    is_mentor_manager: bool = False
+    pass
