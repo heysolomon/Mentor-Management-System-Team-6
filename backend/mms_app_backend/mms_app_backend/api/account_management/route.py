@@ -17,7 +17,7 @@ post = router.post
 put = router.put
 
 
-@post("/v1/users/profiles", status_code=status.HTTP_201_CREATED, response_model=CreateProfileResponse)
+@post("/v1/users/{user_id}/profiles", status_code=status.HTTP_201_CREATED, response_model=CreateProfileResponse)
 async def create_profile(profile: CreateProfile, response: Response, db=Depends(get_db),
                          jwt_token=Depends(get_token())):
     """
@@ -43,7 +43,7 @@ async def create_profile(profile: CreateProfile, response: Response, db=Depends(
     return profile_response
 
 
-@get("/v1/users/profiles", status_code=status.HTTP_200_OK, response_model=CreateProfileResponse)
+@get("/v1/users/{user_id}/profiles/{profile_id}", status_code=status.HTTP_200_OK, response_model=CreateProfileResponse)
 async def get_profile(response: Response, db=Depends(get_db), jwt_token=Depends(get_token())):
     """
     Get the users current profile.
