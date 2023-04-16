@@ -1,7 +1,6 @@
 from fastapi import APIRouter, status, Depends, Response
-
 from .constants import PROFILE_CREATED_SUCCESS_MESSAGE
-from .crud import create_profile
+from .crud import create_profile_crud
 from .responses import CreateProfileResponse
 from .schemas import CreateProfile
 from ..authentication.constants import INVALID_ACCESS_TOKEN_MESSAGE
@@ -20,7 +19,6 @@ async def create_profile(profile: CreateProfile, response: Response, db=Depends(
     """
     Create a new profile for a user after they have successfully signed up to the system.
     """
-    print(jwt_token)
     profile_response = CreateProfileResponse()
     user = verify_access_token(db, jwt_token)
     if not user:
@@ -28,7 +26,8 @@ async def create_profile(profile: CreateProfile, response: Response, db=Depends(
         profile_response.message = INVALID_ACCESS_TOKEN_MESSAGE
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return profile_response
-    created_profile = create_profile(profile, user)
+    created_profile = create_profile_crud(db,profile, user)
+    print(created_profile)
     if created_profile:
         profile_response.message = PROFILE_CREATED_SUCCESS_MESSAGE
         profile_response.data.profile = created_profile

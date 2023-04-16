@@ -5,8 +5,8 @@ from ..utils import ResponseModel
 
 
 class ProfileData(BaseModel):
-    profile = ViewProfile
+    profile : ViewProfile|None
 
 
 class CreateProfileResponse(ResponseModel):
-    data = ProfileData = ProfileData()
+    data : ProfileData = ProfileData()

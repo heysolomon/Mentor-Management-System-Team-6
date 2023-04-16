@@ -19,7 +19,6 @@ class BaseProfile(BaseModel):
     location: Location
 
 
-
 class ViewProfile(BaseProfile):
     username: str
     email: str
@@ -27,6 +26,10 @@ class ViewProfile(BaseProfile):
     lastname: str
     is_mentor: bool = False
     is_mentor_manager: bool = False
+
+    class Config:
+        orm_mode = True
+
 
 class CreateProfile(BaseProfile):
     is_mentor: bool = False
