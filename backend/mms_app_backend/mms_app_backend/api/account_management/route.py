@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status, Depends, Response
 
 from .constants import PROFILE_CREATED_SUCCESS_MESSAGE
-from .constants import PROFILE_DOES_NOT_EXIST_MESSAGE, PROFILE_REQUEST_SUCCESS_MESSAGE,PROFILE_EXISTS_MESSAGE
+from .constants import PROFILE_DOES_NOT_EXIST_MESSAGE, PROFILE_REQUEST_SUCCESS_MESSAGE, PROFILE_EXISTS_MESSAGE
 from .crud import create_profile_crud, get_profile_crud
 from .helpers import check_profile_exists
 from .responses import CreateProfileResponse
@@ -14,6 +14,7 @@ router = APIRouter()
 
 get = router.get
 post = router.post
+put = router.put
 
 
 @post("/v1/users/profiles", status_code=status.HTTP_201_CREATED, response_model=CreateProfileResponse)
@@ -31,7 +32,7 @@ async def create_profile(profile: CreateProfile, response: Response, db=Depends(
     if check_profile_exists(db, user):
         profile_response.message = PROFILE_EXISTS_MESSAGE
         response.status_code = status.HTTP_409_CONFLICT
-        profile_response.data.profile = get_profile_crud(db,user)
+        profile_response.data.profile = get_profile_crud(db, user)
         return profile_response
     created_profile = create_profile_crud(db, profile, user)
     if created_profile:
@@ -49,6 +50,7 @@ async def get_profile(response: Response, db=Depends(get_db), jwt_token=Depends(
     """
     profile_response = CreateProfileResponse()
     user = verify_access_token(db, jwt_token)
+
     if not user:
         profile_response.message = INVALID_ACCESS_TOKEN_MESSAGE
         response.status_code = status.HTTP_401_UNAUTHORIZED
