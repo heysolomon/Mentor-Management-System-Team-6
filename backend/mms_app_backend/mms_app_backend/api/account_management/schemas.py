@@ -5,11 +5,17 @@ class SocialLink(BaseModel):
     url: HttpUrl
     name: str
 
+    class Config:
+        orm_mode = True
+
 
 class Location(BaseModel):
     city: str
     state: str
     country: str
+
+    class Config:
+        orm_mode = True
 
 
 class BaseProfile(BaseModel):
@@ -17,6 +23,9 @@ class BaseProfile(BaseModel):
     website: HttpUrl
     social_links: list[SocialLink]
     location: Location
+
+    class Config:
+        orm_mode = True
 
 
 class ViewProfile(BaseProfile):
@@ -32,4 +41,5 @@ class ViewProfile(BaseProfile):
 
 
 class CreateProfile(BaseProfile):
-    pass
+    class Config:
+        orm_mode = True

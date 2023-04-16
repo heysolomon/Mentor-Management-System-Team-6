@@ -5,10 +5,16 @@ from ..authentication.models import User
 from sqlalchemy.orm import Session
 def create_profile_crud(db:Session, profile:CreateProfile, user:User):
     user_id = user.id
-    profile_instance:Profile = Profile(about=profile.about, website=profile.website, user_id=user_id)
+
+    profile_instance= Profile(about=profile.about, website=profile.website, user_id=user_id)
+    db.add(profile_instance)
+    db.commit()
+    db.refresh(profile_instance)
+    profile_instance = db.query(Profile).filter(Profile.user_id==user.id).first()
+
     location = Location(profile_id=profile_instance.id, city=profile.location.city, state=profile.location.state,
         country=profile.location.country)
-    db.add(profile_instance)
+
     db.add(location)
     for link in profile.social_links:
         social_link = SocialLink(profile_id=profile_instance.id, name=link.name, url=link.url)
@@ -24,8 +30,9 @@ def create_profile_crud(db:Session, profile:CreateProfile, user:User):
 
     )
 
-def get_profile(db:Session,user:User):
-    profile:Profile = Profile.query(Profile).filter(Profile.user_id==user.id).first()
+def get_profile_crud(db:Session,user:User):
+    profile= db.query(Profile).filter(Profile.user_id==user.id).first()
+
     return ViewProfile(about=profile.about, website=profile.website, social_links=profile.social_links,
         location=profile.location, is_mentor=check_is_mentor(profile), is_mentor_manager=check_is_mentor_manager(profile),
-        user_id=user.id, username=user.username, firstname=user.first_name, lastname=user.last_name, email=user)
+        user_id=user.id, username=user.username, firstname=user.first_name, lastname=user.last_name, email=user.email)
