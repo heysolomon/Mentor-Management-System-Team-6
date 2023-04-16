@@ -1,6 +1,9 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
+from mms_app_backend.configs.database_config import Base,engine
+Base.metadata.create_all(bind=engine)
+
 
 # Conditional import due to pytest which imports tests as external packages.
 if __name__ == "__main__":

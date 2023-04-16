@@ -28,3 +28,4 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Define the base class for the ORM models
 Base = declarative_base()
+# Create the tables in the database
