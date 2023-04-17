@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import SplashScreen from './pages/SplashScreen/SplashScreen';
 import { stopLoader } from './redux/features/splashSlice';
-
 import Profile from './pages/Dashboard/Profile';
 import ErrorPage from './pages/Error/ErrorPage';
 import AuthHome from './pages/Auth/AuthHome';
@@ -17,6 +16,7 @@ import Support from './pages/Dashboard/Settings/Support';
 import SettingsGeneral from './pages/Dashboard/Settings/SettingsGeneral';
 import SettingChangePassword from './pages/Dashboard/Settings/SettingChangePassword';
 import Faqs from './pages/Dashboard/Settings/Faqs/Faqs';
+import Notifications from './pages/Dashboard/Settings/Notifications/Notifications';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -105,7 +105,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'notifications',
-            element: 'this is the notifications settings',
+            element: <Notifications />,
           },
           {
             path: 'privacy',
