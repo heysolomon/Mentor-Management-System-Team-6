@@ -6,7 +6,7 @@ from .constants import PROFILE_DOES_NOT_EXIST_MESSAGE, PROFILE_REQUEST_SUCCESS_M
 from .crud import create_profile_crud, get_profile_crud, update_profile_crud
 from .helpers import check_profile_exists
 from .responses import CreateProfileResponse
-from .schemas import CreateProfile
+from .schemas import CreateProfile,UpdateProfile
 from ..authentication.constants import INVALID_ACCESS_TOKEN_MESSAGE
 from ..authentication.helpers import verify_access_token
 from ..utils import get_token, get_db
@@ -85,7 +85,7 @@ async def get_profile(response: Response, user_id: int, profile_id: int, db=Depe
 
 @patch("/v1/users/{user_id}/profiles/{profile_id}", status_code=status.HTTP_200_OK,
        response_model=CreateProfileResponse)
-async def update_profile(profile: CreateProfile, response: Response, user_id: int, profile_id: int, db=Depends(get_db),
+async def update_profile(profile: UpdateProfile, response: Response, user_id: int, profile_id: int, db=Depends(get_db),
                          jwt_token=Depends(get_token())):
     """
     Update the users current profile.

@@ -43,12 +43,11 @@ def get_profile_crud(db: Session, user: User):
                        user_id=user.id, username=user.username, firstname=user.first_name, lastname=user.last_name,
                        email=user.email)
 
-def update_profile_crud(db: Session,user:User,profile:CreateProfile):
-    print(profile)
-    profile_instance = db.query(Profile).filter(Profile.user_id == user.id).first()
-    profile_instance = profile_instance.dict().update(profile.dict(exclude_unset=True))
 
-    db.add(profile_instance)
-    db.commit()
-    db.refresh(profile_instance)
+def update_profile_crud(db: Session, user: User, profile: CreateProfile):
+    profile_instance = db.query(Profile).filter(Profile.user_id == user.id).first()
+    if profile.about:
+        profile_instance.about = profile.about
+    if profile.website:
+
     return profile_instance

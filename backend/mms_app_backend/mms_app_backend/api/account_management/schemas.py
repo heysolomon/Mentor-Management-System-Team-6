@@ -44,3 +44,8 @@ class ViewProfile(BaseProfile):
 class CreateProfile(BaseProfile):
     class Config:
         orm_mode = True
+class UpdateProfile(BaseProfile):
+    about: str|None
+    website: HttpUrl|None
+    social_links: list[SocialLink]|None
+    location: Location|None
