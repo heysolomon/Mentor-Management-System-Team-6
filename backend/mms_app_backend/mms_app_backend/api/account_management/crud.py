@@ -42,3 +42,13 @@ def get_profile_crud(db: Session, user: User):
                        is_mentor_manager=check_is_mentor_manager(profile),
                        user_id=user.id, username=user.username, firstname=user.first_name, lastname=user.last_name,
                        email=user.email)
+
+def update_profile_crud(db: Session,user:User,profile:CreateProfile):
+    print(profile)
+    profile_instance = db.query(Profile).filter(Profile.user_id == user.id).first()
+    profile_instance = profile_instance.dict().update(profile.dict(exclude_unset=True))
+
+    db.add(profile_instance)
+    db.commit()
+    db.refresh(profile_instance)
+    return profile_instance
