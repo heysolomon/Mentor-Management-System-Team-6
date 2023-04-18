@@ -1,16 +1,19 @@
-import { useEffect, useState } from 'react';
+/* eslint-disable react/react-in-jsx-scope */
+import { useState } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Switch } from '@headlessui/react';
 import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai';
 
 export default function Toggle(props) {
   const [enabled, setEnabled] = useState(props.enabled);
+  const toggeled = () => {
+    setEnabled(!enabled);
+  };
 
-  console.log(props);
-  console.log(enabled);
   return (
     <Switch
       checked={enabled}
-      onChange={setEnabled}
+      onChange={toggeled}
       defaultChecked={false}
       className={`${enabled ? 'bg-teal-700' : 'bg-black7'}
           relative inline-flex h-[26px] w-[41.5px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}

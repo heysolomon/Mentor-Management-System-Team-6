@@ -1,6 +1,6 @@
 import React from 'react';
 import './Notifications.css';
-import Toggle from '../../../../components/Toggle';
+import Toggle from '../../../../components/utilities/Toggle';
 
 function Notifications() {
   return (
