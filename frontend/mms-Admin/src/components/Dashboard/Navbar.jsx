@@ -1,11 +1,9 @@
 import React from 'react';
-import {
-  BrandLogo,
+import { BrandLogo,
   MessageIcon,
   NotificationBellIcon,
   SearchIcon,
-  UserAvatar,
-} from '../../assets/images';
+  UserAvatar } from '../../assets/images';
 
 function Navbar() {
   return (
