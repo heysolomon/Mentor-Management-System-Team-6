@@ -1,5 +1,6 @@
 import React from 'react';
 import './Notifications.css';
+import Toggle from '../../../../components/Toggle';
 
 function Notifications() {
   return (
@@ -19,7 +20,7 @@ function Notifications() {
       <div className="grid grid-flow-row-dense grid-cols-4 gap-4">
         <div className="col-span-2"><p className="subHead">All Notifications</p></div>
         <div className="grid grid-flow-row-dense grid-cols-2 gap-1">
-          <div className="head">Email</div>
+          <div className="head"><Toggle enabled={false} /></div>
           <div className="head">In-app</div>
         </div>
         <div className="" />

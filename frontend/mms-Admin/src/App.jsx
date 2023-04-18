@@ -133,7 +133,7 @@ export default function App() {
   const dispatch = useDispatch();
   // Get the isloaded state
   const isLoaded = useSelector((state) => state.splashScreen.isLoaded);
-  setTimeout(() => dispatch(stopLoader()), 2000);
+  setTimeout(() => dispatch(stopLoader()), 500);
   // return the splash screen if the isloaded state is false
   return !isLoaded ? <SplashScreen /> : <RouterProvider router={router} />;
 }
