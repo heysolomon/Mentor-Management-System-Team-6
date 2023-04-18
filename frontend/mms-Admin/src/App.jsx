@@ -122,7 +122,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'faq',
-            element: <FAQ />,
+            element: "FAQ",
           },
         ],
       },
