@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 
 from .schemas import User
-from ..utils import EmptyDict
 from ..utils import ResponseModel
 
 
@@ -15,4 +14,4 @@ class CreateUserResponse(ResponseModel):
 
 
 class LoginUserResponse(ResponseModel):
-    data: UserData | EmptyDict = {}
+    data: UserData = UserData()

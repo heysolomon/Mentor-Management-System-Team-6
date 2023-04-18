@@ -14,7 +14,7 @@ router = APIRouter()
 post = router.post
 
 
-@post("/user/signup", response_model=CreateUserResponse, status_code=status.HTTP_201_CREATED)
+@post("/v1/users", response_model=CreateUserResponse, status_code=status.HTTP_201_CREATED)
 async def signup(user: UserCreate, response: Response, db: Session = Depends(get_db)) -> CreateUserResponse:
     """
     This endpoint validates the user email and creates and bcrypt encrypted password.
@@ -47,7 +47,7 @@ async def signup(user: UserCreate, response: Response, db: Session = Depends(get
     return user_response
 
 
-@post("/user/login", response_model=LoginUserResponse, status_code=status.HTTP_200_OK)
+@post("/v1/users/login", response_model=LoginUserResponse, status_code=status.HTTP_200_OK)
 async def login(login_data: UserLogin, response: Response, db: Session = Depends(get_db)) -> LoginUserResponse:
     """
     This endpoint checks the user credentials and returns a JWT token for authenticated requests.
