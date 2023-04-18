@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status, Depends, Response
+from fastapi import APIRouter, status, Depends, Response,UploadFile
 
 from .constants import PROFILE_CREATED_SUCCESS_MESSAGE
 from .constants import PROFILE_DOES_NOT_EXIST_MESSAGE, PROFILE_REQUEST_SUCCESS_MESSAGE, PROFILE_EXISTS_MESSAGE, \
@@ -6,7 +6,7 @@ from .constants import PROFILE_DOES_NOT_EXIST_MESSAGE, PROFILE_REQUEST_SUCCESS_M
 from .crud import create_profile_crud, get_profile_crud, update_profile_crud
 from .helpers import check_profile_exists
 from .responses import CreateProfileResponse
-from .schemas import CreateProfile,UpdateProfile
+from .schemas import CreateProfile, UpdateProfile
 from ..authentication.constants import INVALID_ACCESS_TOKEN_MESSAGE
 from ..authentication.helpers import verify_access_token
 from ..utils import get_token, get_db
@@ -115,3 +115,11 @@ async def update_profile(profile: UpdateProfile, response: Response, user_id: in
         profile_response.success = True
         profile_response.data.profile = updated_profile
         return profile_response
+
+@post('/v1/users/{user_id}/profiles/{profile_id}/picture')
+async def upload_profile_picture(profile_picture:UploadFile):
+    """
+    Upload a profile picture.
+    """
+    return {"filename": profile_picture.filename}
+
