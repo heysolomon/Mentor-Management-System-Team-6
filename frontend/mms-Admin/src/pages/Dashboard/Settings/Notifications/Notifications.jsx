@@ -17,7 +17,7 @@ function Notifications() {
       </div>
       {/* end row */}
       {/* start row */}
-      <div className="grid grid-flow-row-dense grid-cols-4 gap-4">
+      <div className="grid grid-flow-row-dense grid-cols-4 gap-4 m-5">
         <div className="col-span-2"><p className="subHead">All Notifications</p></div>
         <div className="grid grid-flow-row-dense grid-cols-2 gap-1">
           <div className="head"><Toggle enabled={false} /></div>
