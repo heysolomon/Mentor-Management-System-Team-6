@@ -7,7 +7,7 @@ from .crud import create_profile_crud, get_profile_crud, update_profile_crud
 from .helpers import check_profile_exists
 from .responses import CreateProfileResponse
 from .schemas import CreateProfile, UpdateProfile
-from ..authentication.constants import TOKEN_ERROR_MESSAGE
+from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
 from ..authentication.helpers import verify_access_token
 from ..utils import get_token, get_db
 
@@ -27,7 +27,7 @@ async def create_profile(profile: CreateProfile, user_id: int, response: Respons
     profile_response = CreateProfileResponse()
     user = verify_access_token(db, jwt_token)
     if not user:
-        profile_response.message = TOKEN_ERROR_MESSAGE
+        profile_response.message = INVALID_AUTHENTICATION_MESSAGE
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return profile_response
     if user.id != user_id:
@@ -59,7 +59,7 @@ async def get_profile(response: Response, user_id: int, profile_id: int, db=Depe
     user = verify_access_token(db, jwt_token)
 
     if not user:
-        profile_response.message = TOKEN_ERROR_MESSAGE
+        profile_response.message = INVALID_AUTHENTICATION_MESSAGE
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return profile_response
     if user.id != user_id:
@@ -93,7 +93,7 @@ async def update_profile(profile: UpdateProfile, response: Response, user_id: in
     profile_response = CreateProfileResponse()
     user = verify_access_token(db, jwt_token)
     if not user:
-        profile_response.message = TOKEN_ERROR_MESSAGE
+        profile_response.message = INVALID_AUTHENTICATION_MESSAGE
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return profile_response
     if user.id != user_id:
