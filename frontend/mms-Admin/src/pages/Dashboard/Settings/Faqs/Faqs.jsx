@@ -61,7 +61,7 @@ function Faqs() {
       {faqs2.map((item) => (
         <div className="accordion" key={`1${item.id}`} onClick={() => setClickedId2(Number(clickedID2) === item.id ? 'closed' : item.id)} onKeyUp={() => setClickedId2(Number(clickedID2) === item.id ? 'closed' : item.id)}>
           <div className="accordionHeader">
-            {Number(clickedID) === item.id
+            {Number(clickedID2) === item.id
               ? <FiMinusCircle className="accordionIcon" />
               : <FiPlusCircle className="accordionIcon" />}
             <h3>Technical Frequently Asked Question?</h3>
