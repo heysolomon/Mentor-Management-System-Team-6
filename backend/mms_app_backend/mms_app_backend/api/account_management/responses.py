@@ -2,9 +2,9 @@ from pydantic import BaseModel
 
 from .schemas import ViewProfile
 from ..utils import ResponseModel
+from fastapi_camelcase import CamelModel
 
-
-class ProfileData(BaseModel):
+class ProfileData(CamelModel):
     profile : ViewProfile|None
 
 

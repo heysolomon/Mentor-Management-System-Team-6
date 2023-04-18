@@ -45,7 +45,7 @@ post = client.post
 get = client.get
 
 data: SignUpData = {
-    "username": "test",
+    "username": "test_pytest",
     "email": "ychag@example.com",
     "password": "test",
     "first_name": "test",
@@ -54,7 +54,7 @@ data: SignUpData = {
 
 
 def test_signup_noget():
-    get_response = get('/user/signup')
+    get_response = get('/v1/users')
     assert get_response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
     assert get_response.json() == {"detail": "Method Not Allowed"}
 
@@ -62,7 +62,7 @@ def test_signup_noget():
 def test_user_signup():
     user_id: int = int()
     try:
-        post_response = post('/user/signup', json=data)
+        post_response = post('/v1/users', json=data)
         user_id = post_response.json().get('data').get('user').get('id')
         assert post_response.json().get('success') == True
         assert post_response.status_code == status.HTTP_201_CREATED
@@ -78,7 +78,7 @@ def test_user_signup():
 def test_unique_email():
     user_id: int = int()
     try:
-        response = post('/user/signup',
+        response = post('/v1/users',
                         json=data)
         print(response)
         user_email: str = response.json().get('data').get('user').get('email')
@@ -103,7 +103,7 @@ def test_unique_email():
 def test_encrypted_password():
     user_id: int = int()
     try:
-        post_response = post('/user/signup', json=data)
+        post_response = post('/v1/users', json=data)
         assert post_response.json().get('success') == True
         assert post_response.status_code == status.HTTP_201_CREATED
         user_id = post_response.json().get('data').get('user').get('id')

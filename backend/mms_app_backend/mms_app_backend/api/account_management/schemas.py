@@ -1,7 +1,8 @@
-from pydantic import BaseModel, HttpUrl
+from fastapi_camelcase import CamelModel
+from pydantic import HttpUrl
 
 
-class SocialLink(BaseModel):
+class SocialLink(CamelModel):
     url: HttpUrl
     name: str
 
@@ -9,7 +10,7 @@ class SocialLink(BaseModel):
         orm_mode = True
 
 
-class Location(BaseModel):
+class Location(CamelModel):
     city: str
     state: str
     country: str
@@ -18,7 +19,7 @@ class Location(BaseModel):
         orm_mode = True
 
 
-class BaseProfile(BaseModel):
+class BaseProfile(CamelModel):
     about: str
     website: HttpUrl
     social_links: list[SocialLink]
@@ -29,7 +30,7 @@ class BaseProfile(BaseModel):
 
 
 class ViewProfile(BaseProfile):
-    id:int
+    id: int
     username: str
     email: str
     firstname: str
@@ -44,8 +45,10 @@ class ViewProfile(BaseProfile):
 class CreateProfile(BaseProfile):
     class Config:
         orm_mode = True
+
+
 class UpdateProfile(BaseProfile):
-    about: str|None
-    website: HttpUrl|None
-    social_links: list[SocialLink]|None
-    location: Location|None
+    about: str | None
+    website: HttpUrl | None
+    social_links: list[SocialLink] | None
+    location: Location | None
