@@ -13,7 +13,7 @@ export default function Privacy() {
 
       <div className="flex items-center justify-between w-[40%] mb-5">
         <h3 className="text-black2 font-2xl font-semibold">Show GitHub</h3>
-        <Toggle enabled={true} />
+        <Toggle enabled />
       </div>
 
       <div className="flex items-center justify-between w-[40%] mb-5">
@@ -23,7 +23,7 @@ export default function Privacy() {
 
       <div className="flex items-center justify-between w-[40%] mb-5">
         <h3 className="text-black2 font-2xl font-semibold">Show Linkedin</h3>
-        <Toggle enabled={true} />
+        <Toggle enabled />
       </div>
 
       <div className="flex items-center justify-between w-[40%] mb-5">

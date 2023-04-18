@@ -46,12 +46,12 @@ function Faqs() {
         <div
           className="accordion"
           key={`${item.id}`}
-          onClick={() =>
-            setClickedId(Number(clickedID) === item.id ? 'closed' : item.id)
-          }
-          onKeyUp={() =>
-            setClickedId(Number(clickedID) === item.id ? 'closed' : item.id)
-          }
+          onClick={() => {
+            setClickedId(Number(clickedID) === item.id ? 'closed' : item.id);
+          }}
+          onKeyUp={() => {
+            setClickedId(Number(clickedID) === item.id ? 'closed' : item.id);
+          }}
         >
           <div className="accordionHeader">
             {Number(clickedID) === item.id ? (
@@ -86,12 +86,12 @@ function Faqs() {
         <div
           className="accordion"
           key={`1${item.id}`}
-          onClick={() =>
-            setClickedId2(Number(clickedID2) === item.id ? 'closed' : item.id)
-          }
-          onKeyUp={() =>
-            setClickedId2(Number(clickedID2) === item.id ? 'closed' : item.id)
-          }
+          onClick={() => {
+            setClickedId2(Number(clickedID2) === item.id ? 'closed' : item.id);
+          }}
+          onKeyUp={() => {
+            setClickedId2(Number(clickedID2) === item.id ? 'closed' : item.id);
+          }}
         >
           <div className="accordionHeader">
             {Number(clickedID2) === item.id ? (
