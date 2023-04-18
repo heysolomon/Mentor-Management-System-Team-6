@@ -38,5 +38,5 @@ export default function Toggle({ enabled }) {
   );
 }
 Toggle.propTypes = {
-  enabled: PropTypes.bool,
+  enabled: PropTypes.bool.isRequired,
 };
