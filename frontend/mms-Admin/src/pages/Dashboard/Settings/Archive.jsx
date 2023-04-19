@@ -112,19 +112,27 @@ export default function Archive() {
               </div>
 
               {openSection && sectionIndex === question.id ? (
-                <img
-                  src={Dropdown}
-                  alt="dropdown"
-                  className="h-[24px] w-[24px] cursor-pointer rotate-180"
+                <button
+                  type="button"
                   onClick={() => handleCloseSection(question.id)}
-                />
+                >
+                  <img
+                    src={Dropdown}
+                    alt="drop-up"
+                    className="h-[24px] w-[24px] rotate-180"
+                  />
+                </button>
               ) : (
-                <img
-                  src={Dropdown}
-                  alt="dropdown"
-                  className="h-[24px] w-[24px] cursor-pointer "
+                <button
+                  type="button"
                   onClick={() => handleOpenSection(question.id)}
-                />
+                >
+                  <img
+                    src={Dropdown}
+                    alt="dropdown"
+                    className="h-[24px] w-[24px] "
+                  />
+                </button>
               )}
             </div>
 
