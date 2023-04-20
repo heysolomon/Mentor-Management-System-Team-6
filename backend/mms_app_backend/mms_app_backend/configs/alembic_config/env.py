@@ -9,7 +9,6 @@ for name in range(3):
     parent_dir = os.path.dirname(current_dir)
     current_dir = parent_dir
     sys.path.append(parent_dir)
-    print(parent_dir,name)
 
 from database_config import db_url
 from main import Base
