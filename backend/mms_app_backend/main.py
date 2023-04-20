@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 
-print(__name__)
+
 
 # Conditional import due to pytest which imports tests as external packages.
 if __name__ == "__main__" or __name__ == "main" :
