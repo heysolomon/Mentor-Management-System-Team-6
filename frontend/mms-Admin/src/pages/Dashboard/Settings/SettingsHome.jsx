@@ -11,7 +11,7 @@ function SettingsHome() {
       <div className="">
         <Sidebar />
         <div className="absolute md:left-[20%] w-full md:w-[80%] md:pt-[69px]">
-          <div className="border-[1px] rounded-[5px] border-black9 mx-10">
+          <div>
             <Outlet />
           </div>
         </div>

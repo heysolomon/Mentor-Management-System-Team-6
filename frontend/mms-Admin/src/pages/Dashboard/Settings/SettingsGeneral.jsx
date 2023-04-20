@@ -23,7 +23,7 @@ function SettingsGeneral() {
   const dispatch = useDispatch();
 
   return (
-    <div className="p-5">
+    <div className="border-[1px] rounded-[5px] border-black9 mx-10 p-5">
       <section className="flex justify-between items-center">
         <div className="flex items-center">
           <UserAvatar />

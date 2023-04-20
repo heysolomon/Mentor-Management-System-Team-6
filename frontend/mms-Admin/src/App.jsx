@@ -17,6 +17,8 @@ import SettingsGeneral from './pages/Dashboard/Settings/SettingsGeneral';
 import SettingChangePassword from './pages/Dashboard/Settings/SettingChangePassword';
 import Faqs from './pages/Dashboard/Settings/Faqs/Faqs';
 import Notifications from './pages/Dashboard/Settings/Notifications/Notifications';
+import Privacy from './pages/Dashboard/Settings/Privacy';
+import Archive from './pages/Dashboard/Settings/Archive';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -109,11 +111,11 @@ const router = createBrowserRouter([
           },
           {
             path: 'privacy',
-            element: 'this is the privacy',
+            element: <Privacy />,
           },
           {
             path: 'archive',
-            element: 'this is the archive settings',
+            element: <Archive />,
           },
           {
             path: 'support',

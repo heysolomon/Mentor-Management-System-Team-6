@@ -33,8 +33,11 @@ function SettingChangePassword() {
       .required('Confirm Password is required'),
   });
   return (
-    <div className="p-5">
-      <FormikForm initialValues={initialValues} validationSchema={validate}>
+    <div className="border-[1px] rounded-[5px] border-black9 mx-10 p-5">
+      <FormikForm
+        initialValues={initialValues}
+        validationSchema={validate}
+      >
         {/* old password */}
         <div className="flex items-center">
           <div className="w-[33%]">
