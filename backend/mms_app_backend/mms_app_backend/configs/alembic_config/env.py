@@ -4,10 +4,16 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
 current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
-from database_config import db_url,Base
 
+for name in range(3):
+    parent_dir = os.path.dirname(current_dir)
+    current_dir = parent_dir
+    sys.path.append(parent_dir)
+    print(parent_dir,name)
+
+from database_config import db_url
+from main import Base
+print(parent_dir)
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
