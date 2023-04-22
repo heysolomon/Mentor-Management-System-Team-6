@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy.orm import Session
 
 from .constants import USED_EMAIL_MESSAGE, ACCOUNT_CREATED_MESSAGE, USED_USERNAME_MESSAGE, USER_NOT_FOUND_MESSAGE, \
-    USER_LOGGED_IN_MESSAGE, INVALID_CREDENTIALS_MESSAGE, INVALID_OLD_PASSWORD_MESSAGE, \
-    PASSWORD_CHANGE_SUCCESSFUL_MESSAGE
+    USER_LOGGED_IN_MESSAGE, INVALID_CREDENTIALS_MESSAGE, INVALID_OLD_AUTH_MESSAGE, \
+    AUTH_CHANGE_SUCCESSFUL_MESSAGE
 from .crud import get_user_by_email, create_user, get_user_by_username, change_password_crud
 from .helpers import verify_password, create_access_token, verify_access_token
 from .responses import CreateUserResponse, LoginUserResponse
@@ -89,11 +89,11 @@ async def change_password(user_id: int, response: Response, password: PasswordCh
         return password_response
 
     if not verify_password(password.old_password, user.hashed_password):
-        password_response.message = INVALID_OLD_PASSWORD_MESSAGE
+        password_response.message = INVALID_OLD_AUTH_MESSAGE
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return password_response
 
     if change_password_crud(db, user, password.new_password):
         password_response.success = True
-        password_response.message = PASSWORD_CHANGE_SUCCESSFUL_MESSAGE
+        password_response.message = AUTH_CHANGE_SUCCESSFUL_MESSAGE
         return password_response
