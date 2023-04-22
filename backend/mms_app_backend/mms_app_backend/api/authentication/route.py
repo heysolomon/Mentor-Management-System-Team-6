@@ -12,6 +12,7 @@ from ..utils import get_db
 
 router = APIRouter()
 post = router.post
+patch = router.patch
 
 
 @post("/v1/users", response_model=CreateUserResponse, status_code=status.HTTP_201_CREATED)
@@ -68,3 +69,8 @@ async def login(login_data: UserLogin, response: Response, db: Session = Depends
     user_response.data.user = db_user
     user_response.message = USER_LOGGED_IN_MESSAGE
     return user_response
+
+
+@patch('PATCH /api/users/{user_id}/password')
+async def change_password(user_id: int, password: str, db: Session = Depends(get_db)):
+    pass
