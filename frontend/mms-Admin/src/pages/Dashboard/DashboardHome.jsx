@@ -1,11 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  MentorIcon,
+import { MentorIcon,
   MentorManagerIcon,
   ReportIcon,
-  TaskIcon,
-} from '../../assets/images';
+  TaskIcon } from '../../assets/images';
 import GadsCard from '../../components/Dashboard/DashboardCards/GadsCard';
 import GadsReportCard from '../../components/Dashboard/DashboardCards/GadsReportCard';
 import TasksCards from '../../components/Dashboard/DashboardCards/TasksCards';
