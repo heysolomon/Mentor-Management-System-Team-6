@@ -2,13 +2,14 @@ from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy.orm import Session
 
 from .constants import USED_EMAIL_MESSAGE, ACCOUNT_CREATED_MESSAGE, USED_USERNAME_MESSAGE, USER_NOT_FOUND_MESSAGE, \
-    USER_LOGGED_IN_MESSAGE, INVALID_CREDENTIALS_MESSAGE
+    USER_LOGGED_IN_MESSAGE, INVALID_CREDENTIALS_MESSAGE, INVALID_OLD_PASSWORD_MESSAGE
 from .crud import get_user_by_email, create_user, get_user_by_username
-from .helpers import verify_password, create_access_token
+from .helpers import verify_password, create_access_token, verify_access_token
 from .responses import CreateUserResponse, LoginUserResponse
-from .schemas import UserCreate, UserLogin
+from .schemas import UserCreate, UserLogin,PasswordChange
+from ..account_management.constants import INVALID_USER_PARAMETER
 from ..constants import GENERAL_ERROR_MESSAGE
-from ..utils import get_db
+from ..utils import get_db, get_token, ResponseModel
 
 router = APIRouter()
 post = router.post
@@ -71,6 +72,17 @@ async def login(login_data: UserLogin, response: Response, db: Session = Depends
     return user_response
 
 
-@patch('PATCH /api/users/{user_id}/password')
-async def change_password(user_id: int, password: str, db: Session = Depends(get_db)):
-    pass
+@patch('PATCH /api/users/{user_id}/password',status_code=status.HTTP_204_NO_CONTENT,response_model=ResponseModel)
+async def change_password(user_id: int,response:Response, password: PasswordChange, db: Session = Depends(get_db),token:str=Depends(get_token())):
+    password_response = ResponseModel()
+    user = verify_access_token(token)
+    if not user:
+        password_response.message = INVALID_CREDENTIALS_MESSAGE
+        return password_response
+
+    if user_id != user.id:
+        password_response.message = INVALID_USER_PARAMETER
+        return password_response
+    if not verify_password(password.old_password,user.password):
+        password_response.message = INVALID_OLD_PASSWORD_MESSAGE
+        return password_response
