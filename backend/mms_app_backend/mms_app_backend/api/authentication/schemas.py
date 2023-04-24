@@ -24,3 +24,8 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+
+
+class PasswordChange(CamelModel):
+    old_password: str
+    new_password: str
