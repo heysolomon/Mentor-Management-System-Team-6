@@ -11,7 +11,7 @@ module.exports = {
   },
   plugins: ['react'],
   rules: {
-    'linebreak-style': ['error', 'unix'],
+    'linebreak-style': ['error', 'windows'],
     'object-curly-newline': [
       'error',
       {
