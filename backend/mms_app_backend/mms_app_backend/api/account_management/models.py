@@ -60,8 +60,8 @@ class Mentor(AbstractBaseModel):
     profile = relationship("Profile", back_populates='mentor')
     programs = relationship("Program", back_populates='mentors', secondary="program_mentor_association")
     roles = relationship("Role", back_populates='mentor')
-    task = relationship("Task", back_populates='mentor')
-    task_id = Column(ForeignKey('tasks.id'))
+    task = relationship("Task", back_populates='mentors')
+    task_id = Column(Integer,ForeignKey('tasks.id'))
 
 #
 class MentorManager(AbstractBaseModel):
@@ -71,8 +71,8 @@ class MentorManager(AbstractBaseModel):
     about = Column(Text)
     roles = relationship("Role", back_populates='mentor_manager')
     programs = relationship("Program", back_populates='mentor_manager')
-    task = relationship("Task", back_populates='mentor_manager')
-    task_id = Column(ForeignKey('tasks.id'))
+    task = relationship("Task", back_populates='mentor_managers')
+    task_id = Column(Integer,ForeignKey('tasks.id'))
 
 
 

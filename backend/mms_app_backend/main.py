@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 if __name__ == "__main__" or __name__ == "main":
     from mms_app_backend.api.authentication.route import router as auth_router
     from mms_app_backend.api.account_management.route import router as account_management_router
+    from mms_app_backend.api.tasks.models import Task
     from mms_app_backend.configs.database_config import Base, engine
 else:
     from .mms_app_backend.api.authentication.route import router as auth_router
