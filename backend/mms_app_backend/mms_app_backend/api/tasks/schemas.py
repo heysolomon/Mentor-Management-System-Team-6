@@ -25,3 +25,6 @@ class DeleteTask(CamelModel):
 
 class GetTask(BaseTask):
     id = int
+
+    class Config:
+        orm_mode = True
