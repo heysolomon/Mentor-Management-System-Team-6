@@ -2,10 +2,10 @@ from fastapi_camelcase import CamelModel
 
 
 class BaseTask(CamelModel):
-    title = str
-    description = str
-    mentors = list[int]
-    mentor_managers = list[int]
+    title :str
+    description : str
+    mentors : list[int]
+    mentor_managers : list[int]
 
 
 class CreateTask(BaseTask):
@@ -13,10 +13,10 @@ class CreateTask(BaseTask):
 
 
 class UpdateTask(CamelModel):
-    title = str | None
-    description = str | None
-    mentors = list | None
-    mentor_managers = list | None
+    title : str | None
+    description : str | None
+    mentors : list | None
+    mentor_managers : list | None
 
 
 class DeleteTask(CamelModel):
