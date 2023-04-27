@@ -1,5 +1,6 @@
 from fastapi import Response,APIRouter,status,Depends
 
+from .crud import create_task_crud
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
 from ..utils import get_token,get_db
 from .responses import CreateTaskResponse
@@ -18,6 +19,12 @@ async def create_task(task:CreateTask,response:Response,jwt_token:str = Depends(
         task_response.message = INVALID_AUTHENTICATION_MESSAGE
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return task_response
+    created_task = create_task_crud(db,task)
+    if created_task:
+        task_response.success = True
+        task_response.message =
+        return task_response
+
 
 
 
