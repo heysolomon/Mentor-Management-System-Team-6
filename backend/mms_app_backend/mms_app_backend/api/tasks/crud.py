@@ -6,10 +6,12 @@ def create_task_crud(db:Session,task:CreateTask):
     task_instance = Task(title=task.title, description=task.description)
     for mentor in task.mentors:
         mentor_instance = db.query(Mentor).filter(MentorManager.id == mentor).first()
+        print('mentor_instance',mentor_instance)
         mentor_instance.task_id = task_instance.id
         db.add(mentor_instance)
     for mentor_manager in task.mentor_managers:
         mentor_manager_instance = db.query(MentorManager).filter(MentorManager.id == mentor_manager).first()
+
         mentor_manager_instance.task_id = task_instance.id
         db.add(mentor_manager_instance)
 

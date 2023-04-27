@@ -27,5 +27,6 @@ async def create_task(task: CreateTask, response: Response, jwt_token: str = Dep
     created_task = create_task_crud(db, task)
     if created_task:
         task_response.success = True
+        task_response.data.task  = created_task
         task_response.message = CREATED_TASK_SUCCESSFUL_MESSAGE
         return task_response
