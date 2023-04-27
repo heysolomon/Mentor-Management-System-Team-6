@@ -20,3 +20,5 @@ def create_task_crud(db:Session,task:CreateTask):
     db.refresh(task_instance)
     return task_instance
 
+def get_tasks_crud(db:Session):
+    return db.query(Task).all()
