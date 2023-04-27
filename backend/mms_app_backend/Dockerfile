@@ -15,7 +15,7 @@ COPY . /app
 ENV DATABASE_USERNAME postgres
 
 # Copy the requirements.txt file to the container at /app
-COPY mms_app_backend/requirements.txt /app
+COPY requirements.txt /app
 
 # Install any needed packages specified in requirements.txt
 RUN pip3 install -r requirements.txt
@@ -30,4 +30,4 @@ EXPOSE 8000
 ENV NAME World
 
 # Run the FastAPI application using uvicorn when the container launches
-CMD ["uvicorn", "mms_app_backend.main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD exec gunicorn --bind :$PORT --workers 1 --worker-class uvicorn.workers.UvicornWorker  --threads 8 app.main:app
