@@ -1,8 +1,10 @@
 from fastapi import Response, APIRouter, status, Depends
 from sqlalchemy.orm import Session
 
-from .constants import CREATED_TASK_SUCCESSFUL_MESSAGE, GET_TASKS_SUCCESSFUL_MESSAGE, UPDATE_TASK_SUCCESSFUL_MESSAGE
+from .constants import CREATED_TASK_SUCCESSFUL_MESSAGE, GET_TASKS_SUCCESSFUL_MESSAGE, UPDATE_TASK_SUCCESSFUL_MESSAGE, \
+    TASK_NOT_FOUND_MESSAGE
 from .crud import create_task_crud, get_tasks_crud, update_task_crud
+from .models import Task
 from .responses import CreateTaskResponse, GetTasksResponse
 from .schemas import CreateTask, UpdateTask
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
@@ -48,12 +50,17 @@ async def get_tasks(response: Response, jwt_token: str = Depends(get_token()), d
     tasks_response.message = GET_TASKS_SUCCESSFUL_MESSAGE
     return tasks_response
 
-
-@patch('/admin/task/{task_id}', response_model=CreateTaskResponse, status_code=status.HTTP_200_OK)
+# endpoint to update the tasks based on the inputs
+@patch('/admin/tasks/{task_id}', response_model=CreateTaskResponse, status_code=status.HTTP_200_OK)
 async def update_task(task_id: int, task: UpdateTask, response: Response, jwt_token: str = Depends(get_token()),
                       db: Session = Depends(get_db)):
     task_response = CreateTaskResponse()
     user = verify_access_token(db, jwt_token)
+    task_instance = db.query(Task).filter(Task.id == task_id).first()
+    if  task_instance is None:
+        task_response.message = TASK_NOT_FOUND_MESSAGE
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return task_response
 
     if user is None:
         task_response.message = INVALID_AUTHENTICATION_MESSAGE
