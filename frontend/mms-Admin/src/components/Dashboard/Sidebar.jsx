@@ -158,7 +158,7 @@ function Sidebar() {
               >
                 <NavLink
                   to={link}
-                  className="flex items-center w-full duration-700 py-[8px]"
+                  className="flex items-center w-full duration-700 py-[7px]"
                   style={({ isActive }) => ({
                     color: isActive ? '#333333' : '#808080',
                     fontWeight: isActive ? '700' : '400',
