@@ -1,10 +1,10 @@
 from fastapi import Response, APIRouter, status, Depends
 from sqlalchemy.orm import Session
 
-from .constants import CREATED_TASK_SUCCESSFUL_MESSAGE, GET_TASKS_SUCCESSFUL_MESSAGE
-from .crud import create_task_crud, get_tasks_crud
+from .constants import CREATED_TASK_SUCCESSFUL_MESSAGE, GET_TASKS_SUCCESSFUL_MESSAGE, UPDATE_TASK_SUCCESSFUL_MESSAGE
+from .crud import create_task_crud, get_tasks_crud, update_task_crud
 from .responses import CreateTaskResponse, GetTasksResponse
-from .schemas import CreateTask
+from .schemas import CreateTask, UpdateTask
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
 from ..authentication.helpers import verify_access_token
 from ..utils import get_token, get_db
@@ -50,7 +50,7 @@ async def get_tasks(response: Response, jwt_token: str = Depends(get_token()), d
 
 
 @patch('/admin/task/{task_id}', response_model=CreateTaskResponse, status_code=status.HTTP_200_OK)
-async def update_task(task_id: int, response: Response, jwt_token: str = Depends(get_token()),
+async def update_task(task_id: int, task: UpdateTask, response: Response, jwt_token: str = Depends(get_token()),
                       db: Session = Depends(get_db)):
     task_response = CreateTaskResponse()
     user = verify_access_token(db, jwt_token)
@@ -60,3 +60,9 @@ async def update_task(task_id: int, response: Response, jwt_token: str = Depends
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return task_response
 
+    updated_task = update_task_crud(db, task, task_id)
+    if updated_task:
+        task_response.message = UPDATE_TASK_SUCCESSFUL_MESSAGE
+        task_response.data.task = updated_task
+        task_response.success = True
+        return task_response
