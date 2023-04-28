@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from .constants import CREATED_TASK_SUCCESSFUL_MESSAGE, GET_TASKS_SUCCESSFUL_MESSAGE, UPDATE_TASK_SUCCESSFUL_MESSAGE, \
     TASK_NOT_FOUND_MESSAGE
-from .crud import create_task_crud, get_tasks_crud, update_task_crud
+from .crud import create_task_crud, get_tasks_crud, update_task_crud, delete_task_crud
 from .models import Task
 from .responses import CreateTaskResponse, GetTasksResponse
 from .schemas import CreateTask, UpdateTask
@@ -57,14 +57,16 @@ async def update_task(task_id: int, task: UpdateTask, response: Response, jwt_to
     task_response = CreateTaskResponse()
     user = verify_access_token(db, jwt_token)
     task_instance = db.query(Task).filter(Task.id == task_id).first()
-    if  task_instance is None:
-        task_response.message = TASK_NOT_FOUND_MESSAGE
-        response.status_code = status.HTTP_404_NOT_FOUND
-        return task_response
+
 
     if user is None:
         task_response.message = INVALID_AUTHENTICATION_MESSAGE
         response.status_code = status.HTTP_401_UNAUTHORIZED
+        return task_response
+
+    if task_instance is None:
+        task_response.message = TASK_NOT_FOUND_MESSAGE
+        response.status_code = status.HTTP_404_NOT_FOUND
         return task_response
 
     updated_task = update_task_crud(db, task, task_id)
@@ -73,3 +75,22 @@ async def update_task(task_id: int, task: UpdateTask, response: Response, jwt_to
         task_response.data.task = updated_task
         task_response.success = True
         return task_response
+
+@delete('/admin/tasks/{task_id}',response_model=status.HTTP_200_OK,)
+async def delete_task(task_id:int,response:Response,jwt_token:str=Depends(get_token()),db:Session=Depends(get_db)):
+    user = verify_access_token(db, jwt_token)
+    task_response = CreateTaskResponse()
+    if user is None:
+        task_response.message = INVALID_AUTHENTICATION_MESSAGE
+        response.status_code = status.HTTP_401_UNAUTHORIZED
+        return
+
+    task_instance = db.query(Task).filter(Task.id == task_id).first()
+    if task_instance is None:
+        task_response.message = TASK_NOT_FOUND_MESSAGE
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return task_response
+
+    delete_task = delete_task_crud(db, task_instance)
+    if delete_task:
+        task_response.message =

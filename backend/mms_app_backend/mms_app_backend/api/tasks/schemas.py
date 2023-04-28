@@ -19,10 +19,6 @@ class UpdateTask(CamelModel):
     mentor_managers : list | None
 
 
-class DeleteTask(CamelModel):
-    id : int
-
-
 class GetTask(BaseTask):
     id : int
 

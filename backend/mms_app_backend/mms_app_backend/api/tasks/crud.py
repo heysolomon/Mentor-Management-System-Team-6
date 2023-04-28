@@ -25,7 +25,8 @@ def create_task_crud(db: Session, task: CreateTask):
 
     mentors = [mentor.id for mentor in task_instance.mentors]
     managers = [manager.id for manager in task_instance.mentor_managers]
-    return GetTask(id=task_instance.id, title=task_instance.title, description=task_instance.description, mentors=mentors,
+    return GetTask(id=task_instance.id, title=task_instance.title, description=task_instance.description,
+                   mentors=mentors,
                    mentor_managers=managers)
 
 
@@ -36,10 +37,10 @@ def get_tasks_crud(db: Session):
     return [GetTask(
         id=task.id,
         title=task.title,
-                    description=task.description,
-                    mentors=[mentor.id for mentor in task.mentors],
-                    mentor_managers=[manager.id for manager in task.mentor_managers])
-            for task in tasks]
+        description=task.description,
+        mentors=[mentor.id for mentor in task.mentors],
+        mentor_managers=[manager.id for manager in task.mentor_managers])
+        for task in tasks]
 
 
 def update_task_crud(db: Session, task: UpdateTask, task_id):
@@ -79,5 +80,12 @@ def update_task_crud(db: Session, task: UpdateTask, task_id):
 
     mentors = [mentor.id for mentor in task_instance.mentors]
     managers = [manager.id for manager in task_instance.mentor_managers]
-    return GetTask(id=task_instance.id, title=task_instance.title, description=task_instance.description, mentors=mentors,
+    return GetTask(id=task_instance.id, title=task_instance.title, description=task_instance.description,
+                   mentors=mentors,
                    mentor_managers=managers)
+
+
+def delete_task_crud(db, task_instance):
+    db.delete(task_instance)
+    db.commit()
+    return True
