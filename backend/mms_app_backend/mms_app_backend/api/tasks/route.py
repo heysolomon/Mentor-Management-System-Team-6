@@ -47,3 +47,16 @@ async def get_tasks(response: Response, jwt_token: str = Depends(get_token()), d
     tasks_response.data.tasks = tasks
     tasks_response.message = GET_TASKS_SUCCESSFUL_MESSAGE
     return tasks_response
+
+
+@patch('/admin/task/{task_id}', response_model=CreateTaskResponse, status_code=status.HTTP_200_OK)
+async def update_task(task_id: int, response: Response, jwt_token: str = Depends(get_token()),
+                      db: Session = Depends(get_db)):
+    task_response = CreateTaskResponse()
+    user = verify_access_token(db, jwt_token)
+
+    if user is None:
+        task_response.message = INVALID_AUTHENTICATION_MESSAGE
+        response.status_code = status.HTTP_401_UNAUTHORIZED
+        return task_response
+
