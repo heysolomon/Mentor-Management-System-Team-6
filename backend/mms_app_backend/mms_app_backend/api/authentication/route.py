@@ -2,16 +2,19 @@ from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy.orm import Session
 
 from .constants import USED_EMAIL_MESSAGE, ACCOUNT_CREATED_MESSAGE, USED_USERNAME_MESSAGE, USER_NOT_FOUND_MESSAGE, \
-    USER_LOGGED_IN_MESSAGE, INVALID_CREDENTIALS_MESSAGE
-from .crud import get_user_by_email, create_user, get_user_by_username
-from .helpers import verify_password, create_access_token
+    USER_LOGGED_IN_MESSAGE, INVALID_CREDENTIALS_MESSAGE, INVALID_OLD_AUTH_MESSAGE, \
+    AUTH_CHANGE_SUCCESSFUL_MESSAGE
+from .crud import get_user_by_email, create_user, get_user_by_username, change_password_crud
+from .helpers import verify_password, create_access_token, verify_access_token
 from .responses import CreateUserResponse, LoginUserResponse
-from .schemas import UserCreate, UserLogin
+from .schemas import UserCreate, UserLogin, PasswordChange
+from ..account_management.constants import INVALID_USER_PARAMETER
 from ..constants import GENERAL_ERROR_MESSAGE
-from ..utils import get_db
+from ..utils import get_db, get_token, ResponseModel
 
 router = APIRouter()
 post = router.post
+patch = router.patch
 
 
 @post("/v1/users", response_model=CreateUserResponse, status_code=status.HTTP_201_CREATED)
@@ -68,3 +71,29 @@ async def login(login_data: UserLogin, response: Response, db: Session = Depends
     user_response.data.user = db_user
     user_response.message = USER_LOGGED_IN_MESSAGE
     return user_response
+
+
+# Endpoint to change user's authenticated user's old password by creating a new one.
+@patch('/v1/users/{user_id}/password', status_code=status.HTTP_200_OK, response_model=ResponseModel)
+async def change_password(user_id: int, response: Response, password: PasswordChange, db: Session = Depends(get_db),
+                          token: str = Depends(get_token())):
+    password_response = ResponseModel()
+    user = verify_access_token(db, token)
+    if not user:
+        password_response.message = INVALID_CREDENTIALS_MESSAGE
+        response.status_code = status.HTTP_401_UNAUTHORIZED
+        return password_response
+    if user_id != user.id:
+        password_response.message = INVALID_USER_PARAMETER
+        response.status_code = status.HTTP_400_BAD_REQUEST
+        return password_response
+
+    if not verify_password(password.old_password, user.hashed_password):
+        password_response.message = INVALID_OLD_AUTH_MESSAGE
+        response.status_code = status.HTTP_401_UNAUTHORIZED
+        return password_response
+
+    if change_password_crud(db, user, password.new_password):
+        password_response.success = True
+        password_response.message = AUTH_CHANGE_SUCCESSFUL_MESSAGE
+        return password_response

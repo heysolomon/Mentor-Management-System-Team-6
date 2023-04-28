@@ -49,9 +49,9 @@ function Faqs() {
           onClick={() => {
             setClickedId(Number(clickedID) === item.id ? 'closed' : item.id);
           }}
-          onKeyUp={() => {
-            setClickedId(Number(clickedID) === item.id ? 'closed' : item.id);
-          }}
+          onKeyUp={() => [
+            setClickedId(Number(clickedID) === item.id ? 'closed' : item.id),
+          ]}
         >
           <div className="accordionHeader">
             {Number(clickedID) === item.id ? (
