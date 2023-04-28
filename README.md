@@ -36,7 +36,7 @@ To get it up and running on your local machine, follow the steps below:
 - Start the app with the command `npm run dev`
 - Navigate to the app on your browser with the url `http://localhost:****` where \*\*\*\* is the port number displayed on your terminal.
 
-   4. Make sure the name is descriptive for your branch but not too long. Lead with what the the branch is doing eg new feature or bug but follow this pattern `type/branch-description` eg `feature/add-login-functionality.
+  4.  Make sure the name is descriptive for your branch but not too long. Lead with what the the branch is doing eg new feature or bug but follow this pattern `type/branch-description` eg `feature/add-login-functionality.
 
 - Backend -
 
