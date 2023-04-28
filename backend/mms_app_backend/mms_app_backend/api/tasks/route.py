@@ -50,6 +50,7 @@ async def get_tasks(response: Response, jwt_token: str = Depends(get_token()), d
     tasks_response.message = GET_TASKS_SUCCESSFUL_MESSAGE
     return tasks_response
 
+
 # endpoint to update the tasks based on the inputs
 @patch('/admin/tasks/{task_id}', response_model=CreateTaskResponse, status_code=status.HTTP_200_OK)
 async def update_task(task_id: int, task: UpdateTask, response: Response, jwt_token: str = Depends(get_token()),
@@ -57,7 +58,6 @@ async def update_task(task_id: int, task: UpdateTask, response: Response, jwt_to
     task_response = CreateTaskResponse()
     user = verify_access_token(db, jwt_token)
     task_instance = db.query(Task).filter(Task.id == task_id).first()
-
 
     if user is None:
         task_response.message = INVALID_AUTHENTICATION_MESSAGE
@@ -76,9 +76,11 @@ async def update_task(task_id: int, task: UpdateTask, response: Response, jwt_to
         task_response.success = True
         return task_response
 
+
 # Endpoint to hard delete tasks
-@delete('/admin/tasks/{task_id}',response_model=CreateTaskResponse,status_code=status.HTTP_200_OK)
-async def delete_task(task_id:int,response:Response,jwt_token:str=Depends(get_token()),db:Session=Depends(get_db)):
+@delete('/admin/tasks/{task_id}', response_model=CreateTaskResponse, status_code=status.HTTP_200_OK)
+async def delete_task(task_id: int, response: Response, jwt_token: str = Depends(get_token()),
+                      db: Session = Depends(get_db)):
     """
     Endpoint to permanently delete tasks from the database.
     """
@@ -95,8 +97,8 @@ async def delete_task(task_id:int,response:Response,jwt_token:str=Depends(get_to
         response.status_code = status.HTTP_404_NOT_FOUND
         return task_response
 
-    delete_task = delete_task_crud(db, task_instance)
-    if delete_task:
+    deleted_task = delete_task_crud(db, task_instance)
+    if deleted_task:
         task_response.message = TASK_DELETED_SUCCESSFUL_MESSAGE
         task_response.success = True
         return task_response
