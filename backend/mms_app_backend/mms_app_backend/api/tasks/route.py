@@ -2,7 +2,7 @@ from fastapi import Response, APIRouter, status, Depends
 from sqlalchemy.orm import Session
 
 from .constants import CREATED_TASK_SUCCESSFUL_MESSAGE, GET_TASKS_SUCCESSFUL_MESSAGE, UPDATE_TASK_SUCCESSFUL_MESSAGE, \
-    TASK_NOT_FOUND_MESSAGE
+    TASK_NOT_FOUND_MESSAGE, TASK_DELETED_SUCCESSFUL_MESSAGE
 from .crud import create_task_crud, get_tasks_crud, update_task_crud, delete_task_crud
 from .models import Task
 from .responses import CreateTaskResponse, GetTasksResponse
@@ -76,8 +76,12 @@ async def update_task(task_id: int, task: UpdateTask, response: Response, jwt_to
         task_response.success = True
         return task_response
 
-@delete('/admin/tasks/{task_id}',response_model=status.HTTP_200_OK,)
+# Endpoint to hard delete tasks
+@delete('/admin/tasks/{task_id}',response_model=CreateTaskResponse,status_code=status.HTTP_200_OK)
 async def delete_task(task_id:int,response:Response,jwt_token:str=Depends(get_token()),db:Session=Depends(get_db)):
+    """
+    Endpoint to permanently delete tasks from the database.
+    """
     user = verify_access_token(db, jwt_token)
     task_response = CreateTaskResponse()
     if user is None:
@@ -93,4 +97,6 @@ async def delete_task(task_id:int,response:Response,jwt_token:str=Depends(get_to
 
     delete_task = delete_task_crud(db, task_instance)
     if delete_task:
-        task_response.message =
+        task_response.message = TASK_DELETED_SUCCESSFUL_MESSAGE
+        task_response.success = True
+        return task_response
