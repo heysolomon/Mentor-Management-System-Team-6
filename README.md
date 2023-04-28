@@ -9,10 +9,10 @@ app doc below to read more and follow all the instructions.
 ## Techonologies
 
 - Frontend: ReactJS, Redux, Redux Toolkit, Tailwind css.
-  - Backend: FAST API, Sqlalchemy.
-    - Database: PostgreSQL
-      - DevOps: Github actions, AWS, docker,AWS Amplify
-        - Cloud: AWS Amplify, Elastic Beanstalk, RDS Postgres.
+- Backend: FAST API, Sqlalchemy.
+- Database: PostgreSQL
+- DevOps: Github actions, AWS, docker,AWS Amplify
+- Cloud: AWS Amplify, Elastic Beanstalk, RDS Postgres.
 
 ## How to contributing to this project:
 
