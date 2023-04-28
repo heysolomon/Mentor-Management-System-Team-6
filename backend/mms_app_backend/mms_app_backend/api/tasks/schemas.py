@@ -20,11 +20,11 @@ class UpdateTask(CamelModel):
 
 
 class DeleteTask(CamelModel):
-    id = int
+    id : int
 
 
 class GetTask(BaseTask):
-    id = int
+    id : int
 
     class Config:
         orm_mode = True
