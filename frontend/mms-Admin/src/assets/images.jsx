@@ -14,6 +14,7 @@ import github from './akar-icons_github-fill.svg';
 import linkedIn from './Vector.svg';
 import ig from './Vector-1.svg';
 import twitter from './Vector-2.svg';
+import menu from './Hamburger Menu.png';
 
 // am importing pictures from the assets folder and exporting them as components
 // mentor management system logo
@@ -105,6 +106,10 @@ export function SearchIcon({ styling }) {
 // gads elipse
 export function GadsElipse({ styling }) {
   return <img src={gadsElipse} className={styling} alt="search icon" />;
+}
+// mobile menu
+export function MobileMenu({ styling }) {
+  return <img src={menu} className={styling} alt="search icon" />;
 }
 // gads report icon
 export function GadsReportIcon({ styling }) {

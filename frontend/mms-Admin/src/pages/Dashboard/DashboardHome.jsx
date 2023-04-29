@@ -1,5 +1,4 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { MentorIcon,
   MentorManagerIcon,
   ReportIcon,
@@ -8,7 +7,6 @@ import GadsCard from '../../components/Dashboard/DashboardCards/GadsCard';
 import GadsReportCard from '../../components/Dashboard/DashboardCards/GadsReportCard';
 import TasksCards from '../../components/Dashboard/DashboardCards/TasksCards';
 import Dropdown from '../../components/utilities/Dropdown';
-import { openSidebar } from '../../redux/features/sidebarSlice';
 
 function DashboardHome() {
   const filterOptions = [
@@ -26,7 +24,6 @@ function DashboardHome() {
     },
   ];
 
-  const dispatch = useDispatch();
   return (
     <div className="w-full h-full">
       <div className="w-full">
@@ -40,16 +37,6 @@ function DashboardHome() {
               options={filterOptions}
               placeHolder="Select an option..."
             />
-          </div>
-        </div>
-        {/* this is the element to open the sidebar in mobile */}
-        <div className="flex justify-end mt-3 md:hidden">
-          <div
-            className="text-black2 font-400] text-[16px] py-[4px] px-[8px] bg-pri10 border-[1px] border-pri10 flex w-[20%] hover:cursor-pointer"
-            aria-hidden="true"
-            onClick={() => dispatch(openSidebar())}
-          >
-            menu
           </div>
         </div>
         {/* the first grid */}
