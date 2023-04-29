@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import './Tasks.css';
 import { RiSearchLine } from 'react-icons/ri';
-import { BsFilter } from 'react-icons/bs';
+import { BsFilter, BsPeople, BsPerson } from 'react-icons/bs';
 import { BiArrowBack } from 'react-icons/bi';
+import { HiOutlineDocumentText, HiOutlineTrash } from 'react-icons/hi';
 import { GoCalendar } from 'react-icons/go';
 import taskImg from './task.png';
-import taskIcon1 from './taskIcon1.png';
-import taskIcon2 from './taskIcon2.png';
-import taskIcon3 from './taskIcon3.png';
+
 import styles from '../styles/dashboard.module.css';
 
 function Tasks() {
@@ -48,7 +47,7 @@ function Tasks() {
           {
           Array.from(Array(10)).map((i) => (
             <div className="task flex m-3 p-3 rounded-md  border-2 border-grey-400 w-full cursor-pointer" key={i}>
-              <img src={taskImg} alt={i} className="object-contain  " />
+              <img src={taskImg} alt={i} className="object-contain" />
               <div className="rightTask ms-8">
                 <h3 className="font-semibold">Room Library article write...</h3>
                 <div className="taskdate flex">
@@ -67,7 +66,7 @@ function Tasks() {
       <div className="basis-2/3">
         <div className="flex flex-row-reverse">
           <button
-            type="submit"
+            type="button"
             className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold"
           >
             Create New Task
@@ -78,7 +77,7 @@ function Tasks() {
           <div className="flex flex-row p-4">
             <img src={taskImg} alt="icon" className="object-contain" />
             <div className="rightTask ms-8">
-              <h3 className="font-semibold ">Room library article written in java</h3>
+              <h3 className="font-semibold text-xl ">Room library article written in java</h3>
               <div className="taskdate flex items-center">
 
                 <GoCalendar className="text-teal-700 text-l me-3" />
@@ -97,8 +96,68 @@ function Tasks() {
               Curabitur pellentesque nibh nibh,
               at maximus ante fermentum sit amet. Pellentesque
             </p>
+            {/* start task1 */}
+            <div className="flex bg-cyan-100/50 p-3 my-3">
+              <BsPeople className="text-teal-700 text-3xl mx-5" />
+              <p className="font-semibold text-xl w-full">
+                <span className="font-extrabold text-4xl mr-5">10</span>
+                Mentor Managers assigned to this task
+              </p>
+              <button
+                type="button"
+                className="bg-pri3 py-.5 px-5 rounded-md text-white font-light font-sm mr-10"
+              >
+                View
+              </button>
+            </div>
+            {/* end task 1 */}
 
-            <div className="flex" />
+            {/* start task 2 */}
+            <div className="flex bg-cyan-100/50 p-3 my-3">
+              <BsPerson className="text-teal-700 text-3xl mx-5" />
+              <p className="font-semibold text-xl w-full">
+                <span className="font-extrabold text-4xl mr-5">80</span>
+                Mentors assigned to this task
+              </p>
+              <button
+                type="button"
+                className="bg-pri3 py-.5 px-5 rounded-md text-white font-light font-sm mr-10"
+              >
+                View
+              </button>
+            </div>
+            {/* end task 2 */}
+
+            {/* start task 3 */}
+            <div className="flex bg-cyan-100/50 p-3 my-3">
+              <HiOutlineDocumentText className="text-teal-700 text-3xl mx-5" />
+              <p className="font-semibold text-xl w-full">
+                <span className="font-extrabold text-3xl mr-5">45</span>
+                Task reports
+              </p>
+              <button
+                type="button"
+                className="bg-pri3 py-.5 px-5 rounded-md text-white font-light font-sm mr-10"
+              >
+                View
+              </button>
+            </div>
+            {/* end task  3 */}
+            <div className="flex flex-row-reverse my-7">
+              <button
+                type="button"
+                className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold"
+              >
+                Edit Task
+              </button>
+              <button
+                type="button"
+                className="bg-transparent py-2.5 px-10  text-red-600 font-meduim flex flex-row"
+              >
+                <HiOutlineTrash className="text-xl mr-2 font-xl" />
+                Delete
+              </button>
+            </div>
           </div>
         </div>
 
