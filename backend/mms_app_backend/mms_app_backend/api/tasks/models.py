@@ -1,4 +1,4 @@
-from sqlalchemy import String, Column, Text
+from sqlalchemy import String, Column, Text, Boolean
 from sqlalchemy.orm import relationship
 
 from ..models import AbstractBaseModel
@@ -10,3 +10,5 @@ class Task(AbstractBaseModel):
     description = Column(Text)
     mentor_managers = relationship("MentorManager", back_populates="task")
     mentors = relationship("Mentor", back_populates='task')
+    completed = Column(Boolean, default=False)
+    open = Column(Boolean, default=True)

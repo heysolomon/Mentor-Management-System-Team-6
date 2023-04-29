@@ -89,3 +89,9 @@ def delete_task_crud(db, task_instance):
     db.delete(task_instance)
     db.commit()
     return True
+def close_task_crud(db, task_instance):
+    task_instance.open = False
+    db.add(task_instance)
+    db.commit()
+    db.refresh(task_instance)
+    return True

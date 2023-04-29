@@ -10,8 +10,11 @@ class CreateTaskData(CamelModel):
 
 class CreateTaskResponse(ResponseModel):
     data: CreateTaskData = CreateTaskData()
-class GetTasksData(CamelModel):
-    tasks:list[GetTask] | None
-class GetTasksResponse(ResponseModel):
-    data:GetTasksData = GetTasksData()
 
+
+class GetTasksData(CamelModel):
+    tasks: list[GetTask] | None
+
+
+class GetTasksResponse(ResponseModel):
+    data: GetTasksData = GetTasksData()
