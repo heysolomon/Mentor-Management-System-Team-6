@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 if __name__ == "__main__" or __name__ == "main":
     from mms_app_backend.api.authentication.route import router as auth_router
     from mms_app_backend.api.account_management.route import router as account_management_router
+    from mms_app_backend.api.tasks.route import router as task_router
     from mms_app_backend.configs.database_config import Base, engine
 else:
     from .mms_app_backend.api.authentication.route import router as auth_router
@@ -28,8 +29,10 @@ app.add_middleware(
 
 app.include_router(auth_router)
 app.include_router(account_management_router)
+app.include_router(task_router)
+
 get = app.get
-post = app.post
+
 
 @get('/')
 async def homepage():
