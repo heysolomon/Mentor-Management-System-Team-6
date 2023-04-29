@@ -1,10 +1,10 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ResetPasswordIllustration } from '../../assets/images';
 import { closeDeleteModal } from '../../redux/features/tasks/tasksSlice';
 import Button from '../utilities/Buttons/Button';
 import ProfileModal from './ProfileModal';
+import { DeleteImage } from '../../assets/images';
 
 function TasksModal() {
   const open = useSelector((state) => state.tasks.isOpen);
@@ -55,16 +55,27 @@ function TasksModal() {
               exit="exit"
             >
               <h2 className="font-mukta font-[600] text-black1 text-[18px] md:text-[24px]">
-                Profile Saved Successfully
+                Task Deleted Successfully
               </h2>
-              <ResetPasswordIllustration styling="mt-[28px]" />
-              <Button
-                width="w-[50%] md:w-[25%] mt-[28px]"
-                onClick={() => dispatch(closeDeleteModal())}
-                aria-hidden="true"
-              >
-                Done
-              </Button>
+              <DeleteImage styling="mt-[28px]" />
+              <div className="flex">
+
+                <button
+                  type="button"
+                  className="border-pri3 py-2.5 px-10 rounded-md text-teal-700 font-semibold border-teal-700 border-2 mx-1"
+                  onClick={() => dispatch(closeDeleteModal())}
+                >
+                  Undo
+                </button>
+                <button
+                  onClick={() => dispatch(closeDeleteModal())}
+                  type="button"
+                  className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold mx-1"
+
+                >
+                  Done
+                </button>
+              </div>
             </motion.div>
           </ProfileModal>
         )}
