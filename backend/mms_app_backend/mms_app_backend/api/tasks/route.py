@@ -79,7 +79,7 @@ async def update_task(task_id: int, task: UpdateTask, response: Response, jwt_to
 
 # Endpoint to hard delete tasks
 @delete('/admin/tasks/{task_id}', response_model=CreateTaskResponse, status_code=status.HTTP_200_OK)
-async def delete_task(task_id: int, response: Response, jwt_token: str = Depends(get_token()),
+async def delete_task(task_id: int, response: Response, hard:bool=False, jwt_token: str = Depends(get_token()),
                       db: Session = Depends(get_db)):
     """
     Endpoint to permanently delete tasks from the database.
@@ -96,8 +96,10 @@ async def delete_task(task_id: int, response: Response, jwt_token: str = Depends
         task_response.message = TASK_NOT_FOUND_MESSAGE
         response.status_code = status.HTTP_404_NOT_FOUND
         return task_response
-
-    deleted_task = delete_task_crud(db, task_instance)
+    if hard:
+        deleted_task = delete_task_crud(db, task_instance)
+    else:
+        deleted_task = close_task_crud(db, task_instance)
     if deleted_task:
         task_response.message = TASK_DELETED_SUCCESSFUL_MESSAGE
         task_response.success = True
