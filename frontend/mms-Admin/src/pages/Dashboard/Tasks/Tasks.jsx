@@ -13,6 +13,7 @@ import styles from '../styles/dashboard.module.css';
 function Tasks() {
   const [checked, setChecked] = useState(false);
   const [sort, setSort] = useState(false);
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
   const search = () => {
@@ -21,8 +22,9 @@ function Tasks() {
 
   return (
 
-    <div className="flex flex-row ">
-      <div className={`basis-1/3 flex m-5 flex-col overflow-y-auto pb-5 h-screen ${styles.scroll}`}>
+    <div className="flex flex-col lg:flex-row">
+
+      <div className={`${open ? '' : 'max-lg:hidden'}  basis-1/1 flex m-5 flex-col overflow-y-auto pb-5 h-screen w-full lg:w-100 ${styles.scroll}`}>
         <div className="tasksHeader flex flex-row">
           {checked ? (
             <div className="flex flex-row-reverse">
@@ -49,7 +51,13 @@ function Tasks() {
 
           {
           Array.from(Array(10)).map((i) => (
-            <div className="task flex m-3 p-3 rounded-md  border-2 border-grey-400 w-full cursor-pointer" key={i}>
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+            <div
+              className="task flex m-3 p-3 rounded-md  border-2 border-grey-400 w-full cursor-pointer"
+              onClick={() => setOpen(false)}
+              onKeyUp={() => setOpen(false)}
+              key={i}
+            >
               <img src={taskImg} alt={i} className="object-contain" />
               <div className="rightTask ms-8">
                 <h3 className="font-semibold">Room Library article write...</h3>
@@ -66,13 +74,21 @@ function Tasks() {
         </div>
         {/* end tasks */}
       </div>
-      <div className="basis-2/3">
+
+      <div className={`${open ? 'max-lg:hidden' : ''} g:basis-2/3 basis-1/1`}>
         <div className="flex flex-row-reverse">
           <button
             type="button"
-            className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold mb-3"
+            className="bg-pri3 lg:py-2.5 lg:px-10 px-5 rounded-md text-white font-semibold mb-3 lg:text-base text-xs"
           >
             Create New Task
+          </button>
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            className="visible lg:invisible border-pri3 py-2.5 lg:px-10 px-5 rounded-md text-teal-700 font-semibold border-teal-700 border-2 mb-3 mr-2 lg:text-base text-xs"
+          >
+            show all Tasks
           </button>
         </div>
         <div className="task flex  flex-col  rounded-md  border-2 border-grey-400 w-full">
@@ -108,7 +124,7 @@ function Tasks() {
               </p>
               <button
                 type="button"
-                className="bg-pri3 py-.5 px-5 rounded-md text-white font-light font-sm mr-10"
+                className="bg-pri3 py-1.5 px-5 rounded-md text-white font-light font-sm lg:mr-10  self-start lg:text-base text-sm"
               >
                 View
               </button>
@@ -124,7 +140,7 @@ function Tasks() {
               </p>
               <button
                 type="button"
-                className="bg-pri3 py-.5 px-5 rounded-md text-white font-light font-sm mr-10"
+                className="bg-pri3 py-1.5 px-5 rounded-md text-white font-light font-sm lg:mr-10  self-start lg:text-base text-sm"
               >
                 View
               </button>
@@ -140,7 +156,7 @@ function Tasks() {
               </p>
               <button
                 type="button"
-                className="bg-pri3 py-.5 px-5 rounded-md text-white font-light font-sm mr-10"
+                className="bg-pri3 py-1.5 px-5 rounded-md text-white font-light font-sm lg:mr-10  self-start lg:text-base text-sm"
               >
                 View
               </button>

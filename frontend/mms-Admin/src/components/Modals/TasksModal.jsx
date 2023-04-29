@@ -2,7 +2,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeDeleteModal } from '../../redux/features/tasks/tasksSlice';
-import Button from '../utilities/Buttons/Button';
 import ProfileModal from './ProfileModal';
 import { DeleteImage } from '../../assets/images';
 
