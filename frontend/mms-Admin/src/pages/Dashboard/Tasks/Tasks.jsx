@@ -5,19 +5,22 @@ import { BsFilter, BsPeople, BsPerson } from 'react-icons/bs';
 import { BiArrowBack } from 'react-icons/bi';
 import { HiOutlineDocumentText, HiOutlineTrash } from 'react-icons/hi';
 import { GoCalendar } from 'react-icons/go';
+import { useDispatch } from 'react-redux';
 import taskImg from './task.png';
-
+import { openDeleteModal } from '../../../redux/features/tasks/tasksSlice';
 import styles from '../styles/dashboard.module.css';
 
 function Tasks() {
   const [checked, setChecked] = useState(false);
   const [sort, setSort] = useState(false);
+  const dispatch = useDispatch();
 
   const search = () => {
     setChecked(true);
   };
 
   return (
+
     <div className="flex flex-row ">
       <div className={`basis-1/3 flex m-5 flex-col overflow-y-auto pb-5 h-screen ${styles.scroll}`}>
         <div className="tasksHeader flex flex-row">
@@ -67,12 +70,12 @@ function Tasks() {
         <div className="flex flex-row-reverse">
           <button
             type="button"
-            className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold"
+            className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold mb-3"
           >
             Create New Task
           </button>
         </div>
-        <div className="task flex  flex-col m-3  rounded-md  border-2 border-grey-400 w-full">
+        <div className="task flex  flex-col  rounded-md  border-2 border-grey-400 w-full">
 
           <div className="flex flex-row p-4">
             <img src={taskImg} alt="icon" className="object-contain" />
@@ -153,6 +156,7 @@ function Tasks() {
               <button
                 type="button"
                 className="bg-transparent py-2.5 px-10  text-red-600 font-meduim flex flex-row"
+                onClick={() => dispatch(openDeleteModal())}
               >
                 <HiOutlineTrash className="text-xl mr-2 font-xl" />
                 Delete
@@ -163,6 +167,7 @@ function Tasks() {
 
       </div>
     </div>
+
   );
 }
 
