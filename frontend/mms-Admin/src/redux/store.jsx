@@ -6,18 +6,20 @@ import splashSlice from './features/splashSlice';
 import modalReducer from './features/NewPasswordSuccess/modalSlice';
 import sidebarSlice from './features/sidebarSlice';
 import profileSlice from './features/Profile/profileSlice';
+import userSlice from './features/userSlice';
 
 const rootReducer = combineReducers({
   splashScreen: splashSlice,
   modal: modalReducer,
   sidebar: sidebarSlice,
   profile: profileSlice,
+  user: userSlice,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: [],
+  whitelist: ['user'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
