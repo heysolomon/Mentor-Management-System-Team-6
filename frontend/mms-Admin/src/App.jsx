@@ -19,6 +19,7 @@ import Faqs from './pages/Dashboard/Settings/Faqs/Faqs';
 import Notifications from './pages/Dashboard/Settings/Notifications/Notifications';
 import Privacy from './pages/Dashboard/Settings/Privacy';
 import Archive from './pages/Dashboard/Settings/Archive';
+import Tasks from './pages/Dashboard/Tasks/Tasks';
 import ForgotPasswordVerifyEmail from './pages/Auth/ForgotPasswordVerifyEmail';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
@@ -68,7 +69,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'tasks',
-        element: 'this is the tasks',
+        element: <Tasks />,
       },
       {
         path: 'reports',
