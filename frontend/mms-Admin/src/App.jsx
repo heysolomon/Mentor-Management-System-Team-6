@@ -20,6 +20,7 @@ import Notifications from './pages/Dashboard/Settings/Notifications/Notification
 import Privacy from './pages/Dashboard/Settings/Privacy';
 import Archive from './pages/Dashboard/Settings/Archive';
 import Tasks from './pages/Dashboard/Tasks/Tasks';
+import ForgotPasswordVerifyEmail from './pages/Auth/ForgotPasswordVerifyEmail';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: 'forgot-password',
         element: <ForgotPassword />,
+      },
+      {
+        path: 'password-reset-verify-email',
+        element: <ForgotPasswordVerifyEmail />,
       },
       {
         path: 'set-new-password',

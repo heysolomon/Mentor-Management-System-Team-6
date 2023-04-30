@@ -1,11 +1,16 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { BrandLogo,
   MessageIcon,
+  MobileMenu,
   NotificationBellIcon,
   SearchIcon,
   UserAvatar } from '../../assets/images';
+import { openSidebar } from '../../redux/features/sidebarSlice';
 
 function Navbar() {
+  const dispatch = useDispatch();
+
   return (
     <nav className="fixed w-full z-40 bg-pri3 h-14 md:h-20 flex justify-between items-center px-10">
       <div className="flex items-center">
@@ -14,7 +19,15 @@ function Navbar() {
           Mentor’s Managers System
         </p>
       </div>
-      <div className="md:w-[65%] flex justify-between h-full items-center">
+      <button
+        type="button"
+        aria-hidden="true"
+        onClick={() => dispatch(openSidebar())}
+      >
+        <MobileMenu styling="md:hidden" />
+      </button>
+
+      <div className="md:w-[65%] hidden md:flex justify-between h-full items-center">
         {/* Search Bar */}
         <div className="hidden md:flex items-center bg-white h-[28px] w-[75%] rounded-[5px] py-4 text-black5 font-[400] text-[16px]">
           <SearchIcon styling="ml-5" />
