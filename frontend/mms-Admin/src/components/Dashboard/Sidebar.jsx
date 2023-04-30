@@ -2,8 +2,7 @@ import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import {
-  CertificateIcon,
+import { CertificateIcon,
   CircleAddIcon,
   DashboardIcon,
   ForumIcon,
@@ -14,8 +13,7 @@ import {
   ReportIcon,
   SettingsIcon,
   TaskIcon,
-  UserSquare,
-} from '../../assets/images';
+  UserSquare } from '../../assets/images';
 import { closeSidebar } from '../../redux/features/sidebarSlice';
 
 function Sidebar() {
@@ -160,7 +158,7 @@ function Sidebar() {
               >
                 <NavLink
                   to={link}
-                  className="flex items-center w-full duration-700 py-[8px]"
+                  className="flex items-center w-full duration-700 py-[7px]"
                   style={({ isActive }) => ({
                     color: isActive ? '#333333' : '#808080',
                     fontWeight: isActive ? '700' : '400',
@@ -192,9 +190,15 @@ function Sidebar() {
             className="fixed w-screen h-screen z-[70] bg-[rgba(0,0,0,0.7)]"
             aria-hidden="true"
             onClick={() => dispatch(closeSidebar())}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            exit={{
+              opacity: 0,
+            }}
           >
             <motion.nav
               className="absolute left-0 top-0 w-[70%] h-full bg-pri11 flex flex-col items-center md:hidden"

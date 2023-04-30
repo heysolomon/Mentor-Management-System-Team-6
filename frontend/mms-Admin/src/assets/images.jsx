@@ -10,6 +10,11 @@ import gadsElipse from './gads-elipse.png';
 import gadsReportIcon from './gads-report.png';
 import calender from './calender.svg';
 import arrowDown from './arrow-down.svg';
+import github from './akar-icons_github-fill.svg';
+import linkedIn from './Vector.svg';
+import ig from './Vector-1.svg';
+import twitter from './Vector-2.svg';
+import menu from './Hamburger Menu.png';
 
 // am importing pictures from the assets folder and exporting them as components
 // mentor management system logo
@@ -102,6 +107,10 @@ export function SearchIcon({ styling }) {
 export function GadsElipse({ styling }) {
   return <img src={gadsElipse} className={styling} alt="search icon" />;
 }
+// mobile menu
+export function MobileMenu({ styling }) {
+  return <img src={menu} className={styling} alt="search icon" />;
+}
 // gads report icon
 export function GadsReportIcon({ styling }) {
   return <img src={gadsReportIcon} className={styling} alt="search icon" />;
@@ -113,6 +122,22 @@ export function CalenderIcon({ styling }) {
 // arrow down icon
 export function ArrowDown({ styling }) {
   return <img src={arrowDown} className={styling} alt="search icon" />;
+}
+// arrow down icon
+export function InstagramIcon({ styling }) {
+  return <img src={ig} className={styling} alt="search icon" />;
+}
+// github icon
+export function GithubIcon({ styling }) {
+  return <img src={github} className={styling} alt="search icon" />;
+}
+// linkedin icon
+export function LinkedinIcon({ styling }) {
+  return <img src={linkedIn} className={styling} alt="search icon" />;
+}
+// twitter icon
+export function TwitterIcon({ styling }) {
+  return <img src={twitter} className={styling} alt="search icon" />;
 }
 // message icon
 // you can use the color prop to change the color of this icon

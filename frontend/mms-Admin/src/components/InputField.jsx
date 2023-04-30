@@ -9,6 +9,7 @@ function InputField({
   type,
   label,
   styling,
+  inputStyle,
   ...props
 }) {
   const [field, meta] = useField(props);
@@ -35,7 +36,7 @@ function InputField({
           placeholder={props.placeholder}
           autoComplete="off"
           type={type === 'password' ? passwordType : type}
-          className="w-full h-full focus:outline-none bg-transparent pl-[30px] py-[8px] placeholder:text-black5 text-black5 text-mukta font-[400] text-[20px]"
+          className={`w-full h-full focus:outline-none bg-transparent py-[8px] placeholder:text-black5 text-black5 text-mukta font-[400] ${inputStyle}`}
         />
 
         {type === 'password' && (
