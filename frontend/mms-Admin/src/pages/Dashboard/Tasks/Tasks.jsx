@@ -116,15 +116,15 @@ function Tasks() {
               at maximus ante fermentum sit amet. Pellentesque
             </p>
             {/* start task1 */}
-            <div className="flex bg-cyan-100/50 p-3 my-3">
+            <div className="flex bg-cyan-100/50 p-3 my-3 max-md:flex-col max-md:place-items-center">
               <BsPeople className="text-teal-700 text-3xl mx-5" />
-              <p className="font-semibold text-xl w-full">
+              <p className="font-semibold text-xl w-full max-md:text-center max-md:mb-2">
                 <span className="font-extrabold text-4xl mr-5">10</span>
                 Mentor Managers assigned to this task
               </p>
               <button
                 type="button"
-                className="bg-pri3 py-1.5 px-5 rounded-md text-white font-light font-sm lg:mr-10  self-start lg:text-base text-sm"
+                className="bg-pri3 py-1.5 px-5 rounded-md text-white font-light font-sm lg:mr-10  max-md:self-center self-start lg:text-base text-sm"
               >
                 View
               </button>
@@ -132,15 +132,15 @@ function Tasks() {
             {/* end task 1 */}
 
             {/* start task 2 */}
-            <div className="flex bg-cyan-100/50 p-3 my-3">
+            <div className="flex bg-cyan-100/50 p-3 my-3 max-md:flex-col max-md:place-items-center">
               <BsPerson className="text-teal-700 text-3xl mx-5" />
-              <p className="font-semibold text-xl w-full">
+              <p className="font-semibold text-xl w-full max-md:text-center max-md:mb-2">
                 <span className="font-extrabold text-4xl mr-5">80</span>
                 Mentors assigned to this task
               </p>
               <button
                 type="button"
-                className="bg-pri3 py-1.5 px-5 rounded-md text-white font-light font-sm lg:mr-10  self-start lg:text-base text-sm"
+                className="bg-pri3 py-1.5 px-5 rounded-md text-white font-light font-sm lg:mr-10  max-md:self-center self-start lg:text-base text-sm"
               >
                 View
               </button>
@@ -148,15 +148,15 @@ function Tasks() {
             {/* end task 2 */}
 
             {/* start task 3 */}
-            <div className="flex bg-cyan-100/50 p-3 my-3">
+            <div className="flex bg-cyan-100/50 p-3 my-3 max-md:flex-col max-md:place-items-center">
               <HiOutlineDocumentText className="text-teal-700 text-3xl mx-5" />
-              <p className="font-semibold text-xl w-full">
+              <p className="font-semibold text-xl w-full max-md:text-center max-md:mb-2">
                 <span className="font-extrabold text-3xl mr-5">45</span>
                 Task reports
               </p>
               <button
                 type="button"
-                className="bg-pri3 py-1.5 px-5 rounded-md text-white font-light font-sm lg:mr-10  self-start lg:text-base text-sm"
+                className="bg-pri3 py-1.5 px-5 rounded-md text-white font-light font-sm lg:mr-10  max-md:self-center self-start lg:text-base text-sm"
               >
                 View
               </button>
