@@ -1,4 +1,6 @@
 from fastapi_camelcase import CamelModel
+from typing import Optional
+
 
 
 class BaseTask(CamelModel):
@@ -6,6 +8,8 @@ class BaseTask(CamelModel):
     description : str
     mentors : list[int]
     mentor_managers : list[int]
+    assigned_to: Optional[str] = None
+
 
 
 class CreateTask(BaseTask):
