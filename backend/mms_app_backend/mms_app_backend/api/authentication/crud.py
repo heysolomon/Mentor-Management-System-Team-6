@@ -27,3 +27,9 @@ def change_password_crud(db: Session,user,new_password):
     db.commit()
     db.refresh(user)
     return True
+
+def get_mentor(db: Session, mentor_id: int):
+    return db.query(Mentor).filter(Mentor.id == mentor_id).first()
+
+def get_mentor_manager(db: Session, mentor_manager_id: int):
+    return db.query(MentorManager).filter(MentorManager.id == mentor_manager_id).first()

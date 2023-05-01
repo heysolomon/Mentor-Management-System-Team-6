@@ -16,7 +16,6 @@ class User(AbstractBaseModel):
     is_active = Column(Boolean, default=True)
     profile = relationship("Profile", back_populates='user')
     password_reset_token = relationship("PasswordResetToken", back_populates="user")
-    tasks = relationship("Task", back_populates="assigned_to")
 
 
 # Token sent to user email when resetting password
