@@ -21,5 +21,3 @@ class Message(AbstractBaseModel):
     conversation = relationship("Conversation", back_populates='messages')
     conversation_id = Column(Integer, ForeignKey('conversations.id'))
     content = Column(Text)
-
-
