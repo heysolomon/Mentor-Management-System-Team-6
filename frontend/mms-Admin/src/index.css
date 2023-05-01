@@ -13,8 +13,9 @@
 
 .scroll::-webkit-scrollbar-thumb {
   border-radius: 4px;
-  background-color: #06B9C6;
+  background-color: #06b9c6;
 }
+
 .scroll-dark::-webkit-scrollbar {
   width: 8px;
 }
