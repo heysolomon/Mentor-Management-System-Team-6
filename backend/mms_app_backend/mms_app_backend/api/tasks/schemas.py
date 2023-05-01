@@ -1,14 +1,21 @@
 from fastapi_camelcase import CamelModel
-from typing import Optional
+from pydantic import BaseModel
+from typing import Optional, List
 
+class TaskMentorReport(BaseModel):
+    name: str
+    email: str
 
+class TaskReport(BaseModel):
+    name: str
+    count: int
+    mentors: List[TaskMentorReport] = []
 
 class BaseTask(CamelModel):
     title :str
     description : str
     mentors : list[int]
     mentor_managers : list[int]
-    assigned_to: Optional[str] = None
 
 
 
@@ -29,4 +36,8 @@ class GetTask(BaseTask):
     class Config:
         orm_mode = True
 
+class TaskReportResponse(BaseModel):
+    completed: List[TaskReport] = []
+    incomplete: List[TaskReport] = []
+    reopened: List[TaskReport] = []
     opened: List[TaskReport] = []
