@@ -109,23 +109,10 @@ async def delete_task(task_id: int, response: Response, hard: bool = False, jwt_
 
 
 @put("/tasks/{task_id}/reopen", response_model=CreateTaskResponse, status_code=status.HTTP_200_OK)
+async def reopen_task(task_id: int, token: str = Depends(get_token()), db: Session = Depends(get_db)):
     """
     This function reopens a completed task.
-    :param task_id: The ID of the task that needs to be reopened
-    :type task_id: int
-    :param token: The token parameter is a string that represents the access token of the user who is
-    trying to reopen a task. It is obtained through the get_token() function, which verifies the user's
-    authentication and returns the access token
-    :type token: str
-    :param db: db is a dependency injection parameter that represents the database session. It is used
-    to interact with the database and perform CRUD (Create, Read, Update, Delete) operations on the Task
-    model
-    :type db: Session
-    :return: a response with a JSON object of type CreateTaskResponse, which contains a message and a
-    success flag. The status code of the response is either 200, 401, 404, or 400 depending on the
-    outcome of the function.
     """
-async def reopen_task(task_id: int, token: str = Depends(get_token()), db: Session = Depends(get_db)):
     user = verify_access_token(db, token)
     task_response = CreateTaskResponse()
     if user is None:
@@ -150,20 +137,12 @@ async def reopen_task(task_id: int, token: str = Depends(get_token()), db: Sessi
     task_response.success = True
     return task_response
 
+@get("/tasks_reports", response_model=TaskReportResponse)
+async def tasks_report(db: Session = Depends(get_db)):
     """
     This function generates task reports based on the status of completed, incomplete, reopened, and
-    opened tasks.
-
-    :param db: db is a dependency injection parameter that represents a database session. It is used
-    to query the database to retrieve information about tasks and their associated mentors and mentor
-    managers
-    :type db: Session
-    :return: a TaskReportResponse object, which contains lists of TaskReport objects for completed,
-    incomplete, reopened, and opened tasks. Each TaskReport object contains information about the task,
-    including its name, count, mentor, and mentor manager.
+    opened tasks.It also gives the  mentor and mentor manager details for each task and include them in the reports.
     """
-@get("/task_reports", response_model=TaskReportResponse)
-async def tasks_report(db: Session = Depends(get_db)):
     completed_tasks = db.query(Task).filter(Task.completed == True).all()
     incomplete_tasks = db.query(Task).filter(Task.completed == False).all()
     reopened_tasks = db.query(Task).filter(Task.completed == False, Task.open == True).all()
