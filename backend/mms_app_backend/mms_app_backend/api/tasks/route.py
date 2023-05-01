@@ -108,11 +108,28 @@ async def delete_task(task_id: int, response: Response, hard: bool = False, jwt_
 
 
 
-@put("/tasks/{task_id}/reopen", response_model=TaskResponse, status_code=status.HTTP_200_OK)
-async def reopen_task(task_id: int, token: str = Depends(get_access_token), db: Session = Depends(get_db)):
+@put("/tasks/{task_id}/reopen", response_model=CreateTaskResponse, status_code=status.HTTP_200_OK)
+    """
+    This function reopens a completed task.
+
+    :param task_id: The ID of the task that needs to be reopened
+    :type task_id: int
+    :param token: The token parameter is a string that represents the access token of the user who is
+    trying to reopen a task. It is obtained through the get_token() function, which verifies the user's
+    authentication and returns the access token
+    :type token: str
+    :param db: db is a dependency injection parameter that represents the database session. It is used
+    to interact with the database and perform CRUD (Create, Read, Update, Delete) operations on the Task
+    model
+    :type db: Session
+    :return: a response with a JSON object of type CreateTaskResponse, which contains a message and a
+    success flag. The status code of the response is either 200, 401, 404, or 400 depending on the
+    outcome of the function.
+    """
+async def reopen_task(task_id: int, token: str = Depends(get_token()), db: Session = Depends(get_db)):
     user = verify_access_token(db, token)
     task_response = CreateTaskResponse()
-   if user is None:
+    if user is None:
         task_response.message = INVALID_AUTHENTICATION_MESSAGE
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return task_response
