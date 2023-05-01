@@ -111,7 +111,6 @@ async def delete_task(task_id: int, response: Response, hard: bool = False, jwt_
 @put("/tasks/{task_id}/reopen", response_model=CreateTaskResponse, status_code=status.HTTP_200_OK)
     """
     This function reopens a completed task.
-
     :param task_id: The ID of the task that needs to be reopened
     :type task_id: int
     :param token: The token parameter is a string that represents the access token of the user who is
