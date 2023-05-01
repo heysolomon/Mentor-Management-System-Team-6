@@ -28,3 +28,5 @@ class GetTask(BaseTask):
 
     class Config:
         orm_mode = True
+
+    opened: List[TaskReport] = []
