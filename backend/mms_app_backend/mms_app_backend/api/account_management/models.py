@@ -20,10 +20,9 @@ class Profile(AbstractBaseModel):
 
 class SocialLink(AbstractBaseModel):
     __tablename__ = 'social_links'
-    id = Column(Integer, primary_key=True)
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     url = Column(URLType)
-    name = Column(String(255))
+    name = Column(String(255), unique=True)
     profile = relationship("Profile", back_populates='social_links')
 
 
@@ -61,7 +60,8 @@ class Mentor(AbstractBaseModel):
     programs = relationship("Program", back_populates='mentors', secondary="program_mentor_association")
     roles = relationship("Role", back_populates='mentor')
     task = relationship("Task", back_populates='mentors')
-    task_id = Column(Integer,ForeignKey('tasks.id'))
+    task_id = Column(Integer, ForeignKey('tasks.id'))
+
 
 #
 class MentorManager(AbstractBaseModel):
@@ -72,8 +72,7 @@ class MentorManager(AbstractBaseModel):
     roles = relationship("Role", back_populates='mentor_manager')
     programs = relationship("Program", back_populates='mentor_manager')
     task = relationship("Task", back_populates='mentor_managers')
-    task_id = Column(Integer,ForeignKey('tasks.id'))
-
+    task_id = Column(Integer, ForeignKey('tasks.id'))
 
 
 # The criteria used for selection into the program
