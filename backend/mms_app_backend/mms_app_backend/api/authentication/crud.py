@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from .helpers import get_password_hash
 from .models import User
 from .schemas import UserCreate
+from ..account_management.models import Mentor, MentorManager
 
 
 def create_user(db: Session, user: UserCreate):

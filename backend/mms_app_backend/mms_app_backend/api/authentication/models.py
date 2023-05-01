@@ -3,7 +3,6 @@ from sqlalchemy.orm import relationship
 from sqlalchemy_utils import EmailType
 
 from ..models import AbstractBaseModel
-from ..tasks.models import Task
 
 
 class User(AbstractBaseModel):

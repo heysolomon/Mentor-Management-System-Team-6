@@ -2,11 +2,11 @@ from fastapi import Response, APIRouter, status, Depends
 from sqlalchemy.orm import Session
 
 from .constants import CREATED_TASK_SUCCESSFUL_MESSAGE, GET_TASKS_SUCCESSFUL_MESSAGE, UPDATE_TASK_SUCCESSFUL_MESSAGE, \
-    TASK_NOT_FOUND_MESSAGE, TASK_DELETED_SUCCESSFUL_MESSAGE, TASK_NOT_COMPLETED_MESSAGE
+    TASK_NOT_FOUND_MESSAGE, TASK_DELETED_SUCCESSFUL_MESSAGE, TASK_NOT_COMPLETED_MESSAGE, TASK_REOPEN_SUCCESSFUL_MESSAGE
 from .crud import create_task_crud, get_tasks_crud, update_task_crud, delete_task_crud, close_task_crud
 from .models import Task
 from .responses import CreateTaskResponse, GetTasksResponse
-from .schemas import CreateTask, UpdateTask,TaskReportResponse
+from .schemas import CreateTask, UpdateTask,TaskReportResponse, TaskReport
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
 from ..authentication.crud import get_mentor, get_mentor_manager
 from ..authentication.helpers import verify_access_token
@@ -109,7 +109,7 @@ async def delete_task(task_id: int, response: Response, hard: bool = False, jwt_
 
 
 @put("/tasks/{task_id}/reopen", response_model=CreateTaskResponse, status_code=status.HTTP_200_OK)
-async def reopen_task(task_id: int, token: str = Depends(get_token()), db: Session = Depends(get_db)):
+async def reopen_task(task_id: int, response: Response,token: str = Depends(get_token()), db: Session = Depends(get_db)):
     """
     This function reopens a completed task.
     """
@@ -121,7 +121,7 @@ async def reopen_task(task_id: int, token: str = Depends(get_token()), db: Sessi
         return task_response
 
     task = db.query(Task).filter(Task.id == task_id).first()
-    if task_instance is None:
+    if task is None:
         task_response.message = TASK_NOT_FOUND_MESSAGE
         response.status_code = status.HTTP_404_NOT_FOUND
         return task_response

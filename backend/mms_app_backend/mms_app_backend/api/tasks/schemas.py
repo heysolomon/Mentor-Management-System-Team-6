@@ -1,6 +1,6 @@
 from fastapi_camelcase import CamelModel
 from pydantic import BaseModel
-from typing import Optional, List
+from typing import List
 
 class TaskMentorReport(BaseModel):
     name: str
