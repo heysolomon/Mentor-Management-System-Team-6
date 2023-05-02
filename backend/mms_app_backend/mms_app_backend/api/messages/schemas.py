@@ -12,6 +12,11 @@ class CreateConversation(BaseConversation):
         orm_mode = True
 
 
+class CreateMessage(CamelModel):
+    content: str
+    receiver: int
+
+
 class ViewConversation(CreateConversation):
     id: int
     messages: list[int] | None

@@ -97,3 +97,4 @@ async def change_password(user_id: int, response: Response, password: PasswordCh
         password_response.success = True
         password_response.message = AUTH_CHANGE_SUCCESSFUL_MESSAGE
         return password_response
+
