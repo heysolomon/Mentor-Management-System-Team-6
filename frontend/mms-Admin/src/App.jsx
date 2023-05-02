@@ -21,6 +21,7 @@ import Privacy from './pages/Dashboard/Settings/Privacy';
 import Archive from './pages/Dashboard/Settings/Archive';
 import Tasks from './pages/Dashboard/Tasks/Tasks';
 import ForgotPasswordVerifyEmail from './pages/Auth/ForgotPasswordVerifyEmail';
+import { ProtectedRoute } from './private/ProtectedRoute';
 import DiscussionForum from './pages/Dashboard/DiscussionForum/DiscussionForum';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
@@ -53,7 +54,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin-dashboard',
-    element: <Dashboard />,
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
