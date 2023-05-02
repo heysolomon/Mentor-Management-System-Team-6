@@ -44,20 +44,29 @@ function SettingChangePassword() {
 
   // logged in user's id
   const userId = userInfo.data.user.id;
+
+  const userToken = userInfo.data.access_token;
+
   const changeUserPassword = async (values) => {
     dispatch(changePasswordStart());
     try {
-      const changeUserPasswordRequest = await api.patch(`/${userId}/password`, {
-        ...values,
-      });
-      console.log(changeUserPasswordRequest);
+      const changeUserPasswordRequest = await api.patch(
+        `/${userId}/password`,
+        {
+          ...values,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        },
+      );
       dispatch(changePasswordSuccess(changeUserPasswordRequest));
-      // setMessage(user.data.message);
+      setMessage(changeUserPasswordRequest.data.message);
     } catch (err) {
       if (err) {
         dispatch(changePasswordFailure());
-        console.log(err);
-        setMessage(err.response.data.detail);
+        setMessage(err.response.data.message);
       }
     }
   };
@@ -118,7 +127,7 @@ function SettingChangePassword() {
         </div>
 
         <p
-          className={`font-[400] text-black5 font-mukta text-[16px] mt-[20px] ${
+          className={`font-[400] text-black5 font-mukta text-[16px] mt-[20px] text-center ${
             changePasswordError ? 'text-red-500' : 'text-pri2'
           }`}
         >
