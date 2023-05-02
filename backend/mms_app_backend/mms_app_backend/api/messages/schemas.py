@@ -1,15 +1,17 @@
 from fastapi_camelcase import CamelModel
 
+
 class BaseConversation(CamelModel):
-    title:str
+    title: str
 
 
 class CreateConversation(BaseConversation):
-    participants:list
+    participants: list
 
     class Config:
         orm_mode = True
 
+
 class ViewConversation(CreateConversation):
-    id:int
-    messages:list | None
+    id: int
+    messages: list | None
