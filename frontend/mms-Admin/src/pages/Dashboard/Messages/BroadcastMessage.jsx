@@ -13,7 +13,7 @@ export default function BroadcastMessage() {
           Broadcast Message
         </h1>
 
-        <Link to="messages">
+        <Link to="/admin-dashboard/messages">
           <button
             type="button"
             className="bg-pri3 py-2.5 px-10 text-white rounded-xl font-semibold"
