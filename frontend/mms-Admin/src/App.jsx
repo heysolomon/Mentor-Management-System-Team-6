@@ -21,6 +21,7 @@ import Privacy from './pages/Dashboard/Settings/Privacy';
 import Archive from './pages/Dashboard/Settings/Archive';
 import Tasks from './pages/Dashboard/Tasks/Tasks';
 import ForgotPasswordVerifyEmail from './pages/Auth/ForgotPasswordVerifyEmail';
+import NewTask from './pages/Dashboard/Tasks/NewTask';
 import { ProtectedRoute } from './private/ProtectedRoute';
 import DiscussionForum from './pages/Dashboard/DiscussionForum/DiscussionForum';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
       {
         path: 'tasks',
         element: <Tasks />,
+      },
+      {
+        path: 'task_new',
+        element: <NewTask />,
       },
       {
         path: 'reports',

@@ -10,12 +10,15 @@ import ProfileSavedModal from '../../components/Modals/ProfileSaved';
 
 import TasksModal from '../../components/Modals/TasksModal';
 
+import NewTasksModal from '../../components/Modals/NewTaskModal';
+
 function Dashboard() {
   return (
     <>
       <ProfileSavedModal />
 
       <TasksModal />
+      <NewTasksModal />
 
       <div className="w-full h-screen font-mukta overflow-y-auto scroll">
         <Navbar />
