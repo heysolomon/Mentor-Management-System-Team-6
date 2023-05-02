@@ -11,7 +11,6 @@ module.exports = {
   },
   plugins: ['react'],
   rules: {
-    'linebreak-style': ['error', 'unix'],
     indent: [
       'error',
       2,
@@ -23,6 +22,7 @@ module.exports = {
       },
     ],
     'comma-spacing': ['error', { before: false, after: true }],
+    'linebreak-style': ['error', 'unix'],
     'object-curly-newline': [
       'error',
       {
