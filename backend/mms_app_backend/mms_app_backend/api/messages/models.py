@@ -1,7 +1,8 @@
 from sqlalchemy import Column, String, Integer, ForeignKey, Text
 from sqlalchemy.orm import relationship
-from ...configs.database_config import Base
+
 from ..models import AbstractBaseModel
+from ...configs.database_config import Base
 
 
 class UserConverstationAssociation(Base):
@@ -23,3 +24,7 @@ class Message(AbstractBaseModel):
     conversation = relationship("Conversation", back_populates='messages')
     conversation_id = Column(Integer, ForeignKey('conversations.id'))
     content = Column(Text)
+    sender = relationship("User", back_populates='sent_message')
+    sender_id = Column(Integer, ForeignKey('users.id'))
+    receiver = relationship("User", back_populates='received_message')
+    receiver_id = Column(Integer, ForeignKey('users.id'))

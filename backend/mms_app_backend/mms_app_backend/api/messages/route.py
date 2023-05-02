@@ -4,10 +4,10 @@ from sqlalchemy.orm import Session
 from .constants import CONVERSATION_CREATED_SUCCESS_MESSAGE
 from .crud import create_conversation_crud
 from .responses import ConversationResponse
-from .schemas import CreateConversation
+from .schemas import CreateConversation, ViewMessage, CreateMessage
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
 from ..authentication.helpers import verify_access_token
-from ..utils import get_token, get_db, get_cookie_or_token
+from ..utils import get_token, get_db, get_token_ws
 
 router = APIRouter()
 get = router.get
@@ -37,14 +37,20 @@ async def create_conversation(conversation: CreateConversation, response: Respon
         return conversation_response
 
 
+connections = {
+
+}
+
+
 @websocket('/users/messages/ws')
-async def message_subscription(connection: WebSocket, cookie_or_token: str = Depends(get_cookie_or_token),
+async def message_subscription(connection: WebSocket, jwt_token: str = Depends(get_token_ws),
                                db: Session = Depends(get_db)):
     await connection.accept()
-
+    user = verify_access_token(db, jwt_token)
+    connections[f"{user.id}"] = connection
     while True:
-        message = await connection.receive_json()
-        user = verify_access_token(db, cookie_or_token)
-        if user.id == message.receiver:
-            await connection.send_json()
-
+        sender_message: CreateMessage = CreateMessage(**(await connection.receive_json()))
+        receiver_message = ViewMessage(sender=user.id, message=sender_message.content)
+        response_connection = connections.get(f'{sender_message.receiver}')
+        if response_connection:
+            await response_connection.send_json(data=receiver_message.dict())
