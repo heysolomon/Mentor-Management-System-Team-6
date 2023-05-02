@@ -24,6 +24,10 @@ import ForgotPasswordVerifyEmail from './pages/Auth/ForgotPasswordVerifyEmail';
 import NewTask from './pages/Dashboard/Tasks/NewTask';
 import { ProtectedRoute } from './private/ProtectedRoute';
 import DiscussionForum from './pages/Dashboard/DiscussionForum/DiscussionForum';
+import NoMessage from './pages/Dashboard/Messages/NoMessage';
+import MessageHome from './pages/Dashboard/Messages/MessageHome';
+import BrowsePeople from './pages/Dashboard/Messages/BrowsePeople';
+import BroadcastMessage from './pages/Dashboard/Messages/BroadcastMessage';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -102,10 +106,29 @@ const router = createBrowserRouter([
         path: 'certificates',
         element: 'this is the certificates',
       },
+      // messages routes starts here
       {
         path: 'messages',
-        element: 'this is the messages',
+        children: [
+          {
+            path: '',
+            element: <MessageHome />,
+          },
+          {
+            path: 'browse-people',
+            element: <BrowsePeople />,
+          },
+          {
+            path: 'chats',
+            element: 'chat message',
+          },
+          {
+            path: 'broadcast-message',
+            element: <BroadcastMessage />,
+          },
+        ],
       },
+      // messages routes stops here
       {
         path: 'discussion-forum',
         element: <DiscussionForum />,
