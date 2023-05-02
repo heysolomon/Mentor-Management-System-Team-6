@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isOpen: false,
+  newtaskOpen: false,
 };
 
 const tasksSlice = createSlice({
@@ -15,9 +16,18 @@ const tasksSlice = createSlice({
     closeDeleteModal: (state) => {
       state.isOpen = false;
     },
+    openModalNew: (state) => {
+      state.newtaskOpen = true;
+    },
+    closeModalNew: (state) => {
+      state.newtaskOpen = false;
+    },
   },
 });
 
-export const { openDeleteModal, closeDeleteModal } = tasksSlice.actions;
+export const {
+  openDeleteModal, closeDeleteModal,
+  openModalNew, closeModalNew,
+} = tasksSlice.actions;
 
 export default tasksSlice.reducer;

@@ -12,6 +12,8 @@ import styles from './styles/dashboard.module.css';
 
 import TasksModal from '../../components/Modals/TasksModal';
 
+import NewTasksModal from '../../components/Modals/NewTaskModal';
+
 function Dashboard() {
   return (
 
@@ -20,6 +22,7 @@ function Dashboard() {
       <ProfileSavedModal />
 
       <TasksModal />
+      <NewTasksModal />
 
       <div
 

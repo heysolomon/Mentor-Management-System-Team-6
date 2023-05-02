@@ -36,6 +36,7 @@ import deleteImg from './delete.png';
 
 import remove from './remove.png';
 
+import NewTaskImg from './new_task.png';
 // am importing pictures from the assets folder and exporting them as components
 
 // mentor management system logo
@@ -178,6 +179,12 @@ export function PasswordEyeHide({ styling }) {
     </svg>
 
   );
+}
+
+// new task modal
+
+export function NewTaskImgModal({ styling }) {
+  return <img src={NewTaskImg} className={styling} alt="Task added" />;
 }
 
 // remove mentor icon
