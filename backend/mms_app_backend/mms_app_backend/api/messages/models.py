@@ -18,6 +18,7 @@ class Conversation(AbstractBaseModel):
 
 
 class Message(AbstractBaseModel):
+    __tablename__ = "messages"
     conversation = relationship("Conversation", back_populates='messages')
     conversation_id = Column(Integer, ForeignKey('conversations.id'))
     content = Column(Text)
