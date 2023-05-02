@@ -10,9 +10,9 @@ from ..authentication.helpers import verify_access_token
 from ..utils import get_token, get_db
 
 router = APIRouter()
-get = APIRouter.get
-post = APIRouter.post
-websocket = APIRouter.websocket
+get = router.get
+post = router.post
+websocket = router.websocket
 
 
 @post('/users/conversations', status_code=status.HTTP_201_CREATED, response_model=ConversationResponse)
