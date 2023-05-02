@@ -13,11 +13,11 @@ import modalReducer from './features/NewPasswordSuccess/modalSlice';
 import sidebarSlice from './features/sidebarSlice';
 
 import profileSlice from './features/Profile/profileSlice';
+import userSlice from './features/userSlice';
 
 import tasksSlice from './features/tasks/tasksSlice';
 
 const rootReducer = combineReducers({
-
   splashScreen: splashSlice,
 
   modal: modalReducer,
@@ -26,28 +26,23 @@ const rootReducer = combineReducers({
 
   profile: profileSlice,
 
-  tasks: tasksSlice,
+  user: userSlice,
 
+  tasks: tasksSlice,
 });
 
 const persistConfig = {
-
   key: 'root',
-
   storage,
-
-  whitelist: [],
-
+  whitelist: ['user'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
-
   reducer: persistedReducer,
 
   middleware: [thunk],
-
 });
 
 // Had to return store and moved the persistor into main.jsx

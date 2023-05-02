@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { ResetPasswordIllustration } from '../../assets/images';
 import { closeModal } from '../../redux/features/NewPasswordSuccess/modalSlice';
 import Button from '../utilities/Buttons/Button';
@@ -58,13 +59,16 @@ function PasswordResetModal() {
                 Password Reset Successful
               </h2>
               <ResetPasswordIllustration styling="mt-[28px]" />
-              <Button
-                width="w-[50%] md:w-[25%] mt-[28px]"
-                onClick={() => dispatch(closeModal())}
-                aria-hidden="true"
-              >
-                Done
-              </Button>
+
+              <Link to="/" className="w-[50%] md:w-[25%] mt-[28px]">
+                <Button
+                  width="w-full"
+                  onClick={() => dispatch(closeModal())}
+                  aria-hidden="true"
+                >
+                  Done
+                </Button>
+              </Link>
             </motion.div>
           </Modal>
         )}
