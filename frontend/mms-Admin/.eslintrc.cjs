@@ -21,7 +21,9 @@ module.exports = {
         SwitchCase: 1,
       },
     ],
-    'comma-spacing': ['error', { before: false, after: true }],
+    'comma-spacing': ['error', {
+ before: false, after: true,
+    }],
     'linebreak-style': ['error', 'unix'],
     'object-curly-newline': [
       'error',
