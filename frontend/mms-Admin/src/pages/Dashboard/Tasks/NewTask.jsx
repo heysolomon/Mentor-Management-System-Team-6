@@ -1,5 +1,6 @@
 import React from 'react';
 import './Tasks.css';
+import { RemoveIcon } from '../../../assets/images';
 
 function NewTask() {
   return (
@@ -28,7 +29,55 @@ function NewTask() {
             placeholder="Body"
             className="placeholder:text-black6 placeholder: block w-full border border-slate-300 rounded-md mb-6  mt-2 py-3 pl-3 pr-3 focus:outline-none focus:border-pri3 focus:ring-pri3 focus:ring-1"
           />
+          {/* start mentors */}
+          <div className="flex flex-row">
+            <div className="basis-1/2 bg-pri11 mr-4 flex flex-row items-center rounded ">
+              <div className="flex flex-col grow justify-center items-center">
+                <p className="font-black text-[16px] font-[600] mt-5 mb-2">
+                  Add Mentor Manager
+                </p>
+                {/* start select mentor */}
+                <div className="flex flex-row bg-white px-3 py-.5 mb-2">
+                  <p className="mr-3">10 Selected </p>
+                  <RemoveIcon styling="ml-2 object-contain cursor-pointer" />
+                </div>
+                {/* end select mentor */}
+              </div>
+              <div className="flex flex-col  justify-center items-center">
 
+                <button
+                  type="button"
+                  className="bg-pri3 py-1 px-4 rounded-md text-white font-light font-sm lg:mr-10  max-md:self-center self-start lg:text-base text-sm"
+                >
+                  Select
+                </button>
+              </div>
+            </div>
+
+            <div className="basis-1/2 bg-pri11 mr-4 flex flex-row items-center rounded ">
+              <div className="flex flex-col grow justify-center items-center">
+                <p className="font-black text-[16px] font-[600] mt-5 mb-2">
+                  Add Mentor
+                </p>
+                {/* start select mentor */}
+                <div className="flex flex-row bg-white px-3 py-.5 mb-2">
+                  <p className="mr-3">10 Selected </p>
+                  <RemoveIcon styling="pl-3 object-contain cursor-pointer" />
+                </div>
+                {/* end select mentor */}
+              </div>
+              <div className="flex flex-col  justify-center items-center">
+
+                <button
+                  type="button"
+                  className="bg-pri3 py-1 px-4 rounded-md text-white font-light font-sm lg:mr-10  max-md:self-center self-start lg:text-base text-sm"
+                >
+                  Select
+                </button>
+              </div>
+            </div>
+          </div>
+          {/* end mentors */}
           <section className="flex items-center justify-between mt-[30px]">
 
             <button

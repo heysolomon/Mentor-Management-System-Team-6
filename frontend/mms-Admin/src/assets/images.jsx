@@ -29,9 +29,12 @@ import linkedIn from './Vector.svg';
 import ig from './Vector-1.svg';
 
 import twitter from './Vector-2.svg';
+
 import menu from './Hamburger Menu.png';
 
 import deleteImg from './delete.png';
+
+import remove from './remove.png';
 
 // am importing pictures from the assets folder and exporting them as components
 
@@ -177,6 +180,12 @@ export function PasswordEyeHide({ styling }) {
   );
 }
 
+// remove mentor icon
+
+export function RemoveIcon({ styling }) {
+  return <img src={remove} className={styling} alt="remove icon" />;
+}
+
 // google logo
 
 export function GoogleLogo({ styling }) {
@@ -202,9 +211,11 @@ export function GadsElipse({ styling }) {
 }
 
 // mobile menu
+
 export function MobileMenu({ styling }) {
   return <img src={menu} className={styling} alt="search icon" />;
 }
+
 // gads report icon
 
 export function GadsReportIcon({ styling }) {
@@ -248,6 +259,7 @@ export function TwitterIcon({ styling }) {
 }
 
 // Delete image of delete task modal
+
 export function DeleteImage({ styling }) {
   return <img src={deleteImg} className={styling} alt="delete" />;
 }
