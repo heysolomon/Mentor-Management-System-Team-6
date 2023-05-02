@@ -43,6 +43,10 @@ import shareIcon from './share-icon.svg';
 
 import clockIcon from './clock-time-icon.svg';
 
+import attachment from './attachment-icon.svg';
+
+import emojiIcon from './emoji-icon.svg';
+
 // am importing pictures from the assets folder and exporting them as components
 
 // mentor management system logo
@@ -227,6 +231,16 @@ export function ShareIcon({ styling }) {
 // clock icon
 export function ClockIcon({ styling }) {
   return <img src={clockIcon} className={styling} alt="delete" />;
+}
+
+// attachment icon
+export function AttachmentIcon({ styling }) {
+  return <img src={attachment} className={styling} alt="delete" />;
+}
+
+// emoji icon
+export function EmojiIcon({ styling }) {
+  return <img src={emojiIcon} className={styling} alt="delete" />;
 }
 
 // message icon
