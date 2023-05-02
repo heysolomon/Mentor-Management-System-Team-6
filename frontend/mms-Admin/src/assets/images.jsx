@@ -48,7 +48,6 @@ import shareIcon from './share-icon.svg';
 
 import clockIcon from './clock-time-icon.svg';
 
-
 // am importing pictures from the assets folder and exporting them as components
 
 // mentor management system logo
