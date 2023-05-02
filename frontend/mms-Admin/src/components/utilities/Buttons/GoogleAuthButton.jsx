@@ -9,7 +9,7 @@ function GoogleAuthButton({ styling }) {
       type="submit"
     >
       <GoogleLogo styling="w-[38px]" />
-      <p className="font-[600] font-mukta ml-[10px]">signin with Google</p>
+      <p className="font-[600] font-mukta ml-[10px]">Sign in with Google</p>
     </button>
   );
 }

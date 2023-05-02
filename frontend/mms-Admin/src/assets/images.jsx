@@ -1,26 +1,58 @@
 /* eslint-disable react/prop-types */
+
 /* eslint-disable import/prefer-default-export */
+
 import React from 'react';
+
 import brandLogo from './logo.svg';
+
 import googleLogo from './google-icon.svg';
+
 import resetIll from './password-reset-sucess-illustration.png';
+
 import searchIcon from './search-icon.png';
+
 import userAvatar from './avatar.svg';
+
 import gadsElipse from './gads-elipse.png';
+
 import gadsReportIcon from './gads-report.png';
+
 import calender from './calender.svg';
+
 import arrowDown from './arrow-down.svg';
+
 import github from './akar-icons_github-fill.svg';
+
 import linkedIn from './Vector.svg';
+
 import ig from './Vector-1.svg';
+
 import twitter from './Vector-2.svg';
+import menu from './Hamburger Menu.png';
+
+import deleteImg from './delete.png';
+
+import optionIcon from './3-dots.svg';
+
+import bookmark from './bookmark-icon.svg';
+
+import commentIcon from './comment-icon.svg';
+
+import shareIcon from './share-icon.svg';
+
+import clockIcon from './clock-time-icon.svg';
 
 // am importing pictures from the assets folder and exporting them as components
+
 // mentor management system logo
+
 export function BrandLogo({ styling }) {
   return <img src={brandLogo} className={styling} alt="logo" />;
 }
+
 // password eye show icon
+
 export function PasswordEyeShow({ styling }) {
   return (
     <svg
@@ -38,6 +70,7 @@ export function PasswordEyeShow({ styling }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+
       <path
         d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12"
         stroke="#808080"
@@ -45,6 +78,7 @@ export function PasswordEyeShow({ styling }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+
       <path
         d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
         stroke="#808080"
@@ -55,7 +89,9 @@ export function PasswordEyeShow({ styling }) {
     </svg>
   );
 }
+
 // password eye hide icon
+
 export function PasswordEyeHide({ styling }) {
   return (
     <svg
@@ -73,6 +109,7 @@ export function PasswordEyeHide({ styling }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+
       <path
         d="M6.71277 6.7226C3.66479 8.79527 2 12 2 12C2 12 5.63636 19 12 19C14.0503 19 15.8174 18.2734 17.2711 17.2884M11 5.05822C11.3254 5.02013 11.6588 5 12 5C18.3636 5 22 12 22 12C22 12 21.3082 13.3317 20 14.8335"
         stroke="#808080"
@@ -80,6 +117,7 @@ export function PasswordEyeHide({ styling }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+
       <path
         d="M14 14.2362C13.4692 14.7112 12.7684 15.0001 12 15.0001C10.3431 15.0001 9 13.657 9 12.0001C9 11.1764 9.33193 10.4303 9.86932 9.88818"
         stroke="#808080"
@@ -90,54 +128,115 @@ export function PasswordEyeHide({ styling }) {
     </svg>
   );
 }
+
 // google logo
+
 export function GoogleLogo({ styling }) {
   return <img src={googleLogo} className={styling} alt="google logo" />;
 }
+
 // password rest success illustration
+
 export function ResetPasswordIllustration({ styling }) {
   return <img src={resetIll} className={styling} alt="illustration" />;
 }
+
 // search bar icon
+
 export function SearchIcon({ styling }) {
   return <img src={searchIcon} className={styling} alt="search icon" />;
 }
+
 // gads elipse
+
 export function GadsElipse({ styling }) {
   return <img src={gadsElipse} className={styling} alt="search icon" />;
 }
+
+// mobile menu
+export function MobileMenu({ styling }) {
+  return <img src={menu} className={styling} alt="search icon" />;
+}
 // gads report icon
+
 export function GadsReportIcon({ styling }) {
   return <img src={gadsReportIcon} className={styling} alt="search icon" />;
 }
+
 // calender icon
+
 export function CalenderIcon({ styling }) {
   return <img src={calender} className={styling} alt="search icon" />;
 }
+
 // arrow down icon
+
 export function ArrowDown({ styling }) {
   return <img src={arrowDown} className={styling} alt="search icon" />;
 }
+
 // arrow down icon
+
 export function InstagramIcon({ styling }) {
   return <img src={ig} className={styling} alt="search icon" />;
 }
+
 // github icon
+
 export function GithubIcon({ styling }) {
   return <img src={github} className={styling} alt="search icon" />;
 }
+
 // linkedin icon
+
 export function LinkedinIcon({ styling }) {
   return <img src={linkedIn} className={styling} alt="search icon" />;
 }
+
 // twitter icon
+
 export function TwitterIcon({ styling }) {
   return <img src={twitter} className={styling} alt="search icon" />;
 }
+
+// Delete image of delete task modal
+export function DeleteImage({ styling }) {
+  return <img src={deleteImg} className={styling} alt="delete" />;
+}
+
+// Horizontal 3 dots icon
+export function OptionsIcon({ styling }) {
+  return <img src={optionIcon} className={styling} alt="delete" />;
+}
+
+// Horizontal 3 dots icon
+export function BookmarkIcon({ styling }) {
+  return <img src={bookmark} className={styling} alt="delete" />;
+}
+
+// comment icon
+export function CommentIcon({ styling }) {
+  return <img src={commentIcon} className={styling} alt="delete" />;
+}
+
+// share icon
+export function ShareIcon({ styling }) {
+  return <img src={shareIcon} className={styling} alt="delete" />;
+}
+
+// clock icon
+export function ClockIcon({ styling }) {
+  return <img src={clockIcon} className={styling} alt="delete" />;
+}
+
 // message icon
+
 // you can use the color prop to change the color of this icon
+
 // You can use any valid CSS color value for the color prop,
+
 //  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
 export function MessageIcon({ styling, color }) {
   return (
     <svg
@@ -158,10 +257,15 @@ export function MessageIcon({ styling, color }) {
     </svg>
   );
 }
+
 // notification-bell icon
+
 // you can use the color prop to change the color of this icon
+
 // You can use any valid CSS color value for the color prop,
+
 //  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
 export function NotificationBellIcon({ styling, color }) {
   return (
     <svg
@@ -179,6 +283,7 @@ export function NotificationBellIcon({ styling, color }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+
       <path
         d="M11 20.8889C11.5344 21.4827 12.4656 21.4827 13 20.8889"
         stroke={color}
@@ -191,14 +296,19 @@ export function NotificationBellIcon({ styling, color }) {
 }
 
 // user avatr
+
 export function UserAvatar({ styling }) {
   return <img src={userAvatar} className={styling} alt="search icon" />;
 }
 
 // user square icon
+
 // you can use the color prop to change the color of this icon
+
 // You can use any valid CSS color value for the color prop,
+
 //  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
 export function UserSquare({ styling, color }) {
   return (
     <svg
@@ -219,10 +329,15 @@ export function UserSquare({ styling, color }) {
     </svg>
   );
 }
+
 // circle add icon
+
 // you can use the color prop to change the color of this icon
+
 // You can use any valid CSS color value for the color prop,
+
 //  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
 export function CircleAddIcon({ styling, color }) {
   return (
     <svg
@@ -240,6 +355,7 @@ export function CircleAddIcon({ styling, color }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+
       <path
         d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
         stroke={color}
@@ -250,10 +366,15 @@ export function CircleAddIcon({ styling, color }) {
     </svg>
   );
 }
+
 // discussion forum
+
 // you can use the color prop to change the color of this icon
+
 // You can use any valid CSS color value for the color prop,
+
 //  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
 export function ForumIcon({ styling, color }) {
   return (
     <svg
@@ -271,6 +392,7 @@ export function ForumIcon({ styling, color }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+
       <path
         d="M7 11H11"
         stroke={color}
@@ -278,6 +400,7 @@ export function ForumIcon({ styling, color }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+
       <path
         d="M3 5V20.7929C3 21.2383 3.53857 21.4614 3.85355 21.1464L7.70711 17.2929C7.89464 17.1054 8.149 17 8.41421 17H19C20.1046 17 21 16.1046 21 15V5C21 3.89543 20.1046 3 19 3H5C3.89543 3 3 3.89543 3 5Z"
         stroke={color}
@@ -288,10 +411,15 @@ export function ForumIcon({ styling, color }) {
     </svg>
   );
 }
+
 // certificates icon
+
 // you can use the color prop to change the color of this icon
+
 // You can use any valid CSS color value for the color prop,
+
 //  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
 export function CertificateIcon({ styling, color }) {
   return (
     <svg
@@ -311,6 +439,7 @@ export function CertificateIcon({ styling, color }) {
           strokeLinejoin="round"
         />
       </g>
+
       <defs>
         <clipPath id="clip0_6784_4715">
           <rect width="24" height="24" fill="white" />
@@ -319,10 +448,15 @@ export function CertificateIcon({ styling, color }) {
     </svg>
   );
 }
+
 // mentor managers
+
 // you can use the color prop to change the color of this icon
+
 // You can use any valid CSS color value for the color prop,
+
 //  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
 export function MentorManagerIcon({ styling, color }) {
   return (
     <svg
@@ -338,6 +472,7 @@ export function MentorManagerIcon({ styling, color }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+
       <path
         d="M2 21V17C2 15.8954 2.89543 15 4 15H14C15.1046 15 16 15.8954 16 17V21"
         stroke={color}
@@ -345,6 +480,7 @@ export function MentorManagerIcon({ styling, color }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+
       <path
         d="M16 3C16.8604 3.2203 17.623 3.7207 18.1676 4.42231C18.7122 5.12392 19.0078 5.98683 19.0078 6.875C19.0078 7.76317 18.7122 8.62608 18.1676 9.32769C17.623 10.0293 16.8604 10.5297 16 10.75"
         stroke={color}
@@ -352,6 +488,7 @@ export function MentorManagerIcon({ styling, color }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+
       <path
         d="M19 15H20C21.1046 15 22 15.8954 22 17V21"
         stroke={color}
@@ -362,10 +499,15 @@ export function MentorManagerIcon({ styling, color }) {
     </svg>
   );
 }
+
 // mentors icon
+
 // you can use the color prop to change the color of this icon
+
 // You can use any valid CSS color value for the color prop,
+
 //  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
 export function MentorIcon({ styling, color }) {
   return (
     <svg
@@ -381,6 +523,7 @@ export function MentorIcon({ styling, color }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+
       <path
         d="M4 21V17C4 15.8954 4.89543 15 6 15H18C19.1046 15 20 15.8954 20 17V21"
         stroke={color}
@@ -391,10 +534,15 @@ export function MentorIcon({ styling, color }) {
     </svg>
   );
 }
+
 // reports icon
+
 // you can use the color prop to change the color of this icon
+
 // You can use any valid CSS color value for the color prop,
+
 //  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
 export function ReportIcon({ styling, color }) {
   return (
     <svg
@@ -413,10 +561,15 @@ export function ReportIcon({ styling, color }) {
     </svg>
   );
 }
+
 // dashboard icon
+
 // you can use the color prop to change the color of this icon
+
 // You can use any valid CSS color value for the color prop,
+
 //  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
 export function DashboardIcon({ styling, color }) {
   return (
     <svg
@@ -434,10 +587,15 @@ export function DashboardIcon({ styling, color }) {
     </svg>
   );
 }
+
 // task icon
+
 // you can use the color prop to change the color of this icon
+
 // You can use any valid CSS color value for the color prop,
+
 //  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
 export function TaskIcon({ styling, color }) {
   return (
     <svg
@@ -455,10 +613,58 @@ export function TaskIcon({ styling, color }) {
     </svg>
   );
 }
-// programs icon
+
+// logout icon
+
 // you can use the color prop to change the color of this icon
+
 // You can use any valid CSS color value for the color prop,
+
 //  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
+export function LogoutIcon({ styling, color }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={styling}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4 12H15"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M8 7L3 12L8 17"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M21 3V21"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+// programs icon
+
+// you can use the color prop to change the color of this icon
+
+// You can use any valid CSS color value for the color prop,
+
+//  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
 export function ProgramsIcon({ styling, color }) {
   return (
     <svg
@@ -476,6 +682,7 @@ export function ProgramsIcon({ styling, color }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+
       <path
         d="M20.5 16H16.5C16.2239 16 16 16.2239 16 16.5V20.5C16 20.7761 16.2239 21 16.5 21H20.5C20.7761 21 21 20.7761 21 20.5V16.5C21 16.2239 20.7761 16 20.5 16Z"
         stroke={color}
@@ -483,6 +690,7 @@ export function ProgramsIcon({ styling, color }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+
       <path
         d="M20.5 7H16.5C16.2239 7 16 7.22386 16 7.5V11.5C16 11.7761 16.2239 12 16.5 12H20.5C20.7761 12 21 11.7761 21 11.5V7.5C21 7.22386 20.7761 7 20.5 7Z"
         stroke={color}
@@ -490,6 +698,7 @@ export function ProgramsIcon({ styling, color }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+
       <path
         d="M11.5 16H7.5C7.22386 16 7 16.2239 7 16.5V20.5C7 20.7761 7.22386 21 7.5 21H11.5C11.7761 21 12 20.7761 12 20.5V16.5C12 16.2239 11.7761 16 11.5 16Z"
         stroke={color}
@@ -500,10 +709,15 @@ export function ProgramsIcon({ styling, color }) {
     </svg>
   );
 }
+
 // settings icon
+
 // you can use the color prop to change the color of this icon
+
 // You can use any valid CSS color value for the color prop,
+
 //  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
 export function SettingsIcon({ styling, color }) {
   return (
     <svg
@@ -521,6 +735,7 @@ export function SettingsIcon({ styling, color }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+
       <path
         d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z"
         stroke={color}

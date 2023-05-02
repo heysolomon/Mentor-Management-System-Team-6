@@ -64,7 +64,7 @@ function LoginPage() {
         </FormikForm>
         <div className="flex justify-end mt-[22px]">
           <Link
-            to="/forgot-password"
+            to="/password-reset-verify-email"
             className="text-black1 font-[600] font-mukta text-[16px] underline"
           >
             Forgot Password?
@@ -72,14 +72,6 @@ function LoginPage() {
         </div>
         {/* the google signin authentication button */}
         <GoogleAuthButton styling="my-[40px]" />
-        {/* new user link to signup form */}
-        <p className="font-[600] font-mukta text-[16px] text-center">
-          New User?
-          {' '}
-          <Link to="/" className="underline cursor-pointer">
-            Signup
-          </Link>
-        </p>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { CertificateIcon,
   CircleAddIcon,
   DashboardIcon,
   ForumIcon,
+  LogoutIcon,
   MentorIcon,
   MentorManagerIcon,
   MessageIcon,
@@ -110,6 +111,12 @@ function Sidebar() {
       link: 'settings',
       icon: <SettingsIcon color="#808080" />,
     },
+    {
+      id: 13,
+      name: 'Logout',
+      link: 'logout',
+      icon: <LogoutIcon color="#808080" />,
+    },
   ];
 
   const open = useSelector((state) => state.sidebar.isOpen);
@@ -144,7 +151,7 @@ function Sidebar() {
   return (
     <>
       {/* desktop navigation */}
-      <nav className="fixed left-0 w-[20%] bg-pri11 hidden md:flex flex-col items-center">
+      <nav className="fixed left-0 w-[20%] bg-pri11 hidden md:flex flex-col items-center h-screen overflow-y-auto scroll-dark">
         <div className="w-[70%] mx-auto">
           <div className="mt-[20px] mb-[15px]">
             <h3 className="font-[700] text-black1 text-[20px]">Hi, Kabiru</h3>
@@ -158,7 +165,7 @@ function Sidebar() {
               >
                 <NavLink
                   to={link}
-                  className="flex items-center w-full duration-700 py-[8px]"
+                  className="flex items-center w-full duration-700 py-[7px]"
                   style={({ isActive }) => ({
                     color: isActive ? '#333333' : '#808080',
                     fontWeight: isActive ? '700' : '400',
