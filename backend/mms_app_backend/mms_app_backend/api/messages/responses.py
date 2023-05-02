@@ -5,7 +5,7 @@ from ..utils import ResponseModel
 
 
 class ConversationData(CamelModel):
-    conversation = ViewConversation | None
+    conversation : ViewConversation | None
 
 
 class ConversationResponse(ResponseModel):
