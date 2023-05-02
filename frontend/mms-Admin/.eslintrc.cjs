@@ -11,6 +11,19 @@ module.exports = {
   },
   plugins: ['react'],
   rules: {
+    indent: [
+      'error',
+      2,
+      {
+        ArrayExpression: 'off',
+        ObjectExpression: 'off',
+        MemberExpression: 'off',
+        SwitchCase: 1,
+      },
+    ],
+    'comma-spacing': ['error', {
+ before: false, after: true,
+    }],
     'linebreak-style': ['error', 'unix'],
     'object-curly-newline': [
       'error',
@@ -21,7 +34,8 @@ module.exports = {
         },
         ImportDeclaration: 'never',
         ExportDeclaration: {
-          multiline: true, minProperties: 3,
+          multiline: true,
+          minProperties: 3,
         },
       },
     ],
