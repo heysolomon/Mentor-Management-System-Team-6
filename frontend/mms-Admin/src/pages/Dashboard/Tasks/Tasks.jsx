@@ -6,6 +6,7 @@ import { BiArrowBack } from 'react-icons/bi';
 import { HiOutlineDocumentText, HiOutlineTrash } from 'react-icons/hi';
 import { GoCalendar } from 'react-icons/go';
 import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import taskImg from './task.png';
 import { openDeleteModal } from '../../../redux/features/tasks/tasksSlice';
 
@@ -84,12 +85,13 @@ function Tasks() {
 
       <div className={`${open ? 'max-lg:hidden' : ''} g:basis-2/3 basis-1/1`}>
         <div className="flex flex-row-reverse">
-          <button
-            type="button"
+          <NavLink
+            to="/admin-dashboard/task_new"
             className="bg-pri3 lg:py-2.5 lg:px-10 px-5 rounded-md text-white font-semibold mb-3 lg:text-base text-xs"
           >
             Create New Task
-          </button>
+          </NavLink>
+
           <button
             type="button"
             onClick={() => setOpen(true)}

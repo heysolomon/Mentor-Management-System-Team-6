@@ -29,9 +29,14 @@ import linkedIn from './Vector.svg';
 import ig from './Vector-1.svg';
 
 import twitter from './Vector-2.svg';
+
 import menu from './Hamburger Menu.png';
 
 import deleteImg from './delete.png';
+
+import remove from './remove.png';
+
+import NewTaskImg from './new_task.png';
 
 import optionIcon from './3-dots.svg';
 
@@ -133,6 +138,18 @@ export function PasswordEyeHide({ styling }) {
   );
 }
 
+// new task modal
+
+export function NewTaskImgModal({ styling }) {
+  return <img src={NewTaskImg} className={styling} alt="Task added" />;
+}
+
+// remove mentor icon
+
+export function RemoveIcon({ styling }) {
+  return <img src={remove} className={styling} alt="remove icon" />;
+}
+
 // google logo
 
 export function GoogleLogo({ styling }) {
@@ -158,9 +175,11 @@ export function GadsElipse({ styling }) {
 }
 
 // mobile menu
+
 export function MobileMenu({ styling }) {
   return <img src={menu} className={styling} alt="search icon" />;
 }
+
 // gads report icon
 
 export function GadsReportIcon({ styling }) {
@@ -204,6 +223,7 @@ export function TwitterIcon({ styling }) {
 }
 
 // Delete image of delete task modal
+
 export function DeleteImage({ styling }) {
   return <img src={deleteImg} className={styling} alt="delete" />;
 }

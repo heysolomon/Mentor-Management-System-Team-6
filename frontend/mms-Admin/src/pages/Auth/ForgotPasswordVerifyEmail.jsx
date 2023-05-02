@@ -21,7 +21,7 @@ function ForgotPasswordVerifyEmail() {
           Forgot Password?
         </h1>
         <h2 className="text-black5 text-[24px] font-[400] font-mukta">
-          No worries, we will send you reset instructions
+          Please enter your registered email to reset your password.
         </h2>
         {/* This is a formik form component for wrapping the input fields
          ** you check the components/FormikForm to see the component
@@ -40,7 +40,7 @@ function ForgotPasswordVerifyEmail() {
             inputStyle="text-[20px] pl-[30px]"
           />
           <Link to="/forgot-password">
-            <Button width="w-full mt-[28px]">Verify Email</Button>
+            <Button width="w-full mt-[28px]">Done</Button>
           </Link>
         </FormikForm>
       </div>
