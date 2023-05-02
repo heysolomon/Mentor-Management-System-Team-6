@@ -25,12 +25,12 @@ function LoginPage() {
     email: Yup.string().email('Email is invalid').required('Email is required'),
     password: Yup.string()
       .min(8, 'Password must be atleast 8 characters long')
-      .required('Password is required'),
-    // .matches(
-    //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*)[A-Za-z\d]{8,}$/,
-    //   `Must Contain 8 Characters, One Uppercase, One Lowercase,
-    //         One Number and one special case Character`,
-    // ),
+      .required('Password is required')
+      .matches(
+        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+        `Must Contain One Uppercase, One Lowercase,
+            One Number and one special case Character`,
+      ),
   });
 
   const [message, setMessage] = useState('');
@@ -109,7 +109,7 @@ function LoginPage() {
           >
             {message}
           </p>
-          <Button width="w-full mt-[28px]" disable={loggingIn && true}>
+          <Button width="w-full mt-[28px]">
             {loggingIn ? (
               <SpinnerCircular
                 color="#F7FEFF"
