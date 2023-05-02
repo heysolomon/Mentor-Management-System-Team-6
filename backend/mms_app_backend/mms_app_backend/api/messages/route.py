@@ -2,9 +2,9 @@ from fastapi import APIRouter, status, Response, Depends, WebSocket
 from sqlalchemy.orm import Session
 
 from .constants import CONVERSATION_CREATED_SUCCESS_MESSAGE
-from .crud import create_conversation_crud
+from .crud import create_conversation_crud, create_message_crud
 from .responses import ConversationResponse
-from .schemas import CreateConversation, ViewMessage, CreateMessage
+from .schemas import CreateConversation, CreateMessage
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
 from ..authentication.helpers import verify_access_token
 from ..utils import get_token, get_db, get_token_ws
@@ -50,7 +50,7 @@ async def message_subscription(connection: WebSocket, jwt_token: str = Depends(g
     connections[f"{user.id}"] = connection
     while True:
         sender_message: CreateMessage = CreateMessage(**(await connection.receive_json()))
-        receiver_message = ViewMessage(sender=user.id, message=sender_message.content)
+        created_message = create_message_crud(db, sender_message, user.id)
         response_connection = connections.get(f'{sender_message.receiver}')
         if response_connection:
-            await response_connection.send_json(data=receiver_message.dict())
+            await response_connection.send_json(data=created_message.dict())

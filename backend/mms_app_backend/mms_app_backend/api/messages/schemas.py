@@ -23,5 +23,7 @@ class ViewConversation(CreateConversation):
 
 
 class ViewMessage(CamelModel):
-    message: str
+    id: int
+    content: str
     sender: int
+    receiver: int
