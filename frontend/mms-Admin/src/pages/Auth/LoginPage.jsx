@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { SpinnerCircular } from 'spinners-react';
 import FormikForm from '../../components/FormikForm/FormikForm';
 import InputField from '../../components/InputField';
 import Button from '../../components/utilities/Buttons/Button';
@@ -23,17 +25,17 @@ function LoginPage() {
     email: Yup.string().email('Email is invalid').required('Email is required'),
     password: Yup.string()
       .min(8, 'Password must be atleast 8 characters long')
-      .required('Password is required')
-      .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*)[A-Za-z\d]{8,}$/,
-        `Must Contain 8 Characters, One Uppercase, One Lowercase,
-              One Number and one special case Character [@$!%*#?&-_]`,
-      ),
+      .required('Password is required'),
+    // .matches(
+    //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*)[A-Za-z\d]{8,}$/,
+    //   `Must Contain 8 Characters, One Uppercase, One Lowercase,
+    //         One Number and one special case Character`,
+    // ),
   });
 
   const [message, setMessage] = useState('');
   const dispatch = useDispatch();
-  const { userInfo, loggingIn, error } = useSelector((state) => state.user);
+  const { loggingIn, error } = useSelector((state) => state.user);
 
   // redirecting
   const navigate = useNavigate();
@@ -46,18 +48,18 @@ function LoginPage() {
       const user = await api.post('/login', {
         ...values,
       });
-      console.log(user.data);
+      // console.log(user.data);
       dispatch(loginSuccess(user.data));
-      setMessage('Login success!');
+      setMessage(user.data.message);
       setTimeout(() => {
         navigate('/admin-dashboard');
         if (from) navigate(from);
-      }, 3000);
+      }, 2000);
     } catch (err) {
       if (err) {
         dispatch(loginFailure());
-        console.log(err);
-        setMessage(err.detail);
+        // console.log(err);
+        setMessage(err.response.data.message);
       }
     }
   };
@@ -100,8 +102,25 @@ function LoginPage() {
             width="w-full"
             inputStyle="text-[20px] pl-[30px]"
           />
-
-          <Button width="w-full mt-[28px]">Login</Button>
+          <p
+            className={`font-[400] text-black5 font-mukta text-[16px] mt-[20px] ${
+              error ? 'text-red-500' : 'text-pri2'
+            }`}
+          >
+            {message}
+          </p>
+          <Button width="w-full mt-[28px]" disable={loggingIn && true}>
+            {loggingIn ? (
+              <SpinnerCircular
+                color="#F7FEFF"
+                className="mr-2"
+                thickness={250}
+                size={20}
+              />
+            ) : (
+              'Login'
+            )}
+          </Button>
         </FormikForm>
         <div className="flex justify-end mt-[22px]">
           <Link
