@@ -38,9 +38,13 @@ async def create_conversation(conversation: CreateConversation, response: Respon
 
 
 @websocket('/users/messages/ws')
-async def message_subscription(websocket: WebSocket,cookie_or_token:str = Depends(get_cookie_or_token)):
-    await websocket.accept()
+async def message_subscription(connection: WebSocket, cookie_or_token: str = Depends(get_cookie_or_token),
+                               db: Session = Depends(get_db)):
+    await connection.accept()
 
     while True:
-        message = await websocket.receive_json()
+        message = await connection.receive_json()
+        user = verify_access_token(db, cookie_or_token)
+        if user.id == message.receiver:
+            await connection.send_json()
 

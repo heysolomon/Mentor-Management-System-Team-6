@@ -20,3 +20,8 @@ class CreateMessage(CamelModel):
 class ViewConversation(CreateConversation):
     id: int
     messages: list[int] | None
+
+
+class ViewMessage(CamelModel):
+    message: str
+    sender: int
