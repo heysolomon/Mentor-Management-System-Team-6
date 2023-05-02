@@ -1,14 +1,15 @@
 from fastapi import APIRouter, status, Response, Depends
 from sqlalchemy.orm import Session
 
+from .constants import CONVERSATION_CREATED_SUCCESS_MESSAGE
 from .crud import create_conversation_crud
 from .responses import ConversationResponse
 from .schemas import CreateConversation
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
 from ..authentication.helpers import verify_access_token
 from ..utils import get_token, get_db
-from .constants import CONVERSATION_CREATED_SUCCESS_MESSAGE
-router = APIRouter
+
+router = APIRouter()
 get = APIRouter.get
 post = APIRouter.post
 websocket = APIRouter.websocket
@@ -32,6 +33,3 @@ def create_conversation(conversation: CreateConversation, response: Response, jw
         conversation_response.data.conversation = created_conversation
         conversation_response.success = True
         return conversation_response
-
-
-
