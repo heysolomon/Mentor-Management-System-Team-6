@@ -1,11 +1,13 @@
 from fastapi import APIRouter, status, Response, Depends
 from sqlalchemy.orm import Session
-from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
+
+from .crud import create_conversation_crud
 from .responses import ConversationResponse
 from .schemas import CreateConversation
+from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
 from ..authentication.helpers import verify_access_token
 from ..utils import get_token, get_db
-
+from .constants import CONVERSATION_CREATED_SUCCESS_MESSAGE
 router = APIRouter
 get = APIRouter.get
 post = APIRouter.post
@@ -22,4 +24,11 @@ def create_conversation(conversation: CreateConversation, response: Response, jw
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return conversation_response
 
-    created_conversation = create_conversation_crud()
+    created_conversation = create_conversation_crud(db, conversation)
+
+    if created_conversation:
+        conversation_response.message = CONVERSATION_CREATED_SUCCESS_MESSAGE
+        conversation_response.data.conversation = created_conversation
+        conversation_response.success = True
+        return conversation_response
+
