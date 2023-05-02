@@ -14,4 +14,4 @@ class CreateConversation(BaseConversation):
 
 class ViewConversation(CreateConversation):
     id: int
-    messages: list | None
+    messages: list[int] | None

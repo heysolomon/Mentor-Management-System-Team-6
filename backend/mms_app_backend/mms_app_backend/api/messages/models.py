@@ -1,10 +1,10 @@
 from sqlalchemy import Column, String, Integer, ForeignKey, Text
 from sqlalchemy.orm import relationship
-
+from ...configs.database_config import Base
 from ..models import AbstractBaseModel
 
 
-class UserConverstationAssociation(AbstractBaseModel):
+class UserConverstationAssociation(Base):
     __tablename__ = 'participant_conversation_association'
     participant_id = Column(Integer, ForeignKey('users.id'), primary_key=True)
     conversation_id = Column(Integer, ForeignKey('conversations.id'), primary_key=True)
@@ -13,7 +13,8 @@ class UserConverstationAssociation(AbstractBaseModel):
 class Conversation(AbstractBaseModel):
     __tablename__ = "conversations"
     title = Column(String, unique=True)
-    participants = relationship("User", back_populates='conversations', secondary="participant_conversation_association")
+    participants = relationship("User", back_populates='conversations',
+                                secondary="participant_conversation_association")
     messages = relationship("Message", back_populates='conversation')
 
 
