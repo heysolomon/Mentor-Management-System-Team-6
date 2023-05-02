@@ -12,6 +12,7 @@ from ..utils import get_token, get_db
 router = APIRouter()
 get = router.get
 post = router.post
+delete = router.delete
 websocket = router.websocket
 
 
