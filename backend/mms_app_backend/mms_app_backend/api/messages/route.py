@@ -11,6 +11,7 @@ from .constants import CONVERSATION_CREATED_SUCCESS_MESSAGE
 router = APIRouter
 get = APIRouter.get
 post = APIRouter.post
+websocket = APIRouter.websocket
 
 
 @post('/users/conversations', status_code=status.HTTP_201_CREATED, response_model=ConversationResponse)
@@ -31,4 +32,6 @@ def create_conversation(conversation: CreateConversation, response: Response, jw
         conversation_response.data.conversation = created_conversation
         conversation_response.success = True
         return conversation_response
+
+
 
