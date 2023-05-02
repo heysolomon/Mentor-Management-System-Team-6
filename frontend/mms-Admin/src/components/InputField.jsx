@@ -46,9 +46,9 @@ function InputField({
             aria-hidden="true"
           >
             {passwordType === 'password' ? (
-              <PasswordEyeHide className="w-[24px]" />
+              <PasswordEyeHide className="w-[16px] md:w-[24px]" />
             ) : (
-              <PasswordEyeShow className="w-[24px]" />
+              <PasswordEyeShow className="w-[16px] md:w-[24px]" />
             )}
           </span>
         )}

@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import taskImg from './task.png';
 import { openDeleteModal } from '../../../redux/features/tasks/tasksSlice';
-import styles from '../styles/dashboard.module.css';
 
 function Tasks() {
   const [checked, setChecked] = useState(false);
@@ -22,10 +21,12 @@ function Tasks() {
   };
 
   return (
-
     <div className="flex flex-col lg:flex-row">
-
-      <div className={`${open ? '' : 'max-lg:hidden'}  basis-1/1 flex m-5 flex-col overflow-y-auto pb-5 h-screen w-full lg:w-100 ${styles.scroll}`}>
+      <div
+        className={`${
+          open ? '' : 'max-lg:hidden'
+        }  basis-1/1 flex m-5 flex-col overflow-y-auto pb-5 h-screen w-full lg:w-100 scroll`}
+      >
         <div className="tasksHeader flex flex-row">
           {checked ? (
             <div className="flex flex-row-reverse">
@@ -35,23 +36,30 @@ function Tasks() {
                 placeholder="Search tasks"
                 onKeyDown={search}
               />
-              <BiArrowBack className="text-teal-700 text-2xl mx-2 cursor-pointer" onClick={() => setChecked(false)} />
+              <BiArrowBack
+                className="text-teal-700 text-2xl mx-2 cursor-pointer"
+                onClick={() => setChecked(false)}
+              />
             </div>
           ) : (
-
             <>
               <h1 className="font-[600] tasksH grow">Tasks</h1>
-              <RiSearchLine className="text-teal-700 text-xl mx-2 cursor-pointer" onClick={search} />
-              <BsFilter className={`text-teal-700 text-2xl mx-2 cursor-pointer ${sort ? 'rotate-180' : ''}`} onClick={() => setSort(!sort)} />
+              <RiSearchLine
+                className="text-teal-700 text-xl mx-2 cursor-pointer"
+                onClick={search}
+              />
+              <BsFilter
+                className={`text-teal-700 text-2xl mx-2 cursor-pointer ${
+                  sort ? 'rotate-180' : ''
+                }`}
+                onClick={() => setSort(!sort)}
+              />
             </>
           )}
-
         </div>
         {/* start tasks */}
         <div className="taskContainer me-5">
-
-          {
-          Array.from(Array(10)).map((i) => (
+          {Array.from(Array(10)).map((i) => (
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div
               className="task flex m-3 p-3 rounded-md  border-2 border-grey-400 w-full cursor-pointer"
@@ -63,15 +71,14 @@ function Tasks() {
               <div className="rightTask ms-8">
                 <h3 className="font-semibold">Room Library article write...</h3>
                 <div className="taskdate flex">
-
                   <GoCalendar className="text-teal-700 text-l me-3" />
-                  <p className="text-xs text-gray-600 font-light align-middle  align-middle">3 days from now</p>
+                  <p className="text-xs text-gray-600 font-light align-middle">
+                    3 days from now
+                  </p>
                 </div>
               </div>
             </div>
-
-          ))
-        }
+          ))}
         </div>
         {/* end tasks */}
       </div>
@@ -88,34 +95,35 @@ function Tasks() {
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="visible lg:invisible border-pri3 py-2.5 lg:px-10 px-5 rounded-md text-teal-700 font-semibold border-teal-700 border-2 mb-3 mr-2 lg:text-base text-xs"
+            className="visible lg:invisible border-pri3 py-2.5 lg:px-10 px-5 rounded-md text-teal-700 font-semibold border-2 mb-3 mr-2 lg:text-base text-xs"
           >
             show all Tasks
           </button>
         </div>
         <div className="task flex  flex-col  rounded-md  border-2 border-grey-400 w-full">
-
           <div className="flex flex-row p-4">
             <img src={taskImg} alt="icon" className="object-contain" />
             <div className="rightTask ms-8">
-              <h3 className="font-semibold text-xl ">Room library article written in java</h3>
+              <h3 className="font-semibold text-xl ">
+                Room library article written in java
+              </h3>
               <div className="taskdate flex items-center">
-
                 <GoCalendar className="text-teal-700 text-l me-3" />
-                <p className="text-xs text-gray-400 font-light align-middle align-middle">3 days from now</p>
+                <p className="text-xs text-gray-400 font-light align-middle">
+                  3 days from now
+                </p>
               </div>
             </div>
           </div>
           <div className="bg-pri11 rounded-b-lg p-4">
             <p className="text-gray-500 pt-2">
-              Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna.
-              Pellentesque sit amet sapien fringilla,
-              mattis ligula consectetur, ultrices mauris.
-              Maecenas vitae mattis tellus. Nullam quis imperdiet augue.
-              Vestibulum auctor ornare leo, non suscipit magna interdum eu.
-              Curabitur pellentesque nibh nibh,
-              at maximus ante fermentum sit amet. Pellentesque
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et
+              massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien
+              fringilla, mattis ligula consectetur, ultrices mauris. Maecenas
+              vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum
+              auctor ornare leo, non suscipit magna interdum eu. Curabitur
+              pellentesque nibh nibh, at maximus ante fermentum sit amet.
+              Pellentesque
             </p>
             {/* start task1 */}
             <div className="flex bg-cyan-100/50 p-3 my-3 max-md:flex-col max-md:place-items-center">
@@ -182,10 +190,8 @@ function Tasks() {
             </div>
           </div>
         </div>
-
       </div>
     </div>
-
   );
 }
 

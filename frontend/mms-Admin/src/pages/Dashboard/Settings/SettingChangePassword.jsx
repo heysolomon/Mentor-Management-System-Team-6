@@ -40,7 +40,7 @@ function SettingChangePassword() {
       >
         {/* old password */}
         <div className="flex items-center">
-          <div className="w-[33%]">
+          <div className="w-[33%] hidden md:block">
             <p className="text-black2 text-[16px] font-[600]">
               Current Password
             </p>
@@ -51,12 +51,12 @@ function SettingChangePassword() {
             name="oldPassword"
             id="oldPassword"
             placeholder="Your current password"
-            inputStyle="text-16px] pl-[30px]"
+            inputStyle="text-[14px] md:text-[16px] pl-[30px]"
           />
         </div>
         {/* new password */}
         <div className="flex items-center mt-[30px]">
-          <div className="w-[33%]">
+          <div className="w-[33%] hidden md:block">
             <p className="text-black2 text-[16px] font-[600]">New Password</p>
           </div>
           <InputField
@@ -64,12 +64,12 @@ function SettingChangePassword() {
             name="newPassword"
             id="newPassword"
             placeholder="Must be at least 8 characters"
-            inputStyle="text-16px] pl-[30px]"
+            inputStyle="text-[14px] md:text-[16px] pl-[30px]"
           />
         </div>
         {/* confirm password */}
         <div className="flex items-center mt-[30px]">
-          <div className="w-[33%]">
+          <div className="w-[33%] hidden md:block">
             <p className="text-black2 text-[16px] font-[600]">
               Confirm New Password
             </p>
@@ -79,12 +79,12 @@ function SettingChangePassword() {
             name="confirmPassword"
             id="confirmPassword"
             placeholder="Must match your new password"
-            inputStyle="text-16px] pl-[30px]"
+            inputStyle="text-[14px] md:text-[16px] pl-[30px]"
           />
         </div>
 
         <div className="flex justify-end mt-[30px]">
-          <Button width="w-[35%]">Save new password</Button>
+          <Button width="w-full md:w-[35%]">Save new password</Button>
         </div>
         <div className="flex justify-center mt-[30px]">
           <p className="font-[600] text-[18px] text-[#023C40] underline">
