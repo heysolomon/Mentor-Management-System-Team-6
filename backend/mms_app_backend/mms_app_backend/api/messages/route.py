@@ -16,7 +16,7 @@ websocket = router.websocket
 
 
 @post('/users/conversations', status_code=status.HTTP_201_CREATED, response_model=ConversationResponse)
-def create_conversation(conversation: CreateConversation, response: Response, jwt_token: str = Depends(get_token),
+def create_conversation(conversation: CreateConversation, response: Response, jwt_token: str = Depends(get_token()),
                         db: Session = Depends(get_db)):
     conversation_response = ConversationResponse()
     user = verify_access_token(db, jwt_token)

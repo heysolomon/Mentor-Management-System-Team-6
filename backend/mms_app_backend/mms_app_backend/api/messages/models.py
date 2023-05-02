@@ -13,7 +13,7 @@ class UserConverstationAssociation(AbstractBaseModel):
 class Conversation(AbstractBaseModel):
     __tablename__ = "conversations"
     title = Column(String, unique=True)
-    participants = relationship("User", back_populates='conversation', secondary="participant_conversation_association")
+    participants = relationship("User", back_populates='conversations', secondary="participant_conversation_association")
     messages = relationship("Message", back_populates='conversation')
 
 
