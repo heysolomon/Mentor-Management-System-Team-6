@@ -12,6 +12,6 @@ def get_mentors_crud(db):
             if mentor.roles:
                 roles = [role.id for role in mentor.roles]
                 mentor.roles = roles
-        processed_mentors.append(mentor)
+            processed_mentors.append(mentor)
 
     return processed_mentors
