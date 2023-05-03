@@ -16,7 +16,6 @@ function Dashboard() {
   return (
     <>
       <ProfileSavedModal />
-
       <TasksModal />
       <NewTasksModal />
 

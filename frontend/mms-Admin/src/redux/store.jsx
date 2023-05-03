@@ -16,6 +16,7 @@ import profileSlice from './features/Profile/profileSlice';
 import userSlice from './features/userSlice';
 
 import tasksSlice from './features/tasks/tasksSlice';
+import forumSlice from './features/Forum/forumSlice';
 
 const rootReducer = combineReducers({
   splashScreen: splashSlice,
@@ -29,6 +30,8 @@ const rootReducer = combineReducers({
   user: userSlice,
 
   tasks: tasksSlice,
+
+  forum: forumSlice,
 });
 
 const persistConfig = {
