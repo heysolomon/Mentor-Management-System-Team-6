@@ -44,10 +44,10 @@ function DiscussionCommentSection() {
         <div className="flex justify-between">
           <div className="flex">
             <button type="button" className="mr-[17px]">
-              <EmojiIcon />
+              <EmojiIcon color="#808080" />
             </button>
             <button type="button">
-              <AttachmentIcon />
+              <AttachmentIcon color="#808080" />
             </button>
           </div>
 

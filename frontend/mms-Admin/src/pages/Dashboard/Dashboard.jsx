@@ -2,23 +2,19 @@ import React from 'react';
 
 import { Outlet } from 'react-router-dom';
 
+import { useSelector } from 'react-redux';
 import Navbar from '../../components/Dashboard/Navbar';
 
 import Sidebar from '../../components/Dashboard/Sidebar';
 
-import ProfileSavedModal from '../../components/Modals/ProfileSaved';
-
-import TasksModal from '../../components/Modals/TasksModal';
-
-import NewTasksModal from '../../components/Modals/NewTaskModal';
+import Modal from '../../components/Modals/Modal';
 
 function Dashboard() {
+  const content = useSelector((state) => state.modal.content);
   return (
     <>
-      <ProfileSavedModal />
-      <TasksModal />
-      <NewTasksModal />
-
+      {/* for all modals */}
+      <Modal content={content} />
       <div className="w-full h-screen font-mukta overflow-y-auto scroll">
         <Navbar />
 

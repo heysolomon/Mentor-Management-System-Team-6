@@ -1,74 +1,65 @@
-import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ResetPasswordIllustration } from '../../assets/images';
-import { closeProfileSavedModal } from '../../redux/features/Profile/profileSlice';
+import { useDispatch } from 'react-redux';
+import { AttachmentIcon, CloseIcon, EmojiIcon } from '../../assets/images';
+import { closeModal, openModal } from '../../redux/features/Modals/modalSlice';
+import FormikForm from '../FormikForm/FormikForm';
+import InputField from '../InputField';
 import Button from '../utilities/Buttons/Button';
-import ProfileModal from './ProfileModal';
+import CreatePost from './CreatePost';
 
 function ForumNewTopic() {
-  const open = useSelector((state) => state.profile.isOpen);
   const dispatch = useDispatch();
-  // framer motion animation for the modal window
-  const fade = {
-    hidden: {
-      opacity: 0,
-      transition: {
-        delay: 1,
-      },
-    },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.1,
-      },
-    },
-    exit: {
-      opacity: 0,
-      transition: {
-        delay: 1,
-      },
-    },
+
+  const handleSubmit = () => {
+    setTimeout(() => {
+      dispatch(closeModal());
+    }, 2000);
+    dispatch(openModal(<CreatePost />));
   };
   return (
-    <div>
-      {/* this is the password reset modal,
-       ** it pops-up when the user has sucessfully reset his/her password */}
+    <div className="p-[20px] flex flex-col w-full">
+      <div className="flex justify-between w-full items-center">
+        <h2 className="text-black1 font-[600] text-[24px]">New Topic</h2>
 
-      <AnimatePresence
-        // Disable any initial animations on children that
-        // are present when the component is first rendered
-        initial={false}
-        mode="wait"
-        // Fires when all exiting nodes have completed animating out
-        onExitComplete={() => null}
+        <button type="button" onClick={() => dispatch(closeModal())}>
+          <CloseIcon color="#058B94" />
+        </button>
+      </div>
+
+      <FormikForm
+        // initialValues={initialValues}
+        className="mt-[29px]"
+        styling="flex justify-center items-center flex-col"
       >
-        {open && (
-          <ProfileModal>
-            <motion.div
-              className="relative z-50 bg-white w-[80%] md:w-[50%] py-[28px] px-[20px] rounded-[20px] flex flex-col items-center"
-              aria-hidden="true"
-              onClick={(e) => e.stopPropagation()}
-              variants={fade}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            >
-              <h2 className="font-mukta font-[600] text-black1 text-[18px] md:text-[24px]">
-                Profile Saved Successfully
-              </h2>
-              <ResetPasswordIllustration styling="mt-[28px]" />
-              <Button
-                width="w-[50%] md:w-[25%] mt-[28px]"
-                onClick={() => dispatch(closeProfileSavedModal())}
-                aria-hidden="true"
-              >
-                Done
-              </Button>
-            </motion.div>
-          </ProfileModal>
-        )}
-      </AnimatePresence>
+        <InputField
+          type="text"
+          name="title"
+          placeholder="Enter a title"
+          styling="mb-[20px]"
+          width="w-full"
+          inputStyle="text-[20px] pl-[30px]"
+        />
+        <div className="flex flex-col justify-between border-[1px] border-black8 rounded-[5px] pl-[30px] py-5">
+          <textarea
+            name="about"
+            id="about"
+            cols={100}
+            // rows={4}
+            className="flex resize-none focus:outline-none bg-transparent placeholder:text-black5 text-black5 text-mukta font-[400] h-[96px] w-full text-[20px] pl-0 ml-0"
+            placeholder="Start typing..."
+          />
+          <div className="flex">
+            <EmojiIcon color="#058B94" styling="mr-3" />
+            <AttachmentIcon color="#058B94" />
+          </div>
+        </div>
+
+        <div className="flex w-full justify-end mt-[62px]">
+          <Button width="w-[30%]" onClick={handleSubmit}>
+            Post to Forum
+          </Button>
+        </div>
+      </FormikForm>
     </div>
   );
 }

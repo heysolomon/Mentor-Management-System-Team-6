@@ -8,15 +8,11 @@ import storage from 'redux-persist/lib/storage';
 
 import splashSlice from './features/splashSlice';
 
-import modalReducer from './features/NewPasswordSuccess/modalSlice';
+import modalReducer from './features/Modals/modalSlice';
 
 import sidebarSlice from './features/sidebarSlice';
 
-import profileSlice from './features/Profile/profileSlice';
 import userSlice from './features/userSlice';
-
-import tasksSlice from './features/tasks/tasksSlice';
-import forumSlice from './features/Forum/forumSlice';
 
 const rootReducer = combineReducers({
   splashScreen: splashSlice,
@@ -25,13 +21,8 @@ const rootReducer = combineReducers({
 
   sidebar: sidebarSlice,
 
-  profile: profileSlice,
-
   user: userSlice,
 
-  tasks: tasksSlice,
-
-  forum: forumSlice,
 });
 
 const persistConfig = {
