@@ -1,9 +1,6 @@
 from fastapi_camelcase import CamelModel
 
 
-
-
-
 class BaseMentors(CamelModel):
     about: str
     profile_id: int
