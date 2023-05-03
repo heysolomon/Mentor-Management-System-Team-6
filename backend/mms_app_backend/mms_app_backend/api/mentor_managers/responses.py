@@ -5,8 +5,8 @@ from ..utils import ResponseModel
 
 
 class GetMentorManagersData(CamelModel):
-    mentor_managers = list[ViewMentorManager] | None
+    mentor_managers: list[ViewMentorManager] | None
 
 
 class GetMentorManagersResponse(ResponseModel):
-    data = GetMentorManagersData = GetMentorManagersData()
+    data: GetMentorManagersData = GetMentorManagersData()
