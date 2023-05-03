@@ -7,6 +7,8 @@ const userSlice = createSlice({
     userInfo: null,
     loggingIn: false,
     error: false,
+    changePassword: false,
+    changePasswordError: false,
   },
   reducers: {
     loginStart: (state) => {
@@ -21,8 +23,26 @@ const userSlice = createSlice({
       state.loggingIn = false;
       state.error = true;
     },
+    changePasswordStart: (state) => {
+      state.changePassword = true;
+    },
+    changePasswordSuccess: (state) => {
+      state.changePasswordError = false;
+      state.changePassword = false;
+    },
+    changePasswordFailure: (state) => {
+      state.changePassword = false;
+      state.changePasswordError = true;
+    },
   },
 });
 
 export default userSlice.reducer;
-export const { loginStart, loginSuccess, loginFailure } = userSlice.actions;
+export const {
+  loginStart,
+  loginSuccess,
+  loginFailure,
+  changePasswordStart,
+  changePasswordSuccess,
+  changePasswordFailure,
+} = userSlice.actions;
