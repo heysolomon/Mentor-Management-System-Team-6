@@ -9,4 +9,4 @@ class GetMentorManagersData(CamelModel):
 
 
 class GetMentorManagersResponse(ResponseModel):
-    date = GetMentorManagersData = GetMentorManagersData()
+    data = GetMentorManagersData = GetMentorManagersData()
