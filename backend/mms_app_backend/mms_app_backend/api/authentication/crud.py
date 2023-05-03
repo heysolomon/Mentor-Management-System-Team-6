@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from .helpers import get_password_hash
-from .models import User,PasswordResetToken
+from .models import User, PasswordResetToken
 from .schemas import UserCreate
 
 
@@ -29,5 +29,11 @@ def change_password_crud(db: Session, user, new_password):
     db.refresh(user)
     return True
 
-def create_reset_token_crud(db:Session,user ):
-    token = PasswordResetToken()
+
+def create_reset_token_crud(db: Session, user):
+    token = PasswordResetToken(user_id=user.id)
+    db.add(token)
+    db.commit()
+    db.refresh()
+
+    return token
