@@ -35,3 +35,7 @@ class PasswordReset(CamelModel):
     reset_token: str
     email: EmailStr
     password: str
+
+
+class EmailVerification(CamelModel):
+    email: EmailStr
