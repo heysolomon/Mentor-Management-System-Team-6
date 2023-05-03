@@ -37,3 +37,11 @@ def create_reset_token_crud(db: Session, user):
     db.refresh()
 
     return token
+
+
+def reset_password_crud(db: Session, user, new_password):
+    user.hashed_password = get_password_hash(new_password)
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return True
