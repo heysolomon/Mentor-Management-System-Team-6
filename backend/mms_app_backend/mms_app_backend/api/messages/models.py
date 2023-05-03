@@ -24,7 +24,5 @@ class Message(AbstractBaseModel):
     conversation = relationship("Conversation", back_populates='messages')
     conversation_id = Column(Integer, ForeignKey('conversations.id'))
     content = Column(Text)
-    sender = relationship("User", back_populates='sent_message')
-    sender_id = Column(Integer, ForeignKey('users.id'))
-    receiver = relationship("User", back_populates='received_message')
+    sender_id = Column(Integer)
     receiver_id = Column(Integer, ForeignKey('users.id'))

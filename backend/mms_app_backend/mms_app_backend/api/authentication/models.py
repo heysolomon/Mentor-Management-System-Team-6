@@ -17,9 +17,6 @@ class User(AbstractBaseModel):
     password_reset_token = relationship("PasswordResetToken", back_populates="user")
     conversations = relationship("Conversation", back_populates='participants',
                                  secondary="participant_conversation_association")
-    received_message = relationship("Message", back_populates="receiver", foreign_keys="[Message.receiver_id]")
-    sent_message = relationship("Message", back_populates="sender", foreign_keys="[Message.sender_id]")
-
 
 # Token sent to user email when resetting password
 class PasswordResetToken(AbstractBaseModel):
