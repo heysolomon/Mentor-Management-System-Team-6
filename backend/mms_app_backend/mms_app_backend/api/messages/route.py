@@ -54,3 +54,4 @@ async def message_subscription(connection: WebSocket, jwt_token: str = Depends(g
         response_connection = connections.get(f'{sender_message.receiver}')
         if response_connection:
             await response_connection.send_json(data=created_message.dict())
+
