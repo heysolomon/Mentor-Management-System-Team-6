@@ -249,6 +249,50 @@ export function ClockIcon({ styling }) {
   return <img src={clockIcon} className={styling} alt="delete" />;
 }
 
+// attachment icon
+export function AttachmentIcon({ styling, color }) {
+  return (
+    <svg
+      width="25"
+      height="25"
+      viewBox="0 0 25 25"
+      fill="none"
+      className={styling}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M21.875 11.4857L13.3797 20.0925C11.0339 22.4692 7.23035 22.4692 4.88443 20.0925C2.53852 17.7158 2.53852 13.8624 4.88443 11.4857L11.9639 4.31335C13.5278 2.72888 16.0634 2.72888 17.6274 4.31335C19.1913 5.89782 19.1913 8.46675 17.6274 10.0512L10.5479 17.2235C9.76599 18.0158 8.49817 18.0158 7.71619 17.2235C6.93422 16.4313 6.93422 15.1468 7.71619 14.3546L14.7956 7.18229"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+// emoji icon
+export function EmojiIcon({ styling, color }) {
+  return (
+    <svg
+      width="25"
+      height="25"
+      viewBox="0 0 25 25"
+      fill="none"
+      className={styling}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M15.6424 10.4331L15.6257 10.4163M9.39243 10.4331L9.37565 10.4163M8.33398 15.6247C8.33398 15.6247 8.46434 15.8854 8.77117 16.2224C9.33169 16.8379 10.4812 17.708 12.5007 17.708C14.5201 17.708 15.6696 16.8379 16.2301 16.2224C16.537 15.8854 16.6673 15.6247 16.6673 15.6247M12.5007 22.9163C6.74768 22.9163 2.08398 18.2526 2.08398 12.4997C2.08398 6.74671 6.74768 2.08301 12.5007 2.08301C18.2536 2.08301 22.9173 6.74671 22.9173 12.4997C22.9173 18.2526 18.2536 22.9163 12.5007 22.9163Z"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 // message icon
 
 // you can use the color prop to change the color of this icon
@@ -382,6 +426,24 @@ export function CircleAddIcon({ styling, color }) {
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function CloseIcon({ styling, color }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="curentColor"
+      className={styling}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M18 7.05L16.95 6L12 10.95L7.05 6L6 7.05L10.95 12L6 16.95L7.05 18L12 13.05L16.95 18L18 16.95L13.05 12L18 7.05Z"
+        fill={color}
       />
     </svg>
   );

@@ -1,28 +1,27 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { ResetPasswordIllustration } from '../../assets/images';
+import { NewTaskImgModal } from '../../assets/images';
 import { closeModal } from '../../redux/features/Modals/modalSlice';
-import Button from '../utilities/Buttons/Button';
 
-function ProfileSaved() {
+function CreateTask() {
   const dispatch = useDispatch();
   return (
     <div>
       <h2 className="font-mukta font-[600] text-black1 text-[18px] md:text-[24px]">
-        Profile Saved Successfully
+        Task created successfully
       </h2>
-      <ResetPasswordIllustration styling="mt-[28px]" />
+      <NewTaskImgModal styling="mt-[28px] mb-5" />
       <div className="flex justify-center">
-        <Button
-          width="w-[50%] mt-[28px]"
+        <button
           onClick={() => dispatch(closeModal())}
-          aria-hidden="true"
+          type="button"
+          className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold mx-1"
         >
           Done
-        </Button>
+        </button>
       </div>
     </div>
   );
 }
 
-export default ProfileSaved;
+export default CreateTask;

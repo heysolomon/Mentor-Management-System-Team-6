@@ -1,10 +1,11 @@
 import React from 'react';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { openModal } from '../../redux/features/NewPasswordSuccess/modalSlice';
+import { openModal } from '../../redux/features/Modals/modalSlice';
 import FormikForm from '../../components/FormikForm/FormikForm';
 import InputField from '../../components/InputField';
 import Button from '../../components/utilities/Buttons/Button';
+import PasswordReset from '../../components/Modals/PasswordReset';
 
 function SetNewPassword() {
   const initialValues = {
@@ -26,7 +27,7 @@ function SetNewPassword() {
   const dispatch = useDispatch();
 
   const handleSuccess = () => {
-    dispatch(openModal());
+    dispatch(openModal(<PasswordReset />));
   };
   return (
     <div className="h-full flex flex-col justify-center items-start">
@@ -50,7 +51,9 @@ function SetNewPassword() {
             width="w-full"
             inputStyle="text-[20px] pl-[30px]"
           />
-          <Button width="w-full mt-[28px]" onClick={handleSuccess}>Reset Password</Button>
+          <Button width="w-full mt-[28px]" onClick={handleSuccess}>
+            Reset Password
+          </Button>
         </FormikForm>
         {/* new user link to signup form */}
         <p className="font-[400] text-black5 font-mukta text-[16px] mt-[20px]">

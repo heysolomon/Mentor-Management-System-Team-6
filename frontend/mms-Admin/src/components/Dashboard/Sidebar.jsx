@@ -199,7 +199,9 @@ function Sidebar() {
               <motion.div className="w-[70%] mx-auto">
                 <div className="mt-[20px] mb-[15px]">
                   <h3 className="font-[700] text-black1 text-[20px]">
-                    Hi, Kabiru
+                    Hi,
+                    {' '}
+                    {user.firstName}
                   </h3>
                   <p className="font-[400] text-black5 text-[16px]">Admin</p>
                 </div>
