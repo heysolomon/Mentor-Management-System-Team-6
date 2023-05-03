@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
 import { BsBookmark, BsFillBookmarkFill } from 'react-icons/all';
+import { useDispatch } from 'react-redux';
 import { ClockIcon,
   CommentIcon,
   OptionsIcon,
   ShareIcon,
   UserAvatar } from '../../../assets/images';
+import { openModal } from '../../../redux/features/Modals/modalSlice';
+import EditPost from '../../Modals/EditPost';
 import DiscussionCommentSection from './DiscussionCommentSection';
 
 function DiscussionPost() {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [commentOpen, setCommentOpen] = useState(false);
+  // const [isOptionOpen, setIsOptionOpen] = useState(false);
+  const dispatch = useDispatch();
+  const handleEdit = () => {
+    dispatch(openModal(<EditPost />));
+  };
   return (
     <div className="w-full mb-[28px]">
       <div className="w-full rounded-[10px] px-[20px] py-[24px] border-[1px] border-black9">
@@ -30,7 +38,8 @@ function DiscussionPost() {
             </div>
           </div>
           {/* more options */}
-          <button type="button">
+
+          <button type="button" onClick={handleEdit}>
             <OptionsIcon />
           </button>
         </div>
