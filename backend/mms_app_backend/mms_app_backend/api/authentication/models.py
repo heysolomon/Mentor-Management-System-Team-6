@@ -26,4 +26,4 @@ class PasswordResetToken(AbstractBaseModel):
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", back_populates='password_reset_token')
     token = Column(UUID, unique=True, index=True, default=str(uuid.uuid4()))
-    expires_on = Column(Integer, Column(DateTime, default=datetime.utcnow() + timedelta(minutes=5)))
+    expires_on = Column(DateTime,  default=datetime.utcnow() + timedelta(minutes=5))
