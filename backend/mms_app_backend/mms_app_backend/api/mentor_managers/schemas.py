@@ -18,3 +18,6 @@ class BaseMentorManager(CamelModel):
 
 class ViewMentorManager(BaseMentorManager):
     id: int
+
+    class Config:
+        orm_mode = True
