@@ -1,5 +1,4 @@
 from fastapi_camelcase import CamelModel
-
 from .schemas import GetTask
 from ..utils import ResponseModel
 
@@ -18,3 +17,4 @@ class GetTasksData(CamelModel):
 
 class GetTasksResponse(ResponseModel):
     data: GetTasksData = GetTasksData()
+

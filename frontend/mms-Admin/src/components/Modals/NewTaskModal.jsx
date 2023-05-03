@@ -1,14 +1,12 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { ResetPasswordIllustration } from '../../assets/images';
-import { closeModal } from '../../redux/features/NewPasswordSuccess/modalSlice';
-import Button from '../utilities/Buttons/Button';
-import Modal from './Modal';
+import { closeModalNew } from '../../redux/features/tasks/tasksSlice';
+import ProfileModal from './ProfileModal';
+import { NewTaskImgModal } from '../../assets/images';
 
-function PasswordResetModal() {
-  const open = useSelector((state) => state.modal.isOpen);
+function NewTasksModal() {
+  const open = useSelector((state) => state.tasks.newtaskOpen);
   const dispatch = useDispatch();
   // framer motion animation for the modal window
   const fade = {
@@ -45,7 +43,7 @@ function PasswordResetModal() {
         onExitComplete={() => null}
       >
         {open && (
-          <Modal>
+          <ProfileModal>
             <motion.div
               className="relative z-50 bg-white w-[80%] md:w-[50%] py-[28px] px-[20px] rounded-[20px] flex flex-col items-center"
               aria-hidden="true"
@@ -56,25 +54,26 @@ function PasswordResetModal() {
               exit="exit"
             >
               <h2 className="font-mukta font-[600] text-black1 text-[18px] md:text-[24px]">
-                Password Reset Successful
+                Task created successfully
               </h2>
-              <ResetPasswordIllustration styling="mt-[28px]" />
+              <NewTaskImgModal styling="mt-[28px] mb-5" />
+              <div className="flex">
 
-              <Link to="/" className="w-[50%] md:w-[25%] mt-[28px]">
-                <Button
-                  width="w-full"
-                  onClick={() => dispatch(closeModal())}
-                  aria-hidden="true"
+                <button
+                  onClick={() => dispatch(closeModalNew())}
+                  type="button"
+                  className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold mx-1"
+
                 >
                   Done
-                </Button>
-              </Link>
+                </button>
+              </div>
             </motion.div>
-          </Modal>
+          </ProfileModal>
         )}
       </AnimatePresence>
     </div>
   );
 }
 
-export default PasswordResetModal;
+export default NewTasksModal;

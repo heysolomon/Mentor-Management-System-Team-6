@@ -182,8 +182,17 @@ function Notifications() {
           </div>
         </div>
         {/* end row */}
+
       </div>
       {/* end Notifications */}
+      <div className="flex flex-row-reverse">
+        <button
+          className="bg-pri3 lg:py-2.5 lg:px-10 px-5 rounded-md text-white font-semibold mb-3 lg:text-base text-xs"
+          type="button"
+        >
+          Save Changes
+        </button>
+      </div>
     </div>
   );
 }
