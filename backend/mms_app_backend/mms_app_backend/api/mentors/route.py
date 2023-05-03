@@ -15,7 +15,7 @@ get = router.get
 @get('/users/mentors', status_code=status.HTTP_200_OK, response_model=GetMentorsResponse)
 async def get_mentors(response: Response, db: Session = Depends(get_db), jwt_token: str = Depends(get_token())):
     get_mentors_response = GetMentorsResponse()
-    user = verify_access_token()
+    user = verify_access_token(db, jwt_token)
     if not user:
         get_mentors_response.message = INVALID_AUTHENTICATION_MESSAGE
         response.status_code = status.HTTP_401_UNAUTHORIZED
