@@ -1,14 +1,17 @@
-"""Alembic initial revision
+"""New Conversations Link
 
-Revision ID: fe8ea9fb3a4d
-Revises: 5f28072965c1
-Create Date: 2023-04-25 18:56:45.831499
+Revision ID: a58ef99360d3
+Revises: 104ecf84a40f
+Create Date: 2023-05-02 16:50:49.954220
 
 """
+from alembic import op
+import sqlalchemy as sa
+
 
 # revision identifiers, used by Alembic.
-revision = 'fe8ea9fb3a4d'
-down_revision = '5f28072965c1'
+revision = 'a58ef99360d3'
+down_revision = '104ecf84a40f'
 branch_labels = None
 depends_on = None
 

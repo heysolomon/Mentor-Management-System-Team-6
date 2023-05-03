@@ -1,14 +1,17 @@
-"""Alembic initial revision
+"""Fixed Typo messages associations
 
-Revision ID: fe8ea9fb3a4d
-Revises: 5f28072965c1
-Create Date: 2023-04-25 18:56:45.831499
+Revision ID: b482819d0b10
+Revises: f1e83bddb90b
+Create Date: 2023-05-03 01:51:42.193042
 
 """
+from alembic import op
+import sqlalchemy as sa
+
 
 # revision identifiers, used by Alembic.
-revision = 'fe8ea9fb3a4d'
-down_revision = '5f28072965c1'
+revision = 'b482819d0b10'
+down_revision = 'f1e83bddb90b'
 branch_labels = None
 depends_on = None
 

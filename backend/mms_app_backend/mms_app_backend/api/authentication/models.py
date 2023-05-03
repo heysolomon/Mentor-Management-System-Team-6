@@ -18,7 +18,8 @@ class User(AbstractBaseModel):
     is_active = Column(Boolean, default=True)
     profile = relationship("Profile", back_populates='user')
     password_reset_token = relationship("PasswordResetToken", back_populates="user")
-
+    conversations = relationship("Conversation", back_populates='participants',
+                                 secondary="participant_conversation_association")
 
 # Token sent to user email when resetting password
 class PasswordResetToken(AbstractBaseModel):
