@@ -8,7 +8,6 @@ from .models import Task
 from .responses import CreateTaskResponse, GetTasksResponse
 from .schemas import CreateTask, UpdateTask,TaskReportResponse, TaskReport
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
-from ..authentication.crud import get_mentor, get_mentor_manager
 from ..authentication.helpers import verify_access_token
 from ..utils import get_token, get_db
 
