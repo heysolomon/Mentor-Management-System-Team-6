@@ -1,4 +1,4 @@
-from backend.mms_app_backend.mms_app_backend.api.account_management.models import MentorManager
+from ..account_management.models import MentorManager
 
 
 def get_mentor_managers_crud(db):
