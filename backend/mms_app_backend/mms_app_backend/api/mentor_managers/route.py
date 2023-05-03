@@ -14,7 +14,7 @@ get = router.get
 
 
 @get('/users/mentor-managers', status_code=status.HTTP_200_OK, response_model=GetMentorManagersResponse)
-def get_mentor_managers(response: Response, db: Session = Depends(get_db), jwt_token: str = get_token):
+def get_mentor_managers(response: Response, db: Session = Depends(get_db), jwt_token: str = Depends(get_token())):
     get_mentor_managers_response = GetMentorManagersResponse()
     user = verify_access_token(db, jwt_token)
     if not user:
