@@ -20,3 +20,6 @@ class BaseMentors(CamelModel):
 
 class ViewMentors(BaseMentors):
     id: int
+
+    class Config:
+        orm_mode = True
