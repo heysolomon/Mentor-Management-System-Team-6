@@ -35,7 +35,11 @@ function LoginPage() {
 
   const [message, setMessage] = useState('');
   const dispatch = useDispatch();
-  const { loggingIn, error } = useSelector((state) => state.user);
+  const { userInfo, loggingIn, error } = useSelector((state) => state.user);
+
+  function setToken(userToken) {
+    sessionStorage.setItem('token', JSON.stringify(userToken));
+  }
 
   // redirecting
   const navigate = useNavigate();
@@ -50,11 +54,13 @@ function LoginPage() {
       });
       // console.log(user.data);
       dispatch(loginSuccess(user.data));
+      const token = userInfo.data.access_token;
+      setToken(token);
       setMessage(user.data.message);
       setTimeout(() => {
         navigate('/admin-dashboard');
         if (from) navigate(from);
-      }, 2000);
+      }, 1000);
     } catch (err) {
       if (err) {
         dispatch(loginFailure());

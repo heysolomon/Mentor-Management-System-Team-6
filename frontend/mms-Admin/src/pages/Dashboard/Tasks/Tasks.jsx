@@ -8,7 +8,8 @@ import { GoCalendar } from 'react-icons/go';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import taskImg from './task.png';
-import { openDeleteModal } from '../../../redux/features/tasks/tasksSlice';
+import DeleteTask from '../../../components/Modals/DeleteTask';
+import { openModal } from '../../../redux/features/Modals/modalSlice';
 
 function Tasks() {
   const [checked, setChecked] = useState(false);
@@ -20,6 +21,9 @@ function Tasks() {
     setChecked(true);
   };
 
+  const handleDelete = () => {
+    dispatch(openModal(<DeleteTask />));
+  };
   return (
     <div className="flex flex-col lg:flex-row">
       <div
@@ -182,7 +186,7 @@ function Tasks() {
               <button
                 type="button"
                 className="bg-transparent py-2.5 px-10  text-red-600 font-meduim flex flex-row"
-                onClick={() => dispatch(openDeleteModal())}
+                onClick={handleDelete}
               >
                 <HiOutlineTrash className="text-xl mr-2 font-xl" />
                 Delete

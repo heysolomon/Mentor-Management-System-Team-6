@@ -37,8 +37,7 @@ def create_reset_token_crud(db: Session, user):
     token = PasswordResetToken(user_id=user.id)
     db.add(token)
     db.commit()
-    db.refresh()
-
+    db.refresh(token)
     return token
 
 

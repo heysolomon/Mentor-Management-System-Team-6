@@ -29,3 +29,6 @@ class ResponseModel(BaseModel):
     success: bool = False
     data: dict | None
     message: str | None
+
+    class Config:
+        orm_mode = True

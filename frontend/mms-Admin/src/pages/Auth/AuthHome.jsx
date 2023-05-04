@@ -1,13 +1,15 @@
 /* eslint-disable arrow-parens */
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import { BrandLogo } from '../../assets/images';
-import PasswordResetModal from '../../components/Modals/PasswordResetModal';
+import Modal from '../../components/Modals/Modal';
 
 function AuthHome() {
+  const content = useSelector((state) => state.modal.content);
   return (
     <div>
-      <PasswordResetModal />
+      <Modal content={content} />
       <div className="w-screen h-screen md:grid grid-cols-2">
         {/* left hand side of the page */}
         <div className="bg-pri3 h-full hidden md:flex flex-col items-center justify-center">
