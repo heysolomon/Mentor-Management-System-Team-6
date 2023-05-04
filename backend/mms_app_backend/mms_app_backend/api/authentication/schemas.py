@@ -29,3 +29,13 @@ class User(UserBase):
 class PasswordChange(CamelModel):
     old_password: str
     new_password: str
+
+
+class PasswordReset(CamelModel):
+    reset_token: str
+    email: EmailStr
+    password: str
+
+
+class EmailVerification(CamelModel):
+    email: EmailStr

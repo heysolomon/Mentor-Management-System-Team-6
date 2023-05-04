@@ -3,11 +3,13 @@ from sqlalchemy.orm import Session
 
 from .constants import USED_EMAIL_MESSAGE, ACCOUNT_CREATED_MESSAGE, USED_USERNAME_MESSAGE, USER_NOT_FOUND_MESSAGE, \
     USER_LOGGED_IN_MESSAGE, INVALID_CREDENTIALS_MESSAGE, INVALID_OLD_AUTH_MESSAGE, \
-    AUTH_CHANGE_SUCCESSFUL_MESSAGE
-from .crud import get_user_by_email, create_user, get_user_by_username, change_password_crud
+    AUTH_CHANGE_SUCCESSFUL_MESSAGE, RESET_SENT_SUCCESS_MESSAGE, AUTH_RESET_SUCCESS_MESSAGE
+from .crud import get_user_by_email, create_user, get_user_by_username, change_password_crud, create_reset_token_crud, \
+    reset_password_crud
 from .helpers import verify_password, create_access_token, verify_access_token
+from .models import User, PasswordResetToken
 from .responses import CreateUserResponse, LoginUserResponse
-from .schemas import UserCreate, UserLogin, PasswordChange
+from .schemas import UserCreate, UserLogin, PasswordChange, PasswordReset, EmailVerification
 from ..account_management.constants import INVALID_USER_PARAMETER
 from ..constants import GENERAL_ERROR_MESSAGE
 from ..utils import get_db, get_token, ResponseModel
@@ -97,3 +99,42 @@ async def change_password(user_id: int, response: Response, password: PasswordCh
         password_response.success = True
         password_response.message = AUTH_CHANGE_SUCCESSFUL_MESSAGE
         return password_response
+
+
+@patch('/v1/users/password_reset_token', status_code=status.HTTP_201_CREATED, response_model=ResponseModel)
+async def get_reset_token(emailFields: EmailVerification, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.email == emailFields.email).first()
+    reset_token_response = ResponseModel()
+    if user is None:
+        reset_token_response.message = RESET_SENT_SUCCESS_MESSAGE
+        reset_token_response.success = True
+        return reset_token_response
+    created_token = create_reset_token_crud(db, user)
+
+    if created_token:
+        reset_token_response.success = True
+
+        reset_token_response.message = str(created_token.token)
+
+        return reset_token_response
+
+
+@patch('/v1/users/password_reset', status_code=status.HTTP_201_CREATED, response_model=ResponseModel)
+async def reset_password(password_reset: PasswordReset, db: Session = Depends(get_db)):
+    password_reset_response = ResponseModel()
+    user = db.query(User).filter(User.email == password_reset.email).first()
+    reset_token = None
+    reset_status = False
+    if user:
+        reset_token = db.query(PasswordResetToken).filter(PasswordResetToken.user_id == user.id).first()
+
+    if reset_token:
+        reset_status = reset_password_crud(db, user, password_reset.password)
+
+    if reset_status:
+        password_reset_response.success = True
+        password_reset_response.message = AUTH_RESET_SUCCESS_MESSAGE
+        return password_reset_response
+    else:
+        password_reset_response.message = GENERAL_ERROR_MESSAGE
+        return password_reset_response

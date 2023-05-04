@@ -58,27 +58,25 @@ To get it up and running on your local machine, follow the steps below:
 #### Commandline commands
 
 ##### Powershell commands
-    
 
     cd .\backend\mms_app_backend\
 
-
 ##### Bash Commands
-    
 
     cd ./backend/mms_app_backend/
-
 
 ## Install Python requirements and dependencies
 
 # Commandline commands
 
-
     pip install -r requirements.txt
+
 ### Database setup
+
     cd ./backend/mms_app_backend/mms_app_backend/configs
 
 ### create database based on model revisions
+
     alembic upgrade head 
 
 ## Environment variables
@@ -87,21 +85,17 @@ To get it up and running on your local machine, follow the steps below:
 
 e.g
 
-    
     DATABASE_TYPE=postgresql
     DATABASE_NAME=mms_database
     DATABASE_HOST=localhost
     DATABASE_USERNAME=postgres
     DATABASE_PASSWORD=admin
 
-
 ## Start Server
 
 ### Commandline commands
 
-
     python main.py
-
 
 To interact with the server locally, open the [link](http://127.0.0.1:8000) or paste http://127.0.0.1:8000
 or http://localhost:8000
@@ -109,18 +103,16 @@ in the browser.
 
 ## Test
 
-
     pytest 
-
 
 This will return the number of successful and failed tests with percentage clearance.
 
 ## Design
 
 The design can be
-find [here](https://www.figma.com/file/JNZKj3lachPypSOMBOhC1e/MMS-ALC-0pen-Source-Project?node-id=6784%3A7593&t=dnwBBGHPZRxryUnJ-0)
+find [here](https://www.figma.com/file/JNZKj3lachPypSOMBOhC1e/MMS-ALC-0pen-Source-Project?node-id=6784%3A7593\&t=dnwBBGHPZRxryUnJ-0)
 Find the
-Prototype [here](https://www.figma.com/proto/JNZKj3lachPypSOMBOhC1e/MMS-ALC-0pen-Source-Project?page-id=6782%3A4428&node-id=6784%3A6712&viewport=565%2C382%2C0.02&scaling=min-zoom&starting-point-node-id=6784%3A6712)
+Prototype [here](https://www.figma.com/proto/JNZKj3lachPypSOMBOhC1e/MMS-ALC-0pen-Source-Project?page-id=6782%3A4428\&node-id=6784%3A6712\&viewport=565%2C382%2C0.02\&scaling=min-zoom\&starting-point-node-id=6784%3A6712)
 Work on your Team assigned task e.g Team 1, Team 2 etc.
 
 NOTE: Strictly adhere to the style guide on the design, buttons, texts etc.
@@ -135,4 +127,4 @@ Raise any identified issue with your mentor.
     2. `npm run lint` - Lints the codebase.
     3. `npm run lint:fix` - Lints the codebase and fixes auto-fixable error.
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/098d739ea9504dadabbcc4898eaff86e)](https://app.codacy.com/gh/ALCOpenSource/Mentor-Management-System-Team-1/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/098d739ea9504dadabbcc4898eaff86e)](https://app.codacy.com/gh/ALCOpenSource/Mentor-Management-System-Team-1/dashboard?utm_source=gh\&utm_medium=referral\&utm_content=\&utm_campaign=Badge_grade)

@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
 import { GithubIcon,
   InstagramIcon,
   LinkedinIcon,
@@ -10,7 +11,8 @@ import SocialIcon from '../../../components/Dashboard/Settings/Socials';
 import FormikForm from '../../../components/FormikForm/FormikForm';
 import InputField from '../../../components/InputField';
 import Button from '../../../components/utilities/Buttons/Button';
-import { openProfileSavedModal } from '../../../redux/features/Profile/profileSlice';
+import { openModal } from '../../../redux/features/Modals/modalSlice';
+import ProfileSaved from '../../../components/Modals/ProfileSaved';
 
 function SettingsGeneral() {
   const initialValues = {
@@ -20,7 +22,19 @@ function SettingsGeneral() {
     website: '',
   };
 
+  const validate = Yup.object({
+    firstName: Yup.string().min(3, 'Must be 3 characters or more'),
+    lastName: Yup.string().min(3, 'Must be 3 characters or more'),
+    about: Yup.string(),
+    website: Yup.string().url('Must be a URL'),
+  });
+
   const dispatch = useDispatch();
+  // user's object
+  const user = useSelector((state) => state.user.userInfo.data.user);
+  const handleSuccess = () => {
+    dispatch(openModal(<ProfileSaved />));
+  };
 
   return (
     <div className="md:border-[1px] md:rounded-[5px] md:border-black9 md:mx-10 md:p-5">
@@ -31,7 +45,9 @@ function SettingsGeneral() {
           <div className="ml-4 md:ml-[46px]">
             <div className="flex items-center">
               <h2 className="font-semibold text-2xl text-black2 mr-2">
-                Peculiar Umeh
+                {user.firstName}
+                {' '}
+                {user.lastName}
               </h2>
             </div>
             <button
@@ -48,7 +64,7 @@ function SettingsGeneral() {
       <section className="mt-[25px] w-full">
         <FormikForm
           initialValues={initialValues}
-          //   validationSchema={validate}
+          validationSchema={validate}
           classname="w-full"
           styling="w-full"
         >
@@ -65,14 +81,14 @@ function SettingsGeneral() {
                 type="text"
                 name="firstName"
                 id="firstName"
-                placeholder="First Name"
+                placeholder={user.firstName}
                 inputStyle="text-[12px] md:text-[16px] pl-3"
               />
               <InputField
                 type="text"
                 name="lastName"
                 id="lastName"
-                placeholder="Last Name"
+                placeholder={user.lastName}
                 inputStyle="text-[12px] md:text-[16px] pl-3"
               />
             </div>
@@ -198,7 +214,7 @@ function SettingsGeneral() {
           <div className="flex justify-end mt-[25px]">
             <Button
               width="px-3 text-[12px] md:text-[16px]"
-              onClick={() => dispatch(openProfileSavedModal())}
+              onClick={handleSuccess}
             >
               Save Changes
             </Button>
