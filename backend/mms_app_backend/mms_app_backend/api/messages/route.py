@@ -57,7 +57,7 @@ async def message_subscription(connection: WebSocket, jwt_token: str = Depends(g
 
 
 @get('/users/messages', )
-async def get_messages(response: Response,conversation: jwt_token: str = Depends(get_token()), db: Session = Depends(get_db)):
+async def get_messages(response: Response,conversation:GetMessage, jwt_token: str = Depends(get_token()), db: Session = Depends(get_db)):
     user_response = ConversationResponse
     user = verify_access_token(db, jwt_token)
     if user is None:
