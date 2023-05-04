@@ -1,16 +1,16 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
-import { closeProfileSavedModal } from '../../redux/features/Profile/profileSlice';
+import { closeModal } from '../../redux/features/Modals/modalSlice';
 
 // eslint-disable-next-line react/prop-types
-function ProfileModal({ children }) {
+function ModalBackdrop({ children }) {
   // redux state for the reset password success
   const dispatch = useDispatch();
   return (
     <motion.div
       className="fixed w-screen h-screen z-50 bg-[rgba(0,0,0,0.7)] flex items-center justify-center"
-      onClick={() => dispatch(closeProfileSavedModal())}
+      onClick={() => dispatch(closeModal())}
       aria-hidden="true"
       initial={{
         opacity: 0,
@@ -27,4 +27,4 @@ function ProfileModal({ children }) {
   );
 }
 
-export default ProfileModal;
+export default ModalBackdrop;

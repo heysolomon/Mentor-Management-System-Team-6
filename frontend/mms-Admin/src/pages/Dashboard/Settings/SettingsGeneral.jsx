@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
 import { GithubIcon,
   InstagramIcon,
   LinkedinIcon,
@@ -10,7 +11,8 @@ import SocialIcon from '../../../components/Dashboard/Settings/Socials';
 import FormikForm from '../../../components/FormikForm/FormikForm';
 import InputField from '../../../components/InputField';
 import Button from '../../../components/utilities/Buttons/Button';
-import { openProfileSavedModal } from '../../../redux/features/Profile/profileSlice';
+import { openModal } from '../../../redux/features/Modals/modalSlice';
+import ProfileSaved from '../../../components/Modals/ProfileSaved';
 
 function SettingsGeneral() {
   const initialValues = {
@@ -20,18 +22,32 @@ function SettingsGeneral() {
     website: '',
   };
 
+  const validate = Yup.object({
+    firstName: Yup.string().min(3, 'Must be 3 characters or more'),
+    lastName: Yup.string().min(3, 'Must be 3 characters or more'),
+    about: Yup.string(),
+    website: Yup.string().url('Must be a URL'),
+  });
+
   const dispatch = useDispatch();
+  // user's object
+  const user = useSelector((state) => state.user.userInfo.data.user);
+  const handleSuccess = () => {
+    dispatch(openModal(<ProfileSaved />));
+  };
 
   return (
-    <div className="border-[1px] rounded-[5px] border-black9 mx-10 p-5">
+    <div className="md:border-[1px] md:rounded-[5px] md:border-black9 md:mx-10 md:p-5">
       <section className="flex justify-between items-center">
         <div className="flex items-center">
           <UserAvatar />
 
-          <div className="ml-[46px]">
+          <div className="ml-4 md:ml-[46px]">
             <div className="flex items-center">
               <h2 className="font-semibold text-2xl text-black2 mr-2">
-                Peculiar Umeh
+                {user.firstName}
+                {' '}
+                {user.lastName}
               </h2>
             </div>
             <button
@@ -48,38 +64,42 @@ function SettingsGeneral() {
       <section className="mt-[25px] w-full">
         <FormikForm
           initialValues={initialValues}
-          //   validationSchema={validate}
+          validationSchema={validate}
           classname="w-full"
           styling="w-full"
         >
           {/* fullname */}
           <div className="flex items-center w-full">
-            <div className="w-[15%]">
-              <p className="text-black2 text-[16px] font-[600]">Full name</p>
+            <div className="w-[15%] hidden md:block">
+              <p className="text-black2 text-[12px] md:text-[16px] font-[600]">
+                Full name
+              </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-x-[20px] w-full">
+            <div className="grid grid-cols-2 gap-x-[20px] md:w-full">
               <InputField
                 type="text"
                 name="firstName"
                 id="firstName"
-                placeholder="First Name"
-                inputStyle="text-[16px] pl-3"
+                placeholder={user.firstName}
+                inputStyle="text-[12px] md:text-[16px] pl-3"
               />
               <InputField
                 type="text"
                 name="lastName"
                 id="lastName"
-                placeholder="Last Name"
-                inputStyle="text-[16px] pl-3"
+                placeholder={user.lastName}
+                inputStyle="text-[12px] md:text-[16px] pl-3"
               />
             </div>
           </div>
 
           {/* about */}
-          <div className="flex items-center mt-[25px] w-full">
-            <div className="w-[16%]">
-              <p className="text-black2 text-[16px] font-[600]">About</p>
+          <div className="flex items-center mt-[25px] md:w-full">
+            <div className="w-[16%] 2xl:w-[13%] hidden md:block">
+              <p className="text-black2 text-[12px] md:text-[16px] font-[600]">
+                About
+              </p>
             </div>
 
             <div className="flex">
@@ -95,9 +115,11 @@ function SettingsGeneral() {
           </div>
 
           {/* website */}
-          <div className="flex items-center mt-[25px] w-full">
-            <div className="w-[15%]">
-              <p className="text-black2 text-[16px] font-[600]">Website</p>
+          <div className="flex items-center mt-[25px] md:w-full">
+            <div className="w-[15%] hidden md:block">
+              <p className="text-black2 text-[12px] md:text-[16px] font-[600]">
+                Website
+              </p>
             </div>
 
             <InputField
@@ -106,35 +128,39 @@ function SettingsGeneral() {
               id="website"
               styling="w-full"
               placeholder="www.example.com"
-              inputStyle="text-[16px] pl-3 w-full"
+              inputStyle="text-[12px] md:text-[16px] pl-3 w-full"
             />
           </div>
           {/* country and city */}
-          <div className="grid grid-cols-2 gap-x-[20px] mt-[25px] w-full">
+          <div className="grid grid-cols-2 gap-x-[20px] mt-[25px] md:w-full">
             <div className="flex items-center">
-              <div className="w-[36%]">
-                <p className="text-black2 text-[16px] font-[600]">Country</p>
+              <div className="w-[36%] hidden md:block">
+                <p className="text-black2 text-[12px] md:text-[16px] font-[600]">
+                  Country
+                </p>
               </div>
 
               <select
                 name="country"
                 id="country"
                 placeholder="First Name"
-                className="text-[16px] pl-3 border-[1px] h-[43px] rounded-[5px] border-black8 placeholder:text-black5 text-black5 text-mukta font-[400] w-full"
+                className="text-[12px] md:text-[16px] pl-3 border-[1px] h-[43px] rounded-[5px] border-black8 placeholder:text-black5 text-black5 text-mukta font-[400] w-full"
               >
                 <option value="country">Select Country</option>
               </select>
             </div>
             <div className="flex items-center">
-              <div className="w-[36%]">
-                <p className="text-black2 text-[16px] font-[600]">City</p>
+              <div className="w-[36%] hidden md:block">
+                <p className="text-black2 text-[12px] md:text-[16px] font-[600]">
+                  City
+                </p>
               </div>
 
               <select
                 name="country"
                 id="country"
                 placeholder="First Name"
-                className="text-[16px] pl-3 border-[1px] h-[43px] rounded-[5px] border-black8 placeholder:text-black5 text-black5 text-mukta font-[400] w-full"
+                className="text-[12px] md:text-[16px] pl-3 border-[1px] h-[43px] rounded-[5px] border-black8 placeholder:text-black5 text-black5 text-mukta font-[400] w-full"
               >
                 <option value="country">Select City</option>
               </select>
@@ -142,12 +168,14 @@ function SettingsGeneral() {
           </div>
 
           {/* socials */}
-          <div className="flex items-center w-full mt-[25px]">
-            <div className="w-[15%]">
-              <p className="text-black2 text-[16px] font-[600]">Social</p>
+          <div className="flex items-center md:w-full mt-[25px]">
+            <div className="w-[15%] hidden md:block">
+              <p className="text-black2 text-[12px] md:text-[16px] font-[600]">
+                Social
+              </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-x-[20px] w-full">
+            <div className="grid grid-cols-2 gap-x-[20px] md:w-full">
               <div>
                 <div>
                   <SocialIcon
@@ -185,8 +213,8 @@ function SettingsGeneral() {
 
           <div className="flex justify-end mt-[25px]">
             <Button
-              width="px-3 text-[16px]"
-              onClick={() => dispatch(openProfileSavedModal())}
+              width="px-3 text-[12px] md:text-[16px]"
+              onClick={handleSuccess}
             >
               Save Changes
             </Button>
