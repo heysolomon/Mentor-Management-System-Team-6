@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { SpinnerCircular } from 'spinners-react';
 import FormikForm from '../../components/FormikForm/FormikForm';
 import InputField from '../../components/InputField';
 import Button from '../../components/utilities/Buttons/Button';
 import { api } from '../../services/api';
+import { resetPasswordFailure,
+  resetPasswordStart,
+  resetPasswordSuccess,
+  setEmail } from '../../redux/features/passwordResetSlice';
 
 function ForgotPasswordVerifyEmail() {
   const initialValues = {
@@ -16,8 +21,10 @@ function ForgotPasswordVerifyEmail() {
     email: Yup.string().email('Email is invalid').required('Email is required'),
   });
 
-  const [message, setMessage] = useState('');
   const dispatch = useDispatch();
+  const { passwordReset } = useSelector(
+    (state) => state.resetPassword,
+  );
 
   // redirecting
   const navigate = useNavigate();
@@ -25,31 +32,28 @@ function ForgotPasswordVerifyEmail() {
   const from = location.state?.from;
 
   const verifyEmail = async (values) => {
-    // dispatch(loginStart());
+    dispatch(resetPasswordStart());
     try {
-      const email = await api.patch(
-        '/password_reset_token',
-        {
-          ...values,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      console.log(email);
-      // dispatch(loginSuccess(email.data));
-      // setMessage(user.data.message);
-      setTimeout(() => {
-        navigate('/forgot-password');
-        if (from) navigate(from);
-      }, 1000);
+      const email = await api.patch('/password_reset_token', {
+        ...values,
+      });
+
+      if (
+        email.data.message
+        !== 'The reset token has been sent successfully to the email address provided if it exists'
+      ) {
+        dispatch(resetPasswordSuccess(email.data.message));
+        // set the user email to redux
+        dispatch(setEmail(values.email));
+      } else {
+        dispatch(resetPasswordFailure());
+      }
+      navigate('/forgot-password');
+      if (from) navigate(from);
     } catch (err) {
       if (err) {
-        // dispatch(loginFailure());
-        console.log(err);
-        // setMessage(err.response.data.message);
+        dispatch(resetPasswordFailure());
+        // console.log(err);
       }
     }
   };
@@ -84,7 +88,19 @@ function ForgotPasswordVerifyEmail() {
             width="w-full"
             inputStyle="text-[20px] pl-[30px]"
           />
-          <Button width="w-full mt-[28px]">Done</Button>
+
+          <Button width="w-full mt-[28px]">
+            {passwordReset ? (
+              <SpinnerCircular
+                color="#F7FEFF"
+                className="mr-2"
+                thickness={250}
+                size={20}
+              />
+            ) : (
+              'Login'
+            )}
+          </Button>
         </FormikForm>
       </div>
     </div>

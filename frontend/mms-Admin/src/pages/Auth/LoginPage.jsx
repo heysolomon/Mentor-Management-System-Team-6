@@ -57,10 +57,9 @@ function LoginPage() {
       const token = userInfo.data.access_token;
       setToken(token);
       setMessage(user.data.message);
-      setTimeout(() => {
-        navigate('/admin-dashboard');
-        if (from) navigate(from);
-      }, 1000);
+
+      navigate('/admin-dashboard');
+      if (from) navigate(from);
     } catch (err) {
       if (err) {
         dispatch(loginFailure());

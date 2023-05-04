@@ -5,7 +5,6 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     userInfo: null,
-    passwordResetToken: null,
     loggingIn: false,
     error: false,
     changePassword: false,
@@ -14,6 +13,7 @@ const userSlice = createSlice({
     passwordResetError: false,
   },
   reducers: {
+    // reducers for the login page
     loginStart: (state) => {
       state.loggingIn = true;
     },
@@ -26,6 +26,7 @@ const userSlice = createSlice({
       state.loggingIn = false;
       state.error = true;
     },
+    // reducers for the settings change password
     changePasswordStart: (state) => {
       state.changePassword = true;
     },
