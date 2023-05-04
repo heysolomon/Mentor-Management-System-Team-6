@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from .constants import CONVERSATION_CREATED_SUCCESS_MESSAGE
 from .crud import create_conversation_crud, create_message_crud, get_messages_crud
 from .responses import ConversationResponse
-from .schemas import CreateConversation, CreateMessage
+from .schemas import CreateConversation, CreateMessage, GetMessage
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
 from ..authentication.helpers import verify_access_token
 from ..utils import get_token, get_db, get_token_ws
@@ -57,7 +57,8 @@ async def message_subscription(connection: WebSocket, jwt_token: str = Depends(g
 
 
 @get('/users/messages', )
-async def get_messages(response: Response,conversation:GetMessage, jwt_token: str = Depends(get_token()), db: Session = Depends(get_db)):
+async def get_messages(response: Response, conversation: GetMessage, jwt_token: str = Depends(get_token()),
+                       db: Session = Depends(get_db)):
     user_response = ConversationResponse
     user = verify_access_token(db, jwt_token)
     if user is None:
@@ -65,4 +66,6 @@ async def get_messages(response: Response,conversation:GetMessage, jwt_token: st
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return user_response
 
-    messages =  get_messages_crud(db,conversation_id)
+    messages = get_messages_crud(db, conversation.conversation_id)
+
+
