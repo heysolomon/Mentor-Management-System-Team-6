@@ -53,11 +53,13 @@ export default function BrowsePeople() {
             alt="prev page icon"
             className="h-full cursor-pointer px-8"
           />
-          <img
-            src={closeIcon}
-            alt="prev page icon"
-            className="h-full cursor-pointer"
-          />
+          <Link to="/admin-dashboard/messages">
+            <img
+              src={closeIcon}
+              alt="prev page icon"
+              className="h-full cursor-pointer"
+            />
+          </Link>
         </div>
       </section>
 
