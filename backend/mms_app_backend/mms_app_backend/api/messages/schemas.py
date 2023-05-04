@@ -17,6 +17,10 @@ class CreateMessage(CamelModel):
     receiver: int
 
 
+class GetMessages(CamelModel):
+    conversation_id: int
+
+
 class ViewConversation(CreateConversation):
     id: int
     messages: list[int] | None
