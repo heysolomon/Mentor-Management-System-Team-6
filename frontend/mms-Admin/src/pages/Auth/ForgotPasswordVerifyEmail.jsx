@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import FormikForm from '../../components/FormikForm/FormikForm';
 import InputField from '../../components/InputField';
 import Button from '../../components/utilities/Buttons/Button';
+import { api } from '../../services/api';
 
 function ForgotPasswordVerifyEmail() {
   const initialValues = {
@@ -13,6 +15,48 @@ function ForgotPasswordVerifyEmail() {
   const validate = Yup.object({
     email: Yup.string().email('Email is invalid').required('Email is required'),
   });
+
+  const [message, setMessage] = useState('');
+  const dispatch = useDispatch();
+
+  // redirecting
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from;
+
+  const verifyEmail = async (values) => {
+    // dispatch(loginStart());
+    try {
+      const email = await api.patch(
+        '/password_reset_token',
+        {
+          ...values,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      console.log(email);
+      // dispatch(loginSuccess(email.data));
+      // setMessage(user.data.message);
+      setTimeout(() => {
+        navigate('/forgot-password');
+        if (from) navigate(from);
+      }, 1000);
+    } catch (err) {
+      if (err) {
+        // dispatch(loginFailure());
+        console.log(err);
+        // setMessage(err.response.data.message);
+      }
+    }
+  };
+
+  const submit = async (values) => {
+    verifyEmail(values);
+  };
 
   return (
     <div className="h-full flex flex-col justify-center items-start">
@@ -30,6 +74,7 @@ function ForgotPasswordVerifyEmail() {
         <FormikForm
           initialValues={initialValues}
           validationSchema={validate}
+          submit={submit}
           className="mt-[20px]"
         >
           <InputField
@@ -39,9 +84,7 @@ function ForgotPasswordVerifyEmail() {
             width="w-full"
             inputStyle="text-[20px] pl-[30px]"
           />
-          <Link to="/forgot-password">
-            <Button width="w-full mt-[28px]">Done</Button>
-          </Link>
+          <Button width="w-full mt-[28px]">Done</Button>
         </FormikForm>
       </div>
     </div>

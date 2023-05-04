@@ -5,10 +5,13 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     userInfo: null,
+    passwordResetToken: null,
     loggingIn: false,
     error: false,
     changePassword: false,
     changePasswordError: false,
+    passwordReset: false,
+    passwordResetError: false,
   },
   reducers: {
     loginStart: (state) => {
