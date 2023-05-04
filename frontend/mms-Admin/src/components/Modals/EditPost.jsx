@@ -5,15 +5,16 @@ import { closeModal, openModal } from '../../redux/features/Modals/modalSlice';
 import FormikForm from '../FormikForm/FormikForm';
 import InputField from '../InputField';
 import Button from '../utilities/Buttons/Button';
-import CreatePost from './CreatePost';
+import EditPostSuccess from './EditPostSuccess';
 
-function ForumNewTopic() {
+function EditPost() {
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    dispatch(closeModal());
-
-    dispatch(openModal(<CreatePost />));
+    setTimeout(() => {
+      dispatch(closeModal());
+    }, 2000);
+    dispatch(openModal(<EditPostSuccess />));
   };
   return (
     <div className="p-[20px] flex flex-col w-full">
@@ -33,7 +34,7 @@ function ForumNewTopic() {
         <InputField
           type="text"
           name="title"
-          placeholder="Enter a title"
+          placeholder="The New MMS Discussion Forum Guidelines and Regulations"
           styling="mb-[20px]"
           width="w-full"
           inputStyle="text-[20px] pl-[30px]"
@@ -44,7 +45,8 @@ function ForumNewTopic() {
             id="about"
             cols={100}
             // rows={4}
-            className="flex resize-none focus:outline-none bg-transparent placeholder:text-black5 text-black5 text-mukta font-[400] h-[96px] w-full text-[20px] pl-0 ml-0"
+            value="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enilf."
+            className="flex resize-none focus:outline-none bg-transparent placeholder:text-black5 text-black5 text-mukta font-[400] h-[96px] w-full text-[20px] pl-0 ml-0 overflow-y-auto scroll"
             placeholder="Start typing..."
           />
           <div className="flex">
@@ -63,4 +65,4 @@ function ForumNewTopic() {
   );
 }
 
-export default ForumNewTopic;
+export default EditPost;
