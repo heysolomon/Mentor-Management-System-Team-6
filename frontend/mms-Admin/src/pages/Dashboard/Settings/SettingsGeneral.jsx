@@ -20,6 +20,9 @@ function SettingsGeneral() {
     lastName: '',
     about: '',
     website: '',
+    location: {
+ city: '', country: '',
+    },
   };
 
   const validate = Yup.object({
@@ -157,8 +160,8 @@ function SettingsGeneral() {
               </div>
 
               <select
-                name="country"
-                id="country"
+                name="city"
+                id="city"
                 placeholder="First Name"
                 className="text-[12px] md:text-[16px] pl-3 border-[1px] h-[43px] rounded-[5px] border-black8 placeholder:text-black5 text-black5 text-mukta font-[400] w-full"
               >
