@@ -31,6 +31,9 @@ def change_password_crud(db: Session, user, new_password):
 
 
 def create_reset_token_crud(db: Session, user):
+    token = db.query(PasswordResetToken).filter(PasswordResetToken.user_id == user.id).first()
+    if token:
+        return token
     token = PasswordResetToken(user_id=user.id)
     db.add(token)
     db.commit()
