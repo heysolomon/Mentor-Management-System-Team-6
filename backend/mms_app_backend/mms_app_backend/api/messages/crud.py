@@ -22,10 +22,20 @@ def create_conversation_crud(db: Session, conversation: CreateConversation):
 
 
 def create_message_crud(db: Session, message_details: CreateMessage, sender_id: int):
+    conversation = db.query(Conversation).filter(Conversation.participants.contains(sender_id)).filter(
+        Conversation.participants.contains(message_details.receiver)).first()
+    conversation_id = None
+    if conversation:
+        conversation_id = conversation.id
+
     created_message = Message(content=message_details.content, sender_id=sender_id,
-                              receiver_id=message_details.receiver)
+                              receiver_id=message_details.receiver, conversation_id=conversation_id)
     db.add(created_message)
     db.commit()
     db.refresh(created_message)
     return ViewMessage(id=created_message.id, content=created_message.content, sender=created_message.sender_id,
                        receiver=created_message.receiver_id)
+
+
+def get_messages_crud(db, conversation_id):
+    return db.query(Message).filter(Message.conversation_id == conversation_id)

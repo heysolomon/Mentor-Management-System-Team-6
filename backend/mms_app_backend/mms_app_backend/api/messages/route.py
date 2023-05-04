@@ -55,3 +55,14 @@ async def message_subscription(connection: WebSocket, jwt_token: str = Depends(g
         if response_connection:
             await response_connection.send_json(data=created_message.dict())
 
+
+@get('/users/messages', )
+async def get_messages(response: Response, jwt_token: str = Depends(get_token()), db: Session = Depends(get_db)):
+    user_response = ConversationResponse
+    user = verify_access_token(db, jwt_token)
+    if user is None:
+        user_response.message = INVALID_AUTHENTICATION_MESSAGE
+        response.status_code = status.HTTP_401_UNAUTHORIZED
+        return user_response
+
+    messages =  get_messages_crud(db)
