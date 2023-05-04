@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Avatar from '../../../assets/avatar.svg';
 import messageSentIcon from '../../../assets/messages/message-sent.svg';
 import messageDeliveredIcon from '../../../assets/messages/message-delivered.svg';
-import messageLoadingIcon from '../../../assets/messages/message-loading.svg';
+// import messageLoadingIcon from '../../../assets/messages/message-loading.svg';
 import emoji from '../../../assets/messages/emoji-smiley.svg';
 import searchIcon from '../../../assets/messages/search.svg';
 import attachmentClip from '../../../assets/messages/attachment-clip.svg';
