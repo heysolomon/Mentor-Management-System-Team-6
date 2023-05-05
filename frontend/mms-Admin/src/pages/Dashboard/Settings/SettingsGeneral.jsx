@@ -1,39 +1,36 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from "react";
-import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  GithubIcon,
+import React from 'react';
+import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { GithubIcon,
   InstagramIcon,
   LinkedinIcon,
   TwitterIcon,
-  UserAvatar,
-} from "../../../assets/images";
-import SocialIcon from "../../../components/Dashboard/Settings/Socials";
-import FormikForm from "../../../components/FormikForm/FormikForm";
-import InputField from "../../../components/InputField";
-import Button from "../../../components/utilities/Buttons/Button";
-import { openModal } from "../../../redux/features/Modals/modalSlice";
-import ProfileSaved from "../../../components/Modals/ProfileSaved";
-import { FieldArray } from "formik";
+  UserAvatar } from '../../../assets/images';
+import SocialIcon from '../../../components/Dashboard/Settings/Socials';
+import FormikForm from '../../../components/FormikForm/FormikForm';
+import InputField from '../../../components/InputField';
+import Button from '../../../components/utilities/Buttons/Button';
+import { openModal } from '../../../redux/features/Modals/modalSlice';
+import ProfileSaved from '../../../components/Modals/ProfileSaved';
 
 function SettingsGeneral() {
   const initialValues = {
-    firstName: "",
-    lastName: "",
-    about: "",
-    website: "",
+    firstName: '',
+    lastName: '',
+    about: '',
+    website: '',
     location: {
-      city: "",
-      country: "",
+      city: '',
+      country: '',
     },
   };
 
   const validate = Yup.object({
-    firstName: Yup.string().min(3, "Must be 3 characters or more"),
-    lastName: Yup.string().min(3, "Must be 3 characters or more"),
+    firstName: Yup.string().min(3, 'Must be 3 characters or more'),
+    lastName: Yup.string().min(3, 'Must be 3 characters or more'),
     about: Yup.string(),
-    website: Yup.string().url("Must be a URL"),
+    website: Yup.string().url('Must be a URL'),
   });
 
   const dispatch = useDispatch();
@@ -52,7 +49,9 @@ function SettingsGeneral() {
           <div className="ml-4 md:ml-[46px]">
             <div className="flex items-center">
               <h2 className="font-semibold text-2xl text-black2 mr-2">
-                {user.firstName} {user.lastName}
+                {user.firstName}
+                {' '}
+                {user.lastName}
               </h2>
             </div>
             <button
@@ -173,51 +172,48 @@ function SettingsGeneral() {
           </div>
 
           {/* socials */}
-          <FieldArray name="socialLinks">
-            {({insert, remove, push}) => ()}
-            <div className="flex items-center md:w-full mt-[25px]">
-              <div className="w-[15%] hidden md:block">
-                <p className="text-black2 text-[12px] md:text-[16px] font-[600]">
-                  Social
-                </p>
-              </div>
+          <div className="flex items-center md:w-full mt-[25px]">
+            <div className="w-[15%] hidden md:block">
+              <p className="text-black2 text-[12px] md:text-[16px] font-[600]">
+                Social
+              </p>
+            </div>
 
-              <div className="grid grid-cols-2 gap-x-[20px] md:w-full">
+            <div className="grid grid-cols-2 gap-x-[20px] md:w-full">
+              <div>
                 <div>
-                  <div>
-                    <SocialIcon
-                      icon={<GithubIcon />}
-                      text="GitHub"
-                      placeHolder="@githubuser"
-                    />
-                  </div>
-                  <div className="mt-[10px]">
-                    <SocialIcon
-                      icon={<LinkedinIcon />}
-                      text="LinkedIn"
-                      placeHolder="@linkedinuser"
-                    />
-                  </div>
+                  <SocialIcon
+                    icon={<GithubIcon />}
+                    text="GitHub"
+                    placeHolder="@githubuser"
+                  />
                 </div>
+                <div className="mt-[10px]">
+                  <SocialIcon
+                    icon={<LinkedinIcon />}
+                    text="LinkedIn"
+                    placeHolder="@linkedinuser"
+                  />
+                </div>
+              </div>
+              <div>
                 <div>
-                  <div>
-                    <SocialIcon
-                      icon={<InstagramIcon />}
-                      text="Instagram"
-                      placeHolder="@instagramuser"
-                    />
-                  </div>
-                  <div className="mt-[10px]">
-                    <SocialIcon
-                      icon={<TwitterIcon />}
-                      text="Twitter"
-                      placeHolder="@twitteruser"
-                    />
-                  </div>
+                  <SocialIcon
+                    icon={<InstagramIcon />}
+                    text="Instagram"
+                    placeHolder="@instagramuser"
+                  />
+                </div>
+                <div className="mt-[10px]">
+                  <SocialIcon
+                    icon={<TwitterIcon />}
+                    text="Twitter"
+                    placeHolder="@twitteruser"
+                  />
                 </div>
               </div>
             </div>
-          </FieldArray>
+          </div>
 
           <div className="flex justify-end mt-[25px]">
             <Button
