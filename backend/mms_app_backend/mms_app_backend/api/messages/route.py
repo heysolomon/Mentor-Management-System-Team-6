@@ -1,10 +1,10 @@
 from fastapi import APIRouter, status, Response, Depends, WebSocket
 from sqlalchemy.orm import Session
 
-from .constants import CONVERSATION_CREATED_SUCCESS_MESSAGE, GET_MESSAGES_SUCCESS_MESSAGE
-from .crud import create_conversation_crud, create_message_crud, get_messages_crud
-from .responses import ConversationResponse, MessageResponse
-from .schemas import CreateConversation, CreateMessage, GetMessage
+from .constants import CONVERSATION_CREATED_SUCCESS_MESSAGE, GET_MESSAGES_SUCCESS_MESSAGE, EDIT_MESSAGE_SUCCESS_MESSAGE
+from .crud import create_conversation_crud, create_message_crud, get_messages_crud, edit_message_crud
+from .responses import ConversationResponse, MessagesResponse
+from .schemas import CreateConversation, CreateMessage, EditMessage
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
 from ..authentication.helpers import verify_access_token
 from ..utils import get_token, get_db, get_token_ws
@@ -13,6 +13,7 @@ router = APIRouter()
 get = router.get
 post = router.post
 delete = router.delete
+patch = router.patch
 websocket = router.websocket
 connections = {
 
@@ -54,10 +55,10 @@ async def message_subscription(connection: WebSocket, jwt_token: str = Depends(g
             await response_connection.send_json(data=created_message.dict())
 
 
-@get('/users/conversation/{conversation_id}/messages', status_code=status.HTTP_200_OK, response_model=MessageResponse)
-async def get_messages(response: Response, conversation_id, jwt_token: str = Depends(get_token()),
+@get('/users/conversation/{conversation_id}/messages', status_code=status.HTTP_200_OK, response_model=MessagesResponse)
+async def get_messages(response: Response, conversation_id: int, jwt_token: str = Depends(get_token()),
                        db: Session = Depends(get_db)):
-    message_response = MessageResponse
+    message_response = MessagesResponse
     user = verify_access_token(db, jwt_token)
     if user is None:
         message_response.message = INVALID_AUTHENTICATION_MESSAGE
@@ -73,6 +74,22 @@ async def get_messages(response: Response, conversation_id, jwt_token: str = Dep
     return message_response
 
 
+@patch('/users/conversations/{conversation_id}/messages/{message_id}', status_code=status.HTTP_200_OK,
+       response_model=MessagesResponse,
+       )
+async def edit_message(response: Response, conversation_id: int, message_id: int, edit_message: EditMessage,
+                       jwt_token: str = Depends(get_token()),
+                       db: Session = Depends(get_db)):
+    message_response = MessagesResponse
+    user = verify_access_token(db, jwt_token)
+    if user is None:
+        message_response.message = INVALID_AUTHENTICATION_MESSAGE
+        response.status_code = status.HTTP_401_UNAUTHORIZED
+        return message_response
 
-
-
+    message = edit_message_crud(db, conversation_id, message_id, edit_message)
+    if message:
+        message_response.success = True
+        message_response.message = EDIT_MESSAGE_SUCCESS_MESSAGE
+        message_response.data = message
+        return message_response

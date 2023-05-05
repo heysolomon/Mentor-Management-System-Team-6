@@ -12,9 +12,17 @@ class MessagesData(CamelModel):
     messages: list[ViewMessage] | None
 
 
+class MessageData(CamelModel):
+    message: ViewMessage | None
+
+
 class ConversationResponse(ResponseModel):
     data: ConversationData = ConversationData()
 
 
-class MessageResponse(ResponseModel):
+class MessagesResponse(ResponseModel):
     data: MessagesData = MessagesData()
+
+
+class MessageResponse(ResponseModel):
+    data: MessageData = MessageData()

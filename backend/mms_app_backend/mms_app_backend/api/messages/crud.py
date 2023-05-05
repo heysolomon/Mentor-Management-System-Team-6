@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from .models import Conversation, Message
-from .schemas import CreateConversation, ViewConversation, CreateMessage, ViewMessage
+from .schemas import CreateConversation, ViewConversation, CreateMessage, ViewMessage, EditMessage
 from ..authentication.models import User
 
 
@@ -39,3 +39,14 @@ def create_message_crud(db: Session, message_details: CreateMessage, sender_id: 
 
 def get_messages_crud(db, conversation_id):
     return db.query(Message).filter(Message.conversation_id == conversation_id).all()
+
+
+def edit_message_crud(db: Session, conversation_id: int, message_id: int, edit_message: EditMessage):
+    message = db.query(Message).filter(Message.id == message_id).first()
+    if message:
+        message.content = edit_message.content
+    db.add(message)
+    db.commit()
+    db.refresh(message)
+    return message
+

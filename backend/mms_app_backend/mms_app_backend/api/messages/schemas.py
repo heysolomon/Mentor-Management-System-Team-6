@@ -17,8 +17,8 @@ class CreateMessage(CamelModel):
     receiver: int
 
 
-class GetMessage(CamelModel):
-    conversation_id: int
+class EditMessage(CamelModel):
+    content: str
 
 
 class ViewConversation(CreateConversation):
