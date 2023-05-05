@@ -14,9 +14,9 @@ function PasswordReset() {
       </h2>
       <ResetPasswordIllustration styling="mt-[28px]" />
 
-      <Link to="/" className="w-[50%] md:w-[25%] mt-[28px]">
+      <Link to="/" className="w-[50%] md:w-[25%]">
         <Button
-          width="w-full"
+          width="w-full mt-[28px]"
           onClick={() => dispatch(closeModal())}
           aria-hidden="true"
         >
