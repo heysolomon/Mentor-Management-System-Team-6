@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends, Response, status
-from pydantic import EmailStr
 from sqlalchemy.orm import Session
 
 from .constants import USED_EMAIL_MESSAGE, ACCOUNT_CREATED_MESSAGE, USED_USERNAME_MESSAGE, USER_NOT_FOUND_MESSAGE, \
@@ -10,7 +9,7 @@ from .crud import get_user_by_email, create_user, get_user_by_username, change_p
 from .helpers import verify_password, create_access_token, verify_access_token
 from .models import User, PasswordResetToken
 from .responses import CreateUserResponse, LoginUserResponse
-from .schemas import UserCreate, UserLogin, PasswordChange, PasswordReset
+from .schemas import UserCreate, UserLogin, PasswordChange, PasswordReset, EmailVerification
 from ..account_management.constants import INVALID_USER_PARAMETER
 from ..constants import GENERAL_ERROR_MESSAGE
 from ..utils import get_db, get_token, ResponseModel
@@ -103,19 +102,20 @@ async def change_password(user_id: int, response: Response, password: PasswordCh
 
 
 @patch('/v1/users/password_reset_token', status_code=status.HTTP_201_CREATED, response_model=ResponseModel)
-async def get_reset_token(email: EmailStr, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.email == email).first()
+async def get_reset_token(emailFields: EmailVerification, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.email == emailFields.email).first()
     reset_token_response = ResponseModel()
     if user is None:
         reset_token_response.message = RESET_SENT_SUCCESS_MESSAGE
         reset_token_response.success = True
         return reset_token_response
-
     created_token = create_reset_token_crud(db, user)
 
     if created_token:
         reset_token_response.success = True
-        reset_token_response.message = created_token.token
+
+        reset_token_response.message = str(created_token.token)
+
         return reset_token_response
 
 

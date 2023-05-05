@@ -1,28 +1,30 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { ResetPasswordIllustration } from '../../assets/images';
 import { closeModal } from '../../redux/features/Modals/modalSlice';
 import Button from '../utilities/Buttons/Button';
 
-function ProfileSaved() {
+function PasswordReset() {
   const dispatch = useDispatch();
   return (
     <div>
       <h2 className="font-mukta font-[600] text-black1 text-[18px] md:text-[24px]">
-        Profile Saved Successfully
+        Password Reset Successful
       </h2>
       <ResetPasswordIllustration styling="mt-[28px]" />
-      <div className="flex justify-center">
+
+      <Link to="/" className="w-[50%] md:w-[25%] mt-[28px]">
         <Button
-          width="w-[50%] mt-[28px]"
+          width="w-full"
           onClick={() => dispatch(closeModal())}
           aria-hidden="true"
         >
           Done
         </Button>
-      </div>
+      </Link>
     </div>
   );
 }
 
-export default ProfileSaved;
+export default PasswordReset;

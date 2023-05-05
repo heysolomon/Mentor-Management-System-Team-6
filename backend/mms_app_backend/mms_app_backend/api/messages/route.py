@@ -1,9 +1,9 @@
 from fastapi import APIRouter, status, Response, Depends, WebSocket
 from sqlalchemy.orm import Session
 
-from .constants import CONVERSATION_CREATED_SUCCESS_MESSAGE
+from .constants import CONVERSATION_CREATED_SUCCESS_MESSAGE, GET_MESSAGES_SUCCESS_MESSAGE
 from .crud import create_conversation_crud, create_message_crud, get_messages_crud
-from .responses import ConversationResponse
+from .responses import ConversationResponse, MessageResponse
 from .schemas import CreateConversation, CreateMessage, GetMessage
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
 from ..authentication.helpers import verify_access_token
@@ -14,6 +14,9 @@ get = router.get
 post = router.post
 delete = router.delete
 websocket = router.websocket
+connections = {
+
+}
 
 
 @post('/users/conversations', status_code=status.HTTP_201_CREATED, response_model=ConversationResponse)
@@ -37,11 +40,6 @@ async def create_conversation(conversation: CreateConversation, response: Respon
         return conversation_response
 
 
-connections = {
-
-}
-
-
 @websocket('/users/messages/ws')
 async def message_subscription(connection: WebSocket, jwt_token: str = Depends(get_token_ws),
                                db: Session = Depends(get_db)):
@@ -56,16 +54,25 @@ async def message_subscription(connection: WebSocket, jwt_token: str = Depends(g
             await response_connection.send_json(data=created_message.dict())
 
 
-@get('/users/messages', )
-async def get_messages(response: Response, conversation: GetMessage, jwt_token: str = Depends(get_token()),
+@get('/users/conversation/{conversation_id}/messages', status_code=status.HTTP_200_OK, response_model=MessageResponse)
+async def get_messages(response: Response, conversation_id, jwt_token: str = Depends(get_token()),
                        db: Session = Depends(get_db)):
-    user_response = ConversationResponse
+    message_response = MessageResponse
     user = verify_access_token(db, jwt_token)
     if user is None:
-        user_response.message = INVALID_AUTHENTICATION_MESSAGE
+        message_response.message = INVALID_AUTHENTICATION_MESSAGE
         response.status_code = status.HTTP_401_UNAUTHORIZED
-        return user_response
+        return message_response
 
-    messages = get_messages_crud(db, conversation.conversation_id)
+    messages = get_messages_crud(db, conversation_id)
+    print(messages)
+
+    message_response.success = True
+    message_response.data = messages
+    message_response.message = GET_MESSAGES_SUCCESS_MESSAGE
+    return message_response
+
+
+
 
 

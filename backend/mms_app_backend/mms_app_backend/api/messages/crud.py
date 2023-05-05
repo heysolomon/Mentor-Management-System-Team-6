@@ -38,4 +38,4 @@ def create_message_crud(db: Session, message_details: CreateMessage, sender_id: 
 
 
 def get_messages_crud(db, conversation_id):
-    return db.query(Message).filter(Message.conversation_id == conversation_id)
+    return db.query(Message).filter(Message.conversation_id == conversation_id).all()

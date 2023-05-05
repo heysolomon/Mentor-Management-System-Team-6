@@ -11,7 +11,8 @@ import SocialIcon from '../../../components/Dashboard/Settings/Socials';
 import FormikForm from '../../../components/FormikForm/FormikForm';
 import InputField from '../../../components/InputField';
 import Button from '../../../components/utilities/Buttons/Button';
-import { openProfileSavedModal } from '../../../redux/features/Profile/profileSlice';
+import { openModal } from '../../../redux/features/Modals/modalSlice';
+import ProfileSaved from '../../../components/Modals/ProfileSaved';
 
 function SettingsGeneral() {
   const initialValues = {
@@ -31,6 +32,9 @@ function SettingsGeneral() {
   const dispatch = useDispatch();
   // user's object
   const user = useSelector((state) => state.user.userInfo.data.user);
+  const handleSuccess = () => {
+    dispatch(openModal(<ProfileSaved />));
+  };
 
   return (
     <div className="md:border-[1px] md:rounded-[5px] md:border-black9 md:mx-10 md:p-5">
@@ -210,7 +214,7 @@ function SettingsGeneral() {
           <div className="flex justify-end mt-[25px]">
             <Button
               width="px-3 text-[12px] md:text-[16px]"
-              onClick={() => dispatch(openProfileSavedModal())}
+              onClick={handleSuccess}
             >
               Save Changes
             </Button>
