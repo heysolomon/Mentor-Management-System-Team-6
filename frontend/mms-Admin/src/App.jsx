@@ -28,6 +28,7 @@ import MessageHome from './pages/Dashboard/Messages/MessageHome';
 import BrowsePeople from './pages/Dashboard/Messages/BrowsePeople';
 import BroadcastMessage from './pages/Dashboard/Messages/BroadcastMessage';
 import Chats from './pages/Dashboard/Messages/Chats';
+import { ForgotPasswordProtected } from './private/ForgotPasswordProtected';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -53,7 +54,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'set-new-password',
-        element: <SetNewPassword />,
+        element: (
+          <ForgotPasswordProtected>
+            <SetNewPassword />
+          </ForgotPasswordProtected>
+        ),
       },
     ],
   },

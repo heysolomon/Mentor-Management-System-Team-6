@@ -9,8 +9,11 @@ const userSlice = createSlice({
     error: false,
     changePassword: false,
     changePasswordError: false,
+    passwordReset: false,
+    passwordResetError: false,
   },
   reducers: {
+    // reducers for the login page
     loginStart: (state) => {
       state.loggingIn = true;
     },
@@ -23,6 +26,7 @@ const userSlice = createSlice({
       state.loggingIn = false;
       state.error = true;
     },
+    // reducers for the settings change password
     changePasswordStart: (state) => {
       state.changePassword = true;
     },
