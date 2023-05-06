@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
+import { SpinnerCircular } from 'spinners-react';
 import { GithubIcon,
   InstagramIcon,
   LinkedinIcon,
@@ -13,6 +14,10 @@ import InputField from '../../../components/InputField';
 import Button from '../../../components/utilities/Buttons/Button';
 import { openModal } from '../../../redux/features/Modals/modalSlice';
 import ProfileSaved from '../../../components/Modals/ProfileSaved';
+import { api } from '../../../services/api';
+import { createProfileFailure,
+  createProfileStart,
+  createProfileSuccess } from '../../../redux/features/userSlice';
 
 function SettingsGeneral() {
   const initialValues = {
@@ -20,10 +25,12 @@ function SettingsGeneral() {
     lastName: '',
     about: '',
     website: '',
-    location: {
-      city: '',
-      country: '',
-    },
+    city: '',
+    country: '',
+    github: '',
+    twitter: '',
+    instagram: '',
+    linkedin: '',
   };
 
   const validate = Yup.object({
@@ -31,13 +38,92 @@ function SettingsGeneral() {
     lastName: Yup.string().min(3, 'Must be 3 characters or more'),
     about: Yup.string(),
     website: Yup.string().url('Must be a URL'),
+    github: Yup.string().url('Must be a URL'),
+    twitter: Yup.string().url('Must be a URL'),
+    instagram: Yup.string().url('Must be a URL'),
+    linkedin: Yup.string().url('Must be a URL'),
   });
 
+  const [message, setMessage] = useState('');
+  // redux state for the reset password success
   const dispatch = useDispatch();
-  // user's object
-  const user = useSelector((state) => state.user.userInfo.data.user);
-  const handleSuccess = () => {
-    dispatch(openModal(<ProfileSaved />));
+
+  const { userInfo, creatingProfile, creatingProfileError } = useSelector(
+    (state) => state.user,
+  );
+
+  const loggedInUser = userInfo.data.user;
+  // logged in user's id
+  const userId = loggedInUser.id;
+  // user login token
+  const userToken = userInfo.data.access_token;
+
+  const createProfile = async (values) => {
+    // creating a new values object to follow the backend's schema
+    const createProfileValues = {
+      ...values,
+      socialLinks: [
+        {
+          url: values.github,
+          name: 'github',
+        },
+        {
+          url: values.linkedin,
+          name: 'linkedin',
+        },
+        {
+          url: values.instagram,
+          name: 'instagram',
+        },
+        {
+          url: values.twitter,
+          name: 'twitter',
+        },
+      ],
+      location: {
+        city: values.city,
+        state: '',
+        country: values.country,
+      },
+    };
+    // deleting the initial values that came from the values object
+    delete createProfileValues.instagram;
+    delete createProfileValues.github;
+    delete createProfileValues.twitter;
+    delete createProfileValues.linkedin;
+    delete createProfileValues.country;
+    delete createProfileValues.city;
+
+    // console.log(createProfileValues);
+    dispatch(createProfileStart());
+    try {
+      const profileCreate = await api.post(
+        `/${userId}/profiles`,
+        {
+          ...createProfileValues,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        },
+      );
+      dispatch(createProfileSuccess(profileCreate.data.data.profile));
+      setMessage(profileCreate.data.message);
+
+      // open a modal after success
+      dispatch(openModal(<ProfileSaved />));
+    } catch (err) {
+      if (err) {
+        dispatch(createProfileFailure());
+        // console.log(err);
+        setMessage(err.response.data.message);
+      }
+    }
+  };
+
+  const submit = async (values) => {
+    createProfile(values);
   };
 
   return (
@@ -49,17 +135,20 @@ function SettingsGeneral() {
           <div className="ml-4 md:ml-[46px]">
             <div className="flex items-center">
               <h2 className="font-semibold text-2xl text-black2 mr-2">
-                {user.firstName}
+                {loggedInUser.firstName}
                 {' '}
-                {user.lastName}
+                {loggedInUser.lastName}
               </h2>
             </div>
-            <button
-              className="h-[24px] bg-pri3 flex items-center justify-center text-white duration-700 text-[12px] font-[400] text-mukta hover:bg-pri2 py-2 rounded-[5px] px-3"
-              type="button"
-            >
-              upload picture
-            </button>
+            <div>
+              <button
+                className="h-[24px] bg-pri3 flex items-center justify-center text-white duration-700 text-[12px] font-[400] text-mukta hover:bg-pri2 py-2 rounded-[5px] px-3"
+                type="button"
+              >
+                upload picture
+              </button>
+              <input type="file" />
+            </div>
           </div>
         </div>
       </section>
@@ -69,6 +158,7 @@ function SettingsGeneral() {
         <FormikForm
           initialValues={initialValues}
           validationSchema={validate}
+          submit={submit}
           classname="w-full"
           styling="w-full"
         >
@@ -85,14 +175,14 @@ function SettingsGeneral() {
                 type="text"
                 name="firstName"
                 id="firstName"
-                placeholder={user.firstName}
+                placeholder={loggedInUser.firstName}
                 inputStyle="text-[12px] md:text-[16px] pl-3"
               />
               <InputField
                 type="text"
                 name="lastName"
                 id="lastName"
-                placeholder={user.lastName}
+                placeholder={loggedInUser.lastName}
                 inputStyle="text-[12px] md:text-[16px] pl-3"
               />
             </div>
@@ -106,14 +196,15 @@ function SettingsGeneral() {
               </p>
             </div>
 
-            <div className="flex">
-              <textarea
+            <div className="flex w-full">
+              <InputField
+                type="text"
                 name="about"
                 id="about"
-                cols={100}
-                // rows={4}
-                className="flex resize-none focus:outline-none bg-transparent pl-3 pt-3 border-[1px] rounded-[5px] border-black8 placeholder:text-black5 text-black5 text-mukta font-[400] h-[96px] w-full"
-                placeholder="Your Bio"
+                styling="w-full"
+                height="h-[96px]"
+                placeholder="Your Bio..."
+                inputStyle="text-[12px] md:text-[16px] pl-3 w-full items-start"
               />
             </div>
           </div>
@@ -151,6 +242,7 @@ function SettingsGeneral() {
                 className="text-[12px] md:text-[16px] pl-3 border-[1px] h-[43px] rounded-[5px] border-black8 placeholder:text-black5 text-black5 text-mukta font-[400] w-full"
               >
                 <option value="country">Select Country</option>
+                <option value="test">Test</option>
               </select>
             </div>
             <div className="flex items-center">
@@ -167,6 +259,7 @@ function SettingsGeneral() {
                 className="text-[12px] md:text-[16px] pl-3 border-[1px] h-[43px] rounded-[5px] border-black8 placeholder:text-black5 text-black5 text-mukta font-[400] w-full"
               >
                 <option value="country">Select City</option>
+                <option value="Test">Test</option>
               </select>
             </div>
           </div>
@@ -185,6 +278,7 @@ function SettingsGeneral() {
                   <SocialIcon
                     icon={<GithubIcon />}
                     text="GitHub"
+                    name="github"
                     placeHolder="@githubuser"
                   />
                 </div>
@@ -192,6 +286,7 @@ function SettingsGeneral() {
                   <SocialIcon
                     icon={<LinkedinIcon />}
                     text="LinkedIn"
+                    name="linkedin"
                     placeHolder="@linkedinuser"
                   />
                 </div>
@@ -201,6 +296,7 @@ function SettingsGeneral() {
                   <SocialIcon
                     icon={<InstagramIcon />}
                     text="Instagram"
+                    name="instagram"
                     placeHolder="@instagramuser"
                   />
                 </div>
@@ -208,6 +304,7 @@ function SettingsGeneral() {
                   <SocialIcon
                     icon={<TwitterIcon />}
                     text="Twitter"
+                    name="twitter"
                     placeHolder="@twitteruser"
                   />
                 </div>
@@ -215,12 +312,26 @@ function SettingsGeneral() {
             </div>
           </div>
 
+          <p
+            className={`font-[400] text-black5 font-mukta text-[16px] mt-[20px] text-center ${
+              creatingProfileError ? 'text-red-500' : 'text-pri2'
+            }`}
+          >
+            {message}
+          </p>
+
           <div className="flex justify-end mt-[25px]">
-            <Button
-              width="px-3 text-[12px] md:text-[16px]"
-              onClick={handleSuccess}
-            >
-              Save Changes
+            <Button width="px-3 text-[12px] md:text-[16px]">
+              {creatingProfile ? (
+                <SpinnerCircular
+                  color="#F7FEFF"
+                  className="mr-2"
+                  thickness={250}
+                  size={20}
+                />
+              ) : (
+                'Save Changes'
+              )}
             </Button>
           </div>
         </FormikForm>

@@ -10,6 +10,7 @@ function InputField({
   label,
   styling,
   inputStyle,
+  height,
   ...props
 }) {
   const [field, meta] = useField(props);
@@ -28,7 +29,7 @@ function InputField({
       <div
         className={`flex items-center border-[1px] rounded-[5px] border-black8 w-full ${
           meta.touched && meta.error && 'border-sec1'
-        }`}
+        } ${height}`}
       >
         <input
           {...field}
