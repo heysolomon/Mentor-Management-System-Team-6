@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, ForeignKey, Text
+from sqlalchemy import Column, String, Integer, ForeignKey, Text,Boolean
 from sqlalchemy.orm import relationship
 
 from ..models import AbstractBaseModel
@@ -26,3 +26,4 @@ class Message(AbstractBaseModel):
     content = Column(Text)
     sender_id = Column(Integer)
     receiver_id = Column(Integer, ForeignKey('users.id'))
+    is_active = Column(Boolean)
