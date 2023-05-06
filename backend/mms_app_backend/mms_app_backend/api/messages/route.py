@@ -1,8 +1,10 @@
 from fastapi import APIRouter, status, Response, Depends, WebSocket
 from sqlalchemy.orm import Session
 
-from .constants import CONVERSATION_CREATED_SUCCESS_MESSAGE, GET_MESSAGES_SUCCESS_MESSAGE, EDIT_MESSAGE_SUCCESS_MESSAGE
+from .constants import CONVERSATION_CREATED_SUCCESS_MESSAGE, GET_MESSAGES_SUCCESS_MESSAGE, EDIT_MESSAGE_SUCCESS_MESSAGE, \
+    MESSAGE_NOT_FOUND_MESSAGE
 from .crud import create_conversation_crud, create_message_crud, get_messages_crud, edit_message_crud
+from .models import Message
 from .responses import ConversationResponse, MessagesResponse
 from .schemas import CreateConversation, CreateMessage, EditMessage
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
@@ -82,14 +84,19 @@ async def edit_message(response: Response, conversation_id: int, message_id: int
                        db: Session = Depends(get_db)):
     message_response = MessagesResponse
     user = verify_access_token(db, jwt_token)
+    message = db.query(Message).filter(Message.id == message_id).first()
+    if message is None:
+        message_response.message = MESSAGE_NOT_FOUND_MESSAGE
+        return message_response
     if user is None:
         message_response.message = INVALID_AUTHENTICATION_MESSAGE
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return message_response
 
-    message = edit_message_crud(db, conversation_id, message_id, edit_message)
-    if message:
+    edited_message = edit_message_crud(db, conversation_id, message_id, edit_message)
+    if edited_message:
         message_response.success = True
         message_response.message = EDIT_MESSAGE_SUCCESS_MESSAGE
-        message_response.data = message
+        message_response.data = edited_message
         return message_response
+    return message_response
