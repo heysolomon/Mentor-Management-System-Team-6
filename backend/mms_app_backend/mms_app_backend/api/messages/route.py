@@ -2,8 +2,9 @@ from fastapi import APIRouter, status, Response, Depends, WebSocket
 from sqlalchemy.orm import Session
 
 from .constants import CONVERSATION_CREATED_SUCCESS_MESSAGE, GET_MESSAGES_SUCCESS_MESSAGE, EDIT_MESSAGE_SUCCESS_MESSAGE, \
-    MESSAGE_NOT_FOUND_MESSAGE
-from .crud import create_conversation_crud, create_message_crud, get_messages_crud, edit_message_crud
+    MESSAGE_NOT_FOUND_MESSAGE, MESSAGE_DEACTIVATED_SUCCESS_MESSAGE
+from .crud import create_conversation_crud, create_message_crud, get_messages_crud, edit_message_crud, \
+    deactivate_message_crud
 from .models import Message
 from .responses import ConversationResponse, MessagesResponse
 from .schemas import CreateConversation, CreateMessage, EditMessage
@@ -79,7 +80,7 @@ async def get_messages(response: Response, conversation_id: int, jwt_token: str 
 @patch('/users/conversations/{conversation_id}/messages/{message_id}', status_code=status.HTTP_200_OK,
        response_model=MessagesResponse,
        )
-async def edit_message(response: Response, conversation_id: int, message_id: int, edit_message: EditMessage,
+async def edit_message(response: Response, conversation_id: int, message_id: int, changes: EditMessage,
                        jwt_token: str = Depends(get_token()),
                        db: Session = Depends(get_db)):
     message_response = MessagesResponse
@@ -93,10 +94,34 @@ async def edit_message(response: Response, conversation_id: int, message_id: int
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return message_response
 
-    edited_message = edit_message_crud(db, conversation_id, message_id, edit_message)
+    edited_message = edit_message_crud(db, message_id, changes)
     if edited_message:
         message_response.success = True
         message_response.message = EDIT_MESSAGE_SUCCESS_MESSAGE
         message_response.data = edited_message
         return message_response
+    return message_response
+
+
+@delete('/users/conversations/{conversation_id}/messages/{message_id}', status_code=status.HTTP_200_OK,
+        response_model=MessagesResponse)
+async def deactivate_message(response: Response, conversation_id: int, message_id: int,
+                             jwt_token: str = Depends(get_token()),
+                             db: Session = Depends(get_db)):
+    message_response = MessagesResponse
+    user = verify_access_token(db, jwt_token)
+    message = db.query(Message).filter(Message.id == message_id).first()
+    if message is None:
+        message_response.message = MESSAGE_NOT_FOUND_MESSAGE
+        return message_response
+    if user is None:
+        message_response.message = INVALID_AUTHENTICATION_MESSAGE
+        response.status_code = status.HTTP_401_UNAUTHORIZED
+        return message_response
+
+    deactivated_message = deactivate_message_crud(db, message_id)
+
+    message_response.message = MESSAGE_DEACTIVATED_SUCCESS_MESSAGE
+    message_response.success = True
+    message_response.data = message
     return message_response

@@ -41,7 +41,7 @@ def get_messages_crud(db, conversation_id):
     return db.query(Message).filter(Message.conversation_id == conversation_id).all()
 
 
-def edit_message_crud(db: Session, conversation_id: int, message_id: int, edit_message: EditMessage):
+def edit_message_crud(db: Session, message_id: int, edit_message: EditMessage):
     message = db.query(Message).filter(Message.id == message_id).first()
     if message:
         message.content = edit_message.content
@@ -50,3 +50,11 @@ def edit_message_crud(db: Session, conversation_id: int, message_id: int, edit_m
     db.refresh(message)
     return message
 
+
+def deactivate_message_crud(db: Session, message_id: int):
+    message = db.query(Message).filter(Message.id == message_id).first()
+    message.is_active = False
+    db.add(message)
+    db.commit()
+    db.refresh(message)
+    return message
