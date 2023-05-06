@@ -8,6 +8,10 @@ class ConversationData(CamelModel):
     conversation: ViewConversation | None
 
 
+class ConversationsData(CamelModel):
+    conversations: list[ViewConversation] | None
+
+
 class MessagesData(CamelModel):
     messages: list[ViewMessage] | None
 
@@ -18,6 +22,10 @@ class MessageData(CamelModel):
 
 class ConversationResponse(ResponseModel):
     data: ConversationData = ConversationData()
+
+
+class ConversationsResponse(ResponseModel):
+    data: ConversationsData = ConversationsData()
 
 
 class MessagesResponse(ResponseModel):

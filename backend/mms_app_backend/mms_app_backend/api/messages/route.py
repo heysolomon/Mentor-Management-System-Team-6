@@ -2,11 +2,11 @@ from fastapi import APIRouter, status, Response, Depends, WebSocket
 from sqlalchemy.orm import Session
 
 from .constants import CONVERSATION_CREATED_SUCCESS_MESSAGE, GET_MESSAGES_SUCCESS_MESSAGE, EDIT_MESSAGE_SUCCESS_MESSAGE, \
-    MESSAGE_NOT_FOUND_MESSAGE, MESSAGE_DEACTIVATED_SUCCESS_MESSAGE
+    MESSAGE_NOT_FOUND_MESSAGE, MESSAGE_DEACTIVATED_SUCCESS_MESSAGE, GET_CONVERSATIONS_SUCCESS_MESSAGE
 from .crud import create_conversation_crud, create_message_crud, get_messages_crud, edit_message_crud, \
-    deactivate_message_crud
+    deactivate_message_crud, get_conversations_crud
 from .models import Message
-from .responses import ConversationResponse, MessagesResponse
+from .responses import ConversationResponse, MessagesResponse, ConversationsResponse
 from .schemas import CreateConversation, CreateMessage, EditMessage
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
 from ..authentication.helpers import verify_access_token
@@ -21,6 +21,26 @@ websocket = router.websocket
 connections = {
 
 }
+
+
+@get('/user/conversations', status_code=status.HTTP_200_OK, response_model=ConversationsResponse)
+async def get_conversations(conversation: CreateConversation, response: Response,
+                            jwt_token: str = Depends(get_token()),
+                            db: Session = Depends(get_db)):
+    conversations_response = ConversationsResponse()
+    user = verify_access_token(db, jwt_token)
+
+    if not user:
+        conversations_response.message = INVALID_AUTHENTICATION_MESSAGE
+        response.status_code = status.HTTP_401_UNAUTHORIZED
+        return conversations_response
+
+    conversations = get_conversations_crud(db, user.id)
+    if conversations:
+        conversations_response.message = GET_CONVERSATIONS_SUCCESS_MESSAGE
+        conversations_response.data = conversations
+        conversations_response.success = True
+        return conversations
 
 
 @post('/users/conversations', status_code=status.HTTP_201_CREATED, response_model=ConversationResponse)

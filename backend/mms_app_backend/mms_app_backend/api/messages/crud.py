@@ -21,6 +21,18 @@ def create_conversation_crud(db: Session, conversation: CreateConversation):
                             participants=participants, messages=created_conversation.messages)
 
 
+def get_conversations_crud(db: Session, user_id: int):
+    conversations = db.query(Conversation).filter(Conversation.participants.contains(user_id)).all()
+
+    if conversations:
+        for conversation in conversations:
+            if conversation.participants:
+                participants = [participant.id for participant in conversation.participants]
+                conversation.participants = participants
+
+    return conversations
+
+
 def create_message_crud(db: Session, message_details: CreateMessage, sender_id: int):
     conversation = db.query(Conversation).filter(Conversation.participants.contains(sender_id)).filter(
         Conversation.participants.contains(message_details.receiver)).first()
