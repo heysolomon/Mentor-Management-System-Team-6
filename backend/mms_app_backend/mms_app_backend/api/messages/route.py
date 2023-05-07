@@ -6,7 +6,7 @@ from .constants import CONVERSATION_CREATED_SUCCESS_MESSAGE, GET_MESSAGES_SUCCES
 from .crud import create_conversation_crud, create_message_crud, get_messages_crud, edit_message_crud, \
     deactivate_message_crud, get_conversations_crud
 from .models import Message
-from .responses import ConversationResponse, MessagesResponse, ConversationsResponse
+from .responses import ConversationResponse, MessagesResponse, ConversationsResponse, MessageResponse
 from .schemas import CreateConversation, CreateMessage, EditMessage
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
 from ..authentication.helpers import verify_access_token
@@ -98,7 +98,7 @@ async def get_messages(response: Response, conversation_id: int, jwt_token: str 
 
 
 @patch('/users/conversations/{conversation_id}/messages/{message_id}', status_code=status.HTTP_200_OK,
-       response_model=MessagesResponse,
+       response_model=MessageResponse,
        )
 async def edit_message(response: Response, conversation_id: int, message_id: int, changes: EditMessage,
                        jwt_token: str = Depends(get_token()),
@@ -124,7 +124,7 @@ async def edit_message(response: Response, conversation_id: int, message_id: int
 
 
 @delete('/users/conversations/{conversation_id}/messages/{message_id}', status_code=status.HTTP_200_OK,
-        response_model=MessagesResponse)
+        response_model=MessageResponse)
 async def deactivate_message(response: Response, conversation_id: int, message_id: int,
                              jwt_token: str = Depends(get_token()),
                              db: Session = Depends(get_db)):
@@ -143,5 +143,5 @@ async def deactivate_message(response: Response, conversation_id: int, message_i
 
     message_response.message = MESSAGE_DEACTIVATED_SUCCESS_MESSAGE
     message_response.success = True
-    message_response.data = message
+    message_response.data = deactivated_message
     return message_response
