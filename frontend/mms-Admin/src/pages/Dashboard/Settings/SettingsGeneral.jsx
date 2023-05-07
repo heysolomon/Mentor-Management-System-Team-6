@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
+import { SpinnerCircular } from 'spinners-react';
 import { GithubIcon,
   InstagramIcon,
   LinkedinIcon,
@@ -13,6 +14,14 @@ import InputField from '../../../components/InputField';
 import Button from '../../../components/utilities/Buttons/Button';
 import { openModal } from '../../../redux/features/Modals/modalSlice';
 import ProfileSaved from '../../../components/Modals/ProfileSaved';
+import { api } from '../../../services/api';
+import { createProfileFailure,
+  createProfileStart,
+  createProfileSuccess,
+  uploadProfilePicture,
+  uploadProfilePictureFailure,
+  uploadProfilePictureStart,
+  uploadProfilePictureSuccess } from '../../../redux/features/userSlice';
 
 function SettingsGeneral() {
   const initialValues = {
@@ -20,42 +29,243 @@ function SettingsGeneral() {
     lastName: '',
     about: '',
     website: '',
+    city: '',
+    country: '',
+    github: '',
+    twitter: '',
+    instagram: '',
+    linkedin: '',
   };
 
   const validate = Yup.object({
-    firstName: Yup.string().min(3, 'Must be 3 characters or more'),
-    lastName: Yup.string().min(3, 'Must be 3 characters or more'),
-    about: Yup.string(),
-    website: Yup.string().url('Must be a URL'),
+    firstName: Yup.string()
+      .min(3, 'Must be 3 characters or more')
+      .required('First name is required'),
+    lastName: Yup.string()
+      .min(3, 'Must be 3 characters or more')
+      .required('Last name is required'),
+    country: Yup.string().required('Country is required'),
+    city: Yup.string().required('City is required'),
+    about: Yup.string().required('Bio is required'),
+    website: Yup.string().url('Must be a URL').required('Website is required'),
+    github: Yup.string().url('Must be a URL'),
+    twitter: Yup.string().url('Must be a URL'),
+    instagram: Yup.string().url('Must be a URL'),
+    linkedin: Yup.string().url('Must be a URL'),
   });
 
+  // select options tag
+  const options = [
+    {
+      id: 1,
+      name: 'Test 1',
+    },
+    {
+      id: 2,
+      name: 'Test 2',
+    },
+    {
+      id: 3,
+      name: 'Test 3',
+    },
+    {
+      id: 4,
+      name: 'Test 4',
+    },
+  ];
+  // profile picture upload
+
+  const [message, setMessage] = useState('');
+  // redux state for the reset password success
   const dispatch = useDispatch();
-  // user's object
-  const user = useSelector((state) => state.user.userInfo.data.user);
-  const handleSuccess = () => {
-    dispatch(openModal(<ProfileSaved />));
+
+  const {
+    userInfo,
+    creatingProfile,
+    creatingProfileError,
+    profilePicture,
+    userProfile,
+    uploadingProfilePicture,
+  } = useSelector((state) => state.user);
+
+  const loggedInUser = userInfo.data.user;
+  // logged in user's id
+  const userId = loggedInUser.id;
+  // user login token
+  const userToken = userInfo.data.access_token;
+
+  const createProfile = async (values) => {
+    // creating a new values object to follow the backend's schema
+    const createProfileValues = {
+      ...values,
+      socialLinks: [
+        {
+          url: values.github,
+          name: 'github',
+        },
+        {
+          url: values.linkedin,
+          name: 'linkedin',
+        },
+        {
+          url: values.instagram,
+          name: 'instagram',
+        },
+        {
+          url: values.twitter,
+          name: 'twitter',
+        },
+      ],
+      location: {
+        city: values.city,
+        state: '',
+        country: values.country,
+      },
+    };
+    // deleting the initial values that came from the values object
+    delete createProfileValues.instagram;
+    delete createProfileValues.github;
+    delete createProfileValues.twitter;
+    delete createProfileValues.linkedin;
+    delete createProfileValues.country;
+    delete createProfileValues.city;
+
+    dispatch(createProfileStart());
+    try {
+      const profileCreate = await api.post(
+        `/${userId}/profiles`,
+        {
+          ...createProfileValues,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        },
+      );
+      dispatch(createProfileSuccess(profileCreate.data.data.profile));
+      setMessage(profileCreate.data.message);
+
+      // open a modal after success
+      dispatch(openModal(<ProfileSaved />));
+    } catch (err) {
+      if (err) {
+        dispatch(createProfileFailure());
+        // console.log(err);
+        setMessage(err.response.data?.message);
+      }
+    }
+  };
+  // Create a reference to the hidden file input element
+  const hiddenPictureInput = React.useRef(null);
+  // handles changing of the files uploaded
+  const handleChange = async (e) => {
+    if (e.target.files.length) {
+      await dispatch(
+        uploadProfilePicture({
+          preview: URL.createObjectURL(e.target.files[0]),
+          raw: e.target.files[0],
+        }),
+      );
+
+      // const picture = profilePicture.raw;
+      // console.log(picture);
+    }
+  };
+  // funtion to upload profile picture
+  const handleUpload = () => {
+    hiddenPictureInput.current.click();
+
+    // user profile id
+    const profileId = userProfile.id;
+    const image = profilePicture.raw;
+    // console.log(image);
+    const uploadPicture = async (values) => {
+      dispatch(uploadProfilePictureStart());
+      try {
+        const upload = await api.post(
+          `/${userId}/profiles/${profileId}/picture`,
+          {
+            ...values,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${userToken}`,
+            },
+          },
+        );
+        dispatch(uploadProfilePictureSuccess(upload.data.data.profile));
+        setMessage(upload.data?.message);
+
+        // open a modal after success
+        // dispatch(openModal(<ProfileSaved />));
+      } catch (err) {
+        if (err) {
+          dispatch(uploadProfilePictureFailure());
+          // console.log(err);
+          setMessage(err.response.data.message);
+        }
+      }
+    };
+
+    uploadPicture(image);
+  };
+
+  // function to submit the profile values
+  const submit = async (values) => {
+    createProfile(values);
   };
 
   return (
     <div className="md:border-[1px] md:rounded-[5px] md:border-black9 md:mx-10 md:p-5">
       <section className="flex justify-between items-center">
         <div className="flex items-center">
-          <UserAvatar />
+          {profilePicture === null ? (
+            <UserAvatar styling="w-[73px]" />
+          ) : (
+            <img
+              src={profilePicture.preview}
+              className="w-[73px] h-[73px] object-cover rounded-[50%] object-top"
+              alt="profile"
+            />
+          )}
 
-          <div className="ml-4 md:ml-[46px]">
+          <div className="ml-4 md:ml-[20px]">
             <div className="flex items-center">
               <h2 className="font-semibold text-2xl text-black2 mr-2">
-                {user.firstName}
+                {loggedInUser.firstName}
                 {' '}
-                {user.lastName}
+                {loggedInUser.lastName}
               </h2>
             </div>
-            <button
-              className="h-[24px] bg-pri3 flex items-center justify-center text-white duration-700 text-[12px] font-[400] text-mukta hover:bg-pri2 py-2 rounded-[5px] px-3"
-              type="button"
-            >
-              upload picture
-            </button>
+            <form>
+              <label htmlFor="uploadPicture">
+                <button
+                  className="h-[24px] bg-pri3 flex items-center justify-center text-white duration-700 text-[12px] font-[400] text-mukta hover:bg-pri2 py-2 rounded-[5px] px-3"
+                  type="button"
+                  onClick={handleUpload}
+                >
+                  {uploadingProfilePicture ? (
+                    <SpinnerCircular
+                      color="#F7FEFF"
+                      className="mr-2"
+                      thickness={250}
+                      size={20}
+                    />
+                  ) : (
+                    ' upload picture'
+                  )}
+                </button>
+                <input
+                  type="file"
+                  id="uploadPicture"
+                  ref={hiddenPictureInput}
+                  className="hidden"
+                  onChange={handleChange}
+                  accept=".png, .jpeg, .JPEG"
+                />
+              </label>
+            </form>
           </div>
         </div>
       </section>
@@ -65,6 +275,7 @@ function SettingsGeneral() {
         <FormikForm
           initialValues={initialValues}
           validationSchema={validate}
+          submit={submit}
           classname="w-full"
           styling="w-full"
         >
@@ -78,17 +289,19 @@ function SettingsGeneral() {
 
             <div className="grid grid-cols-2 gap-x-[20px] md:w-full">
               <InputField
+                tag="input"
                 type="text"
                 name="firstName"
                 id="firstName"
-                placeholder={user.firstName}
+                placeholder={loggedInUser.firstName}
                 inputStyle="text-[12px] md:text-[16px] pl-3"
               />
               <InputField
+                tag="input"
                 type="text"
                 name="lastName"
                 id="lastName"
-                placeholder={user.lastName}
+                placeholder={loggedInUser.lastName}
                 inputStyle="text-[12px] md:text-[16px] pl-3"
               />
             </div>
@@ -102,16 +315,14 @@ function SettingsGeneral() {
               </p>
             </div>
 
-            <div className="flex">
-              <textarea
-                name="about"
-                id="about"
-                cols={100}
-                // rows={4}
-                className="flex resize-none focus:outline-none bg-transparent pl-3 pt-3 border-[1px] rounded-[5px] border-black8 placeholder:text-black5 text-black5 text-mukta font-[400] h-[96px] w-full"
-                placeholder="Your Bio"
-              />
-            </div>
+            <InputField
+              tag="textarea"
+              type="text"
+              name="about"
+              id="about"
+              placeholder="Your Bio..."
+              inputStyle="text-[12px] md:text-[16px] pl-3 w-full items-start"
+            />
           </div>
 
           {/* website */}
@@ -123,6 +334,7 @@ function SettingsGeneral() {
             </div>
 
             <InputField
+              tag="input"
               type="text"
               name="website"
               id="website"
@@ -139,15 +351,13 @@ function SettingsGeneral() {
                   Country
                 </p>
               </div>
-
-              <select
+              <InputField
+                tag="select"
                 name="country"
                 id="country"
-                placeholder="First Name"
-                className="text-[12px] md:text-[16px] pl-3 border-[1px] h-[43px] rounded-[5px] border-black8 placeholder:text-black5 text-black5 text-mukta font-[400] w-full"
-              >
-                <option value="country">Select Country</option>
-              </select>
+                inputStyle="text-[12px] md:text-[16px] pl-3 w-full"
+                options={options}
+              />
             </div>
             <div className="flex items-center">
               <div className="w-[36%] hidden md:block">
@@ -156,14 +366,13 @@ function SettingsGeneral() {
                 </p>
               </div>
 
-              <select
-                name="country"
-                id="country"
-                placeholder="First Name"
-                className="text-[12px] md:text-[16px] pl-3 border-[1px] h-[43px] rounded-[5px] border-black8 placeholder:text-black5 text-black5 text-mukta font-[400] w-full"
-              >
-                <option value="country">Select City</option>
-              </select>
+              <InputField
+                tag="select"
+                name="city"
+                id="city"
+                inputStyle="text-[12px] md:text-[16px] pl-3 w-full"
+                options={options}
+              />
             </div>
           </div>
 
@@ -181,6 +390,7 @@ function SettingsGeneral() {
                   <SocialIcon
                     icon={<GithubIcon />}
                     text="GitHub"
+                    name="github"
                     placeHolder="@githubuser"
                   />
                 </div>
@@ -188,6 +398,7 @@ function SettingsGeneral() {
                   <SocialIcon
                     icon={<LinkedinIcon />}
                     text="LinkedIn"
+                    name="linkedin"
                     placeHolder="@linkedinuser"
                   />
                 </div>
@@ -197,6 +408,7 @@ function SettingsGeneral() {
                   <SocialIcon
                     icon={<InstagramIcon />}
                     text="Instagram"
+                    name="instagram"
                     placeHolder="@instagramuser"
                   />
                 </div>
@@ -204,6 +416,7 @@ function SettingsGeneral() {
                   <SocialIcon
                     icon={<TwitterIcon />}
                     text="Twitter"
+                    name="twitter"
                     placeHolder="@twitteruser"
                   />
                 </div>
@@ -211,12 +424,26 @@ function SettingsGeneral() {
             </div>
           </div>
 
+          <p
+            className={`font-[400] text-black5 font-mukta text-[16px] mt-[20px] text-center ${
+              creatingProfileError ? 'text-red-500' : 'text-pri2'
+            }`}
+          >
+            {message}
+          </p>
+
           <div className="flex justify-end mt-[25px]">
-            <Button
-              width="px-3 text-[12px] md:text-[16px]"
-              onClick={handleSuccess}
-            >
-              Save Changes
+            <Button width="px-3 text-[12px] md:text-[16px]">
+              {creatingProfile ? (
+                <SpinnerCircular
+                  color="#F7FEFF"
+                  className="mr-2"
+                  thickness={250}
+                  size={20}
+                />
+              ) : (
+                'Save Changes'
+              )}
             </Button>
           </div>
         </FormikForm>

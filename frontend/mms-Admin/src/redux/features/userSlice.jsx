@@ -4,13 +4,25 @@ import { createSlice } from '@reduxjs/toolkit';
 const userSlice = createSlice({
   name: 'user',
   initialState: {
+    // user response object is added here
     userInfo: null,
+    // user profile id is added here
+    userProfile: null,
+
+    profilePicture: null,
+
+    uploadingProfilePicture: false,
+    uploadingProfilePictureError: false,
+    // for logging in to the application
     loggingIn: false,
     error: false,
+    // for changing password in the settings part of the application
     changePassword: false,
     changePasswordError: false,
-    passwordReset: false,
-    passwordResetError: false,
+
+    // for creating user profile in the dashboard
+    creatingProfile: false,
+    creatingProfileError: false,
   },
   reducers: {
     // reducers for the login page
@@ -38,6 +50,34 @@ const userSlice = createSlice({
       state.changePassword = false;
       state.changePasswordError = true;
     },
+    createProfileStart: (state) => {
+      state.creatingProfile = true;
+    },
+    createProfileSuccess: (state, action) => {
+      state.userProfile = action.payload;
+      state.creatingProfileError = false;
+      state.creatingProfile = false;
+    },
+    createProfileFailure: (state) => {
+      state.creatingProfile = false;
+      state.creatingProfileError = true;
+    },
+    uploadProfilePictureStart: (state) => {
+      state.uploadingProfilePicture = true;
+    },
+    uploadProfilePicture: (state, action) => {
+      state.uploadingProfilePictureError = false;
+      state.uploadingProfilePicture = false;
+      state.profilePicture = action.payload;
+    },
+    uploadProfilePictureSuccess: (state) => {
+      state.uploadingProfilePictureError = false;
+      state.uploadingProfilePicture = false;
+    },
+    uploadProfilePictureFailure: (state) => {
+      state.uploadingProfilePicture = false;
+      state.uploadingProfilePictureError = true;
+    },
   },
 });
 
@@ -49,4 +89,11 @@ export const {
   changePasswordStart,
   changePasswordSuccess,
   changePasswordFailure,
+  createProfileStart,
+  createProfileSuccess,
+  createProfileFailure,
+  uploadProfilePicture,
+  uploadProfilePictureStart,
+  uploadProfilePictureFailure,
+  uploadProfilePictureSuccess,
 } = userSlice.actions;
