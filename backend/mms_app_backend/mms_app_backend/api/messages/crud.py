@@ -17,6 +17,7 @@ def create_conversation_crud(db: Session, conversation: CreateConversation):
         db.commit()
         db.refresh(user)
     participants = [participant.id for participant in created_conversation.participants]
+
     return ViewConversation(id=created_conversation.id, title=created_conversation.title,
                             participants=participants, messages=created_conversation.messages)
 
