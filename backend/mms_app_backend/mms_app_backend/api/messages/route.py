@@ -35,7 +35,7 @@ async def get_conversations(response: Response,
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return conversations_response
 
-    conversations = get_conversations_crud(db, user.id)
+    conversations = get_conversations_crud(db, user)
 
     conversations_response.message = GET_CONVERSATIONS_SUCCESS_MESSAGE
     conversations_response.data.conversations = conversations

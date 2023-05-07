@@ -21,8 +21,7 @@ def create_conversation_crud(db: Session, conversation: CreateConversation):
                             participants=participants, messages=created_conversation.messages)
 
 
-def get_conversations_crud(db: Session, user_id: int):
-    user = db.query(User).filter(User.id == user_id).first()
+def get_conversations_crud(db: Session, user: User):
     conversations = db.query(Conversation).filter(Conversation.participants.contains(user)).all()
     processed_conversations = []
     if conversations:
