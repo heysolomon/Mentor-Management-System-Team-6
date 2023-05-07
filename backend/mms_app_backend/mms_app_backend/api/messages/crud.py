@@ -70,7 +70,7 @@ def edit_message_crud(db: Session, message_id: int, edit_message: EditMessage):
     db.add(message)
     db.commit()
     db.refresh(message)
-    return ViewMessage(id=message.id, content=message.content, sender=message.sender_id, receivers=message.receiver_id,
+    return ViewMessage(id=message.id, content=message.content, sender=message.sender_id, receiver=message.receiver_id,
                        conversation_id=message.conversation_id)
 
 
@@ -80,5 +80,5 @@ def deactivate_message_crud(db: Session, message_id: int):
     db.add(message)
     db.commit()
     db.refresh(message)
-    return ViewMessage(id=message.id, content=message.content, sender=message.sender_id, receivers=message.receiver_id,
+    return ViewMessage(id=message.id, content=message.content, sender=message.sender_id, receiver=message.receiver_id,
                        conversation_id=message.conversation_id)
