@@ -94,6 +94,7 @@ function LoginPage() {
           styling="flex justify-center items-center flex-col"
         >
           <InputField
+            tag="input"
             type="email"
             name="email"
             placeholder="Email"
@@ -102,6 +103,7 @@ function LoginPage() {
             inputStyle="text-[20px] pl-[30px]"
           />
           <InputField
+            tag="input"
             type="password"
             name="password"
             placeholder="Password"

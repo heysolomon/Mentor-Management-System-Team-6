@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
@@ -10,6 +11,8 @@ function InputField({
   label,
   styling,
   inputStyle,
+  options,
+  tag,
   height,
   ...props
 }) {
@@ -31,27 +34,56 @@ function InputField({
           meta.touched && meta.error && 'border-sec1'
         } ${height}`}
       >
-        <input
-          {...field}
-          name={field.name}
-          placeholder={props.placeholder}
-          autoComplete="off"
-          type={type === 'password' ? passwordType : type}
-          className={`w-full h-full focus:outline-none bg-transparent py-[8px] placeholder:text-black5 text-black5 text-mukta font-[400] ${inputStyle}`}
-        />
+        {/* checks if it's an input, textarea or selct tag */}
+        {tag === 'input' ? (
+          <>
+            <input
+              {...field}
+              name={field.name}
+              placeholder={props.placeholder}
+              autoComplete="off"
+              type={type === 'password' ? passwordType : type}
+              className={`w-full h-full focus:outline-none bg-transparent py-[8px] placeholder:text-black5 text-black5 text-mukta font-[400] ${inputStyle}`}
+            />
 
-        {type === 'password' && (
-          <span
-            onClick={togglePassword}
-            className="mr-3 cursor-pointer"
-            aria-hidden="true"
-          >
-            {passwordType === 'password' ? (
-              <PasswordEyeHide className="w-[16px] md:w-[24px]" />
-            ) : (
-              <PasswordEyeShow className="w-[16px] md:w-[24px]" />
+            {type === 'password' && (
+              <span
+                onClick={togglePassword}
+                className="mr-3 cursor-pointer"
+                aria-hidden="true"
+              >
+                {passwordType === 'password' ? (
+                  <PasswordEyeHide className="w-[16px] md:w-[24px]" />
+                ) : (
+                  <PasswordEyeShow className="w-[16px] md:w-[24px]" />
+                )}
+              </span>
             )}
-          </span>
+          </>
+        ) : tag === 'select' ? (
+          <select
+            name={props.name}
+            className={`w-full h-full focus:outline-none bg-transparent py-[8px] placeholder:text-black5 text-black5 text-mukta font-[400] ${inputStyle}`}
+            {...field}
+          >
+            {options.map((option) => (
+              <option value={option.name} key={option.id} className="w-full">
+                {option.name}
+              </option>
+            ))}
+          </select>
+        ) : tag === 'textarea' ? (
+          <textarea
+            name={props.name}
+            id=""
+            cols={100}
+            rows="4"
+            className={`w-full h-full focus:outline-none bg-transparent py-[8px] placeholder:text-black5 text-black5 text-mukta font-[400] ${inputStyle}`}
+            placeholder={props.placeholder}
+            {...field}
+          />
+        ) : (
+          ''
         )}
       </div>
       <ErrorMessage

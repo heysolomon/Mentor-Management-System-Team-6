@@ -34,15 +34,42 @@ function SettingsGeneral() {
   };
 
   const validate = Yup.object({
-    firstName: Yup.string().min(3, 'Must be 3 characters or more'),
-    lastName: Yup.string().min(3, 'Must be 3 characters or more'),
-    about: Yup.string(),
-    website: Yup.string().url('Must be a URL'),
+    firstName: Yup.string()
+      .min(3, 'Must be 3 characters or more')
+      .required('First name is required'),
+    lastName: Yup.string()
+      .min(3, 'Must be 3 characters or more')
+      .required('Last name is required'),
+    country: Yup.string().required('Country is required'),
+    city: Yup.string().required('City is required'),
+    about: Yup.string().required('Bio is required'),
+    website: Yup.string().url('Must be a URL').required('Website is required'),
     github: Yup.string().url('Must be a URL'),
     twitter: Yup.string().url('Must be a URL'),
     instagram: Yup.string().url('Must be a URL'),
     linkedin: Yup.string().url('Must be a URL'),
   });
+
+  // select options tag
+  const options = [
+    {
+      id: 1,
+      name: 'Test 1',
+    },
+    {
+      id: 2,
+      name: 'Test 2',
+    },
+    {
+      id: 3,
+      name: 'Test 3',
+    },
+    {
+      id: 4,
+      name: 'Test 4',
+    },
+  ];
+  // profile picture upload
 
   const [message, setMessage] = useState('');
   // redux state for the reset password success
@@ -94,7 +121,6 @@ function SettingsGeneral() {
     delete createProfileValues.country;
     delete createProfileValues.city;
 
-    // console.log(createProfileValues);
     dispatch(createProfileStart());
     try {
       const profileCreate = await api.post(
@@ -172,6 +198,7 @@ function SettingsGeneral() {
 
             <div className="grid grid-cols-2 gap-x-[20px] md:w-full">
               <InputField
+                tag="input"
                 type="text"
                 name="firstName"
                 id="firstName"
@@ -179,6 +206,7 @@ function SettingsGeneral() {
                 inputStyle="text-[12px] md:text-[16px] pl-3"
               />
               <InputField
+                tag="input"
                 type="text"
                 name="lastName"
                 id="lastName"
@@ -196,17 +224,14 @@ function SettingsGeneral() {
               </p>
             </div>
 
-            <div className="flex w-full">
-              <InputField
-                type="text"
-                name="about"
-                id="about"
-                styling="w-full"
-                height="h-[96px]"
-                placeholder="Your Bio..."
-                inputStyle="text-[12px] md:text-[16px] pl-3 w-full items-start"
-              />
-            </div>
+            <InputField
+              tag="textarea"
+              type="text"
+              name="about"
+              id="about"
+              placeholder="Your Bio..."
+              inputStyle="text-[12px] md:text-[16px] pl-3 w-full items-start"
+            />
           </div>
 
           {/* website */}
@@ -218,6 +243,7 @@ function SettingsGeneral() {
             </div>
 
             <InputField
+              tag="input"
               type="text"
               name="website"
               id="website"
@@ -234,16 +260,13 @@ function SettingsGeneral() {
                   Country
                 </p>
               </div>
-
-              <select
+              <InputField
+                tag="select"
                 name="country"
                 id="country"
-                placeholder="First Name"
-                className="text-[12px] md:text-[16px] pl-3 border-[1px] h-[43px] rounded-[5px] border-black8 placeholder:text-black5 text-black5 text-mukta font-[400] w-full"
-              >
-                <option value="country">Select Country</option>
-                <option value="test">Test</option>
-              </select>
+                inputStyle="text-[12px] md:text-[16px] pl-3 w-full"
+                options={options}
+              />
             </div>
             <div className="flex items-center">
               <div className="w-[36%] hidden md:block">
@@ -252,15 +275,13 @@ function SettingsGeneral() {
                 </p>
               </div>
 
-              <select
+              <InputField
+                tag="select"
                 name="city"
                 id="city"
-                placeholder="First Name"
-                className="text-[12px] md:text-[16px] pl-3 border-[1px] h-[43px] rounded-[5px] border-black8 placeholder:text-black5 text-black5 text-mukta font-[400] w-full"
-              >
-                <option value="country">Select City</option>
-                <option value="Test">Test</option>
-              </select>
+                inputStyle="text-[12px] md:text-[16px] pl-3 w-full"
+                options={options}
+              />
             </div>
           </div>
 
