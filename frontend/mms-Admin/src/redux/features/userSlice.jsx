@@ -19,11 +19,13 @@ const userSlice = createSlice({
     // for changing password in the settings part of the application
     changePassword: false,
     changePasswordError: false,
+
     // for creating user profile in the dashboard
     creatingProfile: false,
     creatingProfileError: false,
   },
   reducers: {
+    // reducers for the login page
     loginStart: (state) => {
       state.loggingIn = true;
     },
@@ -36,6 +38,7 @@ const userSlice = createSlice({
       state.loggingIn = false;
       state.error = true;
     },
+    // reducers for the settings change password
     changePasswordStart: (state) => {
       state.changePassword = true;
     },
