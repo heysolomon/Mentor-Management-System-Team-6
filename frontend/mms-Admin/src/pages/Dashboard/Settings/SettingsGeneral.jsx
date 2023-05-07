@@ -17,7 +17,11 @@ import ProfileSaved from '../../../components/Modals/ProfileSaved';
 import { api } from '../../../services/api';
 import { createProfileFailure,
   createProfileStart,
-  createProfileSuccess } from '../../../redux/features/userSlice';
+  createProfileSuccess,
+  uploadProfilePicture,
+  uploadProfilePictureFailure,
+  uploadProfilePictureStart,
+  uploadProfilePictureSuccess } from '../../../redux/features/userSlice';
 
 function SettingsGeneral() {
   const initialValues = {
@@ -75,9 +79,14 @@ function SettingsGeneral() {
   // redux state for the reset password success
   const dispatch = useDispatch();
 
-  const { userInfo, creatingProfile, creatingProfileError } = useSelector(
-    (state) => state.user,
-  );
+  const {
+    userInfo,
+    creatingProfile,
+    creatingProfileError,
+    profilePicture,
+    userProfile,
+    uploadingProfilePicture,
+  } = useSelector((state) => state.user);
 
   const loggedInUser = userInfo.data.user;
   // logged in user's id
@@ -143,11 +152,66 @@ function SettingsGeneral() {
       if (err) {
         dispatch(createProfileFailure());
         // console.log(err);
-        setMessage(err.response.data.message);
+        setMessage(err.response.data?.message);
       }
     }
   };
+  // Create a reference to the hidden file input element
+  const hiddenPictureInput = React.useRef(null);
+  // handles changing of the files uploaded
+  const handleChange = async (e) => {
+    if (e.target.files.length) {
+      await dispatch(
+        uploadProfilePicture({
+          preview: URL.createObjectURL(e.target.files[0]),
+          raw: e.target.files[0],
+        }),
+      );
 
+      // const picture = profilePicture.raw;
+      // console.log(picture);
+    }
+  };
+  // funtion to upload profile picture
+  const handleUpload = () => {
+    hiddenPictureInput.current.click();
+
+    // user profile id
+    const profileId = userProfile.id;
+    const image = profilePicture.raw;
+    console.log(image);
+    const uploadPicture = async (values) => {
+      dispatch(uploadProfilePictureStart());
+      try {
+        const upload = await api.post(
+          `/${userId}/profiles/${profileId}/picture`,
+          {
+            ...values,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${userToken}`,
+            },
+          },
+        );
+        dispatch(uploadProfilePictureSuccess(upload.data.data.profile));
+        setMessage(upload.data?.message);
+
+        // open a modal after success
+        // dispatch(openModal(<ProfileSaved />));
+      } catch (err) {
+        if (err) {
+          dispatch(uploadProfilePictureFailure());
+          console.log(err);
+          setMessage(err.response.data.message);
+        }
+      }
+    };
+
+    uploadPicture(image);
+  };
+
+  // function to submit the profile values
   const submit = async (values) => {
     createProfile(values);
   };
@@ -156,9 +220,17 @@ function SettingsGeneral() {
     <div className="md:border-[1px] md:rounded-[5px] md:border-black9 md:mx-10 md:p-5">
       <section className="flex justify-between items-center">
         <div className="flex items-center">
-          <UserAvatar />
+          {profilePicture === null ? (
+            <UserAvatar styling="w-[73px]" />
+          ) : (
+            <img
+              src={profilePicture.preview}
+              className="w-[73px] h-[73px] object-cover rounded-[50%] object-top"
+              alt="profile"
+            />
+          )}
 
-          <div className="ml-4 md:ml-[46px]">
+          <div className="ml-4 md:ml-[20px]">
             <div className="flex items-center">
               <h2 className="font-semibold text-2xl text-black2 mr-2">
                 {loggedInUser.firstName}
@@ -166,15 +238,34 @@ function SettingsGeneral() {
                 {loggedInUser.lastName}
               </h2>
             </div>
-            <div>
-              <button
-                className="h-[24px] bg-pri3 flex items-center justify-center text-white duration-700 text-[12px] font-[400] text-mukta hover:bg-pri2 py-2 rounded-[5px] px-3"
-                type="button"
-              >
-                upload picture
-              </button>
-              <input type="file" />
-            </div>
+            <form>
+              <label htmlFor="uploadPicture">
+                <button
+                  className="h-[24px] bg-pri3 flex items-center justify-center text-white duration-700 text-[12px] font-[400] text-mukta hover:bg-pri2 py-2 rounded-[5px] px-3"
+                  type="button"
+                  onClick={handleUpload}
+                >
+                  {uploadingProfilePicture ? (
+                    <SpinnerCircular
+                      color="#F7FEFF"
+                      className="mr-2"
+                      thickness={250}
+                      size={20}
+                    />
+                  ) : (
+                    ' upload picture'
+                  )}
+                </button>
+                <input
+                  type="file"
+                  id="uploadPicture"
+                  ref={hiddenPictureInput}
+                  className="hidden"
+                  onChange={handleChange}
+                  accept=".png, .jpeg, .JPEG"
+                />
+              </label>
+            </form>
           </div>
         </div>
       </section>

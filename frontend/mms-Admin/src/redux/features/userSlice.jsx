@@ -8,6 +8,11 @@ const userSlice = createSlice({
     userInfo: null,
     // user profile id is added here
     userProfile: null,
+
+    profilePicture: null,
+
+    uploadingProfilePicture: false,
+    uploadingProfilePictureError: false,
     // for logging in to the application
     loggingIn: false,
     error: false,
@@ -54,6 +59,22 @@ const userSlice = createSlice({
       state.creatingProfile = false;
       state.creatingProfileError = true;
     },
+    uploadProfilePictureStart: (state) => {
+      state.uploadingProfilePicture = true;
+    },
+    uploadProfilePicture: (state, action) => {
+      state.uploadingProfilePictureError = false;
+      state.uploadingProfilePicture = false;
+      state.profilePicture = action.payload;
+    },
+    uploadProfilePictureSuccess: (state) => {
+      state.uploadingProfilePictureError = false;
+      state.uploadingProfilePicture = false;
+    },
+    uploadProfilePictureFailure: (state) => {
+      state.uploadingProfilePicture = false;
+      state.uploadingProfilePictureError = true;
+    },
   },
 });
 
@@ -68,4 +89,8 @@ export const {
   createProfileStart,
   createProfileSuccess,
   createProfileFailure,
+  uploadProfilePicture,
+  uploadProfilePictureStart,
+  uploadProfilePictureFailure,
+  uploadProfilePictureSuccess,
 } = userSlice.actions;
