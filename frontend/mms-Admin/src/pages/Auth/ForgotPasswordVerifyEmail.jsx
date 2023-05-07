@@ -1,9 +1,16 @@
 import React from 'react';
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { SpinnerCircular } from 'spinners-react';
 import FormikForm from '../../components/FormikForm/FormikForm';
 import InputField from '../../components/InputField';
 import Button from '../../components/utilities/Buttons/Button';
+import { api } from '../../services/api';
+import { resetPasswordFailure,
+  resetPasswordStart,
+  resetPasswordSuccess,
+  setEmail } from '../../redux/features/passwordResetSlice';
 
 function ForgotPasswordVerifyEmail() {
   const initialValues = {
@@ -13,6 +20,47 @@ function ForgotPasswordVerifyEmail() {
   const validate = Yup.object({
     email: Yup.string().email('Email is invalid').required('Email is required'),
   });
+
+  const dispatch = useDispatch();
+  const { passwordReset } = useSelector(
+    (state) => state.resetPassword,
+  );
+
+  // redirecting
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from;
+
+  const verifyEmail = async (values) => {
+    dispatch(resetPasswordStart());
+    try {
+      const email = await api.patch('/password_reset_token', {
+        ...values,
+      });
+
+      if (
+        email.data.message
+        !== 'The reset token has been sent successfully to the email address provided if it exists'
+      ) {
+        dispatch(resetPasswordSuccess(email.data.message));
+        // set the user email to redux
+        dispatch(setEmail(values.email));
+      } else {
+        dispatch(resetPasswordFailure());
+      }
+      navigate('/forgot-password');
+      if (from) navigate(from);
+    } catch (err) {
+      if (err) {
+        dispatch(resetPasswordFailure());
+        // console.log(err);
+      }
+    }
+  };
+
+  const submit = async (values) => {
+    verifyEmail(values);
+  };
 
   return (
     <div className="h-full flex flex-col justify-center items-start">
@@ -30,6 +78,7 @@ function ForgotPasswordVerifyEmail() {
         <FormikForm
           initialValues={initialValues}
           validationSchema={validate}
+          submit={submit}
           className="mt-[20px]"
         >
           <InputField
@@ -39,9 +88,19 @@ function ForgotPasswordVerifyEmail() {
             width="w-full"
             inputStyle="text-[20px] pl-[30px]"
           />
-          <Link to="/forgot-password">
-            <Button width="w-full mt-[28px]">Done</Button>
-          </Link>
+
+          <Button width="w-full mt-[28px]">
+            {passwordReset ? (
+              <SpinnerCircular
+                color="#F7FEFF"
+                className="mr-2"
+                thickness={250}
+                size={20}
+              />
+            ) : (
+              'Login'
+            )}
+          </Button>
         </FormikForm>
       </div>
     </div>

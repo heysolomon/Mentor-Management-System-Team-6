@@ -33,7 +33,7 @@ function Profile() {
         </div>
 
         <button
-          type="submit"
+          type="button"
           className="bg-pri3 py-2.5 px-10 text-white rounded-xl font-semibold"
         >
           Edit Profile
