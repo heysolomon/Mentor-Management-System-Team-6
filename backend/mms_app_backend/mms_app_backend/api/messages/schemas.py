@@ -17,9 +17,15 @@ class CreateMessage(CamelModel):
     receiver: int
 
 
+class EditMessage(CamelModel):
+    content: str
+
+
 class ViewConversation(CreateConversation):
     id: int
     messages: list[int] | None
+    participants: list[int] | None
+    title: str | None
 
 
 class ViewMessage(CamelModel):
@@ -27,3 +33,7 @@ class ViewMessage(CamelModel):
     content: str
     sender: int
     receiver: int
+    conversation_id: int
+
+    class Config:
+        orm_mode = True
