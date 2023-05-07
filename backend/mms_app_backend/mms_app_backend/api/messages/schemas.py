@@ -32,3 +32,6 @@ class ViewMessage(CamelModel):
     sender: int
     receiver: int
     conversation_id: int
+
+    class Config:
+        orm_mode = True

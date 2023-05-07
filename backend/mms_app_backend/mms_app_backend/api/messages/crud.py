@@ -46,11 +46,18 @@ def create_message_crud(db: Session, message_details: CreateMessage, sender_id: 
     db.commit()
     db.refresh(created_message)
     return ViewMessage(id=created_message.id, content=created_message.content, sender=created_message.sender_id,
-                       receiver=created_message.receiver_id)
+                       receiver=created_message.receiver_id, conversation_id=created_message.conversation_id)
 
 
 def get_messages_crud(db, conversation_id):
-    return db.query(Message).filter(Message.conversation_id == conversation_id).all()
+    messages = db.query(Message).filter(Message.conversation_id == conversation_id).all()
+    processed_messages = []
+    for message in messages:
+        message = ViewMessage(id=message.id, content=message.content, sender=message.sender_id,
+                              receiver=message.receiver_id, conversation_id=message.conversation_id)
+        processed_messages.append(message)
+
+    return processed_messages
 
 
 def edit_message_crud(db: Session, message_id: int, edit_message: EditMessage):
@@ -60,7 +67,8 @@ def edit_message_crud(db: Session, message_id: int, edit_message: EditMessage):
     db.add(message)
     db.commit()
     db.refresh(message)
-    return message
+    return ViewMessage(id=message.id, content=message.content, sender=message.sender_id, receivers=message.receiver_id,
+                       conversation_id=message.conversation_id)
 
 
 def deactivate_message_crud(db: Session, message_id: int):
@@ -69,4 +77,5 @@ def deactivate_message_crud(db: Session, message_id: int):
     db.add(message)
     db.commit()
     db.refresh(message)
-    return message
+    return ViewMessage(id=message.id, content=message.content, sender=message.sender_id, receivers=message.receiver_id,
+                       conversation_id=message.conversation_id)
