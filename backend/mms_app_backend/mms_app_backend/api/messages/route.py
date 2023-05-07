@@ -23,8 +23,8 @@ connections = {
 }
 
 
-@get('/user/conversations', status_code=status.HTTP_200_OK, response_model=ConversationsResponse)
-async def get_conversations(conversation: CreateConversation, response: Response,
+@get('/users/conversations', status_code=status.HTTP_200_OK, response_model=ConversationsResponse)
+async def get_conversations(response: Response,
                             jwt_token: str = Depends(get_token()),
                             db: Session = Depends(get_db)):
     conversations_response = ConversationsResponse()
@@ -36,11 +36,11 @@ async def get_conversations(conversation: CreateConversation, response: Response
         return conversations_response
 
     conversations = get_conversations_crud(db, user.id)
-    if conversations:
-        conversations_response.message = GET_CONVERSATIONS_SUCCESS_MESSAGE
-        conversations_response.data = conversations
-        conversations_response.success = True
-        return conversations
+
+    conversations_response.message = GET_CONVERSATIONS_SUCCESS_MESSAGE
+    conversations_response.data.conversations = conversations
+    conversations_response.success = True
+    return conversations_response
 
 
 @post('/users/conversations', status_code=status.HTTP_201_CREATED, response_model=ConversationResponse)

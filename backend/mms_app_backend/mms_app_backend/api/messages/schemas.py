@@ -24,6 +24,8 @@ class EditMessage(CamelModel):
 class ViewConversation(CreateConversation):
     id: int
     messages: list[int] | None
+    participants: list[int] | None
+    title: str | None
 
 
 class ViewMessage(CamelModel):

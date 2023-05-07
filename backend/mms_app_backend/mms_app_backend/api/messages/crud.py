@@ -22,15 +22,18 @@ def create_conversation_crud(db: Session, conversation: CreateConversation):
 
 
 def get_conversations_crud(db: Session, user_id: int):
-    conversations = db.query(Conversation).filter(Conversation.participants.contains(user_id)).all()
-
+    user = db.query(User).filter(User.id == user_id).first()
+    conversations = db.query(Conversation).filter(Conversation.participants.contains(user)).all()
+    processed_conversations = []
     if conversations:
         for conversation in conversations:
             if conversation.participants:
                 participants = [participant.id for participant in conversation.participants]
-                conversation.participants = participants
-
-    return conversations
+                messages = [message.id for message in conversation.messages]
+                new_conversation = ViewConversation(id=conversation.id, title=conversation.title,
+                                                    participants=participants, messages=messages)
+                processed_conversations.append(new_conversation)
+    return processed_conversations
 
 
 def create_message_crud(db: Session, message_details: CreateMessage, sender_id: int):
