@@ -179,7 +179,7 @@ function SettingsGeneral() {
     // user profile id
     const profileId = userProfile.id;
     const image = profilePicture.raw;
-    console.log(image);
+    // console.log(image);
     const uploadPicture = async (values) => {
       dispatch(uploadProfilePictureStart());
       try {
@@ -202,7 +202,7 @@ function SettingsGeneral() {
       } catch (err) {
         if (err) {
           dispatch(uploadProfilePictureFailure());
-          console.log(err);
+          // console.log(err);
           setMessage(err.response.data.message);
         }
       }
