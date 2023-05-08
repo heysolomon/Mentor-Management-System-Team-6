@@ -32,6 +32,7 @@ function EditPost() {
         styling="flex justify-center items-center flex-col"
       >
         <InputField
+          tag="input"
           type="text"
           name="title"
           placeholder="The New MMS Discussion Forum Guidelines and Regulations"

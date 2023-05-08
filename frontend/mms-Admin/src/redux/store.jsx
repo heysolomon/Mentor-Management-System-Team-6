@@ -13,6 +13,7 @@ import modalReducer from './features/Modals/modalSlice';
 import sidebarSlice from './features/sidebarSlice';
 
 import userSlice from './features/userSlice';
+import passwordResetSlice from './features/passwordResetSlice';
 
 const rootReducer = combineReducers({
   splashScreen: splashSlice,
@@ -23,12 +24,13 @@ const rootReducer = combineReducers({
 
   user: userSlice,
 
+  resetPassword: passwordResetSlice,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user'],
+  whitelist: ['user', 'resetPassword'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
