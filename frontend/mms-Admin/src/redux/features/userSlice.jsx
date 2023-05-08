@@ -65,10 +65,9 @@ const userSlice = createSlice({
     uploadProfilePictureStart: (state) => {
       state.uploadingProfilePicture = true;
     },
-    uploadProfilePicture: (state, action) => {
+    uploadProfilePicture: (state) => {
       state.uploadingProfilePictureError = false;
       state.uploadingProfilePicture = false;
-      state.profilePicture = action.payload;
     },
     uploadProfilePictureSuccess: (state) => {
       state.uploadingProfilePictureError = false;
