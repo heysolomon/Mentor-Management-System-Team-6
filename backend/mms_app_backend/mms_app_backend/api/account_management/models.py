@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Text, String, ForeignKey
+from sqlalchemy import Column, Integer, Text, String, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import URLType
 
@@ -93,3 +93,17 @@ class Role(AbstractBaseModel):
     mentor_id = Column(Integer, ForeignKey('mentors.id'))
     mentor_manager = relationship("MentorManager", back_populates='roles')
     mentor_manager_id = Column(Integer, ForeignKey('mentor_managers.id'))
+
+
+class About(AbstractBaseModel):
+    __tablename__ = 'abouts'
+    bio = Column(Text)
+    was_mentor = Column(Boolean, default=False)
+    availability = Column(Boolean, default=True)
+    experience_years = Column(Integer)
+
+
+class Document(AbstractBaseModel):
+    __tablename__ = 'documents'
+    name = Column(String(256))
+    url = Column(URLType)
