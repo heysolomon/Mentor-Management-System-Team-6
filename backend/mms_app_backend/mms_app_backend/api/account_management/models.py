@@ -96,14 +96,14 @@ class Role(AbstractBaseModel):
 
 class AboutRoleAssociation(Base):
     __tablename__ = 'about_role_associations'
-    about_id = Column(Integer, ForeignKey('abouts.id'))
-    role = Column(Integer, ForeignKey('role.id'))
+    about_id = Column(Integer, ForeignKey('abouts.id'),primary_key=True)
+    role = Column(Integer, ForeignKey('roles.id'),primary_key=True)
 
 
 class AboutProgramsAssociation(Base):
     __tablename__ = 'about_programs_associations'
-    program_id = Column(Integer, ForeignKey('programs.id'))
-    about_id = Column(Integer, ForeignKey('abouts.id'))
+    program_id = Column(Integer, ForeignKey('programs.id'),primary_key=True)
+    about_id = Column(Integer, ForeignKey('abouts.id'),primary_key=True)
 
 
 class About(AbstractBaseModel):
