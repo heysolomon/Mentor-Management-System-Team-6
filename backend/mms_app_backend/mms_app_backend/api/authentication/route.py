@@ -109,7 +109,6 @@ async def get_reset_token(emailFields: EmailVerification, db: Session = Depends(
         reset_token_response.message = RESET_SENT_SUCCESS_MESSAGE
         reset_token_response.success = True
         return reset_token_response
-
     created_token = create_reset_token_crud(db, user)
 
     if created_token:
