@@ -57,10 +57,9 @@ function LoginPage() {
       const token = userInfo.data.access_token;
       setToken(token);
       setMessage(user.data.message);
-      setTimeout(() => {
-        navigate('/admin-dashboard');
-        if (from) navigate(from);
-      }, 1000);
+
+      navigate('/admin-dashboard');
+      if (from) navigate(from);
     } catch (err) {
       if (err) {
         dispatch(loginFailure());
@@ -94,6 +93,7 @@ function LoginPage() {
           styling="flex justify-center items-center flex-col"
         >
           <InputField
+            tag="input"
             type="email"
             name="email"
             placeholder="Email"
@@ -102,6 +102,7 @@ function LoginPage() {
             inputStyle="text-[20px] pl-[30px]"
           />
           <InputField
+            tag="input"
             type="password"
             name="password"
             placeholder="Password"
