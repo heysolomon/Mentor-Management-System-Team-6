@@ -30,7 +30,7 @@ function InputField({
   return (
     <div className={`w-full ${styling}`}>
       <div
-        className={`flex items-center border-[1px] rounded-[5px] border-black8 w-full ${
+        className={`flex items-center border-[1px] rounded-[5px] h-full border-black8 w-full ${
           meta.touched && meta.error && 'border-sec1'
         } ${height}`}
       >
