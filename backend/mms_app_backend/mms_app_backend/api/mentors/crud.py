@@ -18,5 +18,3 @@ def get_mentors_crud(db):
 
     return processed_mentors
 
-def get_mentor(db: Session, mentor_id: int):
-    return db.query(Mentor).filter(Mentor.id == mentor_id).first()
