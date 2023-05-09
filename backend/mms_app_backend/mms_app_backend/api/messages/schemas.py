@@ -33,7 +33,7 @@ class ViewMessage(CamelModel):
     content: str
     sender: int
     receiver: int
-    conversation_id: int
+    conversation_id: int | None
 
     class Config:
         orm_mode = True

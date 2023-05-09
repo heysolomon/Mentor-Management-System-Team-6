@@ -52,7 +52,7 @@ class Program(AbstractBaseModel):
     mentor_manager_id = Column(Integer, ForeignKey('mentor_managers.id'))
     criteria = relationship("Criterion", back_populates='program')
     previous_abouts = relationship("About", back_populates='previous_programs', secondary="about_programs_associations")
-
+    mentor_about = relationship("About", back_populates='program')
 
 class Mentor(AbstractBaseModel):
     __tablename__ = 'mentors'
@@ -60,7 +60,6 @@ class Mentor(AbstractBaseModel):
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     profile = relationship("Profile", back_populates='mentor')
     programs = relationship("Program", back_populates='mentors', secondary="program_mentor_association")
-    roles = relationship("Role", back_populates='mentor')
     task = relationship("Task", back_populates='mentors')
     task_id = Column(Integer, ForeignKey('tasks.id'))
 
@@ -71,7 +70,6 @@ class MentorManager(AbstractBaseModel):
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     profile = relationship("Profile", back_populates='mentor_manager')
     about = Column(Text)
-    roles = relationship("Role", back_populates='mentor_manager')
     programs = relationship("Program", back_populates='mentor_manager')
     task = relationship("Task", back_populates='mentor_managers')
     task_id = Column(Integer, ForeignKey('tasks.id'))
