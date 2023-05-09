@@ -47,3 +47,6 @@ def reset_password_crud(db: Session, user, new_password):
     db.commit()
     db.refresh(user)
     return True
+
+
+
