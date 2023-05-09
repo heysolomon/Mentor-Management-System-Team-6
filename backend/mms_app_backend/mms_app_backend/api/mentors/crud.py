@@ -1,4 +1,6 @@
 from ..account_management.models import Mentor
+from sqlalchemy.orm import Session
+
 
 
 def get_mentors_crud(db):
@@ -15,3 +17,6 @@ def get_mentors_crud(db):
             processed_mentors.append(mentor)
 
     return processed_mentors
+
+def get_mentor(db: Session, mentor_id: int):
+    return db.query(Mentor).filter(Mentor.id == mentor_id).first()
