@@ -9,7 +9,6 @@ class UserBase(CamelModel):
     last_name: str
     profile_id: int | None
 
-
 class UserCreate(UserBase):
     password: str
 
