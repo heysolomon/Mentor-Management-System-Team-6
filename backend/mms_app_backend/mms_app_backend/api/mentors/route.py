@@ -10,6 +10,7 @@ from ..utils import get_db, get_token
 
 router = APIRouter()
 get = router.get
+post = router.post
 
 
 @get('/users/mentors', status_code=status.HTTP_200_OK, response_model=GetMentorsResponse)
@@ -27,3 +28,8 @@ async def get_mentors(response: Response, db: Session = Depends(get_db), jwt_tok
     get_mentors_response.message = GET_MENTORS_SUCCESSFUL_MESSAGE
     get_mentors_response.data.mentors = mentors
     return get_mentors_response
+
+
+@post('/users/mentors/{mentor_id}/about')
+async def create_about():
+    pass

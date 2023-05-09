@@ -54,9 +54,10 @@ class Program(AbstractBaseModel):
     previous_abouts = relationship("About", back_populates='previous_programs', secondary="about_programs_associations")
     mentor_about = relationship("About", back_populates='program')
 
+
 class Mentor(AbstractBaseModel):
     __tablename__ = 'mentors'
-    about = Column(Text)
+    about = relationship('About', back_populates='mentor', uselist=False)
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     profile = relationship("Profile", back_populates='mentor')
     programs = relationship("Program", back_populates='mentors', secondary="program_mentor_association")
@@ -69,10 +70,10 @@ class MentorManager(AbstractBaseModel):
     __tablename__ = 'mentor_managers'
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     profile = relationship("Profile", back_populates='mentor_manager')
-    about = Column(Text)
     programs = relationship("Program", back_populates='mentor_manager')
     task = relationship("Task", back_populates='mentor_managers')
     task_id = Column(Integer, ForeignKey('tasks.id'))
+    about = relationship("About", back_populates='mentor_manager', uselist=False)
 
 
 # The criteria used for selection into the program
@@ -94,19 +95,23 @@ class Role(AbstractBaseModel):
 
 class AboutRoleAssociation(Base):
     __tablename__ = 'about_role_associations'
-    about_id = Column(Integer, ForeignKey('abouts.id'),primary_key=True)
-    role = Column(Integer, ForeignKey('roles.id'),primary_key=True)
+    about_id = Column(Integer, ForeignKey('abouts.id'), primary_key=True)
+    role = Column(Integer, ForeignKey('roles.id'), primary_key=True)
 
 
 class AboutProgramsAssociation(Base):
     __tablename__ = 'about_programs_associations'
-    program_id = Column(Integer, ForeignKey('programs.id'),primary_key=True)
-    about_id = Column(Integer, ForeignKey('abouts.id'),primary_key=True)
+    program_id = Column(Integer, ForeignKey('programs.id'), primary_key=True)
+    about_id = Column(Integer, ForeignKey('abouts.id'), primary_key=True)
 
 
 class About(AbstractBaseModel):
     __tablename__ = 'abouts'
     bio = Column(Text)
+    mentor_id = Column(Integer, ForeignKey('mentors.id'))
+    mentor = relationship("Mentor", back_populates='about')
+    mentor_manager_id = Column(Integer, ForeignKey('mentor_managers.id'))
+    mentor_manager = relationship("MentorManager", back_populates='about')
     was_mentor = Column(Boolean, default=False)
     availability = Column(Boolean, default=True)
     experience_years = Column(Integer)
