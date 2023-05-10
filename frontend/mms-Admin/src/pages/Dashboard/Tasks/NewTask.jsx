@@ -88,12 +88,12 @@ function NewTask() {
                     className="flex flex-row bg-white px-3 py-.5 mb-2"
                     onClick={() => setmentors(false)}
                     role="button"
-                    tabIndex={1}
+                    tabIndex={0}
+                    onKeyDown={() => setmentors(false)}
                   >
                     <p className="mr-3">10 Selected </p>
                     <RemoveIcon
                       styling="pl-3 object-contain cursor-pointer"
-                      onClick={() => setmentors(false)}
                     />
                   </div>
                   {/* end select mentor */}
