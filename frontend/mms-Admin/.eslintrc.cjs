@@ -24,7 +24,7 @@ module.exports = {
     'comma-spacing': ['error', {
  before: false, after: true,
     }],
-    'linebreak-style': ['error', 'unix'],
+    'linebreak-style': ['error', 'windowss'],
     'object-curly-newline': [
       'error',
       {
