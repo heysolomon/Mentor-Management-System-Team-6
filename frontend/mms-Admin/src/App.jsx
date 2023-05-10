@@ -29,6 +29,8 @@ import BrowsePeople from './pages/Dashboard/Messages/BrowsePeople';
 import BroadcastMessage from './pages/Dashboard/Messages/BroadcastMessage';
 import Chats from './pages/Dashboard/Messages/Chats';
 import { ForgotPasswordProtected } from './private/ForgotPasswordProtected';
+import MentorsHome from './pages/Dashboard/Mentors/MentorsHome';
+import MentorProfile from './pages/Dashboard/Mentors/MentorProfile';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -97,7 +99,16 @@ const router = createBrowserRouter([
       },
       {
         path: 'mentors',
-        element: 'this is the mentors',
+        children: [
+          {
+            path: '',
+            element: <MentorsHome />,
+          },
+          {
+            path: 'mentor-profile',
+            element: <MentorProfile />,
+          },
+        ],
       },
       {
         path: 'mentor-managers',
