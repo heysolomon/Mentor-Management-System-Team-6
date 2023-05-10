@@ -58,6 +58,7 @@ function NewTask() {
                     className="flex flex-row bg-white px-3 py-.5 mb-2"
                     onClick={() => setmentors(false)}
                     onKeyDown={() => setmentors(false)}
+                    role="button"
                   >
                     <p className="mr-3">10 Selected </p>
                     <RemoveIcon styling="ml-2 object-contain cursor-pointer" />
@@ -85,6 +86,7 @@ function NewTask() {
                   <div
                     className="flex flex-row bg-white px-3 py-.5 mb-2"
                     onClick={() => setmentors(false)}
+                    role="button"
                   >
                     <p className="mr-3">10 Selected </p>
                     <RemoveIcon
@@ -161,8 +163,6 @@ function NewTask() {
                   className="task flex m-3 p-3 rounded-md items-center border-2
               border-grey-400 w-full cursor-pointer flex-row max-lg:flex-col
                max-lg:justify-self-start max-lg:justify-items-start"
-                  onClick={() => setOpen(false)}
-                  onKeyUp={() => setOpen(false)}
                   key={i}
                 >
                   <UserAvatar className="max-lg:mb-0 mb-2" />
