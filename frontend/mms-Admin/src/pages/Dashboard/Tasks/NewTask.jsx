@@ -3,8 +3,7 @@ import './Tasks.css';
 import { useDispatch } from 'react-redux';
 import { RiSearchLine } from 'react-icons/ri';
 import { BsFilter,
-  BsPlusCircle,
-  BsCheck2 } from 'react-icons/bs';
+  BsPlusCircle } from 'react-icons/bs';
 import { BiArrowBack } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { RemoveIcon, UserAvatar } from '../../../assets/images';
@@ -14,7 +13,6 @@ import CreateTask from '../../../components/Modals/CreateTask';
 function NewTask() {
   const [checked, setChecked] = useState(false);
   const [sort, setSort] = useState(false);
-  const [open, setOpen] = useState(false);
   const [mentorsOpen, setmentors] = useState(true);
 
   const dispatch = useDispatch();
@@ -59,6 +57,7 @@ function NewTask() {
                   <div
                     className="flex flex-row bg-white px-3 py-.5 mb-2"
                     onClick={() => setmentors(false)}
+                    onKeyDown={() => setmentors(false)}
                   >
                     <p className="mr-3">10 Selected </p>
                     <RemoveIcon styling="ml-2 object-contain cursor-pointer" />
@@ -69,6 +68,7 @@ function NewTask() {
                   <button
                     type="button"
                     onClick={() => setmentors(true)}
+                    onKeyDown={() => setmentors(false)}
                     className="bg-pri3 py-1 mb-2 px-4 rounded-md text-white mr-1 font-light font-sm   max-md:self-center self-start lg:text-base text-sm"
                   >
                     Select
