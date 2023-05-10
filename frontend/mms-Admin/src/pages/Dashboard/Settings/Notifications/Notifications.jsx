@@ -4,7 +4,7 @@ import Toggle from '../../../../components/utilities/Toggle';
 
 function Notifications() {
   return (
-    <div className="border-[1px] rounded-[5px] border-black9 mx-10 p-5">
+    <div className="border-[1px] rounded-[5px] border-black9 mx-10 p-5 mb-[150px]">
       {/* start Notifications */}
       <div className="Notifications">
         <h1 className="font-[600] NotificationsH">General Notifications</h1>

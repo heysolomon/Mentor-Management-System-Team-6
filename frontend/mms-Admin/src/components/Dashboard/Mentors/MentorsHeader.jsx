@@ -20,10 +20,18 @@ function MentorsHeader({ grid, setGrid }) {
       {/* mentors title, grid button and list button */}
       <section className="flex items-center">
         <h2 className="font-[600] text-black1 text-[24px]">Mentors</h2>
-        <button type="button" onClick={() => setGrid(true)}>
+        <button
+          type="button"
+          onClick={() => setGrid(true)}
+          className="hover:scale-95 duration-500"
+        >
           <GridIcon color={grid ? '#058B94' : '#CEFAFD'} styling="ml-5" />
         </button>
-        <button type="button" onClick={() => setGrid(false)}>
+        <button
+          type="button"
+          onClick={() => setGrid(false)}
+          className="hover:scale-95 duration-500"
+        >
           <ListIcon color={grid ? '#CEFAFD' : '#058B94'} styling="ml-2" />
         </button>
       </section>
