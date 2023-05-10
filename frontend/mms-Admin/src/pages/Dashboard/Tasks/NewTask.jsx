@@ -59,6 +59,7 @@ function NewTask() {
                     onClick={() => setmentors(false)}
                     onKeyDown={() => setmentors(false)}
                     role="button"
+                    tabIndex={0}
                   >
                     <p className="mr-3">10 Selected </p>
                     <RemoveIcon styling="ml-2 object-contain cursor-pointer" />
@@ -87,6 +88,7 @@ function NewTask() {
                     className="flex flex-row bg-white px-3 py-.5 mb-2"
                     onClick={() => setmentors(false)}
                     role="button"
+                    tabIndex={1}
                   >
                     <p className="mr-3">10 Selected </p>
                     <RemoveIcon
