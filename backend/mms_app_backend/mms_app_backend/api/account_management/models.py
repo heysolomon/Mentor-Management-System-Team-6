@@ -34,7 +34,6 @@ class Location(AbstractBaseModel):
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     profile = relationship("Profile", back_populates='location')
 
-
 class ProgramMentorAssociation(AbstractBaseModel):
     __tablename__ = 'program_mentor_association'
     program_id = Column(Integer, ForeignKey('programs.id'), primary_key=True)
@@ -93,3 +92,7 @@ class Role(AbstractBaseModel):
     mentor_id = Column(Integer, ForeignKey('mentors.id'))
     mentor_manager = relationship("MentorManager", back_populates='roles')
     mentor_manager_id = Column(Integer, ForeignKey('mentor_managers.id'))
+
+
+
+
