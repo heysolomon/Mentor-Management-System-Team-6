@@ -15,11 +15,13 @@ def create_post_crud(db: Session, post: CreatePost):
 
 def get_posts_crud(db: Session):
     posts = db.query(Post).all()
-    return [GetPost(id=task.id, title=task.title) for task in posts]
+    return [GetPost(id=post.id, title=post.title, content=post.content, created_at=post.created_at) for post in posts]
 
 
 def update_post_crud(db: Session, posts: UpdatePost, post_id):
     post_instance = db.query(Post).filter(Post.id == post_id).first()
+
+    print("The post instance", post_instance)
     if posts.title:
         post_instance.title = posts.title
     if posts.content:
@@ -28,7 +30,8 @@ def update_post_crud(db: Session, posts: UpdatePost, post_id):
     db.add(post_instance)
     db.commit()
     db.refresh(post_instance)
-    return GetPost(id=post_instance.id, title=post_instance.title, create_ad=post_instance.created_at)
+    return GetPost(id=post_instance.id, title=post_instance.title, content=post_instance.content,
+                   created_at=post_instance.created_at)
 
 
 def delete_post_crud(db, post_instance):
