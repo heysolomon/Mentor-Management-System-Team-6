@@ -1,5 +1,4 @@
-import datetime
-from sqlalchemy import Column, Integer, Text, String, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, Text, String, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import URLType
 
