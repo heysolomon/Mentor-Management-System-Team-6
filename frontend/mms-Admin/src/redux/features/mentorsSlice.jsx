@@ -28,6 +28,9 @@ const mentorsSlice = createSlice({
       state.isMentorClicked = true;
       state.clickedMentor = action.payload;
     },
+    saveMentorsList: (state, action) => {
+      state.mentors = action.payload;
+    },
   },
 });
 
@@ -37,4 +40,5 @@ export const {
   getMentorsSuccess,
   getMentorsFailure,
   mentorInfoOpen,
+  saveMentorsList,
 } = mentorsSlice.actions;

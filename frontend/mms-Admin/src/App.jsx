@@ -32,6 +32,8 @@ import { ForgotPasswordProtected } from './private/ForgotPasswordProtected';
 import Mentors from './pages/Dashboard/Mentors/Mentors';
 import MentorsHome from './pages/Dashboard/Mentors/MentorsHome';
 import MentorsInfo from './pages/Dashboard/Mentors/MentorsInfo';
+import { MentorsInfoProtected } from './private/MentorsInfo';
+import MentorAbout from './pages/Dashboard/Mentors/MentorAbout';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -108,7 +110,29 @@ const router = createBrowserRouter([
           },
           {
             path: 'mentor-info',
-            element: <MentorsInfo />,
+            element: (
+              <MentorsInfoProtected>
+                <MentorsInfo />
+              </MentorsInfoProtected>
+            ),
+            children: [
+              {
+                path: '',
+                element: <MentorAbout />,
+              },
+              {
+                path: 'programs',
+                element: 'programs page',
+              },
+              {
+                path: 'tasks',
+                element: 'tasks page',
+              },
+              {
+                path: 'certificates',
+                element: 'certificates page',
+              },
+            ],
           },
         ],
       },

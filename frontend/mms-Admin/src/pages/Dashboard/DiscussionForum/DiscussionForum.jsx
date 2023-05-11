@@ -12,8 +12,8 @@ function DiscussionForum() {
     dispatch(openModal(<ForumNewTopic />));
   };
   return (
-    <div className="pb-2">
-      <div className="sticky w-full bg-white top-[80px] mb-[33px]">
+    <div className="pb-2 h-full mb-[100px]">
+      <div className="w-full bg-white top-[80px] mb-[33px]">
         <h2 className="text-[24px] font-[600] text-black1 mb-[20px]">
           Discussion Forum
         </h2>
@@ -29,7 +29,7 @@ function DiscussionForum() {
         </div>
       </div>
 
-      <div className="">
+      <div className="h-full max-h-screen overflow-y-auto scroll pr-[10px] pb-[150px]">
         <DiscussionPost />
         <DiscussionPost />
         <DiscussionPost />
