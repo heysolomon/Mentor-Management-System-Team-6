@@ -26,10 +26,7 @@ function Profile() {
               <h2 className="font-semibold text-2xl text-black2 mr-2">
                 Peculiar Umeh
               </h2>
-              <img
-                src={country}
-                alt="img"
-              />
+              <img src={country} alt="img" />
             </div>
             <h4 className="text-black5">Admin</h4>
           </div>
@@ -58,34 +55,22 @@ function Profile() {
 
         <section className="w-3/6 grid grid-cols-2 gap-8">
           <div className="flex items-center">
-            <img
-              src={email}
-              alt="email"
-            />
+            <img src={email} alt="email" />
             <h5 className="text-black5 ml-1">peculiah@andela.com</h5>
           </div>
 
           <div className="flex items-center">
-            <img
-              src={location}
-              alt="location"
-            />
+            <img src={location} alt="location" />
             <h5 className="text-black5 ml-1">Lagos, Nigeria</h5>
           </div>
 
           <div className="flex items-center">
-            <img
-              src={globe}
-              alt="globe"
-            />
+            <img src={globe} alt="globe" />
             <h5 className="text-black5 ml-1">www.peculiah.com</h5>
           </div>
 
           <div className="flex items-center">
-            <img
-              src={calendar}
-              alt="calendar"
-            />
+            <img src={calendar} alt="calendar" />
             <h5 className="text-black5 ml-1">Member since June 22, 2021</h5>
           </div>
         </section>
@@ -96,34 +81,22 @@ function Profile() {
         </h1>
         <section className="w-3/6 grid grid-cols-2 gap-8">
           <div className="flex items-center text-xl font-semibold bg-pri10 p-2">
-            <img
-              src={github}
-              alt="github"
-            />
+            <img src={github} alt="github" />
             <h5 className="text-black5 ml-1">peculiah@andela.com</h5>
           </div>
 
           <div className="flex items-center text-xl font-semibold bg-pri10 p-2">
-            <img
-              src={linkedin}
-              alt="linkedin"
-            />
+            <img src={linkedin} alt="linkedin" />
             <h5 className="text-black5 ml-1">peculiah@andela.com</h5>
           </div>
 
           <div className="flex items-center text-xl font-semibold bg-pri10 p-2">
-            <img
-              src={twitter}
-              alt="twitter"
-            />
+            <img src={twitter} alt="twitter" />
             <h5 className="text-black5 ml-1">peculiah@andela.com</h5>
           </div>
 
           <div className="flex items-center text-xl font-semibold bg-pri10 p-2">
-            <img
-              src={instagram}
-              alt="instagram"
-            />
+            <img src={instagram} alt="instagram" />
             <h5 className="text-black5 ml-1">peculiah@andela.com</h5>
           </div>
         </section>

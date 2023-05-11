@@ -29,6 +29,7 @@ import BrowsePeople from './pages/Dashboard/Messages/BrowsePeople';
 import BroadcastMessage from './pages/Dashboard/Messages/BroadcastMessage';
 import Chats from './pages/Dashboard/Messages/Chats';
 import { ForgotPasswordProtected } from './private/ForgotPasswordProtected';
+import Mentors from './pages/Dashboard/Mentors/Mentors';
 import MentorsHome from './pages/Dashboard/Mentors/MentorsHome';
 import MentorProfile from './pages/Dashboard/Mentors/MentorProfile';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
@@ -99,6 +100,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'mentors',
+        element: <Mentors />,
         children: [
           {
             path: '',

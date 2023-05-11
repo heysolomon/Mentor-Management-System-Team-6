@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Avatar from '../../../assets/avatar.svg';
 import editIcon from '../../../assets/messages/edit.svg';
 import flagIcon from '../../../assets/messages/flag.svg';
@@ -41,6 +41,7 @@ const users = [
   },
 ];
 export default function MentorProfile() {
+  const navigate = useNavigate();
   const [sectionHeader, setSectionHeader] = useState('about');
 
   const handleSelectSection = (section) => {
@@ -133,14 +134,13 @@ export default function MentorProfile() {
                 </button>
               </Link>
 
-              <Link to="/admin-dashboard/mentors">
-                <button
-                  type="button"
-                  className="bg-white border border-2xl border-pri3 py-2.5 px-10 text-pri3 rounded-xl font-semibold ml-7 hover:bg-pri3 hover:text-white "
-                >
-                  Close
-                </button>
-              </Link>
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="bg-white border border-2xl border-pri3 py-2.5 px-10 text-pri3 rounded-xl font-semibold ml-7 hover:bg-pri3 hover:text-white "
+              >
+                Close
+              </button>
             </div>
           </section>
 
