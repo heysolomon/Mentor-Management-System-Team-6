@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Avatar from '../../../assets/avatar.svg';
 import filterIcon from '../../../assets/messages/filter.svg';
 import closeIcon from '../../../assets/messages/close.svg';
@@ -10,6 +10,8 @@ import nextMessageIcon from '../../../assets/messages/next-message.svg';
 import prevMessageIcon from '../../../assets/messages/prev-message.svg';
 
 export default function BrowsePeople() {
+  const navigate = useNavigate();
+
   return (
     <div className="h-full">
       <section className="flex justify-between items-center mb-6">
@@ -53,13 +55,13 @@ export default function BrowsePeople() {
             alt="prev page icon"
             className="h-full cursor-pointer px-8"
           />
-          <Link to="/admin-dashboard/messages">
-            <img
-              src={closeIcon}
-              alt="prev page icon"
-              className="h-full cursor-pointer"
-            />
-          </Link>
+          <img
+            src={closeIcon}
+            alt="prev page icon"
+            className="h-full cursor-pointer"
+            aria-hidden
+            onClick={() => navigate(-1)}
+          />
         </div>
       </section>
 

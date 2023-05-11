@@ -8,16 +8,16 @@ import { BiArrowBack } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { RemoveIcon, UserAvatar } from '../../../assets/images';
 import { openModal } from '../../../redux/features/Modals/modalSlice';
-import CreateTask from '../../../components/Modals/CreateTask';
+import UpdateTask from '../../../components/Modals/UpdateTask';
 
-function NewTask() {
+function EditTask() {
   const [checked, setChecked] = useState(false);
   const [sort, setSort] = useState(false);
   const [mentorsOpen, setmentors] = useState(true);
 
   const dispatch = useDispatch();
   const handleSuccess = () => {
-    dispatch(openModal(<CreateTask />));
+    dispatch(openModal(<UpdateTask />));
   };
   const search = () => {
     setChecked(true);
@@ -25,7 +25,7 @@ function NewTask() {
   return (
     <div className="mx-10 pb-[50px]">
       <div className="">
-        <h1 className="font-[600] tasksH grow flex-basis-1 w-full">New Task</h1>
+        <h1 className="font-[600] tasksH grow flex-basis-1 w-full">Edit Task</h1>
         <div className="max-lg:flex-col-reverse flex grow flex-row max-lg:mt-5">
           <div className="grow">
             <p className="font-black text-[16px] font-[600] mt-5">Title</p>
@@ -116,7 +116,7 @@ function NewTask() {
                 className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold"
                 onClick={handleSuccess}
               >
-                Create Task
+                Update Task
               </button>
             </section>
           </div>
@@ -195,4 +195,4 @@ function NewTask() {
   );
 }
 
-export default NewTask;
+export default EditTask;

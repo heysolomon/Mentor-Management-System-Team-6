@@ -34,6 +34,8 @@ import MentorsHome from './pages/Dashboard/Mentors/MentorsHome';
 import MentorsInfo from './pages/Dashboard/Mentors/MentorsInfo';
 import { MentorsInfoProtected } from './private/MentorsInfo';
 import MentorAbout from './pages/Dashboard/Mentors/MentorAbout';
+import MentorProfile from './pages/Dashboard/Mentors/MentorProfile';
+import EditTask from './pages/Dashboard/Tasks/EditTask';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -97,6 +99,10 @@ const router = createBrowserRouter([
         element: <NewTask />,
       },
       {
+        path: 'task_Edit',
+        element: <EditTask />,
+      },
+      {
         path: 'reports',
         element: 'this is the reports',
       },
@@ -133,6 +139,10 @@ const router = createBrowserRouter([
                 element: 'certificates page',
               },
             ],
+          },
+          {
+            path: 'mentor-profile',
+            element: <MentorProfile />,
           },
         ],
       },

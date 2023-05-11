@@ -6,7 +6,7 @@ import { CommentIcon, DeleteIcon } from '../../../assets/images';
 import { mentorInfoOpen } from '../../../redux/features/mentorsSlice';
 import MentorTag from './MentorTags';
 
-function MentorCard({ grid, mentor }) {
+function MentorCard({ grid, mentor, deleteGrid }) {
   const dispatch = useDispatch();
 
   // redirecting
@@ -38,6 +38,7 @@ function MentorCard({ grid, mentor }) {
             <h4 className="font-[600] text-[20px] text-black2">
               {mentor.name}
             </h4>
+
             <p className="font-[400] text-[12px] text-black5 -my-1">
               {mentor.role}
             </p>
@@ -62,7 +63,11 @@ function MentorCard({ grid, mentor }) {
           <CommentIcon />
         </button>
 
-        <button type="button" className={`${!grid && 'ml-3'}`}>
+        <button
+          type="button"
+          className={`${!grid && 'ml-3'}`}
+          onClick={() => deleteGrid()}
+        >
           <DeleteIcon color="#058B94" />
         </button>
       </div>

@@ -61,7 +61,13 @@ import doc from './doc.png';
 // mentor management system logo
 
 export function BrandLogo({ styling }) {
-  return <img src={brandLogo} className={styling} alt="logo" />;
+  return (
+    <img
+      src={brandLogo}
+      className={styling}
+      alt="logo"
+    />
+  );
 }
 
 // password eye show icon
@@ -145,13 +151,25 @@ export function PasswordEyeHide({ styling }) {
 // new task modal
 
 export function NewTaskImgModal({ styling }) {
-  return <img src={NewTaskImg} className={styling} alt="Task added" />;
+  return (
+    <img
+      src={NewTaskImg}
+      className={styling}
+      alt="Task added"
+    />
+  );
 }
 
 // remove mentor icon
 
 export function RemoveIcon({ styling }) {
-  return <img src={remove} className={styling} alt="remove icon" />;
+  return (
+    <img
+      src={remove}
+      className={styling}
+      alt="remove icon"
+    />
+  );
 }
 
 // remove mentor icon
@@ -175,108 +193,222 @@ export function CountryFlag({ styling }) {
 // google logo
 
 export function GoogleLogo({ styling }) {
-  return <img src={googleLogo} className={styling} alt="google logo" />;
+  return (
+    <img
+      src={googleLogo}
+      className={styling}
+      alt="google logo"
+    />
+  );
 }
 
 // password rest success illustration
 
 export function ResetPasswordIllustration({ styling }) {
-  return <img src={resetIll} className={styling} alt="illustration" />;
+  return (
+    <img
+      src={resetIll}
+      className={styling}
+      alt="illustration"
+    />
+  );
 }
 
 // search bar icon
 
 export function SearchIcon({ styling }) {
-  return <img src={searchIcon} className={styling} alt="search icon" />;
+  return (
+    <img
+      src={searchIcon}
+      className={styling}
+      alt="search icon"
+    />
+  );
 }
 
 // gads elipse
 
 export function GadsElipse({ styling }) {
-  return <img src={gadsElipse} className={styling} alt="search icon" />;
+  return (
+    <img
+      src={gadsElipse}
+      className={styling}
+      alt="search icon"
+    />
+  );
 }
 
 // mobile menu
 
 export function MobileMenu({ styling }) {
-  return <img src={menu} className={styling} alt="search icon" />;
+  return (
+    <img
+      src={menu}
+      className={styling}
+      alt="search icon"
+    />
+  );
 }
 
 // gads report icon
 
 export function GadsReportIcon({ styling }) {
-  return <img src={gadsReportIcon} className={styling} alt="search icon" />;
+  return (
+    <img
+      src={gadsReportIcon}
+      className={styling}
+      alt="search icon"
+    />
+  );
 }
 
 // calender icon
 
 export function CalenderIcon({ styling }) {
-  return <img src={calender} className={styling} alt="search icon" />;
+  return (
+    <img
+      src={calender}
+      className={styling}
+      alt="search icon"
+    />
+  );
 }
 
 // arrow down icon
 
 export function ArrowDown({ styling }) {
-  return <img src={arrowDown} className={styling} alt="search icon" />;
+  return (
+    <img
+      src={arrowDown}
+      className={styling}
+      alt="search icon"
+    />
+  );
 }
 
 // arrow down icon
 
 export function InstagramIcon({ styling }) {
-  return <img src={ig} className={styling} alt="search icon" />;
+  return (
+    <img
+      src={ig}
+      className={styling}
+      alt="search icon"
+    />
+  );
 }
 
 // github icon
 
 export function GithubIcon({ styling }) {
-  return <img src={github} className={styling} alt="search icon" />;
+  return (
+    <img
+      src={github}
+      className={styling}
+      alt="search icon"
+    />
+  );
 }
 
 // linkedin icon
 
 export function LinkedinIcon({ styling }) {
-  return <img src={linkedIn} className={styling} alt="search icon" />;
+  return (
+    <img
+      src={linkedIn}
+      className={styling}
+      alt="search icon"
+    />
+  );
 }
 
 // twitter icon
 
 export function TwitterIcon({ styling }) {
-  return <img src={twitter} className={styling} alt="search icon" />;
+  return (
+    <img
+      src={twitter}
+      className={styling}
+      alt="search icon"
+    />
+  );
 }
 
 // Delete image of delete task modal
 
 export function DeleteImage({ styling }) {
-  return <img src={deleteImg} className={styling} alt="delete" />;
+  return (
+    <img
+      src={deleteImg}
+      className={styling}
+      alt="delete"
+    />
+  );
 }
 
 // Horizontal 3 dots icon
 export function OptionsIcon({ styling }) {
-  return <img src={optionIcon} className={styling} alt="delete" />;
+  return (
+    <img
+      src={optionIcon}
+      className={styling}
+      alt="delete"
+    />
+  );
 }
 
 // Horizontal 3 dots icon
 export function BookmarkIcon({ styling }) {
-  return <img src={bookmark} className={styling} alt="delete" />;
+  return (
+    <img
+      src={bookmark}
+      className={styling}
+      alt="delete"
+    />
+  );
 }
 
 // comment icon
 export function CommentIcon({ styling }) {
-  return <img src={commentIcon} className={styling} alt="delete" />;
+  return (
+    <img
+      src={commentIcon}
+      className={styling}
+      alt="delete"
+    />
+  );
 }
 
 // share icon
 export function ShareIcon({ styling }) {
-  return <img src={shareIcon} className={styling} alt="delete" />;
+  return (
+    <img
+      src={shareIcon}
+      className={styling}
+      alt="delete"
+    />
+  );
 }
 
 // clock icon
 export function ClockIcon({ styling }) {
-  return <img src={clockIcon} className={styling} alt="delete" />;
+  return (
+    <img
+      src={clockIcon}
+      className={styling}
+      alt="delete"
+    />
+  );
 }
 // mentor picture
 export function MentorAvatar({ styling }) {
-  return <img src={mentor} className={styling} alt="delete" />;
+  return (
+    <img
+      src={mentor}
+      className={styling}
+      alt="delete"
+    />
+  );
 }
 
 // attachment icon
@@ -624,7 +756,13 @@ export function NotificationBellIcon({ styling, color }) {
 // user avatr
 
 export function UserAvatar({ styling }) {
-  return <img src={userAvatar} className={styling} alt="search icon" />;
+  return (
+    <img
+      src={userAvatar}
+      className={styling}
+      alt="search icon"
+    />
+  );
 }
 
 // user square icon
@@ -786,7 +924,11 @@ export function CertificateIcon({ styling, color }) {
 
       <defs>
         <clipPath id="clip0_6784_4715">
-          <rect width="24" height="24" fill="white" />
+          <rect
+            width="24"
+            height="24"
+            fill="white"
+          />
         </clipPath>
       </defs>
     </svg>

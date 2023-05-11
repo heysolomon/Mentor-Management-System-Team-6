@@ -7,6 +7,8 @@ import { getMentorsFailure,
   getMentorsStart,
   getMentorsSuccess } from '../../../redux/features/mentorsSlice';
 import { mentors } from '../../../services/api';
+import { openModal } from '../../../redux/features/Modals/modalSlice';
+import DeleteMentor from '../../../components/Modals/DeleteMentor';
 
 function MentorsHome() {
   const { userInfo } = useSelector((state) => state.user);
@@ -143,6 +145,11 @@ function MentorsHome() {
     getMentors();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getMentorsStart, getMentorsSuccess, getMentorsFailure]);
+
+  const handleDeleteMentor = () => {
+    dispatch(openModal(<DeleteMentor />));
+  };
+
   return (
     <div className="h-screen">
       <MentorsHeader setGrid={setGrid} grid={grid} />
@@ -153,10 +160,11 @@ function MentorsHome() {
           >
             {mentorsList.map((mentor) => (
               <MentorCard
-                mentor={mentor}
                 key={mentor.id}
+                mentor={mentor}
                 grid={grid}
                 setGrid={setGrid}
+                deleteGrid={handleDeleteMentor}
               />
             ))}
           </div>
