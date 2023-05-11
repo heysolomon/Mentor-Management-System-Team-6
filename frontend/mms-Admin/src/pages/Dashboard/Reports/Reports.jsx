@@ -97,8 +97,6 @@ function Reports() {
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div
               className="task flex m-3 p-3 rounded-md  border-2 border-grey-400 w-full cursor-pointer"
-              onClick={() => setOpen(false)}
-              onKeyUp={() => setOpen(false)}
               key={i}
             >
               <img src={active ? reportImg : taskImg} alt={i} className="object-contain" />
@@ -170,7 +168,7 @@ function Reports() {
               <div className="flex flex-row-reverse justify-between my-7">
                 <button
                   className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold"
-                  role="button"
+                  type="button"
                   onClick={handleDownload}
                   onKeyDown={handleDownload}
                   tabIndex={0}
