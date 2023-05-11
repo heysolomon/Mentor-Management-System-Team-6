@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, Text, String, ForeignKey
+import datetime
+from sqlalchemy import Column, Integer, Text, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import URLType
 
@@ -33,7 +34,6 @@ class Location(AbstractBaseModel):
     country = Column(String)
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     profile = relationship("Profile", back_populates='location')
-
 
 class ProgramMentorAssociation(AbstractBaseModel):
     __tablename__ = 'program_mentor_association'
@@ -93,3 +93,7 @@ class Role(AbstractBaseModel):
     mentor_id = Column(Integer, ForeignKey('mentors.id'))
     mentor_manager = relationship("MentorManager", back_populates='roles')
     mentor_manager_id = Column(Integer, ForeignKey('mentor_managers.id'))
+
+
+
+

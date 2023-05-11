@@ -14,3 +14,7 @@ class ViewMentors(BaseMentors):
 
     class Config:
         orm_mode = True
+
+
+class CreateMentor(BaseMentors):
+    pass

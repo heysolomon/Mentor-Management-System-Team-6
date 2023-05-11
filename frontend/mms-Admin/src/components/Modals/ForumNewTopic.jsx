@@ -31,6 +31,7 @@ function ForumNewTopic() {
         styling="flex justify-center items-center flex-col"
       >
         <InputField
+          tag="input"
           type="text"
           name="title"
           placeholder="Enter a title"

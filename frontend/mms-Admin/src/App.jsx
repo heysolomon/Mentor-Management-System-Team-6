@@ -24,6 +24,15 @@ import ForgotPasswordVerifyEmail from './pages/Auth/ForgotPasswordVerifyEmail';
 import NewTask from './pages/Dashboard/Tasks/NewTask';
 import { ProtectedRoute } from './private/ProtectedRoute';
 import DiscussionForum from './pages/Dashboard/DiscussionForum/DiscussionForum';
+import MessageHome from './pages/Dashboard/Messages/MessageHome';
+import BrowsePeople from './pages/Dashboard/Messages/BrowsePeople';
+import BroadcastMessage from './pages/Dashboard/Messages/BroadcastMessage';
+import Chats from './pages/Dashboard/Messages/Chats';
+import { ForgotPasswordProtected } from './private/ForgotPasswordProtected';
+import Mentors from './pages/Dashboard/Mentors/Mentors';
+import MentorsHome from './pages/Dashboard/Mentors/MentorsHome';
+import MentorProfile from './pages/Dashboard/Mentors/MentorProfile';
+import EditTask from './pages/Dashboard/Tasks/EditTask';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -49,7 +58,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'set-new-password',
-        element: <SetNewPassword />,
+        element: (
+          <ForgotPasswordProtected>
+            <SetNewPassword />
+          </ForgotPasswordProtected>
+        ),
       },
     ],
   },
@@ -83,12 +96,26 @@ const router = createBrowserRouter([
         element: <NewTask />,
       },
       {
+        path: 'task_Edit',
+        element: <EditTask />,
+      },
+      {
         path: 'reports',
         element: 'this is the reports',
       },
       {
         path: 'mentors',
-        element: 'this is the mentors',
+        element: <Mentors />,
+        children: [
+          {
+            path: '',
+            element: <MentorsHome />,
+          },
+          {
+            path: 'mentor-profile',
+            element: <MentorProfile />,
+          },
+        ],
       },
       {
         path: 'mentor-managers',
@@ -104,7 +131,24 @@ const router = createBrowserRouter([
       },
       {
         path: 'messages',
-        element: 'this is the messages',
+        children: [
+          {
+            path: '',
+            element: <MessageHome />,
+          },
+          {
+            path: 'browse-people',
+            element: <BrowsePeople />,
+          },
+          {
+            path: 'chats',
+            element: <Chats />,
+          },
+          {
+            path: 'broadcast-message',
+            element: <BroadcastMessage />,
+          },
+        ],
       },
       {
         path: 'discussion-forum',
