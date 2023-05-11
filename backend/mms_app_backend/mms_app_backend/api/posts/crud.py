@@ -1,7 +1,7 @@
 from mms_app_backend.api.posts.schemas import CreatePost, CreateComment
 from sqlalchemy.orm import Session
 from .models import Post,Comment
-from .schemas import GetPost, UpdatePost, GetComment, CommentBase
+from .schemas import GetPost, UpdatePost, GetComment
 
 
 def create_post_crud(db: Session, post: CreatePost):
