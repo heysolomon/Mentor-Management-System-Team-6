@@ -25,7 +25,7 @@ function Tasks() {
     dispatch(openModal(<DeleteTask />));
   };
   return (
-    <div className="flex flex-col lg:flex-row">
+    <div className="flex flex-col lg:flex-row h-full">
       <div
         className={`${
           open ? '' : 'max-lg:hidden'
@@ -104,94 +104,95 @@ function Tasks() {
             show all Tasks
           </button>
         </div>
-        <div className="task flex  flex-col  rounded-md  border-2 border-grey-400 w-full">
-          <div className="flex flex-row p-4">
-            <img src={taskImg} alt="icon" className="object-contain" />
-            <div className="rightTask ms-8">
-              <h3 className="font-semibold text-xl ">
-                Room library article written in java
-              </h3>
-              <div className="taskdate flex items-center">
-                <GoCalendar className="text-teal-700 text-l me-3" />
-                <p className="text-xs text-gray-400 font-light align-middle">
-                  3 days from now
-                </p>
+        <div className="pr-[10px] pb-20 h-full overflow-y-auto scroll">
+          <div className="task flex  flex-col  rounded-md  border-2 border-grey-400 w-full">
+            <div className="flex flex-row p-4">
+              <img src={taskImg} alt="icon" className="object-contain" />
+              <div className="rightTask ms-8">
+                <h3 className="font-semibold text-xl ">
+                  Room library article written in java
+                </h3>
+                <div className="taskdate flex items-center">
+                  <GoCalendar className="text-teal-700 text-l me-3" />
+                  <p className="text-xs text-gray-400 font-light align-middle">
+                    3 days from now
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="bg-pri11 rounded-b-lg p-4">
-            <p className="text-gray-500 pt-2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et
-              massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien
-              fringilla, mattis ligula consectetur, ultrices mauris. Maecenas
-              vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum
-              auctor ornare leo, non suscipit magna interdum eu. Curabitur
-              pellentesque nibh nibh, at maximus ante fermentum sit amet.
-              Pellentesque
-            </p>
-            {/* start task1 */}
-            <div className="flex bg-cyan-100/50 p-3 my-3 max-md:flex-col max-md:place-items-center">
-              <BsPeople className="text-teal-700 text-3xl mx-5" />
-              <p className="font-semibold text-xl w-full max-md:text-center max-md:mb-2">
-                <span className="font-extrabold text-4xl mr-5">10</span>
-                Mentor Managers assigned to this task
+            <div className="bg-pri11 rounded-b-lg p-4">
+              <p className="text-gray-500 pt-2">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et
+                massa mi. Aliquam in hendrerit urna. Pellentesque sit amet
+                sapien fringilla, mattis ligula consectetur, ultrices mauris.
+                Maecenas vitae mattis tellus. Nullam quis imperdiet augue.
+                Vestibulum auctor ornare leo, non suscipit magna interdum eu.
+                Curabitur pellentesque nibh nibh, at maximus ante fermentum sit
+                amet. Pellentesque
               </p>
-              <button
-                type="button"
-                className="bg-pri3 py-1.5 px-5 rounded-md text-white font-light font-sm lg:mr-10  max-md:self-center self-start lg:text-base text-sm"
-              >
-                View
-              </button>
-            </div>
-            {/* end task 1 */}
+              {/* start task1 */}
+              <div className="flex bg-cyan-100/50 p-3 my-3 max-md:flex-col max-md:place-items-center">
+                <BsPeople className="text-teal-700 text-3xl mx-5" />
+                <p className="font-semibold text-xl w-full max-md:text-center max-md:mb-2">
+                  <span className="font-extrabold text-4xl mr-5">10</span>
+                  Mentor Managers assigned to this task
+                </p>
+                <button
+                  type="button"
+                  className="bg-pri3 py-1.5 px-5 rounded-md text-white font-light font-sm lg:mr-10  max-md:self-center self-start lg:text-base text-sm"
+                >
+                  View
+                </button>
+              </div>
+              {/* end task 1 */}
 
-            {/* start task 2 */}
-            <div className="flex bg-cyan-100/50 p-3 my-3 max-md:flex-col max-md:place-items-center">
-              <BsPerson className="text-teal-700 text-3xl mx-5" />
-              <p className="font-semibold text-xl w-full max-md:text-center max-md:mb-2">
-                <span className="font-extrabold text-4xl mr-5">80</span>
-                Mentors assigned to this task
-              </p>
-              <button
-                type="button"
-                className="bg-pri3 py-1.5 px-5 rounded-md text-white font-light font-sm lg:mr-10  max-md:self-center self-start lg:text-base text-sm"
-              >
-                View
-              </button>
-            </div>
-            {/* end task 2 */}
+              {/* start task 2 */}
+              <div className="flex bg-cyan-100/50 p-3 my-3 max-md:flex-col max-md:place-items-center">
+                <BsPerson className="text-teal-700 text-3xl mx-5" />
+                <p className="font-semibold text-xl w-full max-md:text-center max-md:mb-2">
+                  <span className="font-extrabold text-4xl mr-5">80</span>
+                  Mentors assigned to this task
+                </p>
+                <button
+                  type="button"
+                  className="bg-pri3 py-1.5 px-5 rounded-md text-white font-light font-sm lg:mr-10  max-md:self-center self-start lg:text-base text-sm"
+                >
+                  View
+                </button>
+              </div>
+              {/* end task 2 */}
 
-            {/* start task 3 */}
-            <div className="flex bg-cyan-100/50 p-3 my-3 max-md:flex-col max-md:place-items-center">
-              <HiOutlineDocumentText className="text-teal-700 text-3xl mx-5" />
-              <p className="font-semibold text-xl w-full max-md:text-center max-md:mb-2">
-                <span className="font-extrabold text-3xl mr-5">45</span>
-                Task reports
-              </p>
-              <button
-                type="button"
-                className="bg-pri3 py-1.5 px-5 rounded-md text-white font-light font-sm lg:mr-10  max-md:self-center self-start lg:text-base text-sm"
-              >
-                View
-              </button>
-            </div>
-            {/* end task  3 */}
-            <div className="flex flex-row-reverse my-7">
-              <NavLink
-                to="/admin-dashboard/task_edit"
-                className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold"
-              >
-
-                Edit Task
-              </NavLink>
-              <button
-                type="button"
-                className="bg-transparent py-2.5 px-10  text-red-600 font-meduim flex flex-row"
-                onClick={handleDelete}
-              >
-                <HiOutlineTrash className="text-xl mr-2 font-xl" />
-                Delete
-              </button>
+              {/* start task 3 */}
+              <div className="flex bg-cyan-100/50 p-3 my-3 max-md:flex-col max-md:place-items-center">
+                <HiOutlineDocumentText className="text-teal-700 text-3xl mx-5" />
+                <p className="font-semibold text-xl w-full max-md:text-center max-md:mb-2">
+                  <span className="font-extrabold text-3xl mr-5">45</span>
+                  Task reports
+                </p>
+                <button
+                  type="button"
+                  className="bg-pri3 py-1.5 px-5 rounded-md text-white font-light font-sm lg:mr-10  max-md:self-center self-start lg:text-base text-sm"
+                >
+                  View
+                </button>
+              </div>
+              {/* end task  3 */}
+              <div className="flex flex-row-reverse my-7">
+                <button
+                  type="button"
+                  className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold"
+                >
+                  Edit Task
+                </button>
+                <button
+                  type="button"
+                  className="bg-transparent py-2.5 px-10  text-red-600 font-meduim flex flex-row"
+                  onClick={handleDelete}
+                >
+                  <HiOutlineTrash className="text-xl mr-2 font-xl" />
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
         </div>

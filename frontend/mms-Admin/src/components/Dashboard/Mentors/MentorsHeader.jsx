@@ -23,20 +23,16 @@ function MentorsHeader({ grid, setGrid }) {
         <button
           type="button"
           onClick={() => setGrid(true)}
+          className="hover:scale-95 duration-500"
         >
-          <GridIcon
-            color={grid ? '#058B94' : '#CEFAFD'}
-            styling="ml-5"
-          />
+          <GridIcon color={grid ? '#058B94' : '#CEFAFD'} styling="ml-5" />
         </button>
         <button
           type="button"
           onClick={() => setGrid(false)}
+          className="hover:scale-95 duration-500"
         >
-          <ListIcon
-            color={grid ? '#CEFAFD' : '#058B94'}
-            styling="ml-2"
-          />
+          <ListIcon color={grid ? '#CEFAFD' : '#058B94'} styling="ml-2" />
         </button>
       </section>
 
@@ -83,24 +79,12 @@ function MentorsHeader({ grid, setGrid }) {
           </button>
         </div>
 
-        <button
-          type="submit"
-          className="mx-5"
-        >
-          <CustomSearchIcon
-            color="#058B94"
-            styling=""
-          />
+        <button type="submit" className="mx-5">
+          <CustomSearchIcon color="#058B94" styling="" />
         </button>
 
-        <button
-          className=""
-          type="button"
-        >
-          <FilterIcon
-            color="#058B94"
-            styling=""
-          />
+        <button className="" type="button">
+          <FilterIcon color="#058B94" styling="" />
         </button>
       </section>
     </div>

@@ -31,6 +31,9 @@ import Chats from './pages/Dashboard/Messages/Chats';
 import { ForgotPasswordProtected } from './private/ForgotPasswordProtected';
 import Mentors from './pages/Dashboard/Mentors/Mentors';
 import MentorsHome from './pages/Dashboard/Mentors/MentorsHome';
+import MentorsInfo from './pages/Dashboard/Mentors/MentorsInfo';
+import { MentorsInfoProtected } from './private/MentorsInfo';
+import MentorAbout from './pages/Dashboard/Mentors/MentorAbout';
 import MentorProfile from './pages/Dashboard/Mentors/MentorProfile';
 import EditTask from './pages/Dashboard/Tasks/EditTask';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
@@ -110,6 +113,32 @@ const router = createBrowserRouter([
           {
             path: '',
             element: <MentorsHome />,
+          },
+          {
+            path: 'mentor-info',
+            element: (
+              <MentorsInfoProtected>
+                <MentorsInfo />
+              </MentorsInfoProtected>
+            ),
+            children: [
+              {
+                path: '',
+                element: <MentorAbout />,
+              },
+              {
+                path: 'programs',
+                element: 'programs page',
+              },
+              {
+                path: 'tasks',
+                element: 'tasks page',
+              },
+              {
+                path: 'certificates',
+                element: 'certificates page',
+              },
+            ],
           },
           {
             path: 'mentor-profile',

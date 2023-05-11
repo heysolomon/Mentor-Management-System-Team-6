@@ -25,7 +25,7 @@ function DashboardHome() {
   ];
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full pr-[10px] overflow-y-auto scroll mb-10">
       <div className="w-full">
         {/* dashboard title and filter */}
         <div className="flex justify-between">

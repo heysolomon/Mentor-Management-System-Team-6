@@ -50,6 +50,12 @@ import clockIcon from './clock-time-icon.svg';
 
 import mentor from './mentor.svg';
 
+import country from './profile_assets/country.svg';
+
+import edit from './edit.png';
+
+import doc from './doc.png';
+
 // am importing pictures from the assets folder and exporting them as components
 
 // mentor management system logo
@@ -164,6 +170,24 @@ export function RemoveIcon({ styling }) {
       alt="remove icon"
     />
   );
+}
+
+// remove mentor icon
+
+export function Edit({ styling }) {
+  return <img src={edit} className={styling} alt="remove icon" />;
+}
+
+// docs icon
+
+export function DocsIcon({ styling }) {
+  return <img src={doc} className={styling} alt="remove icon" />;
+}
+
+// country flag
+
+export function CountryFlag({ styling }) {
+  return <img src={country} className={styling} alt="remove icon" />;
 }
 
 // google logo

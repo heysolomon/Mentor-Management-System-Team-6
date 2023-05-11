@@ -37,7 +37,7 @@ function Faqs() {
   ];
 
   return (
-    <div className="faqs border-[1px] rounded-[5px] border-black9 mx-10 p-5">
+    <div className="faqs border-[1px] rounded-[5px] border-black9 mx-10 p-5 h-full overflow-auto scroll">
       {/* start General FAQ */}
       <h1 className="font-[600] faqsH">General FAQ</h1>
       {/* start  accordion */}
