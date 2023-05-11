@@ -11,6 +11,7 @@ if __name__ == "__main__" or __name__ == "main":
     from mms_app_backend.configs.database_config import Base, engine
     from mms_app_backend.api.messages.route import router as message_router
     from mms_app_backend.api.mentors.route import router as mentor_router
+    from mms_app_backend.api.posts.route import router as post_router
     from mms_app_backend.api.mentor_managers.route import router as mentor_manager_router
 
 else:
@@ -37,6 +38,7 @@ app.include_router(task_router)
 app.include_router(message_router)
 app.include_router(mentor_router)
 app.include_router(mentor_manager_router)
+app.include_router(post_router)
 get = app.get
 
 
