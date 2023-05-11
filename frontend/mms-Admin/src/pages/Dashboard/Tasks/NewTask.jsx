@@ -23,11 +23,11 @@ function NewTask() {
     setChecked(true);
   };
   return (
-    <div className="mx-10 pb-[50px]">
-      <div className="">
+    <div className="mx-10 pb-[50px] h-full">
+      <div className="h-full">
         <h1 className="font-[600] tasksH grow flex-basis-1 w-full">New Task</h1>
-        <div className="max-lg:flex-col-reverse flex grow flex-row max-lg:mt-5">
-          <div className="grow">
+        <div className="max-lg:flex-col-reverse flex grow flex-row max-lg:mt-5 h-full">
+          <div className="grow h-full overflow-y-auto scroll pr-[10px]">
             <p className="font-black text-[16px] font-[600] mt-5">Title</p>
             <input
               type="text"
@@ -121,7 +121,7 @@ function NewTask() {
             </section>
           </div>
           {/* start tasks */}
-          <div className={`${mentorsOpen ? '' : 'hidden'} `}>
+          <div className={`${mentorsOpen ? '' : 'hidden'} h-full overflow-y-auto scroll pr-[10px]`}>
             <div className="tasksHeader flex flex-row justify-end">
               {checked ? (
                 <div className="flex flex-row-reverse">
