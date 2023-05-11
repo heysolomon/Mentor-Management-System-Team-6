@@ -1,11 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import emoji from '../../../assets/messages/emoji-smiley.svg';
 import dropdownImg from '../../../assets/messages/dropdown.png';
 import attachmentClip from '../../../assets/messages/attachment-clip.svg';
 import messageDeliveredImg from '../../../assets/messages/message-delivered.svg';
 
 export default function BroadcastMessage() {
+  const navigate = useNavigate();
+
   return (
     <div className="pb-[100px]">
       <section className="flex items-center justify-between w-full">
@@ -13,14 +15,13 @@ export default function BroadcastMessage() {
           Broadcast Message
         </h1>
 
-        <Link to="/admin-dashboard/messages">
-          <button
-            type="button"
-            className="bg-pri3 py-2.5 px-10 text-white rounded-xl font-semibold"
-          >
-            Close
-          </button>
-        </Link>
+        <button
+          type="button"
+          className="bg-pri3 py-2.5 px-10 text-white rounded-xl font-semibold"
+          onClick={() => navigate(-1)}
+        >
+          Close
+        </button>
       </section>
 
       <section className="flex justify-between items-center border-2 border-solid rounded-xl my-5 py-3 px-[33px]">

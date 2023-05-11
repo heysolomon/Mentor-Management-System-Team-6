@@ -1,8 +1,13 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import FormikForm from '../FormikForm/FormikForm';
 import InputField from '../InputField';
+import AddMentorSuccess from './AddMentorSuccess';
+import { openModal } from '../../redux/features/Modals/modalSlice';
 
 function AddMentor() {
+  const dispatch = useDispatch();
+
   const initialValues = {
     email: '',
   };
@@ -36,6 +41,7 @@ function AddMentor() {
           <button
             type="submit"
             className="bg-pri3 rounded-[10px] font-[600] text-[18px] text-white hover:bg-pri2 duration-700"
+            onClick={() => dispatch(openModal(<AddMentorSuccess />))}
           >
             Submit
           </button>

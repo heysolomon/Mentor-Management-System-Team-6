@@ -7,6 +7,8 @@ import { getMentorsFailure,
   getMentorsStart,
   getMentorsSuccess } from '../../../redux/features/mentorsSlice';
 import { mentors } from '../../../services/api';
+import { openModal } from '../../../redux/features/Modals/modalSlice';
+import DeleteMentor from '../../../components/Modals/DeleteMentor';
 
 function MentorsHome() {
   const { userInfo } = useSelector((state) => state.user);
@@ -36,23 +38,79 @@ function MentorsHome() {
     getMentors();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getMentorsStart, getMentorsSuccess, getMentorsFailure]);
+
+  const handleDeleteMentor = () => {
+    dispatch(openModal(<DeleteMentor />));
+  };
+
   return (
     <div className="w-full h-full">
-      <MentorsHeader setGrid={setGrid} grid={grid} />
+      <MentorsHeader
+        setGrid={setGrid}
+        grid={grid}
+      />
       {!isLoading ? (
         <div className={`mt-[27px] ${grid && 'grid grid-cols-2 gap-x-[20px]'}`}>
-          <MentorCard grid={grid} setGrid={setGrid} />
-          <MentorCard grid={grid} setGrid={setGrid} />
-          <MentorCard grid={grid} setGrid={setGrid} />
-          <MentorCard grid={grid} setGrid={setGrid} />
-          <MentorCard grid={grid} setGrid={setGrid} />
-          <MentorCard grid={grid} setGrid={setGrid} />
-          <MentorCard grid={grid} setGrid={setGrid} />
-          <MentorCard grid={grid} setGrid={setGrid} />
-          <MentorCard grid={grid} setGrid={setGrid} />
-          <MentorCard grid={grid} setGrid={setGrid} />
-          <MentorCard grid={grid} setGrid={setGrid} />
-          <MentorCard grid={grid} setGrid={setGrid} />
+          <MentorCard
+            grid={grid}
+            setGrid={setGrid}
+            deleteGrid={handleDeleteMentor}
+          />
+          <MentorCard
+            grid={grid}
+            setGrid={setGrid}
+            deleteGrid={handleDeleteMentor}
+          />
+          <MentorCard
+            grid={grid}
+            setGrid={setGrid}
+            deleteGrid={handleDeleteMentor}
+          />
+          <MentorCard
+            grid={grid}
+            setGrid={setGrid}
+            deleteGrid={handleDeleteMentor}
+          />
+          <MentorCard
+            grid={grid}
+            setGrid={setGrid}
+            deleteGrid={handleDeleteMentor}
+          />
+          <MentorCard
+            grid={grid}
+            setGrid={setGrid}
+            deleteGrid={handleDeleteMentor}
+          />
+          <MentorCard
+            grid={grid}
+            setGrid={setGrid}
+            deleteGrid={handleDeleteMentor}
+          />
+          <MentorCard
+            grid={grid}
+            setGrid={setGrid}
+            deleteGrid={handleDeleteMentor}
+          />
+          <MentorCard
+            grid={grid}
+            setGrid={setGrid}
+            deleteGrid={handleDeleteMentor}
+          />
+          <MentorCard
+            grid={grid}
+            setGrid={setGrid}
+            deleteGrid={handleDeleteMentor}
+          />
+          <MentorCard
+            grid={grid}
+            setGrid={setGrid}
+            deleteGrid={handleDeleteMentor}
+          />
+          <MentorCard
+            grid={grid}
+            setGrid={setGrid}
+            deleteGrid={handleDeleteMentor}
+          />
         </div>
       ) : (
         <div

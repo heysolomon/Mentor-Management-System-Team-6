@@ -1,16 +1,21 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { CommentIcon, DeleteIcon, MentorAvatar } from '../../../assets/images';
 import MentorTag from './MentorTags';
 
-function MentorCard({ grid }) {
+function MentorCard({ grid, deleteGrid }) {
   return (
     <div className="w-full border-[1px] border-black9 rounded-[5px] px-10 py-2 flex items-center justify-between mb-[10px]">
       <div className={` ${grid ? 'block' : 'flex items-center'}`}>
         <div className="flex items-center">
           <MentorAvatar />
           <div className="ml-[24px]">
-            <h4 className="font-[600] text-[20px] text-black2">Alison Davis</h4>
+            <Link to="mentor-profile">
+              <h4 className="font-[600] text-[20px] text-black2">
+                Alison Davis
+              </h4>
+            </Link>
             <p className="font-[400] text-[12px] text-black5 -my-1">
               Program Assistant, Andela, She/her
             </p>
@@ -31,11 +36,18 @@ function MentorCard({ grid }) {
           grid ? 'flex flex-col justify-center items-center h-full' : 'flex'
         }`}
       >
-        <button type="button" className={`${grid && 'mb-3'}`}>
+        <button
+          type="button"
+          className={`${grid && 'mb-3'}`}
+        >
           <CommentIcon />
         </button>
 
-        <button type="button" className={`${!grid && 'ml-3'}`}>
+        <button
+          type="button"
+          className={`${!grid && 'ml-3'}`}
+          onClick={() => deleteGrid()}
+        >
           <DeleteIcon color="#058B94" />
         </button>
       </div>
