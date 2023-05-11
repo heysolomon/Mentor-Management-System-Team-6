@@ -6,7 +6,7 @@ from .crud import get_mentors_crud, create_mentor_user
 from .responses import GetMentorsResponse, CreateMentorResponse
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
 from ..authentication.helpers import verify_access_token
-from  .schemas import  CreateMentor
+from .schemas import CreateMentor
 from ..utils import get_db, get_token
 
 router = APIRouter()
@@ -29,6 +29,7 @@ async def get_mentors(response: Response, db: Session = Depends(get_db), jwt_tok
         get_mentors_response.message = GET_MENTORS_SUCCESSFUL_MESSAGE
         get_mentors_response.data.mentors = mentors
         return get_mentors_response
+
 
 @post('/user/mentor', response_model=CreateMentorResponse, status_code=status.HTTP_201_CREATED)
 async def create_mentor(mentor: CreateMentor, response: Response, db: Session = Depends(get_db)):
