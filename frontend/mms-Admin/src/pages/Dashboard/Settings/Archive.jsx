@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Time from '../../..//assets/archive/time.svg';
-import Google from '../../..//assets/archive/google.svg';
-import Schedule from '../../..//assets/archive/schedule.svg';
-import Dropdown from '../../..//assets/archive/dropdown.png';
+import Time from '../../../assets/archive/time.svg';
+import Google from '../../../assets/archive/google.svg';
+import Schedule from '../../../assets/archive/schedule.svg';
+import Dropdown from '../../../assets/archive/dropdown.png';
 
 const QuestionsAndAnswer = [
   {

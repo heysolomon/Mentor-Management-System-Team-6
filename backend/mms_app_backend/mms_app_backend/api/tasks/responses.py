@@ -1,6 +1,7 @@
 from fastapi_camelcase import CamelModel
 from .schemas import GetTask
 from ..utils import ResponseModel
+from typing import List
 
 
 class CreateTaskData(CamelModel):
@@ -12,7 +13,7 @@ class CreateTaskResponse(ResponseModel):
 
 
 class GetTasksData(CamelModel):
-    tasks: list[GetTask] | None
+    tasks: List[GetTask] | None
 
 
 class GetTasksResponse(ResponseModel):
