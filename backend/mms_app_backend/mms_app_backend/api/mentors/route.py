@@ -24,11 +24,10 @@ async def get_mentors(response: Response, db: Session = Depends(get_db), jwt_tok
         return get_mentors_response
 
     mentors = get_mentors_crud(db)
-    if mentors:
-        get_mentors_response.success = True
-        get_mentors_response.message = GET_MENTORS_SUCCESSFUL_MESSAGE
-        get_mentors_response.data.mentors = mentors
-        return get_mentors_response
+    get_mentors_response.success = True
+    get_mentors_response.message = GET_MENTORS_SUCCESSFUL_MESSAGE
+    get_mentors_response.data.mentors = mentors
+    return get_mentors_response
 
 @post('/user/mentor', response_model=CreateMentorResponse, status_code=status.HTTP_201_CREATED)
 async def create_mentor(mentor: CreateMentor, response: Response, db: Session = Depends(get_db)):
