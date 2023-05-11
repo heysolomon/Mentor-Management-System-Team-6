@@ -1,12 +1,13 @@
 from fastapi import Response, APIRouter, status, Depends
 from sqlalchemy.orm import Session
 from mms_app_backend.api.authentication.constants import INVALID_AUTHENTICATION_MESSAGE
-from .responses import CreatePostResponse, GetPostResponse
-from .schemas import CreatePost, UpdatePost
+from .responses import CreatePostResponse, GetPostResponse, CreateCommentResponse, GetCommentsResponse
+from .schemas import CreatePost, UpdatePost, CreateComment
 from .models import Post
-from .crud import create_post_crud, get_posts_crud, update_post_crud, delete_post_crud
+from .crud import create_post_crud, get_posts_crud, update_post_crud, delete_post_crud, create_comment_crud, get_comments_crud
 from .constants import CREATED_POST_SUCCESSFUL_MESSAGE, GET_POST_SUCCESSFUL_MESSAGE, POST_NOT_FOUND_MESSAGE, \
-    UPDATE_POST_SUCCESSFUL_MESSAGE, POSTS_NOT_FOUND_MESSAGE, POST_DELETED_SUCCESSFUL_MESSAGE
+    UPDATE_POST_SUCCESSFUL_MESSAGE, POSTS_NOT_FOUND_MESSAGE, POST_DELETED_SUCCESSFUL_MESSAGE, \
+    CREATED_COMMENT_SUCCESSFUL_MESSAGE, GET_COMMENTS_SUCCESSFUL_MESSAGE
 from mms_app_backend.api.authentication.helpers import verify_access_token
 from mms_app_backend.api.utils import get_token, get_db
 
@@ -100,3 +101,37 @@ async def delete_post(post_id: int, response: Response, jwt_token: str = Depends
         post_response.message = POST_DELETED_SUCCESSFUL_MESSAGE
         post_response.success = True
         return post_response
+
+
+@post('/post/comment', response_model=CreateCommentResponse, status_code=status.HTTP_201_CREATED)
+async def create_comment(comment: CreateComment, response: Response, jwt_token: str = Depends(get_token()),
+                         db: Session = Depends(get_db)):
+    comment_response = CreateCommentResponse()
+    user = verify_access_token(db, jwt_token)
+
+    if user is None:
+        comment_response.message = INVALID_AUTHENTICATION_MESSAGE
+        response.status_code = status.HTTP_401_UNAUTHORIZED
+        return comment_response
+
+    created_comment = create_comment_crud(db, comment)
+    if created_comment:
+        comment_response.success = True
+        comment_response.data.comment = created_comment
+        comment_response.message = CREATED_COMMENT_SUCCESSFUL_MESSAGE
+        return comment_response
+
+
+@get('/post/comments', status_code=status.HTTP_200_OK, response_model=GetCommentsResponse)
+async def get_comments(response: Response, jwt_token: str = Depends(get_token()), db: Session = Depends(get_db)):
+    comments_response = GetCommentsResponse()
+    user = verify_access_token(db, jwt_token)
+    if user is None:
+        comments_response.message = INVALID_AUTHENTICATION_MESSAGE
+        response.status_code = status.HTTP_401_UNAUTHORIZED
+        return comments_response
+    comments = get_comments_crud(db)
+    comments_response.success = True
+    comments_response.data.comments = comments
+    comments_response.message = GET_COMMENTS_SUCCESSFUL_MESSAGE
+    return comments_response
