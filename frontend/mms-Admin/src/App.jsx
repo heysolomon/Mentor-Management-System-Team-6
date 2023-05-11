@@ -32,6 +32,7 @@ import { ForgotPasswordProtected } from './private/ForgotPasswordProtected';
 import Mentors from './pages/Dashboard/Mentors/Mentors';
 import MentorsHome from './pages/Dashboard/Mentors/MentorsHome';
 import MentorProfile from './pages/Dashboard/Mentors/MentorProfile';
+import EditTask from './pages/Dashboard/Tasks/EditTask';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -93,6 +94,10 @@ const router = createBrowserRouter([
       {
         path: 'task_new',
         element: <NewTask />,
+      },
+      {
+        path: 'task_Edit',
+        element: <EditTask />,
       },
       {
         path: 'reports',
