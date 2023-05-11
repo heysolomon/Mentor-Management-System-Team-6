@@ -30,7 +30,7 @@ class CreateCommentResponse(ResponseModel):
 
 
 class GetCommentsData(CamelModel):
-    posts: List[GetComment] | None
+    comments: List[GetComment] | None
 
 
 class GetCommentsResponse(ResponseModel):
