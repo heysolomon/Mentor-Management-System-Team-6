@@ -3,12 +3,12 @@ from sqlalchemy.orm import Session
 
 from .constants import CREATED_TASK_SUCCESSFUL_MESSAGE, GET_TASKS_SUCCESSFUL_MESSAGE, UPDATE_TASK_SUCCESSFUL_MESSAGE, \
     TASK_NOT_FOUND_MESSAGE, TASK_DELETED_SUCCESSFUL_MESSAGE, TASK_NOT_COMPLETED_MESSAGE, TASK_REOPEN_SUCCESSFUL_MESSAGE
-from .crud import create_task_crud, get_tasks_crud, update_task_crud, delete_task_crud, close_task_crud
+from .crud import create_task_crud, get_tasks_crud, update_task_crud, delete_task_crud, close_task_crud, get_mentors_and_managers
 from .models import Task
 from .responses import CreateTaskResponse, GetTasksResponse
-from .schemas import CreateTask, UpdateTask,TaskReportResponse, TaskReport
+from .schemas import CreateTask, UpdateTask, TaskReportResponse, TaskReport
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
-# from ..authentication.crud import get_mentor, get_mentor_manager
+
 from ..authentication.helpers import verify_access_token
 from ..utils import get_token, get_db
 
@@ -109,7 +109,8 @@ async def delete_task(task_id: int, response: Response, hard: bool = False, jwt_
 
 
 @put("/tasks/{task_id}/reopen", response_model=CreateTaskResponse, status_code=status.HTTP_200_OK)
-async def reopen_task(task_id: int, response: Response,token: str = Depends(get_token()), db: Session = Depends(get_db)):
+async def reopen_task(task_id: int, response: Response, token: str = Depends(get_token()),
+                      db: Session = Depends(get_db)):
     """
     This function reopens a completed task.
     """
@@ -137,48 +138,44 @@ async def reopen_task(task_id: int, response: Response,token: str = Depends(get_
     task_response.success = True
     return task_response
 #
-# @get("/tasks_reports", response_model=TaskReportResponse)
-# async def tasks_report(db: Session = Depends(get_db)):
-#     """
-#     This function generates task reports based on the status of completed, incomplete, reopened, and
-#     opened tasks.It also gives the  mentor and mentor manager details for each task and include them in the reports.
-#     """
-#     completed_tasks = db.query(Task).filter(Task.completed == True).all()
-#     incomplete_tasks = db.query(Task).filter(Task.completed == False).all()
-#     reopened_tasks = db.query(Task).filter(Task.completed == False, Task.open == True).all()
-#     opened_tasks = db.query(Task).filter(Task.completed == False, Task.open == False).all()
-#
-#     completed_task_reports = []
-#     for task in completed_tasks:
-#         mentor = get_mentor(db, task.mentor_id)
-#         mentor_manager = get_mentor_manager(db, task.mentor_manager_id)
-#         report = TaskReport(name=task.name, count=1, mentor=mentor, mentor_manager=mentor_manager)
-#         completed_task_reports.append(report)
-#
-#     incomplete_task_reports = []
-#     for task in incomplete_tasks:
-#         mentor = get_mentor(db, task.mentor_id)
-#         mentor_manager = get_mentor_manager(db, task.mentor_manager_id)
-#         report = TaskReport(name=task.name, count=1, mentor=mentor, mentor_manager=mentor_manager)
-#         incomplete_task_reports.append(report)
-#
-#     reopened_task_reports = []
-#     for task in reopened_tasks:
-#         mentor = get_mentor(db, task.mentor_id)
-#         mentor_manager = get_mentor_manager(db, task.mentor_manager_id)
-#         report = TaskReport(name=task.name, count=1, mentor=mentor, mentor_manager=mentor_manager)
-#         reopened_task_reports.append(report)
-#
-#     opened_task_reports = []
-#     for task in opened_tasks:
-#         mentor = get_mentor(db, task.mentor_id)
-#         mentor_manager = get_mentor_manager(db, task.mentor_manager_id)
-#         report = TaskReport(name=task.name, count=1, mentor=mentor, mentor_manager=mentor_manager)
-#         opened_task_reports.append(report)
-#
-#     return TaskReportResponse(
-#         completed=completed_task_reports,
-#         incomplete=incomplete_task_reports,
-#         reopened=reopened_task_reports,
-#         opened=opened_task_reports,
-#     )
+@get("/tasks_reports", response_model=TaskReportResponse)
+async def tasks_report(db: Session = Depends(get_db)):
+    """
+    This function generates task reports based on the status of completed, incomplete, reopened, and
+    opened tasks.It also gives the  mentor and mentor manager details for each task and include them in the reports.
+    """
+    completed_tasks = db.query(Task).filter(Task.completed == True).all()
+    incomplete_tasks = db.query(Task).filter(Task.completed == False).all()
+    reopened_tasks = db.query(Task).filter(Task.completed == False, Task.open == True).all()
+    opened_tasks = db.query(Task).filter(Task.completed == False, Task.open == False).all()
+
+    completed_task_reports = []
+    for task in completed_tasks:
+        mentors, mentor_managers = get_mentors_and_managers(db, task)
+        report = TaskReport(name=task.title,  mentor=mentors, mentor_manager=mentor_managers)
+        completed_task_reports.append(report)
+
+    incomplete_task_reports = []
+    for task in incomplete_tasks:
+        mentors, mentor_managers = get_mentors_and_managers(db, task)
+        report = TaskReport(name=task.title, mentor=mentors, mentor_manager=mentor_managers)
+        incomplete_task_reports.append(report)
+
+    reopened_task_reports = []
+    for task in reopened_tasks:
+        mentors, mentor_managers = get_mentors_and_managers(db, task)
+        report = TaskReport(name=task.title, mentor=mentors, mentor_manager=mentor_managers)
+        reopened_task_reports.append(report)
+
+    opened_task_reports = []
+    for task in opened_tasks:
+        mentors, mentor_managers = get_mentors_and_managers(db, task)
+        report = TaskReport(name=task.title, mentor=mentors, mentor_manager=mentor_managers)
+        opened_task_reports.append(report)
+
+    return TaskReportResponse(
+        completed=completed_task_reports,
+        incomplete=incomplete_task_reports,
+        reopened=reopened_task_reports,
+        opened=opened_task_reports,
+    )

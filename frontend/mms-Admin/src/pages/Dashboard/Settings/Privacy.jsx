@@ -28,6 +28,15 @@ export default function Privacy() {
         <h3 className="text-black2 font-semibold">Show Twitter</h3>
         <Toggle enabled={false} />
       </div>
+
+      <div className="flex flex-row-reverse">
+        <button
+          className="bg-pri3 lg:py-2.5 lg:px-10 px-5 rounded-md text-white font-semibold mb-3 lg:text-base text-xs"
+          type="button"
+        >
+          Save Changes
+        </button>
+      </div>
     </div>
   );
 }

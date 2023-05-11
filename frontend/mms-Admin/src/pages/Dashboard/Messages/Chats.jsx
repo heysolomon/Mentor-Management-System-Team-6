@@ -49,7 +49,7 @@ const users = [
 export default function Chats() {
   return (
     <div className="w-full h-screen font-mukta relative">
-      <section className="border border-white absolute top-0 left-0 right-0 bottom-0 w-[30%] relative">
+      <section className="border border-white top-0 left-0 right-0 bottom-0 w-[30%] absolute h-screen">
         <div className="flex justify-between items-center absolute fixed top-0 h-12 w-full bg-white">
           <h1 className="text-2xl font-semibold text-black1">Chats</h1>
           <img
@@ -59,7 +59,7 @@ export default function Chats() {
           />
         </div>
 
-        <div className="scroll overflow-y-auto mt-[71px]">
+        <div className="h-[calc(100vh-71px)] pr-[10px] overflow-y-auto scroll mt-[71px] pb-[100px]">
           {users.map((user) => (
             <div
               key={user.name}
@@ -85,7 +85,7 @@ export default function Chats() {
       </section>
 
       <section className="border border-white absolute top-0 right-0 bottom-[100px] w-[70%] h-full pl-6">
-        <section className="relative pb-[100px]">
+        <section className="relative pb-[100px] h-full">
           <div className="flex justify-end h-12 bg-white w-full">
             <Link to="/admin-dashboard/messages/broadcast-message">
               <button
@@ -97,7 +97,7 @@ export default function Chats() {
             </Link>
           </div>
 
-          <div className="border border-solid border-pri11 bg-pri11 rounded-[20px] h-full px-[18px] py-[30px] mt-6 relative">
+          <div className="border border-solid border-pri11 bg-pri11 rounded-[20px] h-full px-[18px] py-[30px] mt-6 relative overflow-y-auto scroll">
             <div className="mb-32">
               <div className="flex items-center mb-10 max-w-[60%]">
                 <img
@@ -160,7 +160,7 @@ export default function Chats() {
               </div>
             </div>
 
-            <section className="flex items-center mt-6 absolute bottom-10 right-[30px] left-[30px]">
+            <section className="flex items-center mt-6 absolute bottom-0 right-[30px] left-[30px]">
               <img
                 src={emoji}
                 alt="emoji"

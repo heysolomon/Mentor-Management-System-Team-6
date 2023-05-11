@@ -9,5 +9,9 @@ export default function MessageHome() {
     setMessages([]);
   }, []);
 
-  return <div>{messages.length > 0 ? <MessageSelect /> : <NoMessage />}</div>;
+  if (messages.length <= 0) {
+    return <NoMessage />;
+  }
+
+  return <MessageSelect />;
 }

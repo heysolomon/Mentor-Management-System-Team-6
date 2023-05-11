@@ -1,14 +1,14 @@
-"""Alembic initial revision
+"""Added is default flag to message model
 
-Revision ID: fe8ea9fb3a4d
-Revises: 5f28072965c1
-Create Date: 2023-04-25 18:56:45.831499
+Revision ID: 1762e26440e7
+Revises: 0c47db4bbb13
+Create Date: 2023-05-06 13:46:58.122639
 
 """
 
 # revision identifiers, used by Alembic.
-revision = 'fe8ea9fb3a4d'
-down_revision = '5f28072965c1'
+revision = '1762e26440e7'
+down_revision = '0c47db4bbb13'
 branch_labels = None
 depends_on = None
 

@@ -48,12 +48,28 @@ import shareIcon from './share-icon.svg';
 
 import clockIcon from './clock-time-icon.svg';
 
+import mentor from './mentor.svg';
+
+import country from './profile_assets/country.svg';
+
+import edit from './edit.png';
+
+import doc from './doc.png';
+
+import certificate from './cert.jpg';
+
 // am importing pictures from the assets folder and exporting them as components
 
 // mentor management system logo
 
 export function BrandLogo({ styling }) {
   return <img src={brandLogo} className={styling} alt="logo" />;
+}
+
+// mcertificate
+
+export function Certificate({ styling }) {
+  return <img src={certificate} className={styling} alt="certificate" />;
 }
 
 // password eye show icon
@@ -144,6 +160,24 @@ export function NewTaskImgModal({ styling }) {
 
 export function RemoveIcon({ styling }) {
   return <img src={remove} className={styling} alt="remove icon" />;
+}
+
+// remove mentor icon
+
+export function Edit({ styling }) {
+  return <img src={edit} className={styling} alt="remove icon" />;
+}
+
+// docs icon
+
+export function DocsIcon({ styling }) {
+  return <img src={doc} className={styling} alt="remove icon" />;
+}
+
+// country flag
+
+export function CountryFlag({ styling }) {
+  return <img src={country} className={styling} alt="remove icon" />;
 }
 
 // google logo
@@ -248,6 +282,10 @@ export function ShareIcon({ styling }) {
 export function ClockIcon({ styling }) {
   return <img src={clockIcon} className={styling} alt="delete" />;
 }
+// mentor picture
+export function MentorAvatar({ styling }) {
+  return <img src={mentor} className={styling} alt="delete" />;
+}
 
 // attachment icon
 export function AttachmentIcon({ styling, color }) {
@@ -266,6 +304,24 @@ export function AttachmentIcon({ styling, color }) {
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+// tasks icon
+export function MentorTaskIcon({ styling, color }) {
+  return (
+    <svg
+      width="39"
+      height="40"
+      viewBox="0 0 39 40"
+      fill="curentColor"
+      className={styling}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M19.9738 22.6086H14.3935C13.8955 22.6086 13.4778 22.4416 13.1403 22.1077C12.804 21.775 12.6359 21.3622 12.6359 20.8694C12.6359 20.3767 12.804 19.9634 13.1403 19.6294C13.4778 19.2967 13.8955 19.1303 14.3935 19.1303H19.9738L18.392 17.5651C18.0404 17.2463 17.8723 16.8474 17.8875 16.3686C17.9016 15.8909 18.0844 15.4781 18.4359 15.1303C18.7581 14.8115 19.1682 14.6521 19.6662 14.6521C20.1642 14.6521 20.5743 14.8115 20.8965 15.1303L25.4662 19.6521C25.7884 19.9709 25.9495 20.3767 25.9495 20.8694C25.9495 21.3622 25.7884 21.768 25.4662 22.0868L20.8965 26.6086C20.5743 26.9274 20.1642 27.0868 19.6662 27.0868C19.1682 27.0868 18.7581 26.9274 18.4359 26.6086C18.1137 26.2897 17.9526 25.8915 17.9526 25.4138C17.9526 24.935 18.1137 24.5216 18.4359 24.1738L19.9738 22.6086ZM31.9692 33.0434H7.36316V8.69554H31.9692V33.0434ZM31.9692 8.69554V33.0434V8.69554ZM31.9692 36.5216C32.9359 36.5216 33.7637 36.1813 34.4527 35.5008C35.1405 34.819 35.4844 33.9999 35.4844 33.0434V8.69554C35.4844 7.73901 35.1405 6.91988 34.4527 6.23814C33.7637 5.55756 32.9359 5.21727 31.9692 5.21727H24.5874C24.2066 4.1738 23.5692 3.33322 22.6752 2.69554C21.7823 2.05785 20.7793 1.73901 19.6662 1.73901C18.5531 1.73901 17.5495 2.05785 16.6555 2.69554C15.7626 3.33322 15.1258 4.1738 14.745 5.21727H7.36316C6.3965 5.21727 5.56868 5.55756 4.87971 6.23814C4.19191 6.91988 3.84801 7.73901 3.84801 8.69554V33.0434C3.84801 33.9999 4.19191 34.819 4.87971 35.5008C5.56868 36.1813 6.3965 36.5216 7.36316 36.5216H31.9692ZM19.6662 7.39119C19.2854 7.39119 18.9702 7.26771 18.7206 7.02075C18.4722 6.77496 18.348 6.46365 18.348 6.08684C18.348 5.71003 18.4722 5.39814 18.7206 5.15119C18.9702 4.90539 19.2854 4.78249 19.6662 4.78249C20.047 4.78249 20.3616 4.90539 20.61 5.15119C20.8596 5.39814 20.9844 5.71003 20.9844 6.08684C20.9844 6.46365 20.8596 6.77496 20.61 7.02075C20.3616 7.26771 20.047 7.39119 19.6662 7.39119Z"
+        fill={color}
       />
     </svg>
   );
@@ -317,6 +373,238 @@ export function MessageIcon({ styling, color }) {
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+// message icon
+
+// you can use the color prop to change the color of this icon
+
+// You can use any valid CSS color value for the color prop,
+
+//  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
+export function DeleteIcon({ styling, color }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={styling}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M3 6H21M5 6V20C5 21.1046 5.89543 22 7 22H17C18.1046 22 19 21.1046 19 20V6M8 6V4C8 2.89543 8.89543 2 10 2H14C15.1046 2 16 2.89543 16 4V6"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14 11V17"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M10 11V17"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+// search icon
+// you can use the color prop to change the color of this icon
+// You can use any valid CSS color value for the color prop,
+//  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
+export function CustomSearchIcon({ styling, color }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={styling}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M17 17L22 22M19.5 10.75C19.5 15.5825 15.5825 19.5 10.75 19.5C5.91751 19.5 2 15.5825 2 10.75C2 5.91751 5.91751 2 10.75 2C15.5825 2 19.5 5.91751 19.5 10.75Z"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+// filter icon
+// you can use the color prop to change the color of this icon
+// You can use any valid CSS color value for the color prop,
+//  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
+export function FilterIcon({ styling, color }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={styling}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M2 7H22M6 12H18M11 17H13"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+// grid icon
+// you can use the color prop to change the color of this icon
+// You can use any valid CSS color value for the color prop,
+//  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
+export function GridIcon({ styling, color = '#CEFAFD' }) {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="curentColor"
+      className={styling}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M18 0H2C0.9 0 0 0.9 0 2V18C0 19.1 0.9 20 2 20H18C19.1 20 20 19.1 20 18V2C20 0.9 19.1 0 18 0ZM6 18H3C2.45 18 2 17.55 2 17V14H6V18ZM6 12H2V8H6V12ZM6 6H2V3C2 2.45 2.45 2 3 2H6V6ZM12 18H8V14H12V18ZM12 12H8V8H12V12ZM12 6H8V2H12V6ZM17 18H14V14H18V17C18 17.55 17.55 18 17 18ZM18 12H14V8H18V12ZM18 6H14V2H17C17.55 2 18 2.45 18 3V6Z"
+        fill={color}
+      />
+    </svg>
+  );
+}
+// list icon
+// you can use the color prop to change the color of this icon
+// You can use any valid CSS color value for the color prop,
+//  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
+export function ListIcon({ styling, color = '#CEFAFD' }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="curentColor"
+      className={styling}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4.5 13.5C4.08333 13.5 3.72933 13.354 3.438 13.062C3.146 12.7707 3 12.4167 3 12C3 11.5833 3.146 11.2293 3.438 10.938C3.72933 10.646 4.08333 10.5 4.5 10.5C4.91667 10.5 5.27067 10.646 5.562 10.938C5.854 11.2293 6 11.5833 6 12C6 12.4167 5.854 12.7707 5.562 13.062C5.27067 13.354 4.91667 13.5 4.5 13.5ZM4.5 7.5C4.08333 7.5 3.72933 7.354 3.438 7.062C3.146 6.77067 3 6.41667 3 6C3 5.58333 3.146 5.22933 3.438 4.938C3.72933 4.646 4.08333 4.5 4.5 4.5C4.91667 4.5 5.27067 4.646 5.562 4.938C5.854 5.22933 6 5.58333 6 6C6 6.41667 5.854 6.77067 5.562 7.062C5.27067 7.354 4.91667 7.5 4.5 7.5ZM4.5 19.5C4.08333 19.5 3.72933 19.354 3.438 19.062C3.146 18.7707 3 18.4167 3 18C3 17.5833 3.146 17.2293 3.438 16.938C3.72933 16.646 4.08333 16.5 4.5 16.5C4.91667 16.5 5.27067 16.646 5.562 16.938C5.854 17.2293 6 17.5833 6 18C6 18.4167 5.854 18.7707 5.562 19.062C5.27067 19.354 4.91667 19.5 4.5 19.5ZM9 19C8.71667 19 8.47933 18.904 8.288 18.712C8.096 18.5207 8 18.2833 8 18C8 17.7167 8.096 17.4793 8.288 17.288C8.47933 17.096 8.71667 17 9 17H20C20.2833 17 20.5207 17.096 20.712 17.288C20.904 17.4793 21 17.7167 21 18C21 18.2833 20.904 18.5207 20.712 18.712C20.5207 18.904 20.2833 19 20 19H9ZM9 13C8.71667 13 8.47933 12.904 8.288 12.712C8.096 12.5207 8 12.2833 8 12C8 11.7167 8.096 11.479 8.288 11.287C8.47933 11.0957 8.71667 11 9 11H20C20.2833 11 20.5207 11.0957 20.712 11.287C20.904 11.479 21 11.7167 21 12C21 12.2833 20.904 12.5207 20.712 12.712C20.5207 12.904 20.2833 13 20 13H9ZM9 7C8.71667 7 8.47933 6.90433 8.288 6.713C8.096 6.521 8 6.28333 8 6C8 5.71667 8.096 5.479 8.288 5.287C8.47933 5.09567 8.71667 5 9 5H20C20.2833 5 20.5207 5.09567 20.712 5.287C20.904 5.479 21 5.71667 21 6C21 6.28333 20.904 6.521 20.712 6.713C20.5207 6.90433 20.2833 7 20 7H9Z"
+        fill={color}
+      />
+    </svg>
+  );
+}
+// next icon
+// you can use the color prop to change the color of this icon
+// You can use any valid CSS color value for the color prop,
+//  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
+export function NextIcon({ styling, color }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="curentColor"
+      className={styling}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M7.36545 20.26C7.83547 20.7301 8.59326 20.7301 9.06329 20.26L17.0345 12.2888C17.1234 12.2001 17.194 12.0947 17.2421 11.9786C17.2903 11.8626 17.315 11.7382 17.315 11.6125C17.315 11.4869 17.2903 11.3625 17.2421 11.2465C17.194 11.1304 17.1234 11.025 17.0345 10.9363L9.06329 2.96507C8.59326 2.49504 7.83547 2.49504 7.36545 2.96507C6.89542 3.43509 6.89542 4.19288 7.36545 4.66291L14.3103 11.6173L7.35585 18.5718C6.89542 19.0322 6.89542 19.7996 7.36545 20.26Z"
+        fill={color}
+      />
+    </svg>
+  );
+}
+// double next icon
+// you can use the color prop to change the color of this icon
+// You can use any valid CSS color value for the color prop,
+//  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
+export function DoubleNextIcon({ styling, color }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={styling}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M18.9906 6.17116V17.83M6.13324 4.15068C6.03012 4.06919 5.90612 4.0184 5.77546 4.00413C5.6448 3.98987 5.51277 4.0127 5.39449 4.07001C5.27621 4.12733 5.17647 4.21681 5.1067 4.3282C5.03693 4.43958 4.99995 4.56837 5 4.69981V19.3014C5.00017 19.4327 5.0373 19.5613 5.10716 19.6725C5.17702 19.7838 5.27677 19.8731 5.39501 19.9302C5.51325 19.9874 5.6452 20.0101 5.77575 19.9958C5.9063 19.9815 6.03019 19.9307 6.13324 19.8493L15.3799 12.5497C15.4628 12.4842 15.5299 12.4008 15.576 12.3057C15.6221 12.2106 15.646 12.1063 15.646 12.0006C15.646 11.8949 15.6221 11.7906 15.576 11.6955C15.5299 11.6004 15.4628 11.5169 15.3799 11.4515L6.13324 4.15068Z"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+// back icon
+// you can use the color prop to change the color of this icon
+// You can use any valid CSS color value for the color prop,
+//  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
+export function BackIcon({ styling, color }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={styling}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M5.00938 6.17116V17.83M17.8668 4.15068C17.9699 4.06919 18.0939 4.0184 18.2245 4.00413C18.3552 3.98987 18.4872 4.0127 18.6055 4.07001C18.7238 4.12733 18.8235 4.21681 18.8933 4.3282C18.9631 4.43958 19.0001 4.56837 19 4.69981V19.3014C18.9998 19.4327 18.9627 19.5613 18.8928 19.6725C18.823 19.7838 18.7232 19.8731 18.605 19.9302C18.4867 19.9874 18.3548 20.0101 18.2242 19.9958C18.0937 19.9815 17.9698 19.9307 17.8668 19.8493L8.62013 12.5497C8.53716 12.4842 8.4701 12.4008 8.424 12.3057C8.3779 12.2106 8.35395 12.1063 8.35395 12.0006C8.35395 11.8949 8.3779 11.7906 8.424 11.6955C8.4701 11.6004 8.53716 11.5169 8.62013 11.4515L17.8668 4.15068Z"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+// double back icon
+// you can use the color prop to change the color of this icon
+// You can use any valid CSS color value for the color prop,
+//  such as "blue", "#ff0000", "rgb(255, 0, 0)", etc.
+
+export function DoubleBackIcon({ styling, color }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="curentColor"
+      className={styling}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M16.6346 20.26C16.1645 20.7301 15.4067 20.7301 14.9367 20.26L6.96549 12.2888C6.87657 12.2001 6.80602 12.0947 6.75788 11.9786C6.70975 11.8626 6.68497 11.7382 6.68497 11.6125C6.68497 11.4869 6.70975 11.3625 6.75788 11.2465C6.80602 11.1304 6.87657 11.025 6.96549 10.9363L14.9367 2.96507C15.4067 2.49504 16.1645 2.49504 16.6346 2.96507C17.1046 3.43509 17.1046 4.19288 16.6346 4.66291L9.68971 11.6173L16.6441 18.5718C17.1046 19.0322 17.1046 19.7996 16.6346 20.26Z"
+        fill={color}
       />
     </svg>
   );

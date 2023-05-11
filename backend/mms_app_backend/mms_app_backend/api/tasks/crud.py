@@ -89,9 +89,23 @@ def delete_task_crud(db, task_instance):
     db.delete(task_instance)
     db.commit()
     return True
+
+
 def close_task_crud(db, task_instance):
     task_instance.open = False
     db.add(task_instance)
     db.commit()
     db.refresh(task_instance)
     return True
+
+
+def get_mentors_and_managers(db, task):
+    mentors = []
+    mentor_managers = []
+    for mentor_id in task.mentors:
+        mentor = db.query(Mentor).get(mentor_id)
+        mentors.append(mentor)
+    for mentor_manager_id in task.mentor_managers:
+        mentor_manager = db.query(MentorManager).get(mentor_manager_id)
+        mentor_managers.append(mentor_manager)
+    return mentors, mentor_managers

@@ -189,7 +189,7 @@ function SettingsGeneral() {
   };
 
   return (
-    <div className="md:border-[1px] md:rounded-[5px] md:border-black9 md:mx-10 md:p-5">
+    <div className="md:border-[1px] md:rounded-[5px] md:border-black9 md:mx-10 md:p-5 mb-[150px]">
       <section className="flex justify-between items-center">
         <div className="flex items-center">
           {profilePicture === null ? (

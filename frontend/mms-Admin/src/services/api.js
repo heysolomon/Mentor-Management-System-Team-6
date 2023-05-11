@@ -8,3 +8,10 @@ export const api = axios.create({
   //   'Content-Type': 'application/json',
   // },
 });
+
+export const mentors = axios.create({
+  baseURL: 'http://209.38.253.214:8080/users',
+  // headers: {
+  //   'Content-Type': 'application/json',
+  // },
+});

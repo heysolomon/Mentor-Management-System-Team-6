@@ -12,7 +12,7 @@ import instagram from '../../assets/profile_assets/instagram.png';
 
 function Profile() {
   return (
-    <div className="mt-[20px]  pb-[100px]">
+    <div className="mt-[20px]  pb-[100px] pr-[10px] h-full overflow-y-auto scroll">
       <section className="flex justify-between items-center">
         <div className="flex items-center">
           <img
