@@ -4,11 +4,7 @@ import Avatar from '../../../assets/avatar.svg';
 import editIcon from '../../../assets/messages/edit.svg';
 import flagIcon from '../../../assets/messages/flag.svg';
 import filterIcon from '../../../assets/messages/filter.svg';
-import emoji from '../../../assets/messages/emoji-smiley.svg';
 import searchIcon from '../../../assets/messages/search.svg';
-import attachmentClip from '../../../assets/messages/attachment-clip.svg';
-import messageSentIcon from '../../../assets/messages/message-sent.svg';
-import messageDeliveredIcon from '../../../assets/messages/message-delivered.svg';
 
 const users = [
   {

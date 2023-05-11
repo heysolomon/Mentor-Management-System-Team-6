@@ -3,11 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import MentorCard from '../../../components/Dashboard/Mentors/MentorCard';
 import MentorsHeader from '../../../components/Dashboard/Mentors/MentorsHeader';
 import MentorsLoading from '../../../components/Dashboard/Mentors/MentorsLoading';
-import {
-  getMentorsFailure,
+import { getMentorsFailure,
   getMentorsStart,
-  getMentorsSuccess,
-} from '../../../redux/features/mentorsSlice';
+  getMentorsSuccess } from '../../../redux/features/mentorsSlice';
 import { mentors } from '../../../services/api';
 import { openModal } from '../../../redux/features/Modals/modalSlice';
 import DeleteMentor from '../../../components/Modals/DeleteMentor';
