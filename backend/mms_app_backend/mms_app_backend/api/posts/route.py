@@ -52,7 +52,7 @@ async def get_posts(response: Response, jwt_token: str = Depends(get_token()), d
     return posts_response
 
 
-@patch('/admin/past/{post_id}', response_model=CreatePostResponse, status_code=status.HTTP_200_OK)
+@patch('/admin/post/{post_id}', response_model=CreatePostResponse, status_code=status.HTTP_200_OK)
 async def update_post(post_id: int, posts: UpdatePost, response: Response, jwt_token: str = Depends(get_token()),
                       db: Session = Depends(get_db)):
     post_response = CreatePostResponse()
