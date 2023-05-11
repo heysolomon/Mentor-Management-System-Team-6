@@ -9,7 +9,7 @@ from .crud import get_user_by_email, create_user, get_user_by_username, change_p
 from .helpers import verify_password, create_access_token, verify_access_token
 from .models import User, PasswordResetToken
 from .responses import CreateUserResponse, LoginUserResponse
-from .schemas import UserCreate, UserLogin, PasswordChange, PasswordReset, EmailVerification
+from .schemas import UserCreate, UserLogin, PasswordChange, PasswordReset, EmailVerification, User as UserSchema
 from ..account_management.constants import INVALID_USER_PARAMETER
 from ..constants import GENERAL_ERROR_MESSAGE
 from ..utils import get_db, get_token, ResponseModel
@@ -70,7 +70,12 @@ async def login(login_data: UserLogin, response: Response, db: Session = Depends
     access_token = create_access_token(data={"sub": db_user.email})
     user_response.success = True
     user_response.data.access_token = access_token
-    user_response.data.user = db_user
+    user_response.data.user = UserSchema(id=db_user.id, email=db_user.email, username=db_user.username,
+                                         first_name=db_user.first_name, last_name=db_user.last_name,
+                                         is_active=db_user.is_active)
+    profile = db_user.profile
+    if profile:
+        user_response.data.user.profile_id = profile.id
     user_response.message = USER_LOGGED_IN_MESSAGE
     return user_response
 
@@ -109,7 +114,6 @@ async def get_reset_token(emailFields: EmailVerification, db: Session = Depends(
         reset_token_response.message = RESET_SENT_SUCCESS_MESSAGE
         reset_token_response.success = True
         return reset_token_response
-
     created_token = create_reset_token_crud(db, user)
 
     if created_token:

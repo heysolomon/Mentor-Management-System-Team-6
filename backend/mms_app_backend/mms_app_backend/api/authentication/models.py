@@ -16,7 +16,7 @@ class User(AbstractBaseModel):
     email = Column(EmailType, unique=True, index=True)
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
-    profile = relationship("Profile", back_populates='user')
+    profile = relationship("Profile", back_populates='user',uselist=False)
     password_reset_token = relationship("PasswordResetToken", back_populates="user")
     conversations = relationship("Conversation", back_populates='participants',
                                  secondary="participant_conversation_association")

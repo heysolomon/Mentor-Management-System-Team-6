@@ -90,6 +90,7 @@ function SettingChangePassword() {
           </div>
 
           <InputField
+            tag="input"
             type="password"
             name="oldPassword"
             id="oldPassword"
@@ -103,6 +104,7 @@ function SettingChangePassword() {
             <p className="text-black2 text-[16px] font-[600]">New Password</p>
           </div>
           <InputField
+            tag="input"
             type="password"
             name="newPassword"
             id="newPassword"
@@ -118,6 +120,7 @@ function SettingChangePassword() {
             </p>
           </div>
           <InputField
+            tag="input"
             type="password"
             name="confirmPassword"
             id="confirmPassword"

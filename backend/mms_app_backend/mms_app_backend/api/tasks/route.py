@@ -6,7 +6,7 @@ from .constants import CREATED_TASK_SUCCESSFUL_MESSAGE, GET_TASKS_SUCCESSFUL_MES
 from .crud import create_task_crud, get_tasks_crud, update_task_crud, delete_task_crud, close_task_crud, get_mentors_and_managers
 from .models import Task
 from .responses import CreateTaskResponse, GetTasksResponse
-from .schemas import CreateTask, UpdateTask,TaskReportResponse, TaskReport
+from .schemas import CreateTask, UpdateTask
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
 
 from ..authentication.helpers import verify_access_token
@@ -109,7 +109,8 @@ async def delete_task(task_id: int, response: Response, hard: bool = False, jwt_
 
 
 @put("/tasks/{task_id}/reopen", response_model=CreateTaskResponse, status_code=status.HTTP_200_OK)
-async def reopen_task(task_id: int, response: Response,token: str = Depends(get_token()), db: Session = Depends(get_db)):
+async def reopen_task(task_id: int, response: Response, token: str = Depends(get_token()),
+                      db: Session = Depends(get_db)):
     """
     This function reopens a completed task.
     """
