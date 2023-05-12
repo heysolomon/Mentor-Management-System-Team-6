@@ -69,7 +69,7 @@ function NewTask() {
     } catch (err) {
       if (err) {
         dispatch(createTaskFailure());
-        console.log(err);
+        // console.log();
         // setMessage(err.response.data.message);
       }
     }
