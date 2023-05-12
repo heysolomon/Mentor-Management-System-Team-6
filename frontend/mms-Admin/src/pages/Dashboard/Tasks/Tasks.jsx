@@ -178,12 +178,14 @@ function Tasks() {
               </div>
               {/* end task  3 */}
               <div className="flex flex-row-reverse my-7">
-                <button
-                  type="button"
+
+                <NavLink
+                  to="/admin-dashboard/task_edit"
                   className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold"
                 >
+
                   Edit Task
-                </button>
+                </NavLink>
                 <button
                   type="button"
                   className="bg-transparent py-2.5 px-10  text-red-600 font-meduim flex flex-row"

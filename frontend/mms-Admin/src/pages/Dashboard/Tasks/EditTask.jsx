@@ -121,8 +121,8 @@ function EditTask() {
             </section>
           </div>
           {/* start tasks */}
-          <div className={`${mentorsOpen ? '' : 'hidden'} `}>
-            <div className="tasksHeader flex flex-row justify-end">
+          <div className={`${mentorsOpen ? '' : 'hidden'} overflow-y-auto scroll h-full`}>
+            <div className="tasksHeader flex flex-row justify-end ">
               {checked ? (
                 <div className="flex flex-row-reverse">
                   <input
