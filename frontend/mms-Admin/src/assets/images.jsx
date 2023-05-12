@@ -56,12 +56,22 @@ import edit from './edit.png';
 
 import doc from './doc.png';
 
+import certificate from './cert.jpg';
+
+import shareReport from './shareReport.png';
+
 // am importing pictures from the assets folder and exporting them as components
 
 // mentor management system logo
 
 export function BrandLogo({ styling }) {
   return <img src={brandLogo} className={styling} alt="logo" />;
+}
+
+// mcertificate
+
+export function Certificate({ styling }) {
+  return <img src={certificate} className={styling} alt="certificate" />;
 }
 
 // password eye show icon
@@ -248,6 +258,12 @@ export function TwitterIcon({ styling }) {
 
 export function DeleteImage({ styling }) {
   return <img src={deleteImg} className={styling} alt="delete" />;
+}
+
+// share report
+
+export function ShareReportImg({ styling }) {
+  return <img src={shareReport} className={styling} alt="share report" />;
 }
 
 // Horizontal 3 dots icon
