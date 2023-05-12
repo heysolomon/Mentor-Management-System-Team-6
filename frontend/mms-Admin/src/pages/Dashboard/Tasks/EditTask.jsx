@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import './Tasks.css';
-import { useDispatch } from 'react-redux';
+import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
 import { RiSearchLine } from 'react-icons/ri';
-import { BsFilter,
-  BsPlusCircle } from 'react-icons/bs';
+import { BsFilter, BsPlusCircle } from 'react-icons/bs';
 import { BiArrowBack } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
+import { SpinnerCircular } from 'spinners-react';
 import { RemoveIcon, UserAvatar } from '../../../assets/images';
 import { openModal } from '../../../redux/features/Modals/modalSlice';
 import UpdateTask from '../../../components/Modals/UpdateTask';
+import InputField from '../../../components/InputField';
+import FormikForm from '../../../components/FormikForm/FormikForm';
+import { tasks } from '../../../services/api';
+import { editTaskFailure,
+  editTaskStart,
+  editTaskSuccess } from '../../../redux/features/taskSlice';
 
 function EditTask() {
   const [checked, setChecked] = useState(false);
@@ -16,35 +23,95 @@ function EditTask() {
   const [mentorsOpen, setmentors] = useState(true);
 
   const dispatch = useDispatch();
-  const handleSuccess = () => {
-    dispatch(openModal(<UpdateTask />));
+
+  const { userInfo } = useSelector((state) => state.user);
+
+  const userToken = userInfo.data.access_token;
+
+  const { isEditing, clickedTask } = useSelector((state) => state.tasks);
+
+  const initialValues = {
+    title: '',
+    description: '',
+    mentors: [],
+    mentorManagers: [],
   };
+
+  const validate = Yup.object({
+    title: Yup.string().max(
+      32,
+      'The title must contain a maximum of 32 characters',
+    ),
+    description: Yup.string(),
+  });
+
   const search = () => {
     setChecked(true);
   };
+
+  const editTask = async (values) => {
+    dispatch(editTaskStart());
+    // console.log(values);
+    try {
+      await tasks.patch(
+        `/tasks/${clickedTask.id}`,
+        {
+          ...values,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        },
+      );
+      dispatch(openModal(<UpdateTask />));
+      dispatch(editTaskSuccess());
+      // console.log(newTask);
+      // setMessage(changeUserPasswordRequest.data.message);
+    } catch (err) {
+      if (err) {
+        dispatch(editTaskFailure());
+        // console.log();
+        // setMessage(err.response.data.message);
+      }
+    }
+  };
+  const submit = async (values) => {
+    editTask(values);
+  };
   return (
-    <div className="mx-10 pb-[50px]">
-      <div className="">
-        <h1 className="font-[600] tasksH grow flex-basis-1 w-full">Edit Task</h1>
-        <div className="max-lg:flex-col-reverse flex grow flex-row max-lg:mt-5">
-          <div className="grow">
+    <div className="mx-10 pb-[50px] h-full">
+      <div className="h-full">
+        <h1 className="font-[600] tasksH grow flex-basis-1 w-full">
+          Edit Task
+        </h1>
+        <div className="max-lg:flex-col-reverse flex grow flex-row max-lg:mt-5 h-full">
+          <FormikForm
+            initialValues={initialValues}
+            validationSchema={validate}
+            submit={submit}
+            styling="grow h-full overflow-y-auto scroll pr-[10px]"
+          >
             <p className="font-black text-[16px] font-[600] mt-5">Title</p>
-            <input
+            <InputField
+              tag="input"
               type="text"
-              placeholder="Enter a title"
-              className="placeholder:text-black6 placeholder: block w-full border border-slate-300 rounded-md my-2 py-3 pl-3 pr-3 focus:outline-none focus:border-pri3 focus:ring-pri3 focus:ring-1"
+              name="title"
+              placeholder={clickedTask.title}
+              styling="my-2"
+              inputStyle="placeholder:text-black6 py-3 pl-3 pr-3 "
             />
             <p className="text-gray-400 text-sm">
               The title must contain a maximum of 32 characters
             </p>
 
             <p className="font-black text-[16px] font-[600] mt-5">Details</p>
-            <textarea
-              name="Enter task details"
-              cols="30"
-              rows="6"
-              placeholder="Body"
-              className="placeholder:text-black6 placeholder: block w-full border border-slate-300 rounded-md mb-6  mt-2 py-3 pl-3 pr-3 focus:outline-none focus:border-pri3 focus:ring-pri3 focus:ring-1"
+            <InputField
+              tag="textarea"
+              name="description"
+              placeholder={clickedTask.description}
+              styling="mt-2 mb-6"
+              inputStyle="placeholder:text-black6 py-3 pl-3 pr-3"
             />
             {/* start mentors */}
             <div className="flex md:flex-row flex-col">
@@ -92,9 +159,7 @@ function EditTask() {
                     onKeyDown={() => setmentors(false)}
                   >
                     <p className="mr-3">10 Selected </p>
-                    <RemoveIcon
-                      styling="pl-3 object-contain cursor-pointer"
-                    />
+                    <RemoveIcon styling="pl-3 object-contain cursor-pointer" />
                   </div>
                   {/* end select mentor */}
                 </div>
@@ -114,14 +179,26 @@ function EditTask() {
               <button
                 type="submit"
                 className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold"
-                onClick={handleSuccess}
               >
-                Update Task
+                {isEditing ? (
+                  <SpinnerCircular
+                    color="#F7FEFF"
+                    className="mr-2"
+                    thickness={250}
+                    size={20}
+                  />
+                ) : (
+                  'Update Task'
+                )}
               </button>
             </section>
-          </div>
+          </FormikForm>
           {/* start tasks */}
-          <div className={`${mentorsOpen ? '' : 'hidden'} overflow-y-auto scroll h-full`}>
+          <div
+            className={`${
+              mentorsOpen ? '' : 'hidden'
+            } overflow-y-auto scroll pr-[10px] w-[62%]`}
+          >
             <div className="tasksHeader flex flex-row justify-end ">
               {checked ? (
                 <div className="flex flex-row-reverse">

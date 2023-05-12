@@ -193,7 +193,7 @@ function NewTask() {
           <div
             className={`${
               mentorsOpen ? '' : 'hidden'
-            } h-full w-[61%] overflow-y-auto scroll pr-[10px]`}
+            } h-full w-[62%] overflow-y-auto scroll pr-[10px]`}
           >
             <div className="tasksHeader flex flex-row justify-end">
               {checked ? (
