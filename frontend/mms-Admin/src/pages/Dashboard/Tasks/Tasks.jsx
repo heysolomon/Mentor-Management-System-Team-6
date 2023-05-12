@@ -23,9 +23,9 @@ function Tasks() {
   const [checked, setChecked] = useState(false);
   const [sort, setSort] = useState(false);
   const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState('');
+  // const [message, setMessage] = useState('');
   // retrieving the tasks deata from redux
-  const { isTaskClicked, task, clickedTask, isLoading, error } = useSelector(
+  const { isTaskClicked, task, clickedTask, isLoading } = useSelector(
     (state) => state.tasks,
   );
   const dispatch = useDispatch();
@@ -42,13 +42,13 @@ function Tasks() {
           Authorization: `bearer ${userToken}`,
         },
       })
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        // console.log(res);
         dispatch(openModal(<DeleteTask />));
       })
-      .catch((err) => {
-        setMessage(err.response.data.detail);
-        console.log(err);
+      .catch(() => {
+        // setMessage(err.response.data.detail);
+        // console.log(err);
       });
   };
 
@@ -75,11 +75,11 @@ function Tasks() {
   }, []);
 
   return (
-    <div className="grid grid-cols-tasks gap-x-[20px] max-h-screen h-full">
+    <div className="flex flex-col lg:flex-row h-full">
       <div
         className={`${
           open ? '' : 'max-lg:hidden'
-        }  basis-1/1 flex m-5 flex-col pb-5 w-full lg:w-100 h-full`}
+        }  basis-1/1 flex m-5 flex-col pb-5 w-[40%] lg:w-100 h-full`}
       >
         <div className="tasksHeader flex flex-row">
           {checked ? (
@@ -112,7 +112,7 @@ function Tasks() {
           )}
         </div>
         {/* start tasks */}
-        <div className="taskContainer me-5 h-full overflow-y-auto scroll">
+        <div className="taskContainer me-2 h-full overflow-y-auto scroll pr-[10px]">
           {isLoading ? (
             <>
               <TaskLoading />
@@ -151,7 +151,11 @@ function Tasks() {
         {/* end tasks */}
       </div>
 
-      <div className={`${open ? 'max-lg:hidden' : ''} g:basis-2/3 basis-1/1`}>
+      <div
+        className={`${
+          open ? 'max-lg:hidden' : ''
+        } g:basis-2/3 basis-1/1 w-full`}
+      >
         <div className="flex flex-row-reverse">
           <NavLink
             to="/admin-dashboard/task_new"
@@ -241,12 +245,10 @@ function Tasks() {
               </div>
               {/* end task  3 */}
               <div className="flex flex-row-reverse my-7">
-
                 <NavLink
                   to="/admin-dashboard/task_edit"
                   className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold"
                 >
-
                   Edit Task
                 </NavLink>
                 <button
@@ -261,12 +263,6 @@ function Tasks() {
               </div>
             </div>
           </div>
-
-          {error && (
-            <p className="font-[400] text-red-500 font-mukta text-[16px] mt-[20px] ">
-              {message}
-            </p>
-          )}
         </div>
       </div>
     </div>

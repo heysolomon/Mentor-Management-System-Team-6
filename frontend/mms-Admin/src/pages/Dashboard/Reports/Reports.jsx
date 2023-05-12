@@ -30,7 +30,7 @@ function Reports() {
   return (
     <div className="flex flex-col lg:flex-row h-full">
       <div
-        className="max-lg:basis-1/1 basis-1/3 flex m-5 flex-col  pb-5 h-100 w-full lg:w-100 scroll"
+        className="max-lg:basis-1/1 basis-1/3 flex m-5 flex-col  pb-5 h-100 w-full lg:w-100"
       >
         <div className="flex bg-pri3 m-1 p-1 rounded mb-2">
           <div
@@ -92,11 +92,11 @@ function Reports() {
           )}
         </div>
         {/* start tasks */}
-        <div className="taskContainer me-5">
+        <div className="taskContainer h-full overflow-y-auto scroll pr-[10px]">
           {Array.from(Array(10)).map((i) => (
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div
-              className="task flex m-3 p-3 rounded-md  border-2 border-grey-400 w-full cursor-pointer"
+              className="task flex m-3 p-3 rounded-md  border-2 border-grey-400 cursor-pointer"
               key={i}
             >
               <img src={active ? reportImg : taskImg} alt={i} className="object-contain" />
@@ -114,9 +114,9 @@ function Reports() {
         {/* end tasks */}
       </div>
 
-      <div className="max-lg:basis-1/1 basis-2/3 h-100">
+      <div className="max-lg:basis-1/1 basis-2/3 h-100 h-full overflow-y-auto scroll">
         <div className="flex flex-row-reverse" />
-        <div className="pr-[10px] pb-20 h-full overflow-y-auto scroll">
+        <div className="pr-[10px] pb-20">
           <div className="task flex  flex-col  rounded-md  border-2 border-grey-400 w-full">
             <div className="flex flex-row p-4">
               <img src={active ? reportImg : taskImg} alt="icon" className="object-contain" />

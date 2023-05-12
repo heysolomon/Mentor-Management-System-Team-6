@@ -30,7 +30,7 @@ function InputField({
   return (
     <div className={`w-full ${styling}`}>
       <div
-        className={`flex items-center border-[1px] rounded-[5px] h-full border-black8 w-full ${
+        className={`flex items-center border-[1px] rounded-[5px] h-full border-black8 w-full focus-within:border-pri3 focus-within:ring-pri3 focus-within:ring-1 ${
           meta.touched && meta.error && 'border-sec1'
         } ${height}`}
       >
@@ -87,7 +87,7 @@ function InputField({
         )}
       </div>
       <ErrorMessage
-        className="text-sec2 text-xs mt-0"
+        className="text-sec2 text-sm mt-0"
         component="div"
         name={field.name}
       />

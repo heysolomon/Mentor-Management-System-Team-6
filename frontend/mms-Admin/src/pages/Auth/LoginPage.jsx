@@ -52,7 +52,7 @@ function LoginPage() {
       const user = await api.post('/login', {
         ...values,
       });
-      // console.log(user.data);
+      console.log(user);
       dispatch(loginSuccess(user.data));
       const token = userInfo.data.access_token;
       setToken(token);
@@ -64,7 +64,7 @@ function LoginPage() {
       if (err) {
         dispatch(loginFailure());
         // console.log(err);
-        setMessage(err.response.data.message);
+        setMessage(err.response.data?.message);
       }
     }
   };

@@ -1,50 +1,113 @@
 import React, { useState } from 'react';
 import './Tasks.css';
-import { useDispatch } from 'react-redux';
+import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
 import { RiSearchLine } from 'react-icons/ri';
-import { BsFilter,
-  BsPlusCircle } from 'react-icons/bs';
+import { BsFilter, BsPlusCircle } from 'react-icons/bs';
 import { BiArrowBack } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
+import { SpinnerCircular } from 'spinners-react';
 import { RemoveIcon, UserAvatar } from '../../../assets/images';
 import { openModal } from '../../../redux/features/Modals/modalSlice';
 import CreateTask from '../../../components/Modals/CreateTask';
+import FormikForm from '../../../components/FormikForm/FormikForm';
+import InputField from '../../../components/InputField';
+import { createTaskFailure,
+  createTaskStart,
+  createTaskSuccess } from '../../../redux/features/taskSlice';
+import { tasks } from '../../../services/api';
 
 function NewTask() {
   const [checked, setChecked] = useState(false);
   const [sort, setSort] = useState(false);
   const [mentorsOpen, setmentors] = useState(true);
-
   const dispatch = useDispatch();
-  const handleSuccess = () => {
-    dispatch(openModal(<CreateTask />));
-  };
+
   const search = () => {
     setChecked(true);
+  };
+
+  const { userInfo } = useSelector((state) => state.user);
+
+  const userToken = userInfo.data.access_token;
+
+  const { isLoading } = useSelector((state) => state.tasks);
+
+  const initialValues = {
+    title: '',
+    description: '',
+    mentors: [],
+    mentorManagers: [],
+  };
+
+  const validate = Yup.object({
+    title: Yup.string()
+      .max(32, 'The title must contain a maximum of 32 characters')
+      .required('The task title is required'),
+    description: Yup.string().required('The task description is required'),
+  });
+
+  const createTask = async (values) => {
+    dispatch(createTaskStart());
+    // console.log(values);
+    try {
+      await tasks.post(
+        '/tasks',
+        {
+          ...values,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        },
+      );
+      dispatch(createTaskSuccess());
+      dispatch(openModal(<CreateTask />));
+      // console.log(newTask);
+      // setMessage(changeUserPasswordRequest.data.message);
+    } catch (err) {
+      if (err) {
+        dispatch(createTaskFailure());
+        console.log(err);
+        // setMessage(err.response.data.message);
+      }
+    }
+  };
+  const submit = async (values) => {
+    createTask(values);
   };
   return (
     <div className="mx-10 pb-[50px] h-full">
       <div className="h-full">
         <h1 className="font-[600] tasksH grow flex-basis-1 w-full">New Task</h1>
         <div className="max-lg:flex-col-reverse flex grow flex-row max-lg:mt-5 h-full">
-          <div className="grow h-full overflow-y-auto scroll pr-[10px]">
+          <FormikForm
+            initialValues={initialValues}
+            validationSchema={validate}
+            submit={submit}
+            styling="grow h-full overflow-y-auto scroll pr-[10px]"
+          >
             <p className="font-black text-[16px] font-[600] mt-5">Title</p>
-            <input
+            <InputField
+              tag="input"
               type="text"
+              name="title"
               placeholder="Enter a title"
-              className="placeholder:text-black6 placeholder: block w-full border border-slate-300 rounded-md my-2 py-3 pl-3 pr-3 focus:outline-none focus:border-pri3 focus:ring-pri3 focus:ring-1"
+              styling="my-2"
+              inputStyle="placeholder:text-black6 py-3 pl-3 pr-3 "
             />
             <p className="text-gray-400 text-sm">
               The title must contain a maximum of 32 characters
             </p>
 
             <p className="font-black text-[16px] font-[600] mt-5">Details</p>
-            <textarea
-              name="Enter task details"
-              cols="30"
-              rows="6"
-              placeholder="Body"
-              className="placeholder:text-black6 placeholder: block w-full border border-slate-300 rounded-md mb-6  mt-2 py-3 pl-3 pr-3 focus:outline-none focus:border-pri3 focus:ring-pri3 focus:ring-1"
+            <InputField
+              tag="textarea"
+              name="description"
+              placeholder="Enter task details"
+              styling="mt-2 mb-6"
+              inputStyle="placeholder:text-black6 py-3 pl-3 pr-3"
             />
             {/* start mentors */}
             <div className="flex md:flex-row flex-col">
@@ -92,9 +155,7 @@ function NewTask() {
                     onKeyDown={() => setmentors(false)}
                   >
                     <p className="mr-3">10 Selected </p>
-                    <RemoveIcon
-                      styling="pl-3 object-contain cursor-pointer"
-                    />
+                    <RemoveIcon styling="pl-3 object-contain cursor-pointer" />
                   </div>
                   {/* end select mentor */}
                 </div>
@@ -114,14 +175,26 @@ function NewTask() {
               <button
                 type="submit"
                 className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold"
-                onClick={handleSuccess}
               >
-                Create Task
+                {isLoading ? (
+                  <SpinnerCircular
+                    color="#F7FEFF"
+                    className="mr-2"
+                    thickness={250}
+                    size={20}
+                  />
+                ) : (
+                  'Create Task'
+                )}
               </button>
             </section>
-          </div>
+          </FormikForm>
           {/* start tasks */}
-          <div className={`${mentorsOpen ? '' : 'hidden'} h-full overflow-y-auto scroll pr-[10px]`}>
+          <div
+            className={`${
+              mentorsOpen ? '' : 'hidden'
+            } h-full w-[61%] overflow-y-auto scroll pr-[10px]`}
+          >
             <div className="tasksHeader flex flex-row justify-end">
               {checked ? (
                 <div className="flex flex-row-reverse">
@@ -158,12 +231,12 @@ function NewTask() {
                 </>
               )}
             </div>
-            <div className="taskContainer me-5">
+            <div className="taskContainer">
               {Array.from(Array(10)).map((i) => (
                 // eslint-disable-next-line jsx-a11y/no-static-element-interactions
                 <div
                   className="task flex m-3 p-3 rounded-md items-center border-2
-              border-grey-400 w-full cursor-pointer flex-row max-lg:flex-col
+              border-grey-400 cursor-pointer flex-row max-lg:flex-col
                max-lg:justify-self-start max-lg:justify-items-start"
                   key={i}
                 >
