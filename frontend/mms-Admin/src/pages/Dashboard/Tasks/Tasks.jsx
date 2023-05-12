@@ -30,7 +30,13 @@ function Tasks() {
   const [open, setOpen] = useState(false);
   // const [message, setMessage] = useState('');
   // retrieving the tasks deata from redux
-  const { isTaskClicked, task, clickedTask, isLoading, isDeleting } = useSelector((state) => state.tasks);
+  const {
+    isTaskClicked,
+    task,
+    clickedTask,
+    isLoading,
+    isDeleting,
+  } = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
 
   const search = () => {
