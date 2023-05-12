@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { useDispatch } from 'react-redux';
 import { closeModal } from '../../redux/features/Modals/modalSlice';
@@ -9,7 +9,7 @@ import { uploadProfilePictureFailure,
 import { api } from '../../services/api';
 import Button from '../utilities/Buttons/Button';
 
-function UploadProfilePicture({ image, imgUrl, setImgUrl, setImage }) {
+function UploadProfilePicture({ image, imgUrl }) {
   const dispatch = useDispatch();
 
   const { userInfo, userProfile } = useSelector((state) => state.user);
@@ -27,9 +27,8 @@ function UploadProfilePicture({ image, imgUrl, setImgUrl, setImage }) {
     const form = new FormData();
 
     form.append('profile_picture', image);
-    // console.log(image);
     try {
-      const upload = await api.post(
+      await api.post(
         `/${userId}/profiles/${profileId}/picture`,
         form,
         {
@@ -41,78 +40,27 @@ function UploadProfilePicture({ image, imgUrl, setImgUrl, setImage }) {
       );
       dispatch(uploadProfilePictureSuccess());
       dispatch(closeModal());
-      console.log(upload);
-
-      const getProfile = async () => {
-        // dispatch(createProfileStart());
-        try {
-          const profile = await api.get(`/${userId}/profiles/${profileId}`, {
-            headers: {
-              Authorization: `Bearer ${userToken}`,
-            },
-          });
-          //   dispatch(createProfileSuccess(profileCreate.data.data.profile));
-          //   setMessage(profileCreate.data.message);
-
-          // open a modal after success
-          //   dispatch(openModal(<ProfileSaved />));
-          console(profile);
-        } catch (err) {
-          if (err) {
-            // dispatch(createProfileFailure());
-            console.log(err);
-            // setMessage(err.response.data?.message);
-          }
-        }
-      };
-
-      getProfile();
     } catch (err) {
       if (err) {
-        setImage(null);
-        setImgUrl(null);
         dispatch(uploadProfilePictureFailure());
-        console.log(err);
-        // setMessage(err.response.data.message);
       }
     }
   };
 
-  useEffect(() => {
-    if (image !== null) {
-      setImgUrl(URL.createObjectURL(image));
-      setImage(null);
-    }
-  }, [image, imgUrl, setImage, setImgUrl]);
-
   return (
     <div>
       <h2 className="font-mukta font-[600] text-black1 text-[18px] md:text-[24px]">
-        Profile Picture
+        New Profile Picture
       </h2>
-
-      {!image ? (
-        <p
-          className={`font-[400] font-mukta text-[16px] mt-[20px] text-center
-             text-red-500`}
-        >
-          No Image has been selected
-        </p>
-      ) : (
-        <img
-          src={imgUrl}
-          className="rounded-[50%] w-[150px] h-[150px] object-cover object-top my-3"
-          alt=""
-        />
-      )}
+      <img src={imgUrl} className="w-[200px] h-[200px] rounded-full object-cover object-top mt-5 mb-10" alt="" />
 
       <div className="w-full">
         <Button
-          width="w-full mt-[28px]"
+          width="w-full mt-[28px] w-[50%]"
           onClick={uploadPicture}
           aria-hidden="true"
         >
-          Upload Picture
+          Done
         </Button>
       </div>
     </div>

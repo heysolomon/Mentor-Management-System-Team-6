@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { SpinnerCircular } from 'spinners-react';
@@ -156,24 +156,13 @@ function SettingsGeneral() {
 
   // Create a reference to the hidden file input element
   const hiddenPictureInput = React.useRef(null);
-  const [image, setImage] = useState(null);
-  const [imgUrl, setImgUrl] = useState(null);
-
-  useEffect(() => {
-    setImgUrl(image);
-  }, [image]);
 
   const handleChange = (e) => {
-    setImage(e.target.files[0]);
-    setImgUrl(URL.createObjectURL(e.target.files[0]));
-
     dispatch(
       openModal(
         <UploadProfilePicture
-          image={image}
-          setImage={setImage}
-          setImgUrl={setImgUrl}
-          imgUrl={imgUrl}
+          image={e.target.files[0]}
+          imgUrl={URL.createObjectURL(e.target.files[0])}
         />,
       ),
     );
