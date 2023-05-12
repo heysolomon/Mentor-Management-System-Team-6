@@ -15,6 +15,7 @@ import sidebarSlice from './features/sidebarSlice';
 import userSlice from './features/userSlice';
 import passwordResetSlice from './features/passwordResetSlice';
 import mentorsSlice from './features/mentorsSlice';
+import taskSlice from './features/taskSlice';
 
 const rootReducer = combineReducers({
   splashScreen: splashSlice,
@@ -28,6 +29,8 @@ const rootReducer = combineReducers({
   resetPassword: passwordResetSlice,
 
   mentors: mentorsSlice,
+
+  tasks: taskSlice,
 });
 
 const persistConfig = {

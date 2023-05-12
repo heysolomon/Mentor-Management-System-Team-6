@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Tasks.css';
 import { RiSearchLine } from 'react-icons/ri';
 import { BsFilter, BsPeople, BsPerson } from 'react-icons/bs';
 import { BiArrowBack } from 'react-icons/bi';
 import { HiOutlineDocumentText, HiOutlineTrash } from 'react-icons/hi';
 import { GoCalendar } from 'react-icons/go';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import taskImg from './task.png';
 import DeleteTask from '../../../components/Modals/DeleteTask';
 import { openModal } from '../../../redux/features/Modals/modalSlice';
+import { tasks } from '../../../services/api';
+import { getTaskFailure,
+  getTaskStart,
+  getTaskSuccess,
+  taskInfoOpen } from '../../../redux/features/taskSlice';
 
 function Tasks() {
+  const { userInfo } = useSelector((state) => state.user);
+  const userToken = userInfo.data.access_token;
   const [checked, setChecked] = useState(false);
   const [sort, setSort] = useState(false);
   const [open, setOpen] = useState(false);
@@ -24,8 +31,36 @@ function Tasks() {
   const handleDelete = () => {
     dispatch(openModal(<DeleteTask />));
   };
+
+  useEffect(() => {
+    const getTasks = () => {
+      dispatch(getTaskStart());
+      tasks
+        .get('/tasks', {
+          headers: {
+            Authorization: `bearer ${userToken}`,
+          },
+        })
+        .then((res) => {
+          dispatch(getTaskSuccess(res.data.data.tasks));
+          console.log(res.data.data.tasks);
+        })
+        .catch((err) => {
+          dispatch(getTaskFailure());
+          console.log(err);
+        });
+    };
+    getTasks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getTaskStart, getTaskSuccess, getTaskFailure]);
+
+  // retrieving the tasks deata from redux
+  const { isTaskClicked, moreInfo, task, clickedTask } = useSelector(
+    (state) => state.tasks,
+  );
+
   return (
-    <div className="flex flex-col lg:flex-row h-full">
+    <div className="grid grid-cols-tasks gap-x-[20px] h-full">
       <div
         className={`${
           open ? '' : 'max-lg:hidden'
@@ -63,18 +98,21 @@ function Tasks() {
         </div>
         {/* start tasks */}
         <div className="taskContainer me-5">
-          {Array.from(Array(10)).map((i) => (
+          {task.map((i) => (
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div
-              className="task flex m-3 p-3 rounded-md  border-2 border-grey-400 w-full cursor-pointer"
-              onClick={() => setOpen(false)}
+              className="task flex my-3 p-3 rounded-md  border-2 border-grey-400 w-full cursor-pointer"
+              onClick={() => {
+                setOpen(false);
+                dispatch(taskInfoOpen(i));
+              }}
               onKeyUp={() => setOpen(false)}
               key={i}
             >
               <img src={taskImg} alt={i} className="object-contain" />
               <div className="rightTask ms-8">
-                <h3 className="font-semibold">Room Library article write...</h3>
-                <div className="taskdate flex">
+                <h3 className="font-semibold">{i.title}</h3>
+                <div className="taskdate flex items-center">
                   <GoCalendar className="text-teal-700 text-l me-3" />
                   <p className="text-xs text-gray-600 font-light align-middle">
                     3 days from now
@@ -104,13 +142,16 @@ function Tasks() {
             show all Tasks
           </button>
         </div>
+
         <div className="pr-[10px] pb-20 h-full overflow-y-auto scroll">
           <div className="task flex  flex-col  rounded-md  border-2 border-grey-400 w-full">
             <div className="flex flex-row p-4">
               <img src={taskImg} alt="icon" className="object-contain" />
               <div className="rightTask ms-8">
                 <h3 className="font-semibold text-xl ">
-                  Room library article written in java
+                  {isTaskClicked
+                    ? `${clickedTask.title}`
+                    : 'select task to view title'}
                 </h3>
                 <div className="taskdate flex items-center">
                   <GoCalendar className="text-teal-700 text-l me-3" />
@@ -122,13 +163,9 @@ function Tasks() {
             </div>
             <div className="bg-pri11 rounded-b-lg p-4">
               <p className="text-gray-500 pt-2">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et
-                massa mi. Aliquam in hendrerit urna. Pellentesque sit amet
-                sapien fringilla, mattis ligula consectetur, ultrices mauris.
-                Maecenas vitae mattis tellus. Nullam quis imperdiet augue.
-                Vestibulum auctor ornare leo, non suscipit magna interdum eu.
-                Curabitur pellentesque nibh nibh, at maximus ante fermentum sit
-                amet. Pellentesque
+                {isTaskClicked
+                  ? `${clickedTask.description}`
+                  : 'select task to view description'}
               </p>
               {/* start task1 */}
               <div className="flex bg-cyan-100/50 p-3 my-3 max-md:flex-col max-md:place-items-center">
