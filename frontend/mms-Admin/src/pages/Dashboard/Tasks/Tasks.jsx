@@ -1,35 +1,99 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Tasks.css';
 import { RiSearchLine } from 'react-icons/ri';
 import { BsFilter, BsPeople, BsPerson } from 'react-icons/bs';
 import { BiArrowBack } from 'react-icons/bi';
 import { HiOutlineDocumentText, HiOutlineTrash } from 'react-icons/hi';
 import { GoCalendar } from 'react-icons/go';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { SpinnerCircular } from 'spinners-react';
 import taskImg from './task.png';
 import DeleteTask from '../../../components/Modals/DeleteTask';
 import { openModal } from '../../../redux/features/Modals/modalSlice';
+import { tasks } from '../../../services/api';
+import { deleteTaskFailure,
+  deleteTaskStart,
+  deleteTaskSuccess,
+  getTaskFailure,
+  getTaskStart,
+  getTaskSuccess,
+  setTask,
+  taskInfoOpen } from '../../../redux/features/taskSlice';
+import TaskLoading from '../../../components/Dashboard/Tasks/TasksLoading';
 
 function Tasks() {
+  const { userInfo } = useSelector((state) => state.user);
+  const userToken = userInfo.data.access_token;
   const [checked, setChecked] = useState(false);
   const [sort, setSort] = useState(false);
   const [open, setOpen] = useState(false);
+  // const [message, setMessage] = useState('');
+  // retrieving the tasks deata from redux
+  const {
+    isTaskClicked,
+    task,
+    clickedTask,
+    isLoading,
+    isDeleting,
+  } = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
 
   const search = () => {
     setChecked(true);
   };
 
+  // function for deleting a task
   const handleDelete = () => {
-    dispatch(openModal(<DeleteTask />));
+    dispatch(deleteTaskStart());
+    tasks
+      .delete(`/tasks/${clickedTask.id}`, {
+        headers: {
+          Authorization: `bearer ${userToken}`,
+        },
+      })
+      .then(() => {
+        // console.log(res);
+        dispatch(openModal(<DeleteTask />));
+        dispatch(deleteTaskSuccess());
+      })
+      .catch(() => {
+        dispatch(deleteTaskFailure());
+        // setMessage(err.response.data.detail);
+        // console.log(err);
+      });
   };
+
+  useEffect(() => {
+    const getTasks = () => {
+      dispatch(setTask([]));
+      // console.log(tasks);
+      dispatch(getTaskStart());
+      tasks
+        .get('/tasks', {
+          headers: {
+            Authorization: `bearer ${userToken}`,
+          },
+        })
+        .then((res) => {
+          dispatch(getTaskSuccess(res.data.data.tasks));
+          // console.log(res.data.data.tasks);
+        })
+        .catch(() => {
+          dispatch(getTaskFailure());
+          // console.log(err.response.data.detail);
+        });
+    };
+    getTasks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="flex flex-col lg:flex-row h-full">
       <div
         className={`${
           open ? '' : 'max-lg:hidden'
-        }  basis-1/1 flex m-5 flex-col overflow-y-auto pb-5 h-screen w-full lg:w-100 scroll`}
+        }  basis-1/1 flex m-5 flex-col pb-5 w-[40%] lg:w-100 h-full`}
       >
         <div className="tasksHeader flex flex-row">
           {checked ? (
@@ -62,32 +126,54 @@ function Tasks() {
           )}
         </div>
         {/* start tasks */}
-        <div className="taskContainer me-5">
-          {Array.from(Array(10)).map((i) => (
-            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-            <div
-              className="task flex m-3 p-3 rounded-md  border-2 border-grey-400 w-full cursor-pointer"
-              onClick={() => setOpen(false)}
-              onKeyUp={() => setOpen(false)}
-              key={i}
-            >
-              <img src={taskImg} alt={i} className="object-contain" />
-              <div className="rightTask ms-8">
-                <h3 className="font-semibold">Room Library article write...</h3>
-                <div className="taskdate flex">
-                  <GoCalendar className="text-teal-700 text-l me-3" />
-                  <p className="text-xs text-gray-600 font-light align-middle">
-                    3 days from now
-                  </p>
+        <div className="taskContainer me-2 h-full overflow-y-auto scroll pr-[10px]">
+          {isLoading ? (
+            <>
+              <TaskLoading />
+              <TaskLoading />
+              <TaskLoading />
+              <TaskLoading />
+              <TaskLoading />
+              <TaskLoading />
+              <TaskLoading />
+              <TaskLoading />
+            </>
+          ) : (
+            <>
+              {task.map((i) => (
+                // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                <div
+                  className="task flex my-3 p-3 rounded-md  border-2 border-grey-400 w-full cursor-pointer hover:scale-95 duration-500"
+                  onClick={() => {
+                    setOpen(false);
+                    dispatch(taskInfoOpen(i));
+                  }}
+                  onKeyUp={() => setOpen(false)}
+                  key={i}
+                >
+                  <img src={taskImg} alt={i} className="object-contain" />
+                  <div className="rightTask ms-8">
+                    <h3 className="font-semibold">{i.title}</h3>
+                    <div className="taskdate flex items-center">
+                      <GoCalendar className="text-teal-700 text-l me-3" />
+                      <p className="text-xs text-gray-600 font-light align-middle">
+                        3 days from now
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              ))}
+            </>
+          )}
         </div>
         {/* end tasks */}
       </div>
 
-      <div className={`${open ? 'max-lg:hidden' : ''} g:basis-2/3 basis-1/1`}>
+      <div
+        className={`${
+          open ? 'max-lg:hidden' : ''
+        } g:basis-2/3 basis-1/1 w-full`}
+      >
         <div className="flex flex-row-reverse">
           <NavLink
             to="/admin-dashboard/task_new"
@@ -104,13 +190,16 @@ function Tasks() {
             show all Tasks
           </button>
         </div>
+
         <div className="pr-[10px] pb-20 h-full overflow-y-auto scroll">
           <div className="task flex  flex-col  rounded-md  border-2 border-grey-400 w-full">
             <div className="flex flex-row p-4">
               <img src={taskImg} alt="icon" className="object-contain" />
               <div className="rightTask ms-8">
                 <h3 className="font-semibold text-xl ">
-                  Room library article written in java
+                  {isTaskClicked
+                    ? `${clickedTask.title}`
+                    : 'select task to view title'}
                 </h3>
                 <div className="taskdate flex items-center">
                   <GoCalendar className="text-teal-700 text-l me-3" />
@@ -122,13 +211,9 @@ function Tasks() {
             </div>
             <div className="bg-pri11 rounded-b-lg p-4">
               <p className="text-gray-500 pt-2">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et
-                massa mi. Aliquam in hendrerit urna. Pellentesque sit amet
-                sapien fringilla, mattis ligula consectetur, ultrices mauris.
-                Maecenas vitae mattis tellus. Nullam quis imperdiet augue.
-                Vestibulum auctor ornare leo, non suscipit magna interdum eu.
-                Curabitur pellentesque nibh nibh, at maximus ante fermentum sit
-                amet. Pellentesque
+                {isTaskClicked
+                  ? `${clickedTask.description}`
+                  : 'select task to view description'}
               </p>
               {/* start task1 */}
               <div className="flex bg-cyan-100/50 p-3 my-3 max-md:flex-col max-md:place-items-center">
@@ -178,21 +263,31 @@ function Tasks() {
               </div>
               {/* end task  3 */}
               <div className="flex flex-row-reverse my-7">
-
                 <NavLink
                   to="/admin-dashboard/task_edit"
                   className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold"
                 >
-
                   Edit Task
                 </NavLink>
                 <button
                   type="button"
                   className="bg-transparent py-2.5 px-10  text-red-600 font-meduim flex flex-row"
                   onClick={handleDelete}
+                  disabled={!isTaskClicked && true}
                 >
-                  <HiOutlineTrash className="text-xl mr-2 font-xl" />
-                  Delete
+                  {isDeleting ? (
+                    <SpinnerCircular
+                      color="#F7FEFF"
+                      className="mr-2"
+                      thickness={250}
+                      size={20}
+                    />
+                  ) : (
+                    <>
+                      <HiOutlineTrash className="text-xl mr-2 font-xl" />
+                      Delete
+                    </>
+                  )}
                 </button>
               </div>
             </div>
