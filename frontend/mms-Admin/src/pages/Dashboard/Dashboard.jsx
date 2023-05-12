@@ -1,26 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Outlet } from 'react-router-dom';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Navbar from '../../components/Dashboard/Navbar';
 
 import Sidebar from '../../components/Dashboard/Sidebar';
 
 import Modal from '../../components/Modals/Modal';
 
-import { api } from '../../services/api';
+// import { api } from '../../services/api';
 
 function Dashboard() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const content = useSelector((state) => state.modal.content);
-  const { userInfo } = useSelector((state) => state.user);
+  // const { userInfo } = useSelector((state) => state.user);
 
-  const loggedInUser = userInfo.data.user;
+  // const loggedInUser = userInfo.data.user;
   // logged in user's id
-  const userId = loggedInUser.id;
+  // const userId = loggedInUser.id;
   // user login token
-  const userToken = userInfo.data.access_token;
+  // const userToken = userInfo.data.access_token;
   // useEffect(() => {
   //   const getTasks = () => {
   //     // dispatch(getTaskStart());

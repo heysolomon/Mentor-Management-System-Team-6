@@ -7,13 +7,18 @@ import { HiOutlineDocumentText, HiOutlineTrash } from 'react-icons/hi';
 import { GoCalendar } from 'react-icons/go';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { SpinnerCircular } from 'spinners-react';
 import taskImg from './task.png';
 import DeleteTask from '../../../components/Modals/DeleteTask';
 import { openModal } from '../../../redux/features/Modals/modalSlice';
 import { tasks } from '../../../services/api';
-import { getTaskFailure,
+import { deleteTaskFailure,
+  deleteTaskStart,
+  deleteTaskSuccess,
+  getTaskFailure,
   getTaskStart,
   getTaskSuccess,
+  setTask,
   taskInfoOpen } from '../../../redux/features/taskSlice';
 import TaskLoading from '../../../components/Dashboard/Tasks/TasksLoading';
 
@@ -25,9 +30,7 @@ function Tasks() {
   const [open, setOpen] = useState(false);
   // const [message, setMessage] = useState('');
   // retrieving the tasks deata from redux
-  const { isTaskClicked, task, clickedTask, isLoading } = useSelector(
-    (state) => state.tasks,
-  );
+  const { isTaskClicked, task, clickedTask, isLoading, isDeleting } = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
 
   const search = () => {
@@ -36,6 +39,7 @@ function Tasks() {
 
   // function for deleting a task
   const handleDelete = () => {
+    dispatch(deleteTaskStart());
     tasks
       .delete(`/tasks/${clickedTask.id}`, {
         headers: {
@@ -45,8 +49,10 @@ function Tasks() {
       .then(() => {
         // console.log(res);
         dispatch(openModal(<DeleteTask />));
+        dispatch(deleteTaskSuccess());
       })
       .catch(() => {
+        dispatch(deleteTaskFailure());
         // setMessage(err.response.data.detail);
         // console.log(err);
       });
@@ -54,6 +60,8 @@ function Tasks() {
 
   useEffect(() => {
     const getTasks = () => {
+      dispatch(setTask([]));
+      // console.log(tasks);
       dispatch(getTaskStart());
       tasks
         .get('/tasks', {
@@ -63,11 +71,11 @@ function Tasks() {
         })
         .then((res) => {
           dispatch(getTaskSuccess(res.data.data.tasks));
-          console.log(res.data.data.tasks);
+          // console.log(res.data.data.tasks);
         })
-        .catch((err) => {
+        .catch(() => {
           dispatch(getTaskFailure());
-          console.log(err.response.data.detail);
+          // console.log(err.response.data.detail);
         });
     };
     getTasks();
@@ -115,6 +123,10 @@ function Tasks() {
         <div className="taskContainer me-2 h-full overflow-y-auto scroll pr-[10px]">
           {isLoading ? (
             <>
+              <TaskLoading />
+              <TaskLoading />
+              <TaskLoading />
+              <TaskLoading />
               <TaskLoading />
               <TaskLoading />
               <TaskLoading />
@@ -257,8 +269,19 @@ function Tasks() {
                   onClick={handleDelete}
                   disabled={!isTaskClicked && true}
                 >
-                  <HiOutlineTrash className="text-xl mr-2 font-xl" />
-                  Delete
+                  {isDeleting ? (
+                    <SpinnerCircular
+                      color="#F7FEFF"
+                      className="mr-2"
+                      thickness={250}
+                      size={20}
+                    />
+                  ) : (
+                    <>
+                      <HiOutlineTrash className="text-xl mr-2 font-xl" />
+                      Delete
+                    </>
+                  )}
                 </button>
               </div>
             </div>

@@ -6,9 +6,11 @@ const taskSlice = createSlice({
   initialState: {
     task: [],
     isLoading: false,
+    isDeleting: false,
     isTaskClicked: false,
     clickedTask: null,
     error: false,
+    deleteError: false,
   },
   reducers: {
     // reducers for the login page
@@ -24,7 +26,6 @@ const taskSlice = createSlice({
       state.isLoading = false;
       state.error = true;
     },
-    // reducers for the login page
     createTaskStart: (state) => {
       state.isLoading = true;
     },
@@ -35,6 +36,17 @@ const taskSlice = createSlice({
     createTaskFailure: (state) => {
       state.isLoading = false;
       state.error = true;
+    },
+    deleteTaskStart: (state) => {
+      state.isDeleting = true;
+    },
+    deleteTaskSuccess: (state) => {
+      state.deleteError = false;
+      state.isDeleting = false;
+    },
+    deleteTaskFailure: (state) => {
+      state.isDeleting = false;
+      state.deleteError = true;
     },
     taskInfoOpen: (state, action) => {
       state.isTaskClicked = true;
@@ -60,4 +72,7 @@ export const {
   taskInfoOpen,
   saveTaskList,
   setTask,
+  deleteTaskStart,
+  deleteTaskSuccess,
+  deleteTaskFailure,
 } = taskSlice.actions;
