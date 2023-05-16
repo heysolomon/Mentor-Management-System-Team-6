@@ -19,7 +19,11 @@ function UploadProfilePicture({ image, imgUrl }) {
   // user login token
   const userToken = userInfo.data.access_token;
   // user profile id
-  const profileId = userProfile.id;
+  let profileId;
+
+  if (!userProfile === null) {
+    profileId = userProfile.id;
+  }
 
   const uploadPicture = async () => {
     dispatch(uploadProfilePictureStart());
@@ -27,22 +31,20 @@ function UploadProfilePicture({ image, imgUrl }) {
     const form = new FormData();
 
     form.append('profile_picture', image);
-    try {
-      await api.post(
-        `/${userId}/profiles/${profileId}/picture`,
-        form,
-        {
+    if (!userProfile === null) {
+      try {
+        await api.post(`/${userId}/profiles/${profileId}/picture`, form, {
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${userToken}`,
           },
-        },
-      );
-      dispatch(uploadProfilePictureSuccess());
-      dispatch(closeModal());
-    } catch (err) {
-      if (err) {
-        dispatch(uploadProfilePictureFailure());
+        });
+        dispatch(uploadProfilePictureSuccess());
+        dispatch(closeModal());
+      } catch (err) {
+        if (err) {
+          dispatch(uploadProfilePictureFailure());
+        }
       }
     }
   };
@@ -52,7 +54,11 @@ function UploadProfilePicture({ image, imgUrl }) {
       <h2 className="font-mukta font-[600] text-black1 text-[18px] md:text-[24px]">
         New Profile Picture
       </h2>
-      <img src={imgUrl} className="w-[200px] h-[200px] rounded-full object-cover object-top mt-5 mb-10" alt="" />
+      <img
+        src={imgUrl}
+        className="w-[200px] h-[200px] rounded-full object-cover object-top mt-5 mb-10"
+        alt=""
+      />
 
       <div className="w-full">
         <Button
