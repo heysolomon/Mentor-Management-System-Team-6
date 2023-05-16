@@ -16,6 +16,7 @@ import { createTaskFailure,
   createTaskStart,
   createTaskSuccess } from '../../../redux/features/taskSlice';
 import { tasks } from '../../../services/api';
+import TaskLoading from '../../../components/Dashboard/Tasks/TasksLoading';
 
 function NewTask() {
   const [checked, setChecked] = useState(false);
@@ -23,6 +24,7 @@ function NewTask() {
   const [mentorsOpen, setmentors] = useState(true);
   const [allMentors, setAllmentors] = useState([]);
   const [allMentorsManagers, setAllmentorsManagers] = useState([]);
+  const [searchText, setSearch] = useState('');
 
   const { userInfo } = useSelector((state) => state.user);
   const userToken = userInfo.data.access_token;
@@ -33,6 +35,10 @@ function NewTask() {
     setChecked(true);
   };
 
+  const handleChange = (event) => {
+    setSearch(event.target.value);
+    console.log(searchText);
+  };
   const { isLoading } = useSelector((state) => state.tasks);
 
   const initialValues = {
@@ -234,7 +240,8 @@ function NewTask() {
                     type="text"
                     className="focus:outline-none bg-transparent pl-4 w-full"
                     placeholder="Search Mentors"
-                    onKeyDown={search}
+                    onChange={(e) => handleChange(e)}
+                    value={searchText}
                   />
                   <BiArrowBack
                     className="text-teal-700 text-2xl mx-2 cursor-pointer"
@@ -265,7 +272,9 @@ function NewTask() {
             </div>
             <div className="taskContainer">
               {allMentors.length > 0
-                && allMentors.map((item, i) => (
+                ? (allMentors.filter((x) => x.about.toLowerCase()
+                .includes(searchText.toLowerCase()))
+                .map((item, i) => (
                   // eslint-disable-next-line jsx-a11y/no-static-element-interactions
                   <div
                     className="task flex m-3 p-3 rounded-md items-center border-2
@@ -283,14 +292,14 @@ function NewTask() {
                         </p>
                       </div>
                       {item.roles.map((role, n) => (
-                        <span className="bg-pri11 text-grey-300 text-xs mt-5 p-1 mx-1" key={"role" + n}>
+                        <span className="bg-pri11 text-grey-300 text-xs mt-5 p-1 mx-1" key={`role${n}`}>
                           role
                         </span>
                       ))}
                     </div>
                     <BsPlusCircle className="text-teal-700 text-2xl mx-2 cursor-pointer" />
                   </div>
-                ))}
+                ))) : <TaskLoading />}
             </div>
             {/* end tasks */}
           </div>
