@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-wrap-multilines */
 import React, { useState, useEffect } from 'react';
 import './Tasks.css';
 import * as Yup from 'yup';
@@ -5,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RiSearchLine } from 'react-icons/ri';
 import { BsFilter, BsPlusCircle } from 'react-icons/bs';
 import { BiArrowBack } from 'react-icons/bi';
-import { AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineClose, AiOutlineCheck } from 'react-icons/ai';
 import { SpinnerCircular } from 'spinners-react';
 import { RemoveIcon, UserAvatar } from '../../../assets/images';
 import { openModal } from '../../../redux/features/Modals/modalSlice';
@@ -25,6 +26,7 @@ function NewTask() {
   const [allMentors, setAllmentors] = useState([]);
   const [allMentorsManagers, setAllmentorsManagers] = useState([]);
   const [searchText, setSearch] = useState('');
+  const [selectedMentors, setSelectedMentors] = useState([]);
 
   const { userInfo } = useSelector((state) => state.user);
   const userToken = userInfo.data.access_token;
@@ -37,7 +39,6 @@ function NewTask() {
 
   const handleChange = (event) => {
     setSearch(event.target.value);
-    console.log(searchText);
   };
   const { isLoading } = useSelector((state) => state.tasks);
 
@@ -84,6 +85,17 @@ function NewTask() {
   };
   const submit = async (values) => {
     createTask(values);
+  };
+
+  const pushMentors = (mentorSelected) => {
+    if ((selectedMentors.includes(mentorSelected)) !== true) {
+      setSelectedMentors((selectedMentors) => [...selectedMentors, mentorSelected]);
+      console.log(selectedMentors);
+    }
+  };
+
+  const removeMentors = () => {
+    setSelectedMentors([]);
   };
 
   const fetchMentors = () => {
@@ -157,13 +169,15 @@ function NewTask() {
                   {/* start select mentor */}
                   <div
                     className="flex flex-row bg-white px-3 py-.5 mb-2"
-                    onClick={() => setmentors(false)}
-                    onKeyDown={() => setmentors(false)}
+                    onClick={() => removeMentors()}
+                    onKeyDown={() => removeMentors()}
                     role="button"
                     tabIndex={0}
                   >
                     <p className="mr-3">10 Selected </p>
-                    <RemoveIcon styling="ml-2 object-contain cursor-pointer" />
+                    <RemoveIcon
+                      styling="ml-2 object-contain cursor-pointer"
+                    />
                   </div>
                   {/* end select mentor */}
                 </div>
@@ -187,12 +201,12 @@ function NewTask() {
                   {/* start select mentor */}
                   <div
                     className="flex flex-row bg-white px-3 py-.5 mb-2"
-                    onClick={() => setmentors(false)}
+                    onClick={() => removeMentors()}
+                    onKeyDown={() => removeMentors()}
                     role="button"
                     tabIndex={0}
-                    onKeyDown={() => setmentors(false)}
                   >
-                    <p className="mr-3">10 Selected </p>
+                    <p className="mr-3">{`${selectedMentors.length} Selected` }</p>
                     <RemoveIcon styling="pl-3 object-contain cursor-pointer" />
                   </div>
                   {/* end select mentor */}
@@ -297,7 +311,18 @@ function NewTask() {
                         </span>
                       ))}
                     </div>
-                    <BsPlusCircle className="text-teal-700 text-2xl mx-2 cursor-pointer" />
+                    {selectedMentors.includes(item.id) ? (
+                      <AiOutlineCheck
+                        className="text-teal-700 text-2xl mx-2 cursor-pointer"
+                      />
+                    ) : <BsPlusCircle
+                      className="text-teal-700 text-2xl mx-2 cursor-pointer"
+                      onClick={() => pushMentors(item.id)}
+                      onKeyDown={() => pushMentors(item.id)}
+                      role="button"
+                      tabIndex={0}
+                    /> }
+
                   </div>
                 ))) : <TaskLoading />}
             </div>
