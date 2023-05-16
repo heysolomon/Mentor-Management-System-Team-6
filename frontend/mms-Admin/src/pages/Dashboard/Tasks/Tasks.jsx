@@ -28,6 +28,8 @@ function Tasks() {
   const [checked, setChecked] = useState(false);
   const [sort, setSort] = useState(false);
   const [open, setOpen] = useState(false);
+  const [searchText, setSearch] = useState('');
+
   // const [message, setMessage] = useState('');
   // retrieving the tasks deata from redux
   const {
@@ -88,6 +90,9 @@ function Tasks() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleChange = (event) => {
+    setSearch(event.target.value);
+  };
   return (
     <div className="flex flex-col lg:flex-row h-full">
       <div
@@ -98,15 +103,20 @@ function Tasks() {
         <div className="tasksHeader flex flex-row">
           {checked ? (
             <div className="flex flex-row-reverse">
+
               <input
                 type="text"
                 className="focus:outline-none bg-transparent pl-4 w-full"
                 placeholder="Search tasks"
-                onKeyDown={search}
+                onChange={(e) => handleChange(e)}
+                value={searchText}
               />
               <BiArrowBack
                 className="text-teal-700 text-2xl mx-2 cursor-pointer"
-                onClick={() => setChecked(false)}
+                onClick={() => {
+                  setChecked(false);
+                  setSearch('');
+                }}
               />
             </div>
           ) : (
@@ -127,20 +137,11 @@ function Tasks() {
         </div>
         {/* start tasks */}
         <div className="taskContainer me-2 h-full overflow-y-auto scroll pr-[10px]">
-          {isLoading ? (
-            <>
-              <TaskLoading />
-              <TaskLoading />
-              <TaskLoading />
-              <TaskLoading />
-              <TaskLoading />
-              <TaskLoading />
-              <TaskLoading />
-              <TaskLoading />
-            </>
+          {isLoading ? (<TaskLoading />
           ) : (
             <>
-              {task.map((i) => (
+              {task.filter((x) => x.title.toLowerCase().includes(searchText.toLowerCase()))
+              .map((i) => (
                 // eslint-disable-next-line jsx-a11y/no-static-element-interactions
                 <div
                   className="task flex my-3 p-3 rounded-md  border-2 border-grey-400 w-full cursor-pointer hover:scale-95 duration-500"
@@ -149,8 +150,9 @@ function Tasks() {
                     dispatch(taskInfoOpen(i));
                   }}
                   onKeyUp={() => setOpen(false)}
-                  key={i.id}
+                  key={i}
                 >
+
                   <img src={taskImg} alt={i} className="object-contain" />
                   <div className="rightTask ms-8">
                     <h3 className="font-semibold">{i.title}</h3>

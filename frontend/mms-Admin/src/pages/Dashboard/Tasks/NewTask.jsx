@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Tasks.css';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,15 +21,17 @@ function NewTask() {
   const [checked, setChecked] = useState(false);
   const [sort, setSort] = useState(false);
   const [mentorsOpen, setmentors] = useState(true);
+  const [allMentors, setAllmentors] = useState([]);
+  const [allMentorsManagers, setAllmentorsManagers] = useState([]);
+
+  const { userInfo } = useSelector((state) => state.user);
+  const userToken = userInfo.data.access_token;
+
   const dispatch = useDispatch();
 
   const search = () => {
     setChecked(true);
   };
-
-  const { userInfo } = useSelector((state) => state.user);
-
-  const userToken = userInfo.data.access_token;
 
   const { isLoading } = useSelector((state) => state.tasks);
 
@@ -77,9 +79,39 @@ function NewTask() {
   const submit = async (values) => {
     createTask(values);
   };
+
+  const fetchMentors = () => {
+    fetch('http://172.105.50.46:8080/users/mentors', {
+      headers: {
+        Authorization: `bearer ${userToken}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setAllmentors(data.data.mentors);
+      });
+  };
+
+  const fetchMentorsManagers = () => {
+    fetch('http://172.105.50.46:8080/users/mentor-managers', {
+      headers: {
+        Authorization: `bearer ${userToken}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setAllmentorsManagers(data.data.mentorManagers);
+      });
+  };
+
+  useEffect(() => {
+    fetchMentors();
+    fetchMentorsManagers();
+  }, []);
+
   return (
-    <div className="mx-10 pb-[50px] h-full">
-      <div className="h-full">
+    <div className="h-full overflow-y-auto scroll pr-[10px] pb-36">
+      <div className="">
         <h1 className="font-[600] tasksH grow flex-basis-1 w-full">New Task</h1>
         <div className="max-lg:flex-col-reverse flex grow flex-row max-lg:mt-5 h-full">
           <FormikForm
@@ -232,33 +264,33 @@ function NewTask() {
               )}
             </div>
             <div className="taskContainer">
-              {Array.from(Array(10)).map((i) => (
-                // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-                <div
-                  className="task flex m-3 p-3 rounded-md items-center border-2
+              {allMentors.length > 0
+                && allMentors.map((item, i) => (
+                  // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                  <div
+                    className="task flex m-3 p-3 rounded-md items-center border-2
               border-grey-400 cursor-pointer flex-row max-lg:flex-col
                max-lg:justify-self-start max-lg:justify-items-start"
-                  key={i}
-                >
-                  <UserAvatar className="max-lg:mb-0 mb-2" />
+                    key={i}
+                  >
+                    <UserAvatar className="max-lg:mb-0 mb-2" />
 
-                  <div className="rightTask ms-8 grow max-lg:w-full max-lg:mb-3">
-                    <h3 className="font-semibold">Alison Davis</h3>
-                    <div className="taskdate flex">
-                      <p className="text-xs text-gray-600 font-light align-middle">
-                        Program Assistant, Andela, She/her
-                      </p>
+                    <div className="rightTask ms-8 grow max-lg:w-full max-lg:mb-3">
+                      <h3 className="font-semibold">Alison Davis</h3>
+                      <div className="taskdate flex">
+                        <p className="text-xs text-gray-600 font-light align-middle">
+                          {item.about}
+                        </p>
+                      </div>
+                      {item.roles.map((role, n) => (
+                        <span className="bg-pri11 text-grey-300 text-xs mt-5 p-1 mx-1" key={"role" + n}>
+                          role
+                        </span>
+                      ))}
                     </div>
-                    <span className="bg-pri11 text-grey-300 text-xs mt-5 p-1 mx-1">
-                      PROGRAM ASST.
-                    </span>
-                    <span className="bg-pri11 text-grey-300 text-xs mt-5 p-1 mx-1">
-                      PROGRAM ASST.
-                    </span>
+                    <BsPlusCircle className="text-teal-700 text-2xl mx-2 cursor-pointer" />
                   </div>
-                  <BsPlusCircle className="text-teal-700 text-2xl mx-2 cursor-pointer" />
-                </div>
-              ))}
+                ))}
             </div>
             {/* end tasks */}
           </div>
