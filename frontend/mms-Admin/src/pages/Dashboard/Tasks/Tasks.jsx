@@ -149,7 +149,7 @@ function Tasks() {
                     dispatch(taskInfoOpen(i));
                   }}
                   onKeyUp={() => setOpen(false)}
-                  key={i}
+                  key={i.id}
                 >
                   <img src={taskImg} alt={i} className="object-contain" />
                   <div className="rightTask ms-8">

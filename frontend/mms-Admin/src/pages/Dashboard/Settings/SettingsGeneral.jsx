@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { SpinnerCircular } from 'spinners-react';
+import { FaUserCircle } from 'react-icons/fa';
 import { GithubIcon,
   InstagramIcon,
   LinkedinIcon,
-  TwitterIcon,
-  UserAvatar } from '../../../assets/images';
+  TwitterIcon } from '../../../assets/images';
 import SocialIcon from '../../../components/Dashboard/Settings/Socials';
 import FormikForm from '../../../components/FormikForm/FormikForm';
 import InputField from '../../../components/InputField';
@@ -140,7 +140,7 @@ function SettingsGeneral() {
           },
         },
       );
-      dispatch(createProfileSuccess(profileCreate.data.data.profile));
+      dispatch(createProfileSuccess());
       setMessage(profileCreate.data.message);
 
       // open a modal after success
@@ -182,10 +182,10 @@ function SettingsGeneral() {
       <section className="flex justify-between items-center">
         <div className="flex items-center">
           {profilePicture === null ? (
-            <UserAvatar styling="w-[73px]" />
+            <FaUserCircle className="h-[73px] w-[73px] text-pri2" />
           ) : (
             <img
-              src={profilePicture.preview}
+              src={profilePicture}
               className="w-[73px] h-[73px] object-cover rounded-[50%] object-top"
               alt="profile"
             />

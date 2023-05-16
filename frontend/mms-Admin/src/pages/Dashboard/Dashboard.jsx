@@ -1,47 +1,50 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Outlet } from 'react-router-dom';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Navbar from '../../components/Dashboard/Navbar';
 
 import Sidebar from '../../components/Dashboard/Sidebar';
 
 import Modal from '../../components/Modals/Modal';
+import { getProfileFailure,
+  getProfileStart,
+  getProfileSuccess } from '../../redux/features/userSlice';
+import { api } from '../../services/api';
 
 // import { api } from '../../services/api';
 
 function Dashboard() {
   // const dispatch = useDispatch();
   const content = useSelector((state) => state.modal.content);
-  // const { userInfo } = useSelector((state) => state.user);
+  const { userInfo } = useSelector((state) => state.user);
+  const userToken = userInfo.data.access_token;
+  const { profileId, id } = userInfo.data.user;
 
-  // const loggedInUser = userInfo.data.user;
-  // logged in user's id
-  // const userId = loggedInUser.id;
-  // user login token
-  // const userToken = userInfo.data.access_token;
-  // useEffect(() => {
-  //   const getTasks = () => {
-  //     // dispatch(getTaskStart());
-  //     api
-  //       .get(`/${userId}/profiles/${profile_id}`, {
-  //         headers: {
-  //           Authorization: `bearer ${userToken}`,
-  //         },
-  //       })
-  //       .then((res) => {
-  //         // dispatch(getTaskSuccess(res.data.data.tasks));
-  //         console.log(res);
-  //       })
-  //       .catch((err) => {
-  //         // dispatch(getTaskFailure());
-  //         console.log(err.response.data.detail);
-  //       });
-  //   };
-  //   getTasks();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // to get the user's profile
+    const getProfile = () => {
+      dispatch(getProfileStart());
+      api
+        .get(`/${id}/profiles/${profileId}`, {
+          headers: {
+            Authorization: `bearer ${userToken}`,
+          },
+        })
+        .then((res) => {
+          dispatch(getProfileSuccess(res.data.data.profile));
+          // console.log();
+        })
+        .catch(() => {
+          dispatch(getProfileFailure());
+          // console.log(err);
+        });
+    };
+    getProfile();
+  }, [dispatch, id, profileId, userToken]);
   return (
     <>
       {/* for all modals */}

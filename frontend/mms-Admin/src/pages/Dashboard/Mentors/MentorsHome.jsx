@@ -139,7 +139,7 @@ function MentorsHome() {
         })
         .catch(() => {
           dispatch(getMentorsFailure());
-          //   console.log(err);
+          // console.log(err);
         });
     };
     getMentors();
