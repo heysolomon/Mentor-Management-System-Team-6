@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Response, status, Depends
 from sqlalchemy.orm import Session
 
+from .crud import create_program_crud
 from .responses import CreateProgramResponse
 from .schemas import CreateProgram
 from ..account_management.models import Program
@@ -27,3 +28,6 @@ def create_program(program: CreateProgram, response: Response, db: Session = Dep
         program_response.message = INVALID_AUTHENTICATION_MESSAGE
         response.status_code = status.HTTP_409_CONFLICT
         return program_response
+    if not db_program:
+        db_program = create_program_crud(db, program)
+

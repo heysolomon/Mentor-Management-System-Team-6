@@ -1,15 +1,12 @@
 from fastapi_camelcase import CamelModel
 
-from .schemas import CreateProgram
+from .schemas import ViewProgram
 from ..utils import ResponseModel
 
 
 class CreateProgramData(CamelModel):
-    program: CreateProgram | None
+    program: ViewProgram | None
 
 
 class CreateProgramResponse(ResponseModel):
     data: CreateProgramData = CreateProgramData()
-
-
-

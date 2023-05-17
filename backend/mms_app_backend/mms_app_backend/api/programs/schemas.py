@@ -11,3 +11,7 @@ class BaseProgram(CamelModel):
 
 class CreateProgram(BaseProgram):
     pass
+
+
+class ViewProgram(BaseProgram):
+    id: int

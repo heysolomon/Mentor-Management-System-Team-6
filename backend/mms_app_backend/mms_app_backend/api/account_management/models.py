@@ -45,7 +45,7 @@ class ProgramMentorAssociation(AbstractBaseModel):
 class Program(AbstractBaseModel):
     __tablename__ = 'programs'
     name = Column(String)
-    avatar = Column(URLType)
+    avatar = Column(URLType, nullable=True)
     description = Column(Text)
     mentors = relationship("Mentor", back_populates='programs', secondary="program_mentor_association")
     mentor_managers = relationship("MentorManager", back_populates='programs')
@@ -60,6 +60,7 @@ class Mentor(AbstractBaseModel):
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     profile = relationship("Profile", back_populates='mentor')
     programs = relationship("Program", back_populates='mentors', secondary="program_mentor_association")
+
     task = relationship("Task", back_populates='mentors')
     task_id = Column(Integer, ForeignKey('tasks.id'))
 
