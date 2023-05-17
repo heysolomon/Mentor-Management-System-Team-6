@@ -1,8 +1,9 @@
+from typing import List
 
 from fastapi_camelcase import CamelModel
-from .schemas import GetPost, GetComment
 from mms_app_backend.api.utils import ResponseModel
-from typing import List
+
+from .schemas import GetPost, GetComment
 
 
 class CreatePostData(CamelModel):
@@ -35,4 +36,3 @@ class GetCommentsData(CamelModel):
 
 class GetCommentsResponse(ResponseModel):
     data: GetCommentsData = GetCommentsData()
-

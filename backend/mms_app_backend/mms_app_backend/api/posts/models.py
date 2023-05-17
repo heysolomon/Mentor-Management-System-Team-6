@@ -1,8 +1,8 @@
 from datetime import datetime
-from sqlalchemy.orm import relationship
-from sqlalchemy import Integer, Column, String, DateTime, ForeignKey
-from mms_app_backend.api.models import AbstractBaseModel
 
+from mms_app_backend.api.models import AbstractBaseModel
+from sqlalchemy import Integer, Column, String, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
 
 
 class Post(AbstractBaseModel):
@@ -20,4 +20,3 @@ class Comment(AbstractBaseModel):
     created_at = Column(DateTime, default=datetime.utcnow)
     post_id = Column(Integer, ForeignKey('posts.id'))
     posts = relationship('Post', back_populates='comments')
-

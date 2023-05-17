@@ -1,8 +1,9 @@
-from fastapi_mail import ConnectionConfig
-from dotenv import load_dotenv
 from os import environ
-load_dotenv()
 
+from dotenv import load_dotenv
+from fastapi_mail import ConnectionConfig
+
+load_dotenv()
 
 mail_config = ConnectionConfig(
     MAIL_USERNAME=environ.get('MAIL_USERNAME'),

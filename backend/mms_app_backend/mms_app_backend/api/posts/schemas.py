@@ -1,6 +1,7 @@
-from fastapi_camelcase import CamelModel
 from datetime import datetime
 from typing import List
+
+from fastapi_camelcase import CamelModel
 
 
 class CommentBase(CamelModel):

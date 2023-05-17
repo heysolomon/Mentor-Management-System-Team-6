@@ -136,7 +136,7 @@ def test_login():
     assert "user" not in response.json()["data"]
     assert response.json()["message"] == "The passwod provided is not correct"
     # Test case 1: Successful login
-    #Test case requires a valid user in login
+    # Test case requires a valid user in login
     response = client.post("/user/login", json={"email": "user@example.com", "password": "string"})
     assert response.status_code == 200
     assert response.json()["success"] == True

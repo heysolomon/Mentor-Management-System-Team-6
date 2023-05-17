@@ -20,7 +20,6 @@ class CreateMentor(BaseMentors):
     pass
 
 
-
 class BaseAboutMentors(CamelModel):
     bio: str
     was_mentor: bool

@@ -1,7 +1,9 @@
+from typing import List
+
 from fastapi_camelcase import CamelModel
+
 from .schemas import GetTask
 from ..utils import ResponseModel
-from typing import List
 
 
 class CreateTaskData(CamelModel):
@@ -18,4 +20,3 @@ class GetTasksData(CamelModel):
 
 class GetTasksResponse(ResponseModel):
     data: GetTasksData = GetTasksData()
-

@@ -77,7 +77,7 @@ class MentorManager(AbstractBaseModel):
     __tablename__ = 'mentor_managers'
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     profile = relationship("Profile", back_populates='mentor_manager')
-    programs = relationship("Program", back_populates='mentor_managers',secondary="program_mentor_manager_association")
+    programs = relationship("Program", back_populates='mentor_managers', secondary="program_mentor_manager_association")
     task = relationship("Task", back_populates='mentor_managers')
     task_id = Column(Integer, ForeignKey('tasks.id'))
     about = relationship("About", back_populates='mentor_manager', uselist=False)

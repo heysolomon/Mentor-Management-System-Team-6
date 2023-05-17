@@ -36,4 +36,3 @@ def create_program(program: CreateProgram, response: Response, db: Session = Dep
         program_response.success = True
 
     return program_response
-

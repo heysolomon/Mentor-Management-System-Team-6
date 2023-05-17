@@ -123,4 +123,3 @@ async def upload_profile_picture(profile_picture: UploadFile):
     Upload a profile picture.
     """
     return {"filename": profile_picture.filename}
-
