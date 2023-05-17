@@ -30,4 +30,9 @@ def create_program(program: CreateProgram, response: Response, db: Session = Dep
         return program_response
     if not db_program:
         db_program = create_program_crud(db, program)
+        program_response.message = ""
+        program_response.data.program = db_program
+        program_response.success = True
+
+    return program_response
 
