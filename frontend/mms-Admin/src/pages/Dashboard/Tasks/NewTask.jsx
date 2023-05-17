@@ -22,11 +22,14 @@ import TaskLoading from '../../../components/Dashboard/Tasks/TasksLoading';
 function NewTask() {
   const [checked, setChecked] = useState(false);
   const [sort, setSort] = useState(false);
-  const [mentorsOpen, setmentors] = useState(true);
+  const [mentorsOpen, setMentorsOpen] = useState(true);
+  const [mentorsmanagersOpen, setmentorsmanagersOpen] = useState(false);
+
   const [allMentors, setAllmentors] = useState([]);
   const [allMentorsManagers, setAllmentorsManagers] = useState([]);
   const [searchText, setSearch] = useState('');
   const [selectedMentors, setSelectedMentors] = useState([]);
+  const [selectedMentorsManagers, setSelectedMentorsManagers] = useState([]);
 
   const { userInfo } = useSelector((state) => state.user);
   const userToken = userInfo.data.access_token;
@@ -45,8 +48,6 @@ function NewTask() {
   const initialValues = {
     title: '',
     description: '',
-    mentors: [],
-    mentorManagers: [],
   };
 
   const validate = Yup.object({
@@ -64,6 +65,8 @@ function NewTask() {
         '/tasks',
         {
           ...values,
+          mentors: selectedMentors,
+          mentorManagers: selectedMentorsManagers,
         },
         {
           headers: {
@@ -89,15 +92,23 @@ function NewTask() {
 
   const pushMentors = (mentorSelected) => {
     if ((selectedMentors.includes(mentorSelected)) !== true) {
-      setSelectedMentors((selectedMentors) => [...selectedMentors, mentorSelected]);
-      console.log(selectedMentors);
+      setSelectedMentors((selectedMentors) =>
+       [...selectedMentors, mentorSelected]);
     }
   };
-
+  const pushMentorsManagers = (mentorSelected) => {
+    if ((selectedMentorsManagers.includes(mentorSelected)) !== true) {
+      setSelectedMentorsManagers((selectedMentorsManagers) =>
+       [...selectedMentorsManagers, mentorSelected]);
+    }
+  };
   const removeMentors = () => {
     setSelectedMentors([]);
   };
 
+  const removeMentorsManagers = () => {
+    setSelectedMentorsManagers([]);
+  };
   const fetchMentors = () => {
     fetch('http://172.105.50.46:8080/users/mentors', {
       headers: {
@@ -169,12 +180,12 @@ function NewTask() {
                   {/* start select mentor */}
                   <div
                     className="flex flex-row bg-white px-3 py-.5 mb-2"
-                    onClick={() => removeMentors()}
-                    onKeyDown={() => removeMentors()}
+                    onClick={() => removeMentorsManagers()}
+                    onKeyDown={() => removeMentorsManagers()}
                     role="button"
                     tabIndex={0}
                   >
-                    <p className="mr-3">10 Selected </p>
+                    <p className="mr-3">{`${selectedMentorsManagers.length} Selected` }</p>
                     <RemoveIcon
                       styling="ml-2 object-contain cursor-pointer"
                     />
@@ -184,8 +195,8 @@ function NewTask() {
                 <div className="flex flex-col  justify-center items-center">
                   <button
                     type="button"
-                    onClick={() => setmentors(true)}
-                    onKeyDown={() => setmentors(false)}
+                    onClick={() => { setmentorsmanagersOpen(true); setMentorsOpen(false); }}
+                    onKeyDown={() => { setmentorsmanagersOpen(true); setMentorsOpen(false); }}
                     className="bg-pri3 py-1 mb-2 px-4 rounded-md text-white mr-1 font-light font-sm   max-md:self-center self-start lg:text-base text-sm"
                   >
                     Select
@@ -206,7 +217,7 @@ function NewTask() {
                     role="button"
                     tabIndex={0}
                   >
-                    <p className="mr-3">{`${selectedMentors.length} Selected` }</p>
+                    <p className="mr-3"> { `${selectedMentors.length} Selected` }</p>
                     <RemoveIcon styling="pl-3 object-contain cursor-pointer" />
                   </div>
                   {/* end select mentor */}
@@ -214,7 +225,8 @@ function NewTask() {
                 <div className="flex flex-col  justify-center items-center">
                   <button
                     type="button"
-                    onClick={() => setmentors(true)}
+                    onClick={() => { setmentorsmanagersOpen(false); setMentorsOpen(true); }}
+                    onKeyDown={() => { setmentorsmanagersOpen(false); setMentorsOpen(true); }}
                     className="bg-pri3 py-1 mb-2 px-4 rounded-md text-white mr-1 font-light font-sm   max-md:self-center self-start lg:text-base text-sm"
                   >
                     Select
@@ -241,7 +253,7 @@ function NewTask() {
               </button>
             </section>
           </FormikForm>
-          {/* start tasks */}
+          {/* start mentors */}
           <div
             className={`${
               mentorsOpen ? '' : 'hidden'
@@ -279,7 +291,7 @@ function NewTask() {
                     className={`text-teal-700 text-md mt-1 mx-2 cursor-pointer ${
                       sort ? 'rotate-180' : ''
                     }`}
-                    onClick={() => setmentors(false)}
+                    onClick={() => { setMentorsOpen(false); setmentorsmanagersOpen(false); }}
                   />
                 </>
               )}
@@ -327,6 +339,94 @@ function NewTask() {
                 ))) : <TaskLoading />}
             </div>
             {/* end tasks */}
+          </div>
+
+          {/* start mentors managers */}
+          <div
+            className={`${
+              mentorsmanagersOpen ? '' : 'hidden'
+            } h-full w-[62%] overflow-y-auto scroll pr-[10px]`}
+          >
+            <div className="tasksHeader flex flex-row justify-end">
+              {checked ? (
+                <div className="flex flex-row-reverse">
+                  <input
+                    type="text"
+                    className="focus:outline-none bg-transparent pl-4 w-full"
+                    placeholder="Search Mentors"
+                    onChange={(e) => handleChange(e)}
+                    value={searchText}
+                  />
+                  <BiArrowBack
+                    className="text-teal-700 text-2xl mx-2 cursor-pointer"
+                    onClick={() => setChecked(false)}
+                  />
+                </div>
+              ) : (
+                <>
+                  <RiSearchLine
+                    className="text-teal-700 text-xl mx-2 cursor-pointer"
+                    onClick={search}
+                  />
+                  <BsFilter
+                    className={`text-teal-700 text-2xl mx-2 cursor-pointer ${
+                      sort ? 'rotate-180' : ''
+                    }`}
+                    onClick={() => setSort(!sort)}
+                  />
+
+                  <AiOutlineClose
+                    className={`text-teal-700 text-md mt-1 mx-2 cursor-pointer ${
+                      sort ? 'rotate-180' : ''
+                    }`}
+                    onClick={() => { setMentorsOpen(false); setmentorsmanagersOpen(false); }}
+                  />
+                </>
+              )}
+            </div>
+            <div className="taskContainer">
+              {allMentorsManagers.length > 0
+                ? (allMentorsManagers.filter((x) => x.about.toLowerCase()
+                .includes(searchText.toLowerCase()))
+                .map((item, i) => (
+                  // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                  <div
+                    className="task flex m-3 p-3 rounded-md items-center border-2
+              border-grey-400 cursor-pointer flex-row max-lg:flex-col
+               max-lg:justify-self-start max-lg:justify-items-start"
+                    key={i}
+                  >
+                    <UserAvatar className="max-lg:mb-0 mb-2" />
+
+                    <div className="rightTask ms-8 grow max-lg:w-full max-lg:mb-3">
+                      <h3 className="font-semibold">Alison Davis</h3>
+                      <div className="taskdate flex">
+                        <p className="text-xs text-gray-600 font-light align-middle">
+                          {item.about}
+                        </p>
+                      </div>
+                      {item.roles.map((role, n) => (
+                        <span className="bg-pri11 text-grey-300 text-xs mt-5 p-1 mx-1" key={`role${n}`}>
+                          role
+                        </span>
+                      ))}
+                    </div>
+                    {selectedMentorsManagers.includes(item.id) ? (
+                      <AiOutlineCheck
+                        className="text-teal-700 text-2xl mx-2 cursor-pointer"
+                      />
+                    ) : <BsPlusCircle
+                      className="text-teal-700 text-2xl mx-2 cursor-pointer"
+                      onClick={() => pushMentorsManagers(item.id)}
+                      onKeyDown={() => pushMentorsManagers(item.id)}
+                      role="button"
+                      tabIndex={0}
+                    /> }
+
+                  </div>
+                ))) : <TaskLoading />}
+            </div>
+            {/* end mentor managers */}
           </div>
         </div>
       </div>
