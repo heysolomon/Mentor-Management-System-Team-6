@@ -390,7 +390,7 @@ function NewTask() {
               {allMentorsManagers.length > 0
                 ? (allMentorsManagers.filter((x) => x.about.toLowerCase()
                 .includes(searchText.toLowerCase()))
-                .map((item, i) => (
+                .map((item) => (
                   // eslint-disable-next-line jsx-a11y/no-static-element-interactions
                   <div
                     className="task flex m-3 p-3 rounded-md items-center border-2
@@ -407,9 +407,9 @@ function NewTask() {
                           {item.about}
                         </p>
                       </div>
-                      {item.roles.map((role, n) => (
+                      {item.roles.map((role) => (
                         <span className="bg-pri11 text-grey-300 text-xs mt-5 p-1 mx-1" key={item.id}>
-                          role
+                          {role}
                         </span>
                       ))}
                     </div>
