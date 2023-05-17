@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Avatar from '../../../assets/avatar.svg';
 import filterIcon from '../../../assets/messages/filter.svg';
 import closeIcon from '../../../assets/messages/close.svg';
@@ -10,8 +10,10 @@ import nextMessageIcon from '../../../assets/messages/next-message.svg';
 import prevMessageIcon from '../../../assets/messages/prev-message.svg';
 
 export default function BrowsePeople() {
+  const navigate = useNavigate();
+
   return (
-    <div>
+    <div className="h-full">
       <section className="flex justify-between items-center mb-6">
         <h1 className="font-semibold text-2xl text-black1">
           Select someone to start a conversation
@@ -53,17 +55,17 @@ export default function BrowsePeople() {
             alt="prev page icon"
             className="h-full cursor-pointer px-8"
           />
-          <Link to="/admin-dashboard/messages">
-            <img
-              src={closeIcon}
-              alt="prev page icon"
-              className="h-full cursor-pointer"
-            />
-          </Link>
+          <img
+            src={closeIcon}
+            alt="prev page icon"
+            className="h-full cursor-pointer"
+            aria-hidden
+            onClick={() => navigate(-1)}
+          />
         </div>
       </section>
 
-      <section>
+      <section className="h-full overflow-y-auto scroll">
         <div className="border border-black9 border-solid rounded-[5px] w-full mb-3">
           <Link to="/admin-dashboard/messages/chats">
             <section className="flex items-center justify-between w-2/4 mb-0 py-2 pl-14 pr-12">

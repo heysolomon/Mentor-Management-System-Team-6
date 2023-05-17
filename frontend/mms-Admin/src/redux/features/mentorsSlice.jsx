@@ -6,6 +6,8 @@ const mentorsSlice = createSlice({
   initialState: {
     mentors: null,
     isLoading: false,
+    isMentorClicked: false,
+    clickedMentor: null,
     error: false,
   },
   reducers: {
@@ -22,8 +24,21 @@ const mentorsSlice = createSlice({
       state.isLoading = false;
       state.error = true;
     },
+    mentorInfoOpen: (state, action) => {
+      state.isMentorClicked = true;
+      state.clickedMentor = action.payload;
+    },
+    saveMentorsList: (state, action) => {
+      state.mentors = action.payload;
+    },
   },
 });
 
 export default mentorsSlice.reducer;
-export const { getMentorsStart, getMentorsSuccess, getMentorsFailure } = mentorsSlice.actions;
+export const {
+  getMentorsStart,
+  getMentorsSuccess,
+  getMentorsFailure,
+  mentorInfoOpen,
+  saveMentorsList,
+} = mentorsSlice.actions;

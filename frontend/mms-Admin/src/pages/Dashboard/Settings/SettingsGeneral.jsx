@@ -17,11 +17,8 @@ import ProfileSaved from '../../../components/Modals/ProfileSaved';
 import { api } from '../../../services/api';
 import { createProfileFailure,
   createProfileStart,
-  createProfileSuccess,
-  uploadProfilePicture,
-  uploadProfilePictureFailure,
-  uploadProfilePictureStart,
-  uploadProfilePictureSuccess } from '../../../redux/features/userSlice';
+  createProfileSuccess } from '../../../redux/features/userSlice';
+import UploadProfilePicture from '../../../components/Modals/UploadProfilePicture';
 
 function SettingsGeneral() {
   const initialValues = {
@@ -84,7 +81,6 @@ function SettingsGeneral() {
     creatingProfile,
     creatingProfileError,
     profilePicture,
-    userProfile,
     uploadingProfilePicture,
   } = useSelector((state) => state.user);
 
@@ -94,6 +90,7 @@ function SettingsGeneral() {
   // user login token
   const userToken = userInfo.data.access_token;
 
+  // this function is for creating the user profile
   const createProfile = async (values) => {
     // creating a new values object to follow the backend's schema
     const createProfileValues = {
@@ -156,59 +153,23 @@ function SettingsGeneral() {
       }
     }
   };
+
   // Create a reference to the hidden file input element
   const hiddenPictureInput = React.useRef(null);
-  // handles changing of the files uploaded
-  const handleChange = async (e) => {
-    if (e.target.files.length) {
-      await dispatch(
-        uploadProfilePicture({
-          preview: URL.createObjectURL(e.target.files[0]),
-          raw: e.target.files[0],
-        }),
-      );
 
-      // const picture = profilePicture.raw;
-      // console.log(picture);
-    }
+  const handleChange = (e) => {
+    dispatch(
+      openModal(
+        <UploadProfilePicture
+          image={e.target.files[0]}
+          imgUrl={URL.createObjectURL(e.target.files[0])}
+        />,
+      ),
+    );
   };
   // funtion to upload profile picture
   const handleUpload = () => {
     hiddenPictureInput.current.click();
-
-    // user profile id
-    const profileId = userProfile.id;
-    const image = profilePicture.raw;
-    // console.log(image);
-    const uploadPicture = async (values) => {
-      dispatch(uploadProfilePictureStart());
-      try {
-        const upload = await api.post(
-          `/${userId}/profiles/${profileId}/picture`,
-          {
-            ...values,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${userToken}`,
-            },
-          },
-        );
-        dispatch(uploadProfilePictureSuccess(upload.data.data.profile));
-        setMessage(upload.data?.message);
-
-        // open a modal after success
-        // dispatch(openModal(<ProfileSaved />));
-      } catch (err) {
-        if (err) {
-          dispatch(uploadProfilePictureFailure());
-          // console.log(err);
-          setMessage(err.response.data.message);
-        }
-      }
-    };
-
-    uploadPicture(image);
   };
 
   // function to submit the profile values
@@ -217,7 +178,7 @@ function SettingsGeneral() {
   };
 
   return (
-    <div className="md:border-[1px] md:rounded-[5px] md:border-black9 md:mx-10 md:p-5">
+    <div className="md:border-[1px] md:rounded-[5px] md:border-black9 md:mx-10 md:p-5 mb-[150px]">
       <section className="flex justify-between items-center">
         <div className="flex items-center">
           {profilePicture === null ? (
@@ -238,34 +199,33 @@ function SettingsGeneral() {
                 {loggedInUser.lastName}
               </h2>
             </div>
-            <form>
-              <label htmlFor="uploadPicture">
-                <button
-                  className="h-[24px] bg-pri3 flex items-center justify-center text-white duration-700 text-[12px] font-[400] text-mukta hover:bg-pri2 py-2 rounded-[5px] px-3"
-                  type="button"
-                  onClick={handleUpload}
-                >
-                  {uploadingProfilePicture ? (
-                    <SpinnerCircular
-                      color="#F7FEFF"
-                      className="mr-2"
-                      thickness={250}
-                      size={20}
-                    />
-                  ) : (
-                    ' upload picture'
-                  )}
-                </button>
-                <input
-                  type="file"
-                  id="uploadPicture"
-                  ref={hiddenPictureInput}
-                  className="hidden"
-                  onChange={handleChange}
-                  accept=".png, .jpeg, .JPEG"
-                />
-              </label>
-            </form>
+
+            <label htmlFor="uploadPicture">
+              <button
+                className="h-[24px] bg-pri3 flex items-center justify-center text-white duration-700 text-[12px] font-[400] text-mukta hover:bg-pri2 py-2 rounded-[5px] px-3"
+                type="button"
+                onClick={handleUpload}
+              >
+                {uploadingProfilePicture ? (
+                  <SpinnerCircular
+                    color="#F7FEFF"
+                    className="mr-2"
+                    thickness={250}
+                    size={20}
+                  />
+                ) : (
+                  ' upload picture'
+                )}
+              </button>
+              <input
+                type="file"
+                id="uploadPicture"
+                ref={hiddenPictureInput}
+                className="hidden"
+                onChange={handleChange}
+                accept=".png, .jpeg, .jpg"
+              />
+            </label>
           </div>
         </div>
       </section>

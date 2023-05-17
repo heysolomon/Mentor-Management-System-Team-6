@@ -16,6 +16,11 @@ class ViewMentors(BaseMentors):
         orm_mode = True
 
 
+class CreateMentor(BaseMentors):
+    pass
+
+
+
 class BaseAboutMentors(CamelModel):
     bio: str
     was_mentor: bool

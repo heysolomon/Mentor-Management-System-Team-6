@@ -1,11 +1,12 @@
 from fastapi import APIRouter, status, Depends, Response
 from sqlalchemy.orm import Session
 
-from .constants import GET_MENTORS_SUCCESSFUL_MESSAGE
-from .crud import get_mentors_crud
-from .responses import GetMentorsResponse
+from .constants import GET_MENTORS_SUCCESSFUL_MESSAGE, CREATED_MENTOR_SUCCESSFUL_MESSAGE
+from .crud import get_mentors_crud, create_mentor_user
+from .responses import GetMentorsResponse, CreateMentorResponse
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
 from ..authentication.helpers import verify_access_token
+from .schemas import CreateMentor
 from ..utils import get_db, get_token
 
 router = APIRouter()
@@ -23,13 +24,18 @@ async def get_mentors(response: Response, db: Session = Depends(get_db), jwt_tok
         return get_mentors_response
 
     mentors = get_mentors_crud(db)
-
     get_mentors_response.success = True
     get_mentors_response.message = GET_MENTORS_SUCCESSFUL_MESSAGE
     get_mentors_response.data.mentors = mentors
     return get_mentors_response
 
 
-@post('/users/mentors/{mentor_id}/about')
-async def create_about():
-    pass
+@post('/user/mentor', response_model=CreateMentorResponse, status_code=status.HTTP_201_CREATED)
+async def create_mentor(mentor: CreateMentor, response: Response, db: Session = Depends(get_db)):
+    mentor_response = CreateMentorResponse()
+    created_mentor_user = create_mentor_user(db, mentor)
+    if created_mentor_user:
+        mentor_response.success = True
+        mentor_response.data.mentor = created_mentor_user
+        mentor_response.message = CREATED_MENTOR_SUCCESSFUL_MESSAGE
+        return mentor_response
