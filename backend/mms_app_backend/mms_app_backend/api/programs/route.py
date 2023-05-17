@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Response, status, Depends
+from fastapi import APIRouter, Response, status, Depends
 from sqlalchemy.orm import Session
 
 from .crud import create_program_crud
@@ -9,7 +9,7 @@ from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
 from ..authentication.helpers import verify_access_token
 from ..utils import get_db, get_token
 
-router = FastAPI()
+router = APIRouter()
 get = router.get
 post = router.post
 

@@ -42,13 +42,20 @@ class ProgramMentorAssociation(AbstractBaseModel):
     mentor_id = Column(Integer, ForeignKey('mentors.id'), primary_key=True)
 
 
+class ProgramMentorManagerAssociation(AbstractBaseModel):
+    __tablename__ = 'program_mentor_manager_association'
+    program_id = Column(Integer, ForeignKey('programs.id'), primary_key=True)
+    mentor_id = Column(Integer, ForeignKey('mentor_managers.id'), primary_key=True)
+
+
 class Program(AbstractBaseModel):
     __tablename__ = 'programs'
     name = Column(String)
     avatar = Column(URLType, nullable=True)
     description = Column(Text)
     mentors = relationship("Mentor", back_populates='programs', secondary="program_mentor_association")
-    mentor_managers = relationship("MentorManager", back_populates='programs')
+    mentor_managers = relationship("MentorManager", back_populates='programs',
+                                   secondary='program_mentor_manager_association')
     criteria = relationship("Criterion", back_populates='program')
     previous_abouts = relationship("About", back_populates='previous_programs', secondary="about_programs_associations")
     mentor_about = relationship("About", back_populates='program')
@@ -70,7 +77,7 @@ class MentorManager(AbstractBaseModel):
     __tablename__ = 'mentor_managers'
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     profile = relationship("Profile", back_populates='mentor_manager')
-    programs = relationship("Program", back_populates='mentor_manager')
+    programs = relationship("Program", back_populates='mentor_managers',secondary="program_mentor_manager_association")
     task = relationship("Task", back_populates='mentor_managers')
     task_id = Column(Integer, ForeignKey('tasks.id'))
     about = relationship("About", back_populates='mentor_manager', uselist=False)
