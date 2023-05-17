@@ -48,7 +48,7 @@ function NewTask() {
   const initialValues = {
     title: '',
     description: '',
-    task_id: 123
+    task_id: 123,
   };
 
   const validate = Yup.object({
@@ -93,14 +93,12 @@ function NewTask() {
 
   const pushMentors = (mentorSelected) => {
     if ((selectedMentors.includes(mentorSelected)) !== true) {
-      setSelectedMentors((selectedMentors) =>
-       [...selectedMentors, mentorSelected]);
+      setSelectedMentors(() => [...selectedMentors, mentorSelected]);
     }
   };
   const pushMentorsManagers = (mentorSelected) => {
     if ((selectedMentorsManagers.includes(mentorSelected)) !== true) {
-      setSelectedMentorsManagers((selectedMentorsManagers) =>
-       [...selectedMentorsManagers, mentorSelected]);
+      setSelectedMentorsManagers(() => [...selectedMentorsManagers, mentorSelected]);
     }
   };
   const removeMentors = () => {
@@ -137,7 +135,7 @@ function NewTask() {
   useEffect(() => {
     fetchMentors();
     fetchMentorsManagers();
-  }, []);
+  });
 
   return (
     <div className="h-full overflow-y-auto scroll pr-[10px] pb-36">
@@ -218,7 +216,10 @@ function NewTask() {
                     role="button"
                     tabIndex={0}
                   >
-                    <p className="mr-3"> { `${selectedMentors.length} Selected` }</p>
+                    <p className="mr-3">
+                      {' '}
+                      { `${selectedMentors.length} Selected` }
+                    </p>
                     <RemoveIcon styling="pl-3 object-contain cursor-pointer" />
                   </div>
                   {/* end select mentor */}
@@ -307,7 +308,7 @@ function NewTask() {
                     className="task flex m-3 p-3 rounded-md items-center border-2
               border-grey-400 cursor-pointer flex-row max-lg:flex-col
                max-lg:justify-self-start max-lg:justify-items-start"
-                    key={i}
+                    key={item.id}
                   >
                     <UserAvatar className="max-lg:mb-0 mb-2" />
 
@@ -395,7 +396,7 @@ function NewTask() {
                     className="task flex m-3 p-3 rounded-md items-center border-2
               border-grey-400 cursor-pointer flex-row max-lg:flex-col
                max-lg:justify-self-start max-lg:justify-items-start"
-                    key={i}
+                    key={item.id}
                   >
                     <UserAvatar className="max-lg:mb-0 mb-2" />
 
@@ -407,7 +408,7 @@ function NewTask() {
                         </p>
                       </div>
                       {item.roles.map((role, n) => (
-                        <span className="bg-pri11 text-grey-300 text-xs mt-5 p-1 mx-1" key={`role${n}`}>
+                        <span className="bg-pri11 text-grey-300 text-xs mt-5 p-1 mx-1" key={item.id}>
                           role
                         </span>
                       ))}
