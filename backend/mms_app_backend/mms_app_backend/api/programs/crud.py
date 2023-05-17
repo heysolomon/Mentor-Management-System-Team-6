@@ -1,5 +1,5 @@
 from .schemas import ViewProgram
-from ..account_management.models import Criterion
+from ..account_management.models import Criterion, MentorManager
 from ..account_management.models import Program, Mentor
 
 
@@ -25,7 +25,7 @@ def create_program_crud(db, program):
             db.refresh(program_instance)
     if program.mentor_managers:
         for manager in program.mentor_managers:
-            mentor_manager = db.query().get(manager)
+            mentor_manager = db.query(MentorManager).get(manager)
 
             if mentor_manager:
                 program_instance.mentors.append(mentor_manager)
@@ -44,5 +44,6 @@ def create_program_crud(db, program):
             db.commit()
             db.refresh(program_instance)
 
-    return ViewProgram(id=program_instance.id, name=program_instance.description, mentor_managers=mentor_managers,
+    return ViewProgram(id=program_instance.id, name=program_instance.name, description=program_instance.description,
+                       mentor_managers=mentor_managers,
                        mentors=mentors, criteria=criteria)

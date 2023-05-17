@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Response, status, Depends
 from sqlalchemy.orm import Session
 
+from .constants import PROGRAM_EXISTS_MESSAGE, PROGRAM_CREATE_SUCCESS_MESSAGE
 from .crud import create_program_crud
 from .responses import CreateProgramResponse
 from .schemas import CreateProgram
@@ -25,12 +26,12 @@ def create_program(program: CreateProgram, response: Response, db: Session = Dep
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return program_response
     if db_program:
-        program_response.message = INVALID_AUTHENTICATION_MESSAGE
+        program_response.message = PROGRAM_EXISTS_MESSAGE
         response.status_code = status.HTTP_409_CONFLICT
         return program_response
     if not db_program:
         db_program = create_program_crud(db, program)
-        program_response.message = ""
+        program_response.message = PROGRAM_CREATE_SUCCESS_MESSAGE
         program_response.data.program = db_program
         program_response.success = True
 
