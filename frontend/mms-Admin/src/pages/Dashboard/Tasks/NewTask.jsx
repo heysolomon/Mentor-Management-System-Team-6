@@ -48,6 +48,7 @@ function NewTask() {
   const initialValues = {
     title: '',
     description: '',
+    task_id: 123
   };
 
   const validate = Yup.object({

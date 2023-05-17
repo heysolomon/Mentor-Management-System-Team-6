@@ -179,7 +179,7 @@ function Tasks() {
         <div className="flex flex-row-reverse">
           <NavLink
             to="/admin-dashboard/task_new"
-            className="bg-pri3 lg:py-2.5 lg:px-10 px-5 rounded-md text-white font-semibold mb-3 lg:text-base text-xs"
+            className="bg-pri3 py-2.5 lg:px-10 px-5 rounded-md text-white font-semibold mb-3 lg:text-base text-xs"
           >
             Create New Task
           </NavLink>
@@ -221,7 +221,7 @@ function Tasks() {
               <div className="flex bg-cyan-100/50 p-3 my-3 max-md:flex-col max-md:place-items-center">
                 <BsPeople className="text-teal-700 text-3xl mx-5" />
                 <p className="font-semibold text-xl w-full max-md:text-center max-md:mb-2">
-                  <span className="font-extrabold text-4xl mr-5">10</span>
+                  <span className="font-extrabold text-4xl mr-5">{clickedTask.mentorManagers.length}</span>
                   Mentor Managers assigned to this task
                 </p>
                 <button
@@ -237,7 +237,7 @@ function Tasks() {
               <div className="flex bg-cyan-100/50 p-3 my-3 max-md:flex-col max-md:place-items-center">
                 <BsPerson className="text-teal-700 text-3xl mx-5" />
                 <p className="font-semibold text-xl w-full max-md:text-center max-md:mb-2">
-                  <span className="font-extrabold text-4xl mr-5">80</span>
+                  <span className="font-extrabold text-4xl mr-5">{clickedTask.mentors.length}</span>
                   Mentors assigned to this task
                 </p>
                 <button
