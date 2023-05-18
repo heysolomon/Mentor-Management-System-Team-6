@@ -58,34 +58,33 @@ function Tasks() {
         // console.log(res);
         dispatch(openModal(<DeleteTask />));
         dispatch(deleteTaskSuccess());
-      })
+      }).then(() => getTasks())
       .catch(() => {
         dispatch(deleteTaskFailure());
         // setMessage(err.response.data.detail);
         // console.log(err);
       });
   };
-
+  const getTasks = () => {
+    dispatch(setTask([]));
+    // console.log(tasks);
+    dispatch(getTaskStart());
+    tasks
+      .get('/tasks', {
+        headers: {
+          Authorization: `bearer ${userToken}`,
+        },
+      })
+      .then((res) => {
+        dispatch(getTaskSuccess(res.data.data.tasks));
+        // console.log(res.data.data.tasks);
+      })
+      .catch(() => {
+        dispatch(getTaskFailure());
+        // console.log(err.response.data.detail);
+      });
+  };
   useEffect(() => {
-    const getTasks = () => {
-      dispatch(setTask([]));
-      // console.log(tasks);
-      dispatch(getTaskStart());
-      tasks
-        .get('/tasks', {
-          headers: {
-            Authorization: `bearer ${userToken}`,
-          },
-        })
-        .then((res) => {
-          dispatch(getTaskSuccess(res.data.data.tasks));
-          // console.log(res.data.data.tasks);
-        })
-        .catch(() => {
-          dispatch(getTaskFailure());
-          // console.log(err.response.data.detail);
-        });
-    };
     getTasks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

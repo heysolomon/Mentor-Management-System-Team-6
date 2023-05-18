@@ -45,6 +45,7 @@ const taskSlice = createSlice({
     deleteTaskSuccess: (state) => {
       state.deleteError = false;
       state.isDeleting = false;
+      state.isTaskClicked = false;
     },
     deleteTaskFailure: (state) => {
       state.isDeleting = false;
