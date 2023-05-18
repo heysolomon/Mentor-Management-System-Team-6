@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { SpinnerCircular } from 'spinners-react';
 // import { useDispatch } from 'react-redux';
 import { closeModal } from '../../redux/features/Modals/modalSlice';
 import { uploadProfilePictureFailure,
@@ -12,18 +13,18 @@ import Button from '../utilities/Buttons/Button';
 function UploadProfilePicture({ image, imgUrl }) {
   const dispatch = useDispatch();
 
-  const { userInfo, userProfile } = useSelector((state) => state.user);
+  const { userInfo, userProfile, uploadingProfilePicture } = useSelector(
+    (state) => state.user,
+  );
   const loggedInUser = userInfo.data.user;
   // logged in user's id
   const userId = loggedInUser.id;
   // user login token
   const userToken = userInfo.data.access_token;
   // user profile id
-  let profileId;
+  const profileId = userProfile.id;
 
-  if (!userProfile === null) {
-    profileId = userProfile.id;
-  }
+  // console.log(profileId);
 
   const uploadPicture = async () => {
     dispatch(uploadProfilePictureStart());
@@ -31,20 +32,19 @@ function UploadProfilePicture({ image, imgUrl }) {
     const form = new FormData();
 
     form.append('profile_picture', image);
-    if (!userProfile === null) {
-      try {
-        await api.post(`/${userId}/profiles/${profileId}/picture`, form, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${userToken}`,
-          },
-        });
-        dispatch(uploadProfilePictureSuccess());
-        dispatch(closeModal());
-      } catch (err) {
-        if (err) {
-          dispatch(uploadProfilePictureFailure());
-        }
+
+    try {
+      await api.post(`/${userId}/profiles/${profileId}/picture`, form, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+      dispatch(uploadProfilePictureSuccess(imgUrl));
+      dispatch(closeModal());
+    } catch (err) {
+      if (err) {
+        dispatch(uploadProfilePictureFailure());
       }
     }
   };
@@ -66,7 +66,16 @@ function UploadProfilePicture({ image, imgUrl }) {
           onClick={uploadPicture}
           aria-hidden="true"
         >
-          Done
+          {uploadingProfilePicture ? (
+            <SpinnerCircular
+              color="#F7FEFF"
+              className="mr-2"
+              thickness={250}
+              size={20}
+            />
+          ) : (
+            ' upload picture'
+          )}
         </Button>
       </div>
     </div>

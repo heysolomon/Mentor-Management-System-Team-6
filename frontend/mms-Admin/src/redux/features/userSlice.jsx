@@ -23,6 +23,10 @@ const userSlice = createSlice({
     // for creating user profile in the dashboard
     creatingProfile: false,
     creatingProfileError: false,
+
+    // getting the user profile
+    getProfile: false,
+    getProfileError: false,
   },
   reducers: {
     // reducers for the login page
@@ -50,11 +54,11 @@ const userSlice = createSlice({
       state.changePassword = false;
       state.changePasswordError = true;
     },
+    // creating the user profile
     createProfileStart: (state) => {
       state.creatingProfile = true;
     },
-    createProfileSuccess: (state, action) => {
-      state.userProfile = action.payload;
+    createProfileSuccess: (state) => {
       state.creatingProfileError = false;
       state.creatingProfile = false;
     },
@@ -62,6 +66,22 @@ const userSlice = createSlice({
       state.creatingProfile = false;
       state.creatingProfileError = true;
     },
+
+    // get the user profiles
+    getProfileStart: (state) => {
+      state.getProfile = true;
+    },
+    getProfileSuccess: (state, action) => {
+      state.userProfile = action.payload;
+      state.getProfileError = false;
+      state.getProfile = false;
+    },
+    getProfileFailure: (state) => {
+      state.getProfile = false;
+      state.userProfile = null;
+      state.getProfileError = true;
+    },
+    // uploading profile picture
     uploadProfilePictureStart: (state) => {
       state.uploadingProfilePicture = true;
     },
@@ -69,9 +89,10 @@ const userSlice = createSlice({
       state.uploadingProfilePictureError = false;
       state.uploadingProfilePicture = false;
     },
-    uploadProfilePictureSuccess: (state) => {
-      state.uploadingProfilePictureError = false;
+    uploadProfilePictureSuccess: (state, action) => {
+      state.profilePicture = action.payload;
       state.uploadingProfilePicture = false;
+      state.uploadingProfilePictureError = false;
     },
     uploadProfilePictureFailure: (state) => {
       state.uploadingProfilePicture = false;
@@ -91,6 +112,9 @@ export const {
   createProfileStart,
   createProfileSuccess,
   createProfileFailure,
+  getProfileStart,
+  getProfileSuccess,
+  getProfileFailure,
   uploadProfilePicture,
   uploadProfilePictureStart,
   uploadProfilePictureFailure,
