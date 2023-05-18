@@ -1,15 +1,17 @@
 from fastapi import Response, APIRouter, status, Depends
-from sqlalchemy.orm import Session
 from mms_app_backend.api.authentication.constants import INVALID_AUTHENTICATION_MESSAGE
-from .responses import CreatePostResponse, GetPostResponse, CreateCommentResponse, GetCommentsResponse
-from .schemas import CreatePost, UpdatePost, CreateComment
-from .models import Post
-from .crud import create_post_crud, get_posts_crud, update_post_crud, delete_post_crud, create_comment_crud, get_comments_crud
+from mms_app_backend.api.authentication.helpers import verify_access_token
+from mms_app_backend.api.utils import get_token, get_db
+from sqlalchemy.orm import Session
+
 from .constants import CREATED_POST_SUCCESSFUL_MESSAGE, GET_POST_SUCCESSFUL_MESSAGE, POST_NOT_FOUND_MESSAGE, \
     UPDATE_POST_SUCCESSFUL_MESSAGE, POSTS_NOT_FOUND_MESSAGE, POST_DELETED_SUCCESSFUL_MESSAGE, \
     CREATED_COMMENT_SUCCESSFUL_MESSAGE, GET_COMMENTS_SUCCESSFUL_MESSAGE
-from mms_app_backend.api.authentication.helpers import verify_access_token
-from mms_app_backend.api.utils import get_token, get_db
+from .crud import create_post_crud, get_posts_crud, update_post_crud, delete_post_crud, create_comment_crud, \
+    get_comments_crud
+from .models import Post
+from .responses import CreatePostResponse, GetPostResponse, CreateCommentResponse, GetCommentsResponse
+from .schemas import CreatePost, UpdatePost, CreateComment
 
 router = APIRouter()
 get = router.get

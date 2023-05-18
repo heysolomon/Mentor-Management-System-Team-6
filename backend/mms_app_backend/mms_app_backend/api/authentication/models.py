@@ -16,10 +16,13 @@ class User(AbstractBaseModel):
     email = Column(EmailType, unique=True, index=True)
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
-    profile = relationship("Profile", back_populates='user',uselist=False)
+    profile = relationship("Profile", back_populates='user', uselist=False)
     password_reset_token = relationship("PasswordResetToken", back_populates="user")
     conversations = relationship("Conversation", back_populates='participants',
                                  secondary="participant_conversation_association")
+    messages_sent = relationship("Message", back_populates='sender', foreign_keys="Message.sender_id")
+    messages_received = relationship("Message", back_populates='receiver', foreign_keys="Message.receiver_id")
+
 
 # Token sent to user email when resetting password
 class PasswordResetToken(AbstractBaseModel):
@@ -27,4 +30,4 @@ class PasswordResetToken(AbstractBaseModel):
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", back_populates='password_reset_token')
     token = Column(UUID, unique=True, index=True, default=str(uuid.uuid4()))
-    expires_on = Column(DateTime,  default=datetime.utcnow() + timedelta(minutes=5))
+    expires_on = Column(DateTime, default=datetime.utcnow() + timedelta(minutes=5))

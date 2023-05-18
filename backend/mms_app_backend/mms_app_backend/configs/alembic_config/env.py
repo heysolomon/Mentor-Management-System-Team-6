@@ -1,8 +1,11 @@
-import sys,os
+import os
+import sys
 from logging.config import fileConfig
+
+from alembic import context
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-from alembic import context
+
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 for name in range(3):
@@ -12,6 +15,7 @@ for name in range(3):
 
 from database_config import db_url
 from main import Base
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -26,6 +30,7 @@ config.set_main_option("sqlalchemy.url", db_url)
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 target_metadata = Base.metadata
+
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
