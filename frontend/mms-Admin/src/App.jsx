@@ -23,7 +23,7 @@ import Tasks from './pages/Dashboard/Tasks/Tasks';
 import ForgotPasswordVerifyEmail from './pages/Auth/ForgotPasswordVerifyEmail';
 import NewTask from './pages/Dashboard/Tasks/NewTask';
 import { ProtectedRoute } from './private/ProtectedRoute';
-import DiscussionForum from './pages/Dashboard/DiscussionForum/DiscussionForum';
+import { DiscussionForum } from './pages/Dashboard/DiscussionForum/DiscussionForum';
 import MessageHome from './pages/Dashboard/Messages/MessageHome';
 import BrowsePeople from './pages/Dashboard/Messages/BrowsePeople';
 import BroadcastMessage from './pages/Dashboard/Messages/BroadcastMessage';

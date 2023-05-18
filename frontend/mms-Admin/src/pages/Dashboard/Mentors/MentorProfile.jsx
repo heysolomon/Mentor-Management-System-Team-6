@@ -45,8 +45,8 @@ export default function MentorProfile() {
   };
   return (
     <div className="w-full h-screen font-mukta relative">
-      <section className="border border-white absolute top-0 left-0 right-0 bottom-0 w-[30%] relative">
-        <div className="flex justify-between items-center absolute fixed top-0 h-12 w-full bg-white">
+      <section className="border border-white top-0 left-0 right-0 bottom-0 w-[30%] relative">
+        <div className="flex justify-between items-center fixed top-0 h-12 w-full bg-white">
           <h1 className="text-2xl font-semibold text-black1">Mentors</h1>
 
           <div className="flex items-center justify-between">
