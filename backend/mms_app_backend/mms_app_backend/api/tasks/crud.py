@@ -31,7 +31,7 @@ def create_task_crud(db: Session, task: CreateTask):
 
 
 def get_tasks_crud(db: Session):
-    tasks = db.query(Task).all()
+    tasks = db.query(Task).filter(Task.open == True).all()
     for task in tasks:
         print(task.id)
     return [GetTask(
