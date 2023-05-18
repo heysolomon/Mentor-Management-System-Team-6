@@ -29,4 +29,3 @@ def get_mentor_managers(response: Response, db: Session = Depends(get_db), jwt_t
         get_mentor_managers_response.data.mentor_managers = mentor_managers
         get_mentor_managers_response.message = GET_MENTOR_MANAGERS_SUCCESSFUL_MESSAGE
         return get_mentor_managers_response
-

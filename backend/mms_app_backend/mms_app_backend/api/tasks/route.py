@@ -3,12 +3,12 @@ from sqlalchemy.orm import Session
 
 from .constants import CREATED_TASK_SUCCESSFUL_MESSAGE, GET_TASKS_SUCCESSFUL_MESSAGE, UPDATE_TASK_SUCCESSFUL_MESSAGE, \
     TASK_NOT_FOUND_MESSAGE, TASK_DELETED_SUCCESSFUL_MESSAGE, TASK_NOT_COMPLETED_MESSAGE, TASK_REOPEN_SUCCESSFUL_MESSAGE
-from .crud import create_task_crud, get_tasks_crud, update_task_crud, delete_task_crud, close_task_crud, get_mentors_and_managers
+from .crud import create_task_crud, get_tasks_crud, update_task_crud, delete_task_crud, close_task_crud, \
+    get_mentors_and_managers
 from .models import Task
 from .responses import CreateTaskResponse, GetTasksResponse
 from .schemas import CreateTask, UpdateTask, TaskReportResponse, TaskReport
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
-
 from ..authentication.helpers import verify_access_token
 from ..utils import get_token, get_db
 
@@ -137,6 +137,8 @@ async def reopen_task(task_id: int, response: Response, token: str = Depends(get
     task_response.message = TASK_REOPEN_SUCCESSFUL_MESSAGE
     task_response.success = True
     return task_response
+
+
 #
 @get("/tasks_reports", response_model=TaskReportResponse)
 async def tasks_report(db: Session = Depends(get_db)):
@@ -152,7 +154,7 @@ async def tasks_report(db: Session = Depends(get_db)):
     completed_task_reports = []
     for task in completed_tasks:
         mentors, mentor_managers = get_mentors_and_managers(db, task)
-        report = TaskReport(name=task.title,  mentor=mentors, mentor_manager=mentor_managers)
+        report = TaskReport(name=task.title, mentor=mentors, mentor_manager=mentor_managers)
         completed_task_reports.append(report)
 
     incomplete_task_reports = []

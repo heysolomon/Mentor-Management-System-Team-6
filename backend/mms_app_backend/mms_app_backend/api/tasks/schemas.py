@@ -8,9 +8,11 @@ class TaskMentorReport(BaseModel):
     name: str
     email: str
 
+
 class TaskMentorManagerReport(BaseModel):
     name: str
     email: str
+
 
 class TaskReport(BaseModel):
     name: str

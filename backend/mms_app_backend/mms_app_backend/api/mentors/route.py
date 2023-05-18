@@ -4,9 +4,9 @@ from sqlalchemy.orm import Session
 from .constants import GET_MENTORS_SUCCESSFUL_MESSAGE, CREATED_MENTOR_SUCCESSFUL_MESSAGE
 from .crud import get_mentors_crud, create_mentor_user
 from .responses import GetMentorsResponse, CreateMentorResponse
+from .schemas import CreateMentor
 from ..authentication.constants import INVALID_AUTHENTICATION_MESSAGE
 from ..authentication.helpers import verify_access_token
-from .schemas import CreateMentor
 from ..utils import get_db, get_token
 
 router = APIRouter()

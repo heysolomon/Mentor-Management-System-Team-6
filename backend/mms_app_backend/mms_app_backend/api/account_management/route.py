@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status, Depends, Response,UploadFile
+from fastapi import APIRouter, status, Depends, Response, UploadFile
 
 from .constants import PROFILE_CREATED_SUCCESS_MESSAGE
 from .constants import PROFILE_DOES_NOT_EXIST_MESSAGE, PROFILE_REQUEST_SUCCESS_MESSAGE, PROFILE_EXISTS_MESSAGE, \
@@ -116,10 +116,10 @@ async def update_profile(profile: UpdateProfile, response: Response, user_id: in
         profile_response.data.profile = updated_profile
         return profile_response
 
+
 @post('/v1/users/{user_id}/profiles/{profile_id}/picture')
-async def upload_profile_picture(profile_picture:UploadFile):
+async def upload_profile_picture(profile_picture: UploadFile):
     """
     Upload a profile picture.
     """
     return {"filename": profile_picture.filename}
-

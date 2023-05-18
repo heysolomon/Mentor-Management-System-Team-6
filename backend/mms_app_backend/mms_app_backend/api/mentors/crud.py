@@ -1,8 +1,6 @@
 from ..account_management.models import Mentor, Role, Profile
+from ..authentication.helpers import get_password_hash
 from ..authentication.models import User
-from ..authentication.helpers import  get_password_hash
-from sqlalchemy.orm import Session
-
 
 
 def get_mentors_crud(db):
@@ -23,7 +21,8 @@ def get_mentors_crud(db):
 
 def create_mentor_user(db, mentor):
     hashed_password = get_password_hash(mentor.password)
-    user = User(username=mentor.username, email=mentor.email, hashed_password=hashed_password, first_name=mentor.first_name, last_name=mentor.last_name, about=None)
+    user = User(username=mentor.username, email=mentor.email, hashed_password=hashed_password,
+                first_name=mentor.first_name, last_name=mentor.last_name, about=None)
     db.add(user)
     db.commit()
     db.refresh(user)

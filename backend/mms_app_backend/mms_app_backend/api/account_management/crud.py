@@ -27,7 +27,8 @@ def create_profile_crud(db: Session, profile: CreateProfile, user: User):
     is_mentor_manager = check_is_mentor_manager(profile_instance)
     db.commit()
     db.refresh(profile_instance)
-    return ViewProfile(id=profile_instance.id, about=profile_instance.about, website=profile_instance.website, social_links=profile_instance.social_links,
+    return ViewProfile(id=profile_instance.id, about=profile_instance.about, website=profile_instance.website,
+                       social_links=profile_instance.social_links,
                        location=profile_instance.location, is_mentor=is_mentor, is_mentor_manager=is_mentor_manager,
                        user_id=user_id, username=user.username, firstname=user.first_name, lastname=user.last_name,
                        email=user.email

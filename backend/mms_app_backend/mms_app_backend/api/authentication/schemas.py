@@ -9,6 +9,7 @@ class UserBase(CamelModel):
     last_name: str
     profile_id: int | None
 
+
 class UserCreate(UserBase):
     password: str
 
@@ -20,7 +21,7 @@ class UserLogin(CamelModel):
 
 class User(UserBase):
     id: int
-    is_active:bool
+    is_active: bool
 
     class Config:
         orm_mode = True
