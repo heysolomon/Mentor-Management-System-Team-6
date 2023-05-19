@@ -42,16 +42,16 @@ function PostDropdown({ post, setIsOptionClicked }) {
           Authorization: `bearer ${userToken}`,
         },
       })
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        // console.log(res);
         setIsOpen(false);
         setIsOptionClicked(false);
         dispatch(openModal(<DeletePost />));
         dispatch(deletePostSuccess(post));
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch(deletePostFailure());
-        console.log(err);
+        // console.log(err);
       });
   };
 
