@@ -4,6 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const forumSlice = createSlice({
   name: 'forum',
   initialState: {
+    // posts
     posts: [],
     isLoading: false,
     isDeleting: false,
@@ -16,6 +17,11 @@ const forumSlice = createSlice({
     error: false,
     deleteError: false,
     editError: false,
+
+    // comments
+    comments: [],
+    isLoadingComment: false,
+    commentError: false,
   },
   reducers: {
     // reducers for the login page
@@ -83,6 +89,19 @@ const forumSlice = createSlice({
     editPost: (state, action) => {
       state.clickedPost = action.payload;
     },
+
+    // comments
+    createCommentStart: (state) => {
+      state.isLoadingComment = true;
+    },
+    createCommentSuccess: (state) => {
+      state.commentError = false;
+      state.isLoadingComment = false;
+    },
+    createCommentFailure: (state) => {
+      state.isLoadingComment = false;
+      state.commentError = true;
+    },
   },
 });
 
@@ -104,4 +123,9 @@ export const {
   setPost,
   editPost,
   noPosts,
+
+  // comments
+  createCommentStart,
+  createCommentSuccess,
+  createCommentFailure,
 } = forumSlice.actions;

@@ -20,8 +20,6 @@ function ForumNewTopic() {
 
   const userToken = userInfo.data.access_token;
 
-  // const [message, setMessage] = useState('');
-
   const initialValues = {
     title: '',
     content: '',
@@ -64,7 +62,6 @@ function ForumNewTopic() {
   const submit = async (values) => {
     createPost(values);
   };
-  const handleSubmit = () => {};
 
   return (
     <div className="p-[20px] flex flex-col w-full">
@@ -119,7 +116,7 @@ function ForumNewTopic() {
         )} */}
 
         <div className="flex w-full justify-end mt-[62px]">
-          <Button width="w-[30%]" onClick={handleSubmit}>
+          <Button width="w-[30%]">
             {isCreating ? (
               <SpinnerCircular
                 color="#F7FEFF"

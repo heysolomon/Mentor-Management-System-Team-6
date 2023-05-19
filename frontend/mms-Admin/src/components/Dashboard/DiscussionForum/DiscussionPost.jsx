@@ -100,7 +100,7 @@ function DiscussionPost({ post }) {
           </div>
         </div>
       </div>
-      {commentOpen && <DiscussionCommentSection />}
+      {commentOpen && <DiscussionCommentSection post={post} />}
     </div>
   );
 }
