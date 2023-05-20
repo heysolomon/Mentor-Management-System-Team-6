@@ -30,9 +30,9 @@ function EditTask() {
 
   const { isEditing, clickedTask } = useSelector((state) => state.tasks);
 
-  const initialValues = {
-    title: '',
-    description: '',
+  let initialValues = {
+    title: clickedTask.title,
+    description: clickedTask.description,
     mentors: [],
     mentorManagers: [],
   };
@@ -66,7 +66,6 @@ function EditTask() {
       );
       dispatch(openModal(<UpdateTask />));
       dispatch(editTaskSuccess());
-      // console.log(newTask);
       // setMessage(changeUserPasswordRequest.data.message);
     } catch (err) {
       if (err) {
@@ -97,7 +96,7 @@ function EditTask() {
               tag="input"
               type="text"
               name="title"
-              placeholder={clickedTask.title}
+              placeholder="Enter a title"
               styling="my-2"
               inputStyle="placeholder:text-black6 py-3 pl-3 pr-3 "
             />
@@ -109,7 +108,7 @@ function EditTask() {
             <InputField
               tag="textarea"
               name="description"
-              placeholder={clickedTask.description}
+              placeholder="Enter task details"
               styling="mt-2 mb-6"
               inputStyle="placeholder:text-black6 py-3 pl-3 pr-3"
             />
