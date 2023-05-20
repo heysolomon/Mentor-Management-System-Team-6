@@ -1,23 +1,29 @@
+/* eslint-disable react/prop-types */
+// eslint-disable-next-line import/no-extraneous-dependencies
+import moment from 'moment/moment';
 import React, { useState } from 'react';
 import { BsBookmark, BsFillBookmarkFill } from 'react-icons/all';
-import { useDispatch } from 'react-redux';
 import { ClockIcon,
   CommentIcon,
   OptionsIcon,
   ShareIcon,
   UserAvatar } from '../../../assets/images';
-import { openModal } from '../../../redux/features/Modals/modalSlice';
-import EditPost from '../../Modals/EditPost';
+import PostDropdown from '../../utilities/PostDropdown';
 import DiscussionCommentSection from './DiscussionCommentSection';
 
-function DiscussionPost() {
+function DiscussionPost({ post }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [commentOpen, setCommentOpen] = useState(false);
-  // const [isOptionOpen, setIsOptionOpen] = useState(false);
-  const dispatch = useDispatch();
-  const handleEdit = () => {
-    dispatch(openModal(<EditPost />));
+  const [isOptionClicked, setIsOptionClicked] = useState(false);
+
+  const handleClick = () => {
+    setIsOptionClicked(true);
   };
+
+  // for the timestamp for post as to when they were posted
+  const timestamp = post.createdAt;
+  const formattedTime = moment(timestamp).fromNow();
+
   return (
     <div className="w-full mb-[28px]">
       <div className="w-full rounded-[10px] px-[20px] py-[24px] border-[1px] border-black9">
@@ -39,26 +45,22 @@ function DiscussionPost() {
           </div>
           {/* more options */}
 
-          <button type="button" onClick={handleEdit}>
-            <OptionsIcon />
-          </button>
+          {!isOptionClicked ? (
+            <button type="button" onClick={handleClick}>
+              <OptionsIcon />
+            </button>
+          ) : (
+            <PostDropdown post={post} setIsOptionClicked={setIsOptionClicked} />
+          )}
         </div>
         {/* post */}
         <div className="mb-[28px]">
           {/* post title */}
           <h3 className="text-black2 font-[400] text-[20px] mb-[7px]">
-            The New MMS Discussion Forum Guidelines and Regulations
+            {post.title}
           </h3>
           {/* post body */}
-          <p className="font-[400] text-[16px] text-black5">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu
-            turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus
-            nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum
-            tellus elit sed risus. Maecenas eget condimentum velit, sit amet
-            feugiat lectus. Class aptent taciti sociosqu ad litora torquent per
-            conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus
-            enilf.
-          </p>
+          <p className="font-[400] text-[16px] text-black5">{post.content}</p>
         </div>
         {/* post footer */}
         <div className="flex justify-between items-center">
@@ -92,11 +94,13 @@ function DiscussionPost() {
           </div>
           <div className="flex items-center">
             <ClockIcon />
-            <p className="text-[12px] font-[400] text-black5 ml-1">5hr ago</p>
+            <p className="text-[12px] font-[400] text-black5 ml-1">
+              {formattedTime}
+            </p>
           </div>
         </div>
       </div>
-      {commentOpen && <DiscussionCommentSection />}
+      {commentOpen && <DiscussionCommentSection post={post} />}
     </div>
   );
 }

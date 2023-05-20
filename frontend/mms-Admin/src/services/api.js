@@ -13,3 +13,7 @@ export const mentors = axios.create({
 export const tasks = axios.create({
   baseURL: 'http://172.105.50.46:8080/admin',
 });
+
+export const baseURL = axios.create({
+  baseURL: 'http://172.105.50.46:8080',
+});

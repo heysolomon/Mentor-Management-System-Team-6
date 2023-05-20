@@ -17,8 +17,8 @@ import { api } from '../../services/api';
 
 function Dashboard() {
   // const dispatch = useDispatch();
-  const content = useSelector((state) => state.modal.content);
-  const { userInfo } = useSelector((state) => state.user);
+  const { content, isLarge } = useSelector((state) => state.modal);
+  const { userInfo, userProfile } = useSelector((state) => state.user);
   const userToken = userInfo.data.access_token;
   const { profileId, id } = userInfo.data.user;
 
@@ -44,11 +44,12 @@ function Dashboard() {
         });
     };
     getProfile();
-  }, [dispatch, id, profileId, userToken]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userProfile]);
   return (
     <>
       {/* for all modals */}
-      <Modal content={content} />
+      <Modal content={content} isLarge={isLarge} />
       <div className="w-full h-screen font-mukta">
         <Navbar />
 

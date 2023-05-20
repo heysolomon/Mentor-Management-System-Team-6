@@ -2,11 +2,10 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 
 import ModalBackdrop from './ModalBackdrop';
 
-function Modal({ content }) {
+function Modal({ content, isLarge }) {
   const open = useSelector((state) => state.modal.isOpen);
   // framer motion animation for the modal window
   const fade = {
@@ -30,9 +29,6 @@ function Modal({ content }) {
     },
   };
 
-  const location = useLocation();
-
-  const path = location.pathname;
   return (
     <div>
       {/* this is the password reset modal,
@@ -50,9 +46,7 @@ function Modal({ content }) {
           <ModalBackdrop>
             <motion.div
               className={`relative z-50 bg-white w-[80%] ${
-                path === '/admin-dashboard/discussion-forum'
-                  ? 'md:w-[70%]'
-                  : 'md:w-[50%]'
+                isLarge ? 'md:w-[70%]' : 'md:w-[50%]'
               } md:w-[50%] py-[28px] px-[20px] rounded-[20px] flex flex-col items-center`}
               aria-hidden="true"
               onClick={(e) => e.stopPropagation()}

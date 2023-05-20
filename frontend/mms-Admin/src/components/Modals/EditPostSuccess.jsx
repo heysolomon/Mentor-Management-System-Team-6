@@ -9,7 +9,7 @@ function EditPostSuccess() {
   return (
     <div>
       <h2 className="font-mukta font-[600] text-black1 text-[18px] md:text-[24px]">
-        Post Created Successfully
+        Post Updated Successfully
       </h2>
       <ResetPasswordIllustration styling="mt-[28px]" />
       <div className="flex justify-center">

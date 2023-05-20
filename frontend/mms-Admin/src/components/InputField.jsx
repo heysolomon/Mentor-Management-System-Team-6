@@ -12,6 +12,7 @@ function InputField({
   styling,
   inputStyle,
   options,
+  border = true,
   tag,
   height,
   ...props
@@ -30,7 +31,11 @@ function InputField({
   return (
     <div className={`w-full ${styling}`}>
       <div
-        className={`flex items-center border-[1px] rounded-[5px] h-full border-black8 w-full focus-within:border-pri3 focus-within:ring-pri3 focus-within:ring-1 ${
+        className={`flex items-center ${
+          border
+            ? 'border-[1px] border-black8 focus-within:border-pri3 focus-within:ring-pri3 focus-within:ring-1'
+            : ''
+        }  rounded-[5px] h-full w-full ${
           meta.touched && meta.error && 'border-sec1'
         } ${height}`}
       >
@@ -78,7 +83,7 @@ function InputField({
             id=""
             cols={100}
             rows="4"
-            className={`w-full h-full focus:outline-none bg-transparent py-[8px] placeholder:text-black5 text-black5 text-mukta font-[400] ${inputStyle}`}
+            className={`w-full h-full focus:outline-none bg-transparent py-[8px] placeholder:text-black5 text-black5 text-mukta font-[400] resize-none ${inputStyle}`}
             placeholder={props.placeholder}
             {...field}
           />
