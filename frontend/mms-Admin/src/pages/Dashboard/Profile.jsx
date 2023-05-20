@@ -79,7 +79,7 @@ function Profile() {
               </div>
             </section>
 
-            {userProfile.socialLinks !== [] && (
+            {userProfile.socialLinks.length !== 0 && (
               <>
                 {/* social links */}
                 <h1 className="text-2xl font-semibold text-black2 mt-[60px] mb-2.5">

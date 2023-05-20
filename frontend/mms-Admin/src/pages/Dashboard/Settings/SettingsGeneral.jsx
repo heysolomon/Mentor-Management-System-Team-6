@@ -148,8 +148,7 @@ function SettingsGeneral() {
     } catch (err) {
       if (err) {
         dispatch(createProfileFailure());
-        // console.log(err);
-        setMessage(err.response.data?.message);
+        setMessage(err.response?.data.message);
       }
     }
   };
