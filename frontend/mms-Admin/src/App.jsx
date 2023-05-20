@@ -34,12 +34,19 @@ import MentorsHome from './pages/Dashboard/Mentors/MentorsHome';
 import MentorsInfo from './pages/Dashboard/Mentors/MentorsInfo';
 import { MentorsInfoProtected } from './private/MentorsInfo';
 import MentorAbout from './pages/Dashboard/Mentors/MentorAbout';
-import MentorProfile from './pages/Dashboard/Mentors/MentorProfile';
 import EditTask from './pages/Dashboard/Tasks/EditTask';
 import MentorsPrograms from './pages/Dashboard/Mentors/MentorsPrograms';
 import MentorTasks from './pages/Dashboard/Mentors/MentorTasks';
 import MentorCertificates from './pages/Dashboard/Mentors/MentorCertificates';
 import Reports from './pages/Dashboard/Reports/Reports';
+import MentorManager from './pages/Dashboard/MentorManager/MentorManager';
+import MentorManagerHome from './pages/Dashboard/MentorManager/MentorManagerHome';
+import MentorManagerInfo from './pages/Dashboard/MentorManager/MentorManagerInfo';
+import MentorManagerAbout from './pages/Dashboard/MentorManager/MentorManagerAbout';
+import MentorManagerPrograms from './pages/Dashboard/MentorManager/MentorManagerPrograms';
+import MentorManagerTasks from './pages/Dashboard/MentorManager/MentorManagerTasks';
+import MentorManagersCertificates from './pages/Dashboard/MentorManager/MentorManagersCertificates';
+import MentorManagerMentors from './pages/Dashboard/MentorManager/MentorManagerMentors';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -144,15 +151,47 @@ const router = createBrowserRouter([
               },
             ],
           },
-          {
-            path: 'mentor-profile',
-            element: <MentorProfile />,
-          },
         ],
       },
       {
         path: 'mentor-managers',
-        element: 'this is the mentor-managers',
+        element: <MentorManager />,
+        children: [
+          {
+            path: '',
+            element: <MentorManagerHome />,
+          },
+          {
+            path: 'mentor-info',
+            element: (
+              <MentorsInfoProtected>
+                <MentorManagerInfo />
+              </MentorsInfoProtected>
+            ),
+            children: [
+              {
+                path: '',
+                element: <MentorManagerAbout />,
+              },
+              {
+                path: 'programs',
+                element: <MentorManagerPrograms />,
+              },
+              {
+                path: 'mentors',
+                element: <MentorManagerMentors />,
+              },
+              {
+                path: 'tasks',
+                element: <MentorManagerTasks />,
+              },
+              {
+                path: 'certificates',
+                element: <MentorManagersCertificates />,
+              },
+            ],
+          },
+        ],
       },
       {
         path: 'approval-requests',
