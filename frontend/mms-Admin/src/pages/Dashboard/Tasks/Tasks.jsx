@@ -12,14 +12,16 @@ import taskImg from './task.png';
 import DeleteTask from '../../../components/Modals/DeleteTask';
 import { openModal } from '../../../redux/features/Modals/modalSlice';
 import { tasks } from '../../../services/api';
-import { deleteTaskFailure,
+import {
+  deleteTaskFailure,
   deleteTaskStart,
   deleteTaskSuccess,
   getTaskFailure,
   getTaskStart,
   getTaskSuccess,
   setTask,
-  taskInfoOpen } from '../../../redux/features/taskSlice';
+  taskInfoOpen
+} from '../../../redux/features/taskSlice';
 import TaskLoading from '../../../components/Dashboard/Tasks/TasksLoading';
 
 function Tasks() {
@@ -45,7 +47,6 @@ function Tasks() {
     setChecked(true);
   };
 
-  
   const getTasks = () => {
     dispatch(setTask([]));
     // console.log(tasks);
@@ -65,39 +66,39 @@ function Tasks() {
         // console.log(err.response.data.detail);
       });
   };
+
   useEffect(() => {
     getTasks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-// function for deleting a task
-const handleDelete = () => {
-  dispatch(deleteTaskStart());
-  tasks
-    .delete(`/tasks/${clickedTask.id}`, {
-      headers: {
-        Authorization: `bearer ${userToken}`,
-      },
-    })
-    .then(() => {
-      // console.log(res);
-      dispatch(openModal(<DeleteTask />));
-      dispatch(deleteTaskSuccess());
-    }).then(() => getTasks())
-    .catch(() => {
-      dispatch(deleteTaskFailure());
-      // setMessage(err.response.data.detail);
-      // console.log(err);
-    });
-};
+  // function for deleting a task
+  const handleDelete = () => {
+    dispatch(deleteTaskStart());
+    tasks
+      .delete(`/tasks/${clickedTask.id}`, {
+        headers: {
+          Authorization: `bearer ${userToken}`,
+        },
+      })
+      .then(() => {
+        // console.log(res);
+        dispatch(openModal(<DeleteTask />));
+        dispatch(deleteTaskSuccess());
+      }).then(() => getTasks())
+      .catch(() => {
+        dispatch(deleteTaskFailure());
+        // setMessage(err.response.data.detail);
+        // console.log(err);
+      });
+  };
   const handleChange = (event) => {
     setSearch(event.target.value);
   };
   return (
     <div className="flex flex-col lg:flex-row h-full">
       <div
-        className={`${
-          open ? '' : 'max-lg:hidden'
-        }  basis-1/1 flex m-5 flex-col pb-5 w-[40%] lg:w-100 h-full`}
+        className={`${open ? '' : 'max-lg:hidden'
+          }  basis-1/1 flex m-5 flex-col pb-5 w-[40%] lg:w-100 h-full`}
       >
         <div className="tasksHeader flex flex-row">
           {checked ? (
@@ -126,9 +127,8 @@ const handleDelete = () => {
                 onClick={search}
               />
               <BsFilter
-                className={`text-teal-700 text-2xl mx-2 cursor-pointer ${
-                  sort ? 'rotate-180' : ''
-                }`}
+                className={`text-teal-700 text-2xl mx-2 cursor-pointer ${sort ? 'rotate-180' : ''
+                  }`}
                 onClick={() => setSort(!sort)}
               />
             </>
@@ -140,30 +140,30 @@ const handleDelete = () => {
           ) : (
             <>
               {task.filter((x) => x.title.toLowerCase().includes(searchText.toLowerCase()))
-              .map((i) => (
-                // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-                <div
-                  className="task flex my-3 p-3 rounded-md  border-2 border-grey-400 w-full cursor-pointer hover:scale-95 duration-500"
-                  onClick={() => {
-                    setOpen(false);
-                    dispatch(taskInfoOpen(i));
-                  }}
-                  onKeyUp={() => setOpen(false)}
-                  key={i}
-                >
+                .map((i) => (
+                  // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                  <div
+                    className="task flex my-3 p-3 rounded-md  border-2 border-grey-400 w-full cursor-pointer hover:scale-95 duration-500"
+                    onClick={() => {
+                      setOpen(false);
+                      dispatch(taskInfoOpen(i));
+                    }}
+                    onKeyUp={() => setOpen(false)}
+                    key={i}
+                  >
 
-                  <img src={taskImg} alt={i} className="object-contain" />
-                  <div className="rightTask ms-8">
-                    <h3 className="font-semibold">{i.title}</h3>
-                    <div className="taskdate flex items-center">
-                      <GoCalendar className="text-teal-700 text-l me-3" />
-                      <p className="text-xs text-gray-600 font-light align-middle">
-                        3 days from now
-                      </p>
+                    <img src={taskImg} alt={i} className="object-contain" />
+                    <div className="rightTask ms-8">
+                      <h3 className="font-semibold">{i.title}</h3>
+                      <div className="taskdate flex items-center">
+                        <GoCalendar className="text-teal-700 text-l me-3" />
+                        <p className="text-xs text-gray-600 font-light align-middle">
+                          3 days from now
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </>
           )}
         </div>
@@ -171,9 +171,8 @@ const handleDelete = () => {
       </div>
 
       <div
-        className={`${
-          open ? 'max-lg:hidden' : ''
-        } g:basis-2/3 basis-1/1 w-full`}
+        className={`${open ? 'max-lg:hidden' : ''
+          } g:basis-2/3 basis-1/1 w-full`}
       >
         <div className="flex flex-row-reverse">
           <NavLink

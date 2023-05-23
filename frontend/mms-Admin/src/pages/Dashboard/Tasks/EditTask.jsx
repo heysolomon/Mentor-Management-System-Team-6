@@ -30,7 +30,7 @@ function EditTask() {
 
   const { isEditing, clickedTask } = useSelector((state) => state.tasks);
 
-  let initialValues = {
+  const initialValues = {
     title: clickedTask.title,
     description: clickedTask.description,
     mentors: [],
