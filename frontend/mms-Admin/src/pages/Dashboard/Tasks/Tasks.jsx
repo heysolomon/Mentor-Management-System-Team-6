@@ -45,26 +45,7 @@ function Tasks() {
     setChecked(true);
   };
 
-  // function for deleting a task
-  const handleDelete = () => {
-    dispatch(deleteTaskStart());
-    tasks
-      .delete(`/tasks/${clickedTask.id}`, {
-        headers: {
-          Authorization: `bearer ${userToken}`,
-        },
-      })
-      .then(() => {
-        // console.log(res);
-        dispatch(openModal(<DeleteTask />));
-        dispatch(deleteTaskSuccess());
-      }).then(() => getTasks())
-      .catch(() => {
-        dispatch(deleteTaskFailure());
-        // setMessage(err.response.data.detail);
-        // console.log(err);
-      });
-  };
+  
   const getTasks = () => {
     dispatch(setTask([]));
     // console.log(tasks);
@@ -88,7 +69,26 @@ function Tasks() {
     getTasks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+// function for deleting a task
+const handleDelete = () => {
+  dispatch(deleteTaskStart());
+  tasks
+    .delete(`/tasks/${clickedTask.id}`, {
+      headers: {
+        Authorization: `bearer ${userToken}`,
+      },
+    })
+    .then(() => {
+      // console.log(res);
+      dispatch(openModal(<DeleteTask />));
+      dispatch(deleteTaskSuccess());
+    }).then(() => getTasks())
+    .catch(() => {
+      dispatch(deleteTaskFailure());
+      // setMessage(err.response.data.detail);
+      // console.log(err);
+    });
+};
   const handleChange = (event) => {
     setSearch(event.target.value);
   };
