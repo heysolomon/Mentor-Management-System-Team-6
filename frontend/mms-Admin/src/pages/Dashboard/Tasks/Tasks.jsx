@@ -12,16 +12,14 @@ import taskImg from './task.png';
 import DeleteTask from '../../../components/Modals/DeleteTask';
 import { openModal } from '../../../redux/features/Modals/modalSlice';
 import { tasks } from '../../../services/api';
-import {
-  deleteTaskFailure,
+import { deleteTaskFailure,
   deleteTaskStart,
   deleteTaskSuccess,
   getTaskFailure,
   getTaskStart,
   getTaskSuccess,
   setTask,
-  taskInfoOpen
-} from '../../../redux/features/taskSlice';
+  taskInfoOpen } from '../../../redux/features/taskSlice';
 import TaskLoading from '../../../components/Dashboard/Tasks/TasksLoading';
 
 function Tasks() {
@@ -98,7 +96,7 @@ function Tasks() {
     <div className="flex flex-col lg:flex-row h-full">
       <div
         className={`${open ? '' : 'max-lg:hidden'
-          }  basis-1/1 flex m-5 flex-col pb-5 w-[40%] lg:w-100 h-full`}
+        }  basis-1/1 flex m-5 flex-col pb-5 w-[40%] lg:w-100 h-full`}
       >
         <div className="tasksHeader flex flex-row">
           {checked ? (
@@ -128,7 +126,7 @@ function Tasks() {
               />
               <BsFilter
                 className={`text-teal-700 text-2xl mx-2 cursor-pointer ${sort ? 'rotate-180' : ''
-                  }`}
+                }`}
                 onClick={() => setSort(!sort)}
               />
             </>
@@ -172,7 +170,7 @@ function Tasks() {
 
       <div
         className={`${open ? 'max-lg:hidden' : ''
-          } g:basis-2/3 basis-1/1 w-full`}
+        } g:basis-2/3 basis-1/1 w-full`}
       >
         <div className="flex flex-row-reverse">
           <NavLink
