@@ -45,6 +45,30 @@ function Tasks() {
     setChecked(true);
   };
 
+  const getTasks = () => {
+    dispatch(setTask([]));
+    // console.log(tasks);
+    dispatch(getTaskStart());
+    tasks
+      .get('/tasks', {
+        headers: {
+          Authorization: `bearer ${userToken}`,
+        },
+      })
+      .then((res) => {
+        dispatch(getTaskSuccess(res.data.data.tasks));
+        // console.log(res.data.data.tasks);
+      })
+      .catch(() => {
+        dispatch(getTaskFailure());
+        // console.log(err.response.data.detail);
+      });
+  };
+
+  useEffect(() => {
+    getTasks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   // function for deleting a task
   const handleDelete = () => {
     dispatch(deleteTaskStart());
@@ -58,46 +82,20 @@ function Tasks() {
         // console.log(res);
         dispatch(openModal(<DeleteTask />));
         dispatch(deleteTaskSuccess());
-      })
+      }).then(() => getTasks())
       .catch(() => {
         dispatch(deleteTaskFailure());
         // setMessage(err.response.data.detail);
         // console.log(err);
       });
   };
-
-  useEffect(() => {
-    const getTasks = () => {
-      dispatch(setTask([]));
-      // console.log(tasks);
-      dispatch(getTaskStart());
-      tasks
-        .get('/tasks', {
-          headers: {
-            Authorization: `bearer ${userToken}`,
-          },
-        })
-        .then((res) => {
-          dispatch(getTaskSuccess(res.data.data.tasks));
-          // console.log(res.data.data.tasks);
-        })
-        .catch(() => {
-          dispatch(getTaskFailure());
-          // console.log(err.response.data.detail);
-        });
-    };
-    getTasks();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const handleChange = (event) => {
     setSearch(event.target.value);
   };
   return (
     <div className="flex flex-col lg:flex-row h-full">
       <div
-        className={`${
-          open ? '' : 'max-lg:hidden'
+        className={`${open ? '' : 'max-lg:hidden'
         }  basis-1/1 flex m-5 flex-col pb-5 w-[40%] lg:w-100 h-full`}
       >
         <div className="tasksHeader flex flex-row">
@@ -127,8 +125,7 @@ function Tasks() {
                 onClick={search}
               />
               <BsFilter
-                className={`text-teal-700 text-2xl mx-2 cursor-pointer ${
-                  sort ? 'rotate-180' : ''
+                className={`text-teal-700 text-2xl mx-2 cursor-pointer ${sort ? 'rotate-180' : ''
                 }`}
                 onClick={() => setSort(!sort)}
               />
@@ -141,30 +138,30 @@ function Tasks() {
           ) : (
             <>
               {task.filter((x) => x.title.toLowerCase().includes(searchText.toLowerCase()))
-              .map((i) => (
-                // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-                <div
-                  className="task flex my-3 p-3 rounded-md  border-2 border-grey-400 w-full cursor-pointer hover:scale-95 duration-500"
-                  onClick={() => {
-                    setOpen(false);
-                    dispatch(taskInfoOpen(i));
-                  }}
-                  onKeyUp={() => setOpen(false)}
-                  key={i}
-                >
+                .map((i) => (
+                  // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                  <div
+                    className="task flex my-3 p-3 rounded-md  border-2 border-grey-400 w-full cursor-pointer hover:scale-95 duration-500"
+                    onClick={() => {
+                      setOpen(false);
+                      dispatch(taskInfoOpen(i));
+                    }}
+                    onKeyUp={() => setOpen(false)}
+                    key={i}
+                  >
 
-                  <img src={taskImg} alt={i} className="object-contain" />
-                  <div className="rightTask ms-8">
-                    <h3 className="font-semibold">{i.title}</h3>
-                    <div className="taskdate flex items-center">
-                      <GoCalendar className="text-teal-700 text-l me-3" />
-                      <p className="text-xs text-gray-600 font-light align-middle">
-                        3 days from now
-                      </p>
+                    <img src={taskImg} alt={i} className="object-contain" />
+                    <div className="rightTask ms-8">
+                      <h3 className="font-semibold">{i.title}</h3>
+                      <div className="taskdate flex items-center">
+                        <GoCalendar className="text-teal-700 text-l me-3" />
+                        <p className="text-xs text-gray-600 font-light align-middle">
+                          3 days from now
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </>
           )}
         </div>
@@ -172,8 +169,7 @@ function Tasks() {
       </div>
 
       <div
-        className={`${
-          open ? 'max-lg:hidden' : ''
+        className={`${open ? 'max-lg:hidden' : ''
         } g:basis-2/3 basis-1/1 w-full`}
       >
         <div className="flex flex-row-reverse">
