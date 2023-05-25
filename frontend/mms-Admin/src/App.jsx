@@ -47,6 +47,9 @@ import MentorManagerPrograms from './pages/Dashboard/MentorManager/MentorManager
 import MentorManagerTasks from './pages/Dashboard/MentorManager/MentorManagerTasks';
 import MentorManagersCertificates from './pages/Dashboard/MentorManager/MentorManagersCertificates';
 import MentorManagerMentors from './pages/Dashboard/MentorManager/MentorManagerMentors';
+import Programs from './pages/Dashboard/Programs/Programs';
+import CriteriaSetupHome from './pages/Dashboard/Programs/CriteriaSetupHome';
+import ProgramsHome from './pages/Dashboard/Programs/ProgramsHome';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -99,7 +102,17 @@ const router = createBrowserRouter([
       },
       {
         path: 'programs',
-        element: 'this is the programs',
+        element: <Programs />,
+        children: [
+          {
+            path: '',
+            element: <ProgramsHome />,
+          },
+          {
+            path: 'criteria-setup',
+            element: <CriteriaSetupHome />,
+          },
+        ],
       },
       {
         path: 'tasks',

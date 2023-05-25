@@ -47,6 +47,9 @@ export default {
         mentors: '35% repeat(1, 1fr)',
         tasks: '30% repeat(1, 1fr)',
       },
+      boxShadow: {
+        criteriaShadow: '1px 3px 9px rgba(3, 93, 99, 0.2)',
+      },
     },
   },
   plugins: [],
