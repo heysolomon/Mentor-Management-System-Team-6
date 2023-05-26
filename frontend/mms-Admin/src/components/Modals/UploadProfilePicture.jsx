@@ -21,8 +21,12 @@ function UploadProfilePicture({ image, imgUrl }) {
   const userId = loggedInUser.id;
   // user login token
   const userToken = userInfo.data.access_token;
+
+  let profileId;
   // user profile id
-  const profileId = userProfile.id;
+  if (userProfile !== null) {
+    profileId = userProfile.id;
+  }
 
   // console.log(profileId);
 

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './Tasks.css';
 import { RiSearchLine } from 'react-icons/ri';
 import { BsFilter, BsPeople, BsPerson } from 'react-icons/bs';
 import { BiArrowBack } from 'react-icons/bi';
@@ -22,7 +21,7 @@ import { deleteTaskFailure,
   taskInfoOpen } from '../../../redux/features/taskSlice';
 import TaskLoading from '../../../components/Dashboard/Tasks/TasksLoading';
 
-function Tasks() {
+function ProgramsHome() {
   const { userInfo } = useSelector((state) => state.user);
   const userToken = userInfo.data.access_token;
   const [checked, setChecked] = useState(false);
@@ -300,4 +299,4 @@ function Tasks() {
   );
 }
 
-export default Tasks;
+export default ProgramsHome;

@@ -10,6 +10,7 @@ function InputField({
   type,
   label,
   styling,
+  responsive = true,
   inputStyle,
   options,
   border = true,
@@ -29,7 +30,7 @@ function InputField({
     setPasswordType('password');
   };
   return (
-    <div className={`w-full ${styling}`}>
+    <div className={`${styling} ${responsive && 'w-full'}`}>
       <div
         className={`flex items-center ${
           border

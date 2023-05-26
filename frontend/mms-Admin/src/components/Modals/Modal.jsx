@@ -45,7 +45,7 @@ function Modal({ content, isLarge }) {
         {open && (
           <ModalBackdrop>
             <motion.div
-              className={`relative z-50 bg-white w-[80%] ${
+              className={`relative z-50 bg-white w-[80%] max-h-[95%] overflow-y-auto scroll ${
                 isLarge ? 'md:w-[70%]' : 'md:w-[50%]'
               } md:w-[50%] py-[28px] px-[20px] rounded-[20px] flex flex-col items-center`}
               aria-hidden="true"
