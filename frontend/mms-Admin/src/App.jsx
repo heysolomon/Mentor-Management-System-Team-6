@@ -50,6 +50,7 @@ import MentorManagerMentors from './pages/Dashboard/MentorManager/MentorManagerM
 import Programs from './pages/Dashboard/Programs/Programs';
 import CriteriaSetupHome from './pages/Dashboard/Programs/CriteriaSetupHome';
 import ProgramsHome from './pages/Dashboard/Programs/ProgramsHome';
+import NewProgram from './pages/Dashboard/Programs/NewProgram';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -107,6 +108,10 @@ const router = createBrowserRouter([
           {
             path: '',
             element: <ProgramsHome />,
+          },
+          {
+            path: 'new_program',
+            element: <NewProgram />,
           },
           {
             path: 'criteria-setup',

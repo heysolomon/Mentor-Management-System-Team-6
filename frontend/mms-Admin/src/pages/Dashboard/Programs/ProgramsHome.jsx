@@ -229,6 +229,7 @@ function ProgramsHome() {
                 </div>
               </div>
               <div className="bg-pri11 rounded-b-lg p-4">
+                <h3 className="font-[600] text-black2 text-[18px]">About:</h3>
                 <p className="text-gray-500 pt-2">
                   {clickedProgram.description}
                 </p>
