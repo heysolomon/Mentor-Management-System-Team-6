@@ -229,6 +229,7 @@ function ProgramsHome() {
                 </div>
               </div>
               <div className="bg-pri11 rounded-b-lg p-4">
+                <h3 className="font-[600] text-black2 text-[18px]">About:</h3>
                 <p className="text-gray-500 pt-2">
                   {clickedProgram.description}
                 </p>
@@ -302,7 +303,7 @@ function ProgramsHome() {
                 {/* end task  3 */}
                 <div className="flex flex-row-reverse my-7">
                   <NavLink
-                    to="/admin-dashboard/task_edit"
+                    to="/admin-dashboard/programs/edit_program"
                     className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold"
                   >
                     Edit Program

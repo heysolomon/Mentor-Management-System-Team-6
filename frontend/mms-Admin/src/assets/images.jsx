@@ -4,6 +4,7 @@
 
 import React from 'react';
 
+import programAvatar from './program-avatar.svg';
 import brandLogo from './logo.svg';
 
 import googleLogo from './google-icon.svg';
@@ -72,6 +73,10 @@ export function BrandLogo({ styling }) {
 
 export function Certificate({ styling }) {
   return <img src={certificate} className={styling} alt="certificate" />;
+}
+
+export function ProgramAvatar({ styling }) {
+  return <img src={programAvatar} className={styling} alt="certificate" />;
 }
 
 // password eye show icon
