@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 function Programs() {
   return (
-    <div className="w-full max-h-screen overflow-y-auto scroll pr-[10px]">
+    <div className="w-full h-full">
       <Outlet />
     </div>
   );

@@ -18,7 +18,7 @@ import mentorsSlice from './features/mentorsSlice';
 import taskSlice from './features/taskSlice';
 import forumSlice from './features/forumSlice';
 import criteriaSlice from './features/criteriaSlice';
-import formSlice from './features/formSlice';
+import programsSlice from './features/programsSlice';
 
 const rootReducer = combineReducers({
   splashScreen: splashSlice,
@@ -39,7 +39,7 @@ const rootReducer = combineReducers({
 
   criteria: criteriaSlice,
 
-  values: formSlice,
+  programs: programsSlice,
 });
 
 const persistConfig = {
