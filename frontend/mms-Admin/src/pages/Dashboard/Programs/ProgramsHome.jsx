@@ -303,7 +303,7 @@ function ProgramsHome() {
                 {/* end task  3 */}
                 <div className="flex flex-row-reverse my-7">
                   <NavLink
-                    to="/admin-dashboard/task_edit"
+                    to="/admin-dashboard/programs/edit_program"
                     className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold"
                   >
                     Edit Program

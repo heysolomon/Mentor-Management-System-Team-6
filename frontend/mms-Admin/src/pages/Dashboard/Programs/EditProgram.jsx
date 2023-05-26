@@ -19,9 +19,9 @@ import { createTaskFailure,
 import { tasks } from '../../../services/api';
 import TaskLoading from '../../../components/Dashboard/Tasks/TasksLoading';
 import UploadAvatar from '../../../components/Dashboard/Programs/UploadAvatar';
-import CreateProgramSuccessModal from '../../../components/Dashboard/Programs/CreateProgramSuccessModal';
+import EditProgramSuccessModal from '../../../components/Dashboard/Programs/EditProgramSuccessModal';
 
-function NewProgram() {
+function EditProgram() {
   const [checked, setChecked] = useState(false);
   const [sort, setSort] = useState(false);
   const [mentorsOpen, setMentorsOpen] = useState(true);
@@ -78,7 +78,7 @@ function NewProgram() {
       );
       dispatch(createTaskSuccess());
       dispatch(openModal(<CreateTask />));
-      // console.log(NewProgram);
+      // console.log(EditProgram);
       // setMessage(changeUserPasswordRequest.data.message);
     } catch (err) {
       if (err) {
@@ -266,9 +266,7 @@ function NewProgram() {
   return (
     <div className="h-full pb-[50px]">
       <div className="h-full">
-        <h1 className="font-[700] grow flex-basis-1 w-full">
-          Create New Program
-        </h1>
+        <h1 className="font-[700] grow flex-basis-1 w-full">Edit Program</h1>
 
         <div className="max-lg:flex-col-reverse flex grow flex-row max-lg:mt-5 h-full">
           <FormikForm
@@ -443,9 +441,7 @@ function NewProgram() {
                       role="button"
                       tabIndex={0}
                     >
-                      <p className="mr-3">
-                        0 Selected
-                      </p>
+                      <p className="mr-3">0 Selected</p>
                       <RemoveIcon styling="pl-3 object-contain cursor-pointer" />
                     </div>
                     {/* end select mentor */}
@@ -470,10 +466,10 @@ function NewProgram() {
               )}
             </div>
             {/* end mentors */}
-            <section className="flex items-center justify-between mt-[30px]">
+            <section className="flex items-center justify-end mt-[30px]">
               <button
                 type="submit"
-                onClick={() => dispatch(openModal(<CreateProgramSuccessModal />))}
+                onClick={() => dispatch(openModal(<EditProgramSuccessModal />))}
                 className="bg-pri3 py-2.5 px-10 rounded-md text-white font-semibold"
               >
                 {isLoading ? (
@@ -484,7 +480,7 @@ function NewProgram() {
                     size={20}
                   />
                 ) : (
-                  'Create Program'
+                  'Save Changes'
                 )}
               </button>
             </section>
@@ -694,4 +690,4 @@ function NewProgram() {
   );
 }
 
-export default NewProgram;
+export default EditProgram;
