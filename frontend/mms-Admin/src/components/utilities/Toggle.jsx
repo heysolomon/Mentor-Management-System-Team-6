@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/react-in-jsx-scope */
 import { useState } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies

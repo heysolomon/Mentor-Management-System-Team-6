@@ -7,14 +7,47 @@ const criteriaSlice = createSlice({
   name: 'criteria',
   initialState: {
     criteriaQuestions: [],
+    initialCriteriaQuestions: {
+      multipleInputQuestions: [],
+    },
   },
   reducers: {
-    addQ: (state, action) => {
+    addQ(state, action) {
       const newQuestion = {
         id: uuidv4(),
         ...action.payload,
       };
-      state.criteriaQuestions.push(newQuestion);
+
+      // Create a new draft state
+      const draftState = {
+        ...state,
+      };
+
+      // Update criteriaQuestions array
+      draftState.criteriaQuestions.push(newQuestion);
+      const multipleQuestions = draftState.initialCriteriaQuestions.multipleInputQuestions;
+
+      // Update initialCriteriaQuestions object based on question type
+      if (newQuestion.type === 'singleInput') {
+        draftState.initialCriteriaQuestions[`question_${newQuestion.id}`] = newQuestion.question;
+        draftState.initialCriteriaQuestions[`answer_${newQuestion.id}`] = '';
+      }
+
+      if (newQuestion.type === 'multipleInput') {
+        newQuestion.questions.forEach((x) => {
+          const question = {
+            id: x.id,
+            question: x.question,
+            input: x.input,
+            firstAnswer: '',
+            secondAnswer: '',
+            thirdAnswer: '',
+          };
+          multipleQuestions.push(question);
+        });
+      }
+
+      // Do not return anything
     },
   },
 });
