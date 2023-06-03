@@ -1,8 +1,10 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-param-reassign */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-case-declarations */
+
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
+/* eslint-disable no-param-reassign */
 const criteriaSlice = createSlice({
   name: 'criteria',
   initialState: {
@@ -12,43 +14,48 @@ const criteriaSlice = createSlice({
     },
   },
   reducers: {
-    addQ(state, action) {
+    addQ: (state, action) => {
       const newQuestion = {
         id: uuidv4(),
         ...action.payload,
       };
 
-      // Create a new draft state
-      const draftState = {
-        ...state,
-      };
+      state.criteriaQuestions.push(newQuestion);
 
-      // Update criteriaQuestions array
-      draftState.criteriaQuestions.push(newQuestion);
-      const multipleQuestions = draftState.initialCriteriaQuestions.multipleInputQuestions;
-
-      // Update initialCriteriaQuestions object based on question type
-      if (newQuestion.type === 'singleInput') {
-        draftState.initialCriteriaQuestions[`question_${newQuestion.id}`] = newQuestion.question;
-        draftState.initialCriteriaQuestions[`answer_${newQuestion.id}`] = '';
-      }
-
-      if (newQuestion.type === 'multipleInput') {
-        newQuestion.questions.forEach((x) => {
-          const question = {
-            id: x.id,
-            question: x.question,
-            input: x.input,
-            firstAnswer: '',
-            secondAnswer: '',
-            thirdAnswer: '',
+      switch (newQuestion.type) {
+        case 'singleInput':
+          const obj = {
+            [`question_${newQuestion.id}`]: newQuestion.question,
+            [`answer_${newQuestion.id}`]: '',
           };
-          multipleQuestions.push(question);
-        });
+          state.initialCriteriaQuestions = {
+            ...obj,
+            ...state.initialCriteriaQuestions,
+          };
+          break;
+        case 'multipleInput':
+          state.initialCriteriaQuestions.multipleInputQuestions.push(
+            ...newQuestion.questions.map((x) => ({
+              id: x.id,
+              question: x.question,
+              input: x.input,
+              answer1: '',
+              answer2: '',
+              answer3: '',
+            })),
+          );
+          break;
+
+        default:
+          break;
       }
 
-      // Do not return anything
+      return state;
     },
+
+    prepare: (payload) => ({
+ payload,
+    }),
   },
 });
 

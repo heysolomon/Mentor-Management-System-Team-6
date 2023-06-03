@@ -26,7 +26,6 @@ function CriteriaSetupHome() {
   const closePrompt = () => {
     setIsOpen(false);
   };
-  console.log(initialCriteriaQuestions);
   return (
     <div className="w-full h-full overflow-y-auto scroll pr-[10px]">
       <h1 className="font-[700] text-[24px] text-slate-950">Criteria Setup</h1>
@@ -54,7 +53,7 @@ function CriteriaSetupHome() {
         >
           {criteriaQuestions.map((i) => (
             <div key={i.id} className="mb-[30px]">
-              {i.type === 'singleInput' && (
+              {i.type === 'singleInput' ? (
                 <div>
                   <p className="font-[400] text-[18px] text-black5 mb-[16px]">
                     {i.question}
@@ -67,73 +66,73 @@ function CriteriaSetupHome() {
                     inputStyle="py-3 pl-4"
                   />
                 </div>
-              )}
-
-              {i.type === 'multipleInput' && (
-                <FieldArray name="multipleInputQuestions">
-                  {({ form }) => {
-                    const { values } = form;
-                    const { multipleInputQuestions } = values;
-                    return (
-                      <>
-                        {multipleInputQuestions.map((item, index) => (
-                          <div key={item.id}>
-                            {/* question */}
-                            <p className="font-[400] text-[18px] text-black5 mb-[16px]">
-                              {item.question}
-                            </p>
-                            <div>
-                              {item.input === '2 Inputs' ? (
-                                <>
-                                  <InputField
-                                    type="text"
-                                    tag="input"
-                                    name={`multipleInputQuestions.${index}.firstAnswer`}
-                                    styling="h-[50px]"
-                                    inputStyle="py-3 pl-4"
-                                  />
-                                  <InputField
-                                    type="text"
-                                    tag="input"
-                                    name={`multipleInputQuestions.${index}.secondAnswer`}
-                                    styling="h-[50px] mt-3"
-                                    inputStyle="py-3 pl-4"
-                                  />
-                                </>
-                              ) : item.input === '3 Input' ? (
-                                <>
-                                  <InputField
-                                    type="text"
-                                    tag="input"
-                                    name={`questions.${index}.firstAnswer`}
-                                    styling="h-[50px]"
-                                    inputStyle="py-3 pl-4"
-                                  />
-                                  <InputField
-                                    type="text"
-                                    tag="input"
-                                    name={`questions.${index}.secondAnswer`}
-                                    styling="h-[50px] mt-3"
-                                    inputStyle="py-3 pl-4"
-                                  />
-                                  <InputField
-                                    type="text"
-                                    tag="input"
-                                    name={`questions.${index}.thirdAnswer`}
-                                    styling="h-[50px] mt-3"
-                                    inputStyle="py-3 pl-4"
-                                  />
-                                </>
-                              ) : (
-                                ''
-                              )}
+              ) : (
+                i.type === 'multipleInput' && (
+                  <FieldArray name="multipleInputQuestions">
+                    {({ form }) => {
+                      const { values } = form;
+                      const { multipleInputQuestions } = values;
+                      return (
+                        <>
+                          {multipleInputQuestions.map((item, index) => (
+                            <div key={item.id}>
+                              {/* question */}
+                              <p className="font-[400] text-[18px] text-black5 mb-[16px]">
+                                {item.question}
+                              </p>
+                              <div>
+                                {item.input === '2 Inputs' ? (
+                                  <>
+                                    <InputField
+                                      type="text"
+                                      tag="input"
+                                      name={`multipleInputQuestions.${index}.firstAnswer`}
+                                      styling="h-[50px]"
+                                      inputStyle="py-3 pl-4"
+                                    />
+                                    <InputField
+                                      type="text"
+                                      tag="input"
+                                      name={`multipleInputQuestions.${index}.secondAnswer`}
+                                      styling="h-[50px] mt-3"
+                                      inputStyle="py-3 pl-4"
+                                    />
+                                  </>
+                                ) : item.input === '3 Inputs' ? (
+                                  <>
+                                    <InputField
+                                      type="text"
+                                      tag="input"
+                                      name={`questions.${index}.firstAnswer`}
+                                      styling="h-[50px]"
+                                      inputStyle="py-3 pl-4"
+                                    />
+                                    <InputField
+                                      type="text"
+                                      tag="input"
+                                      name={`questions.${index}.secondAnswer`}
+                                      styling="h-[50px] mt-3"
+                                      inputStyle="py-3 pl-4"
+                                    />
+                                    <InputField
+                                      type="text"
+                                      tag="input"
+                                      name={`questions.${index}.thirdAnswer`}
+                                      styling="h-[50px] mt-3"
+                                      inputStyle="py-3 pl-4"
+                                    />
+                                  </>
+                                ) : (
+                                  ''
+                                )}
+                              </div>
                             </div>
-                          </div>
-                        ))}
-                      </>
-                    );
-                  }}
-                </FieldArray>
+                          ))}
+                        </>
+                      );
+                    }}
+                  </FieldArray>
+                )
               )}
 
               <div className="flex justify-end mt-[20px]">

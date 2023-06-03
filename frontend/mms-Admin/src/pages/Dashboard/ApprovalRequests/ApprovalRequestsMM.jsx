@@ -1,17 +1,11 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Link, Outlet } from 'react-router-dom';
-import { CountryFlag,
-  CustomSearchIcon,
-  Edit,
-  FilterIcon } from '../../../assets/images';
-import MentorCardInfo from '../../../components/Dashboard/Mentors/MentorCardInfo';
-import MentorInfoTabs from '../../../components/Dashboard/Mentors/MentorInfoTabs';
+import { useDispatch } from 'react-redux';
+import AddNewMentorManager from '../../../components/Dashboard/ApprovalRequests/AddNewMentorManager';
+import ApprovalRequestsMentorsCard from '../../../components/Dashboard/ApprovalRequests/ApprovalRequestsMentorCard';
+import { openModal } from '../../../redux/features/Modals/modalSlice';
 
-function MentorsInfo() {
-  const { clickedMentor } = useSelector((state) => state.mentors);
-
+function ApprovalRequestsMM() {
+  const dispatch = useDispatch();
   const mentorsList = [
     {
       id: 1,
@@ -119,76 +113,26 @@ function MentorsInfo() {
     },
   ];
   return (
-    <div className="grid grid-cols-mentors gap-x-[20px] h-screen">
-      {/* mentors list: left grid */}
-      <div className="h-full w-full px-[20px] pt-[14px]">
-        {/* mentors list header */}
-        <div className="flex justify-between items-center">
-          <h1 className="text-[24px] font-[600] text-black1">Mentors</h1>
-          {/* search bar and filter */}
-          <div>
-            <button type="submit" className="mx-5">
-              <CustomSearchIcon color="#058B94" styling="" />
-            </button>
-
-            <button className="" type="button">
-              <FilterIcon color="#058B94" styling="" />
-            </button>
-          </div>
-        </div>
-        <div className="max-h-screen overflow-y-auto scroll pr-[10px] pt-5">
-          {mentorsList.map((mentor) => (
-            <MentorCardInfo mentor={mentor} key={mentor.id} />
-          ))}
-        </div>
+    <>
+      <div className="flex justify-between items-center">
+        <h1 className="font-[600] text-[22px] text-black1">
+          Mentor Manager Requests
+        </h1>
+        <button
+          type="submit"
+          className="bg-pri3 rounded-[10px] font-[600] text-[14px] text-white hover:bg-pri2 duration-700 h-[47px] mr-[10px] px-5"
+          onClick={() => dispatch(openModal(<AddNewMentorManager />))}
+        >
+          Add new Mentor Manager
+        </button>
       </div>
-      <div className="w-full h-full">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center w-[60%]">
-            <img
-              src={clickedMentor.url}
-              alt=""
-              className="w-[80px] h-[80px] object-cover object-top rounded-full"
-            />
-
-            <div className="ml-[24px]">
-              <div className="font-[600] flex items-center text-[24px] text-black2">
-                <p>{clickedMentor.name}</p>
-                <CountryFlag styling="ml-5" />
-              </div>
-              <div className="font-[400] text-[16px] text-black5 -my-1 flex items-center">
-                <p>{clickedMentor.role}</p>
-                <Edit styling="ml-4" />
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center ml-5 w-[40%]">
-            <button
-              type="submit"
-              className="bg-pri3 rounded-[10px] font-[600] text-[14px] text-white hover:bg-pri2 duration-700 h-[47px] mr-[10px] px-5"
-            >
-              Send Message
-            </button>
-            <Link to="/admin-dashboard/mentors">
-              <button
-                type="button"
-                className="border-[1px] border-pri3 rounded-[10px] font-[600] text-[14px] text-[#023C40] hover:bg-pri10 duration-700 h-[47px] px-5"
-              >
-                Cancel
-              </button>
-            </Link>
-          </div>
-        </div>
-        <MentorInfoTabs styling="mb-[20px]" />
-        <div className="h-full ">
-          <div className="max-h-screen h-screen overflow-y-auto scroll pr-[10px]">
-            <Outlet />
-          </div>
-        </div>
+      <div className="h-full mt-3 overflow-y-auto scroll pr-[10px] pb-[300px]">
+        {mentorsList.map((i) => (
+          <ApprovalRequestsMentorsCard mentor={i} key={i.id} />
+        ))}
       </div>
-    </div>
+    </>
   );
 }
 
-export default MentorsInfo;
+export default ApprovalRequestsMM;
