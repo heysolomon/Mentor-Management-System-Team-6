@@ -61,6 +61,10 @@ import certificate from './cert.jpg';
 
 import shareReport from './shareReport.png';
 
+import mentorManagerRequestIllustration from './mmr.svg';
+import mentorRequestIllustration from './mr.svg';
+import programsRequestIllustration from './pr.svg';
+
 // am importing pictures from the assets folder and exporting them as components
 
 // mentor management system logo
@@ -77,6 +81,34 @@ export function Certificate({ styling }) {
 
 export function ProgramAvatar({ styling }) {
   return <img src={programAvatar} className={styling} alt="certificate" />;
+}
+
+export function MentorManagerRequestIllustration({ styling }) {
+  return (
+    <img
+      src={mentorManagerRequestIllustration}
+      className={styling}
+      alt="illustration"
+    />
+  );
+}
+export function MentorRequestIllustration({ styling }) {
+  return (
+    <img
+      src={mentorRequestIllustration}
+      className={styling}
+      alt="illustration"
+    />
+  );
+}
+export function ProgramsRequestIllustration({ styling }) {
+  return (
+    <img
+      src={programsRequestIllustration}
+      className={styling}
+      alt="illustration"
+    />
+  );
 }
 
 // password eye show icon

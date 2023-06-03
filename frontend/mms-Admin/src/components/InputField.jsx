@@ -73,7 +73,12 @@ function InputField({
             {...field}
           >
             {options.map((option) => (
-              <option value={option.name} key={option.id} className="w-full">
+              <option
+                value={option.name}
+                key={option.id}
+                className="w-full"
+                disabled={option.isDisabled}
+              >
                 {option.name}
               </option>
             ))}
