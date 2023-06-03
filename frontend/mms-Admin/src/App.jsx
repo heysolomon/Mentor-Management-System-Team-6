@@ -54,6 +54,7 @@ import NewProgram from './pages/Dashboard/Programs/NewProgram';
 import EditProgram from './pages/Dashboard/Programs/EditProgram';
 import ApprovalRequestHome from './pages/Dashboard/ApprovalRequests/ApprovalRequestHome';
 import ApprovalRequestsMM from './pages/Dashboard/ApprovalRequests/ApprovalRequestsMM';
+import ApprovalRequestsM from './pages/Dashboard/ApprovalRequests/ApprovalRequestMentors';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -225,6 +226,10 @@ const router = createBrowserRouter([
           {
             path: '',
             element: <ApprovalRequestsMM />,
+          },
+          {
+            path: 'mentor-requests',
+            element: <ApprovalRequestsM />,
           },
         ],
       },
