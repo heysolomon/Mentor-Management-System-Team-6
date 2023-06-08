@@ -189,6 +189,34 @@ export function PasswordEyeHide({ styling }) {
   );
 }
 
+// password eye hide icon
+export function TickIcon({ styling, color }) {
+  return (
+    <svg
+      width="24"
+      height="25"
+      viewBox="0 0 24 25"
+      className={styling}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M21 12.5C21 7.53125 16.9687 3.5 12 3.5C7.03125 3.5 3 7.53125 3 12.5C3 17.4687 7.03125 21.5 12 21.5C16.9687 21.5 21 17.4687 21 12.5Z"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeMiterlimit="10"
+      />
+      <path
+        d="M16.5 8.75098L10.2 16.251L7.5 13.251"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 // edit icon for programs
 export function EditIcon({ styling, color }) {
   return (

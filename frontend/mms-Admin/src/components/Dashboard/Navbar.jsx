@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { BrandLogo,
   MessageIcon,
   MobileMenu,
@@ -38,10 +39,12 @@ function Navbar() {
           />
         </div>
         <MessageIcon styling="w-5 md:w-10 mx-1 md:mx-0" color="#F7FEFF" />
-        <NotificationBellIcon
-          styling="w-5 md:w-10 mx-1 md:mx-0"
-          color="#F7FEFF"
-        />
+        <Link to="/admin-dashboard/notifications">
+          <NotificationBellIcon
+            styling="w-5 md:w-10 mx-1 md:mx-0"
+            color="#F7FEFF"
+          />
+        </Link>
         <UserAvatar styling="w-5 md:w-10 mx-1 md:mx-0" />
       </div>
     </nav>
