@@ -46,6 +46,7 @@ export default {
         socials: '40% repeat(1, 1fr)',
         mentors: '35% repeat(1, 1fr)',
         tasks: '30% repeat(1, 1fr)',
+        cert: '60% repeat(1, 1fr)',
       },
       boxShadow: {
         criteriaShadow: '1px 3px 9px rgba(3, 93, 99, 0.2)',

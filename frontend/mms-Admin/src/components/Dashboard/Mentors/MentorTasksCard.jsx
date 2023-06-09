@@ -22,7 +22,7 @@ export default function MentorTasksCard({ task }) {
   return (
     <div className=" border border-slate-300 rounded-md mb-4 p-2" key={task.id}>
       <div className="flex items-center justify-between w-full">
-        <MentorTaskIcon color="#058B94" />
+        <MentorTaskIcon styling="w-[40px]" color="#058B94" />
 
         <div className="grow mx-6">
           <h1 className="text-xl font-semibold text-black2">

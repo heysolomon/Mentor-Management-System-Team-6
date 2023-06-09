@@ -99,7 +99,7 @@ function MentorFilterDropdown({ options, placeHolder }) {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="absolute top-[32px] left-0 shadow-xl z-30 w-full bg-white px-[8px]"
+            className="absolute top-[32px] left-0 shadow-xl z-30 w-min bg-white px-[8px]"
           >
             {/* this is the options for the custom dropdown */}
             {options.map((option) => (

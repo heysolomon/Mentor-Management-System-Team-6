@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { BrandLogo,
   MessageIcon,
   MobileMenu,
   NotificationBellIcon,
   SearchIcon,
   UserAvatar } from '../../assets/images';
+import { searchFor } from '../../redux/features/searchSlice';
 import { openSidebar } from '../../redux/features/sidebarSlice';
 
 function Navbar() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const queryRef = useRef(null);
+
+  const search = () => {
+    navigate(`/admin-dashboard/${queryRef.current.value}`);
+    dispatch(searchFor(queryRef.current.value));
+  };
 
   return (
     <nav className="fixed w-full z-40 bg-pri3 h-14 md:h-20 flex justify-between items-center px-10">
@@ -35,13 +45,17 @@ function Navbar() {
             type="text"
             className="focus:outline-none bg-transparent pl-5 w-full"
             placeholder="Search for anything"
+            ref={queryRef}
+            onChange={search}
           />
         </div>
         <MessageIcon styling="w-5 md:w-10 mx-1 md:mx-0" color="#F7FEFF" />
-        <NotificationBellIcon
-          styling="w-5 md:w-10 mx-1 md:mx-0"
-          color="#F7FEFF"
-        />
+        <Link to="/admin-dashboard/notifications">
+          <NotificationBellIcon
+            styling="w-5 md:w-10 mx-1 md:mx-0"
+            color="#F7FEFF"
+          />
+        </Link>
         <UserAvatar styling="w-5 md:w-10 mx-1 md:mx-0" />
       </div>
     </nav>

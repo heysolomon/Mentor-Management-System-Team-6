@@ -19,6 +19,7 @@ import taskSlice from './features/taskSlice';
 import forumSlice from './features/forumSlice';
 import criteriaSlice from './features/criteriaSlice';
 import programsSlice from './features/programsSlice';
+import searchSlice from './features/searchSlice';
 
 const rootReducer = combineReducers({
   splashScreen: splashSlice,
@@ -40,6 +41,8 @@ const rootReducer = combineReducers({
   criteria: criteriaSlice,
 
   programs: programsSlice,
+
+  search: searchSlice,
 });
 
 const persistConfig = {

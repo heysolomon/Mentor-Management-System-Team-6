@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter,
+  RouterProvider,
+  useParams } from 'react-router-dom';
 import SplashScreen from './pages/SplashScreen/SplashScreen';
 import { stopLoader } from './redux/features/splashSlice';
 import Profile from './pages/Dashboard/Profile';
@@ -56,6 +58,13 @@ import ApprovalRequestHome from './pages/Dashboard/ApprovalRequests/ApprovalRequ
 import ApprovalRequestsMM from './pages/Dashboard/ApprovalRequests/ApprovalRequestsMM';
 import ApprovalRequestsM from './pages/Dashboard/ApprovalRequests/ApprovalRequestMentors';
 import ApprovalRequestPrograms from './pages/Dashboard/ApprovalRequests/ApprovalRequestPrograms';
+import AllNotifications from './pages/Dashboard/Notification/Notifications';
+import CertificatesHome from './pages/Dashboard/Certificates/CertificatesHome';
+import ApprovedCertificates from './pages/Dashboard/Certificates/ApprovedCertificates';
+import GeneratedCertificates from './pages/Dashboard/Certificates/GeneratedCertificates';
+import GenerateNewCertificate from './pages/Dashboard/Certificates/GenerateNewCertificate';
+import CertificatePage from './pages/Dashboard/Certificates/Certificate';
+import SearchResults from './pages/Dashboard/Search/SearchResults';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -98,6 +107,10 @@ const router = createBrowserRouter([
     ),
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: ':searchParam',
+        element: <SearchResults />,
+      },
       {
         path: '',
         element: <DashboardHome />,
@@ -240,7 +253,27 @@ const router = createBrowserRouter([
       },
       {
         path: 'certificates',
-        element: 'this is the certificates',
+        element: <CertificatePage />,
+        children: [
+          {
+            path: '',
+            element: <CertificatesHome />,
+            children: [
+              {
+                path: '',
+                element: <ApprovedCertificates />,
+              },
+              {
+                path: 'generated-certificates',
+                element: <GeneratedCertificates />,
+              },
+            ],
+          },
+          {
+            path: 'generate-new-certificate',
+            element: <GenerateNewCertificate />,
+          },
+        ],
       },
       {
         path: 'messages',
@@ -301,12 +334,19 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: 'notifications',
+        element: <AllNotifications />,
+      },
     ],
   },
 ]);
 
 export default function App() {
   const dispatch = useDispatch();
+
+  // eslint-disable-next-line no-unused-vars
+  const { searchParam } = useParams();
   // Get the isloaded state
   const isLoaded = useSelector((state) => state.splashScreen.isLoaded);
   setTimeout(() => dispatch(stopLoader()), 500);
