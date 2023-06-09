@@ -125,7 +125,7 @@ function GeneratedCertificates() {
       </div>
       <div className="h-full mt-3 overflow-y-auto scroll pr-[10px] pb-[300px]">
         {mentorsList.map((i) => (
-          <CertificatesCard mentor={i} key={i.id} />
+          <CertificatesCard certificate={i} key={i.id} />
         ))}
       </div>
     </>
