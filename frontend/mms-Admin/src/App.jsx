@@ -57,6 +57,8 @@ import ApprovalRequestsMM from './pages/Dashboard/ApprovalRequests/ApprovalReque
 import ApprovalRequestsM from './pages/Dashboard/ApprovalRequests/ApprovalRequestMentors';
 import ApprovalRequestPrograms from './pages/Dashboard/ApprovalRequests/ApprovalRequestPrograms';
 import AllNotifications from './pages/Dashboard/Notification/Notifications';
+import CertificatesHome from './pages/Dashboard/Certificates/CertificatesHome';
+import ApprovedCertificates from './pages/Dashboard/Certificates/ApprovedCertificates';
 // Moved the router here to be able to call the splash screen once to avoid redundant code.
 // This is were you add routes for the pages you are building
 const router = createBrowserRouter([
@@ -241,7 +243,13 @@ const router = createBrowserRouter([
       },
       {
         path: 'certificates',
-        element: 'this is the certificates',
+        element: <CertificatesHome />,
+        children: [
+          {
+            path: '',
+            element: <ApprovedCertificates />,
+          },
+        ],
       },
       {
         path: 'messages',
