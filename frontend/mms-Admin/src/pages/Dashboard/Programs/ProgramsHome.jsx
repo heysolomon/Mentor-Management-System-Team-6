@@ -159,7 +159,7 @@ function ProgramsHome() {
 
                       <div className="flex items-center justify-between w-max">
                         <div className="taskdate flex items-center">
-                          <GoCalendar className="text-teal-700 text-l me-1" />
+                          <GoCalendar className="text-pri3 text-l me-1" />
                           <p className="text-xs text-gray-600 font-light align-middle">
                             Dec 12, 2022
                           </p>

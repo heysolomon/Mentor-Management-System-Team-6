@@ -279,7 +279,7 @@ function GenerateNewCertificate() {
 
         {/* certificate preview */}
         <div
-          className={`"flex items-center justify-center ${
+          className={`flex items-center justify-center ${
             selectedMentors.length === 0 && selectedPrograms.length === 0
               ? 'h-[300px]'
               : 'py-10'

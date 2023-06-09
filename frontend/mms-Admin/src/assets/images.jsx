@@ -544,8 +544,8 @@ export function AttachmentIcon({ styling, color }) {
 export function MentorTaskIcon({ styling, color }) {
   return (
     <svg
-      width="39"
-      height="40"
+      width=""
+      height=""
       viewBox="0 0 39 40"
       fill="curentColor"
       className={styling}
