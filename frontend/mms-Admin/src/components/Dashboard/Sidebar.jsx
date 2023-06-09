@@ -143,7 +143,7 @@ function Sidebar() {
             </h3>
             <p className="font-[400] text-black5 text-[16px]">Admin</p>
           </div>
-          <ul className="h-full font-mukta text-[16px]">
+          <ul className="h-full font-mukta text-[16px] pb-20">
             {sidebarItems.map(({ id, name, link, icon }) => (
               <li className="hover:scale-90 duration-500" key={id}>
                 <NavLink

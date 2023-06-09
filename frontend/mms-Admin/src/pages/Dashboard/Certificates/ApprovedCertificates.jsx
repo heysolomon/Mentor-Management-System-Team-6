@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { BackIcon,
   CustomSearchIcon,
   DoubleBackIcon,
@@ -84,12 +85,14 @@ function ApprovedCertificates() {
         {/* send broadcast, Add new mentor next buttons */}
         <section className="flex items-center">
           <div className="flex items-center">
-            <button
-              type="submit"
-              className="h-[24px] rounded-[5px] flex items-center justify-center px-3 border-[1px] border-pri3 duration-200 bg-pri3 text-pri11 text-[10px] hover:bg-pri2 mr-[15px]"
-            >
-              Generate New Certificate
-            </button>
+            <Link to="/admin-dashboard/certificates/generate-new-certificate">
+              <button
+                type="submit"
+                className="h-[24px] rounded-[5px] flex items-center justify-center px-3 border-[1px] border-pri3 duration-200 bg-pri3 text-pri11 text-[10px] hover:bg-pri2 mr-[15px]"
+              >
+                Generate New Certificate
+              </button>
+            </Link>
           </div>
 
           {/* back and double back buttons */}
