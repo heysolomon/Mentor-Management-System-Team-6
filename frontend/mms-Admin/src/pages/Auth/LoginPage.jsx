@@ -116,18 +116,20 @@ function LoginPage() {
           >
             {message}
           </p>
-          <Button width="w-full mt-[28px]">
-            {loggingIn ? (
-              <SpinnerCircular
-                color="#F7FEFF"
-                className="mr-2"
-                thickness={250}
-                size={20}
-              />
-            ) : (
-              'Login'
-            )}
-          </Button>
+          <Link to="/admin-dashboard" className="w-full">
+            <Button width="w-full mt-[28px]">
+              {loggingIn ? (
+                <SpinnerCircular
+                  color="#F7FEFF"
+                  className="mr-2"
+                  thickness={250}
+                  size={20}
+                />
+              ) : (
+                'Login'
+              )}
+            </Button>
+          </Link>
         </FormikForm>
         <div className="flex justify-end mt-[22px]">
           <Link

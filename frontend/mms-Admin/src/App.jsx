@@ -24,7 +24,7 @@ import Archive from './pages/Dashboard/Settings/Archive';
 import Tasks from './pages/Dashboard/Tasks/Tasks';
 import ForgotPasswordVerifyEmail from './pages/Auth/ForgotPasswordVerifyEmail';
 import NewTask from './pages/Dashboard/Tasks/NewTask';
-import { ProtectedRoute } from './private/ProtectedRoute';
+// import { ProtectedRoute } from './private/ProtectedRoute';
 import { DiscussionForum } from './pages/Dashboard/DiscussionForum/DiscussionForum';
 import MessageHome from './pages/Dashboard/Messages/MessageHome';
 import BrowsePeople from './pages/Dashboard/Messages/BrowsePeople';
@@ -100,11 +100,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin-dashboard',
-    element: (
-      <ProtectedRoute>
-        <Dashboard />
-      </ProtectedRoute>
-    ),
+    element: <Dashboard />,
     errorElement: <ErrorPage />,
     children: [
       {

@@ -22,9 +22,7 @@ function ForgotPasswordVerifyEmail() {
   });
 
   const dispatch = useDispatch();
-  const { passwordReset } = useSelector(
-    (state) => state.resetPassword,
-  );
+  const { passwordReset } = useSelector((state) => state.resetPassword);
 
   // redirecting
   const navigate = useNavigate();
@@ -82,6 +80,7 @@ function ForgotPasswordVerifyEmail() {
           className="mt-[20px]"
         >
           <InputField
+            tag="input"
             type="email"
             name="email"
             placeholder="Enter your email"
